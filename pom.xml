@@ -11,7 +11,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <drools.version>6.3.0.Final</drools.version>
-        <fuse.integration.version>1.3.0-SNAPSHOT</fuse.integration.version>
+        <fuse.integration.version>1.3.0.redhat-016</fuse.integration.version>
         <cdi.version>1.0-SP4</cdi.version>
         <junit.version>4.11</junit.version>
         <mockito.version>2.0.5-beta</mockito.version>
@@ -467,6 +467,11 @@
         <repository>
             <url>http://repo1.maven.org/maven2/</url>
             <id>central</id>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <url>https://maven.repository.redhat.com/ga/</url>
+            <id>redhat-product-ga-repository</id>
             <layout>default</layout>
         </repository>
     </repositories>
