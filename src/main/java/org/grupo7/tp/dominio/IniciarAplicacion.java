@@ -25,6 +25,8 @@ public class IniciarAplicacion {
 		
 		repo.consultarCuentas();
 		
+		sc.close();
+		
 		
 
 	}
