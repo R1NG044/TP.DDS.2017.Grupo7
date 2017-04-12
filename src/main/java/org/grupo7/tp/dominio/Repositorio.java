@@ -14,13 +14,9 @@ public final class Repositorio {
 		cuentas.add(unaCuenta);		
 	}
 	
-	void agregarNumero(Cuenta unaCuenta) {
-		cuentas.add(unaCuenta);
-	}
-	
 	void consultarCuentas() {
 		for (Cuenta cuenta : cuentas) {
-			System.out.printf("El valor de esta cuenta es: %.2f",cuenta.getValor());
+			System.out.printf("El valor de esta cuenta es: %.2f\n",cuenta.getValor());
 		}
 		
 	

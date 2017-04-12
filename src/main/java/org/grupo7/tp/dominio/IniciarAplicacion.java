@@ -9,15 +9,19 @@ public class IniciarAplicacion {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		Cuenta cuenta = new Cuenta();
-		
 		Repositorio repo = new Repositorio();
 		
-		float valor = sc.nextFloat();
+		do {
 		
-		cuenta.setValor(valor);
+			float valor = sc.nextFloat();
+			
+			Cuenta cuenta = new Cuenta();
 		
-		repo.agregarCuenta(cuenta);
+			cuenta.setValor(valor);
+		
+			repo.agregarCuenta(cuenta);
+		
+		} while (sc.hasNextFloat());
 		
 		repo.consultarCuentas();
 		
