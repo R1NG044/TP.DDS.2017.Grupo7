@@ -10,6 +10,8 @@ public class Cuenta {
 	Date inicioPeriodo;
 	Date finPeriodo;
 	
+	// TODO: Revisar el tema de los períodos
+	
 
 	public String getNombreCuenta() {
 		return nombreCuenta;
