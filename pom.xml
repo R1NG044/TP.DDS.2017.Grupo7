@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>TP.DDS.2017.Apuestas</groupId>
-  <artifactId>TP.DDS.2017.Apuestas</artifactId>
+  <groupId>TP.DDS.2017.Inversiones</groupId>
+  <artifactId>TP.DDS.2017.Inversiones</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>TP 2017 DDS Apuestas Grupo 7</name>
+  <name>TP 2017 DDS Inversiones Grupo 7</name>
 </project>
