@@ -6,19 +6,17 @@ import java.util.List;
 public final class Repositorio {
 	
 	
-	List<Cuenta> cuentas = new ArrayList<Cuenta>();
+	List<Empresa> empresas = new ArrayList<Empresa>();
 	
 
 	
-	void agregarCuenta(Cuenta unaCuenta) {		
-		cuentas.add(unaCuenta);		
+	void agregarEmpresa(Empresa unaEmpresa) {		
+		empresas.add(unaEmpresa);		
 	}
 	
-	void consultarCuentas() {
-		for (Cuenta cuenta : cuentas) {
-			System.out.printf("El valor de esta cuenta es: %.2f\n",cuenta.getValor());
-		}
-		
+	void consultarCuentasPorEmpresa(Empresa unaEmpresa) {
+		for (Empresa empresa : empresas) {
+		}		
 	
 	}
 	

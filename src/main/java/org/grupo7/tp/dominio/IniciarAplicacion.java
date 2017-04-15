@@ -1,3 +1,10 @@
+/*
+ * 
+ * CLASE DE PRUEBA
+ * 
+ */
+
+
 package org.grupo7.tp.dominio;
 
 import java.util.Scanner;
