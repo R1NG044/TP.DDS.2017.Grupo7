@@ -7,17 +7,12 @@ public final class Repositorio {
 	
 	
 	List<Empresa> empresas = new ArrayList<Empresa>();
+	Empresa empresaACrear;
 	
 
 	
 	void agregarEmpresa(Empresa unaEmpresa) {		
 		empresas.add(unaEmpresa);		
-	}
-	
-	void consultarCuentasPorEmpresa(Empresa unaEmpresa) {
-		for (Empresa empresa : empresas) {
-		}		
-	
 	}
 	
 }
