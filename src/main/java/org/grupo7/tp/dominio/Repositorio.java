@@ -10,6 +10,22 @@ public final class Repositorio {
 	Empresa empresaACrear;
 	
 
+	private static Repositorio REPO = null;
+
+	private Repositorio() {
+	}
+	
+	public static Repositorio getInstance() {
+
+		if (REPO == null) {
+
+		REPO = new Repositorio();
+
+		}
+
+		return REPO;
+
+		}
 	
 	void agregarEmpresa(Empresa unaEmpresa) {		
 		empresas.add(unaEmpresa);		
