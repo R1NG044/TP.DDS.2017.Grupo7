@@ -3,10 +3,10 @@ package org.grupo7.tp.dominio;
 public class Cuenta {
 
 	String nombreCuenta;
-	float valor;
+	long valor;
 	int año;
 	
-public Cuenta(final String _nombre, final float _valor, final int _año) {
+public Cuenta(final String _nombre, final long _valor, final int _año) {
 		this.nombreCuenta = _nombre;
 		this.setValor(_valor);
 		this.setAño(_año);
@@ -34,7 +34,7 @@ public Cuenta(final String _nombre, final float _valor, final int _año) {
 		return valor;
 	}
 
-	public void setValor(float valor) {
+	public void setValor(long valor) {
 		this.valor = valor;
 	}
 }

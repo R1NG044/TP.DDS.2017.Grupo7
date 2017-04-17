@@ -17,9 +17,9 @@ public class Empresa {
 		cuentas.add(unaCuenta);
 	}
 
-	void consultarCuentas() {
+	public void consultarCuentas() {
 		for (Cuenta cuenta : cuentas) {
-			System.out.printf("El valor de esta cuenta es: %.2f\n", cuenta.getValor());
+			System.out.printf("El valor de la cuenta %s es: %f\n", cuenta.getNombreCuenta(), cuenta.getValor());
 		}
 
 	}
