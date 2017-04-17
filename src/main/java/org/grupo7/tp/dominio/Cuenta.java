@@ -1,52 +1,65 @@
 package org.grupo7.tp.dominio;
 
-import java.util.Date;
-
 public class Cuenta {
+
+	String nombreCuenta;
+	float valor;
+	int año;
 	
-	String	nombreCuenta;
-	String	nombreEmpresa;
-	float	valor;
-	Date inicioPeriodo;
-	Date finPeriodo;
-	
-	// TODO: Revisar el tema de los perÃ­odos
+public Cuenta(final String _nombre, final float _valor, final int _año) {
+		this.nombreCuenta = _nombre;
+		this.setValor(_valor);
+		this.setAño(_año);
+	}
 	
 
+//Getters y Setters
 	public String getNombreCuenta() {
 		return nombreCuenta;
 	}
+
 	public void setNombreCuenta(String nombreCuenta) {
 		this.nombreCuenta = nombreCuenta;
 	}
-	public String getNombreEmpresa() {
-		return nombreEmpresa;
+
+	public int getAño() {
+		return año;
 	}
-	public void setNombreEmpresa(String nombreEmpresa) {
-		this.nombreEmpresa = nombreEmpresa;
+
+	public void setAño(int año) {
+		this.año = año;
 	}
-	public Date getInicioPeriodo() {
-		return inicioPeriodo;
-	}
-	public void setInicioPeriodo(Date inicioPeriodo) {
-		this.inicioPeriodo = inicioPeriodo;
-	}
-	public Date getFinPeriodo() {
-		return finPeriodo;
-	}
-	public void setFinPeriodo(Date finPeriodo) {
-		this.finPeriodo = finPeriodo;
-	}
-	
+
 	public float getValor() {
 		return valor;
 	}
+
 	public void setValor(float valor) {
 		this.valor = valor;
 	}
-	
-	
-	
-	
-
 }
+
+
+// String nombreEmpresa;
+// Date inicioPeriodo;
+// Date finPeriodo;
+
+// TODO: Revisar el tema de los perÃ­odos
+// public String getNombreEmpresa() {
+// return nombreEmpresa;
+// }
+// public void setNombreEmpresa(String nombreEmpresa) {
+// this.nombreEmpresa = nombreEmpresa;
+// }
+// public Date getInicioPeriodo() {
+// return inicioPeriodo;
+// }
+// public void setInicioPeriodo(Date inicioPeriodo) {
+// this.inicioPeriodo = inicioPeriodo;
+// }
+// public Date getFinPeriodo() {
+// return finPeriodo;
+// }
+// public void setFinPeriodo(Date finPeriodo) {
+// this.finPeriodo = finPeriodo;
+// }
