@@ -4,12 +4,12 @@ public class Cuenta {
 
 	String nombreCuenta;
 	long valor;
-	int año;
+	int anio;
 	
-public Cuenta(final String _nombre, final long _valor, final int _año) {
+public Cuenta(final String _nombre, final long _valor, final int _anio) {
 		this.nombreCuenta = _nombre;
 		this.setValor(_valor);
-		this.setAño(_año);
+		this.setAnio(_anio);
 	}
 	
 
@@ -22,12 +22,12 @@ public Cuenta(final String _nombre, final long _valor, final int _año) {
 		this.nombreCuenta = nombreCuenta;
 	}
 
-	public int getAño() {
-		return año;
+	public int getAnio() {
+		return anio;
 	}
 
-	public void setAño(int año) {
-		this.año = año;
+	public void setAnio(int anio) {
+		this.anio = anio;
 	}
 
 	public float getValor() {
