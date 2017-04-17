@@ -17,6 +17,8 @@ public class Empresa {
 		cuentas.add(unaCuenta);
 	}
 
+
+
 	public void consultarCuentas() {
 		for (Cuenta cuenta : cuentas) {
 			System.out.printf("El valor de la cuenta %s es: %f\n", cuenta.getNombreCuenta(), cuenta.getValor());
@@ -29,5 +31,13 @@ public class Empresa {
 		for (Cuenta unaCuenta : _cuentas) {
 			agregarCuenta(unaCuenta);
 		}
+	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 }

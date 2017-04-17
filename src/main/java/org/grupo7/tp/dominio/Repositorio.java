@@ -31,6 +31,15 @@ public final class Repositorio {
 		empresas.add(unaEmpresa);		
 	}
 	
+	boolean existeEmpresa(String nombreEmpresa) {
+		for (Empresa empresa : empresas) {			
+			if (empresa.getNombre() == nombreEmpresa) {
+				return true;
+			}				
+		}		
+		return false;		
+	}
+	
 }
 	
 
