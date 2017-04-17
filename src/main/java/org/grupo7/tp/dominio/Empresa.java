@@ -5,16 +5,21 @@ import java.util.List;;
 
 public class Empresa {
 
-	List<Cuenta> cuentas = new ArrayList<Cuenta>();
+	List<Cuenta> cuentas;
 	String nombre;
 
-	public Empresa(final String _nombre, final ArrayList<Cuenta> _cuentas) {
+//	public Empresa(final String _nombre, final ArrayList<Cuenta> _cuentas) {
+//		this.nombre = _nombre;
+//		this.setCuentas(_cuentas);
+//	}
+	
+	public Empresa(final String _nombre) {
 		this.nombre = _nombre;
-		this.setCuentas(_cuentas);
+		this.cuentas = new ArrayList<Cuenta>();
 	}
 
 	void agregarCuenta(Cuenta unaCuenta) {
-		cuentas.add(unaCuenta);
+		this.cuentas.add(unaCuenta);
 	}
 
 

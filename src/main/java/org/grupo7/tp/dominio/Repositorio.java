@@ -28,16 +28,26 @@ public final class Repositorio {
 		}
 	
 	void agregarEmpresa(Empresa unaEmpresa) {		
-		empresas.add(unaEmpresa);		
+		this.empresas.add(unaEmpresa);		
 	}
 	
-	boolean existeEmpresa(String nombreEmpresa) {
+//	boolean existeEmpresa(String nombreEmpresa) {
+//		for (Empresa empresa : empresas) {			
+//			if (empresa.getNombre() == nombreEmpresa) {
+//				return true;
+//			}				
+//		}		
+//		return false;		
+//	}
+	
+	Empresa obtenerEmpresa(String nombreEmpresa) {
 		for (Empresa empresa : empresas) {			
 			if (empresa.getNombre() == nombreEmpresa) {
-				return true;
+				return empresa;
 			}				
 		}		
-		return false;		
+		Empresa nuevaEmpresa = new Empresa(nombreEmpresa);
+		return nuevaEmpresa;		
 	}
 	
 }
