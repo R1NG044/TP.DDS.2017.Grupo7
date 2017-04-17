@@ -16,7 +16,7 @@ public class IniciarAplicacion {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		Repositorio repo = new Repositorio();
+		Repositorio repo = Repositorio.getInstance();
 		
 		do {
 		
