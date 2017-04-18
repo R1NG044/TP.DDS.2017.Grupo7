@@ -47,6 +47,7 @@ public final class Repositorio {
 			}				
 		}		
 		Empresa nuevaEmpresa = new Empresa(nombreEmpresa);
+		this.agregarEmpresa(nuevaEmpresa);
 		return nuevaEmpresa;		
 	}
 	
