@@ -21,7 +21,9 @@ public class Empresa {
 //	}
 
 	void agregarCuenta(Cuenta unaCuenta) {
-		this.cuentas.add(unaCuenta);
+		if (!this.existeCuentaDelMismoPeriodo(unaCuenta)) {
+				this.cuentas.add(unaCuenta);
+		}
 	}
 	
 	boolean existeCuentaDelMismoPeriodo(Cuenta unaCuenta) {
