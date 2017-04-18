@@ -31,14 +31,14 @@ public final class Repositorio {
 		this.empresas.add(unaEmpresa);		
 	}
 	
-//	boolean existeEmpresa(String nombreEmpresa) {
-//		for (Empresa empresa : empresas) {			
-//			if (empresa.getNombre() == nombreEmpresa) {
-//				return true;
-//			}				
-//		}		
-//		return false;		
-//	}
+	boolean existeEmpresa(String nombreEmpresa) {
+		for (Empresa empresa : empresas) {			
+			if (empresa.getNombre() == nombreEmpresa) {
+				return true;
+			}				
+		}		
+		return false;		
+	}
 	
 	Empresa obtenerEmpresa(String nombreEmpresa) {
 		for (Empresa empresa : empresas) {			

@@ -1,10 +1,14 @@
 package org.grupo7.tp.dominio;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Cuenta {
 
 	String nombreCuenta;
-	long valor;
-	int anio;
+	//Map<Integer, Long> anioYValor = new HashMap<Integer, Long>();
+long valor;
+int anio;
 	
 public Cuenta(final String _nombre, final long _valor, final int _anio) {
 		this.nombreCuenta = _nombre;
