@@ -5,9 +5,9 @@ public class Cuenta {
 	String nombreCuenta;
 	
 long valor;
-int periodo;
+Integer periodo;
 	
-public Cuenta(final String _nombre, final long _valor, final int _periodo) {
+public Cuenta(final String _nombre, final long _valor, final Integer _periodo) {
 		this.nombreCuenta = _nombre;
 		this.setValor(_valor);
 		this.setPeriodo(_periodo);
@@ -23,11 +23,11 @@ public Cuenta(final String _nombre, final long _valor, final int _periodo) {
 		this.nombreCuenta = nombreCuenta;
 	}
 
-	public int getPeriodo() {
+	public Integer getPeriodo() {
 		return periodo;
 	}
 
-	public void setPeriodo(int periodo) {
+	public void setPeriodo(Integer periodo) {
 		this.periodo = periodo;
 	}
 

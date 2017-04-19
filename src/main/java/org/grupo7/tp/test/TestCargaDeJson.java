@@ -55,42 +55,42 @@ public class TestCargaDeJson {
 		representacionJSON = gson.toJson(listaEmpresas);
 	}
 
-	@Test
-	public void debeDevolverLaRepresentacionJSONDeUnaListaDeEmpresas() {
-			System.out.println(representacionJSON);
-	}
-
-	@Test
-	public void debeTomarUnJsonYDevolverUnaListaDeEmpresas() {
-		
-
-		final String listaEmpresasJson = representacionJSON;
-		List<Empresa> listaEmpresasTest = new ArrayList<Empresa>();
-
-		listaEmpresasTest = AdapterJson.transformarDeJSONaListaEmpresas(listaEmpresasJson);
-		assertEquals(listaEmpresasTest.size(), 2);
-
-		// for (Empresa unaEmpresa : listaEmpresasTest) {
-		// unaEmpresa.consultarCuentas();
-	}
-
-	@Test
-	public void debeCargarListadeEmpresasAlRepo() {
-		this.repo.cargarListaDeEmpresas(listaEmpresas);
-		assertEquals(repo.empresas.size(), 2);
-		assertTrue(repo.existeEmpresaDeNombre("IBM"));
-		assertTrue(repo.existeEmpresaDeNombre("YPF"));
-		
-	}
-	
-	
 //	@Test
-//	 public void debePasarJsonAListadeEmpresasYCargarloEnRepo() {
-//		this.repo.cargarEmpresasDesdeJson(representacionJSON);
-//	 assertEquals(repo.empresas.size(), 2);
+//	public void debeDevolverLaRepresentacionJSONDeUnaListaDeEmpresas() {
+//			System.out.println(representacionJSON);
+//	}
+//
+//	@Test
+//	public void debeTomarUnJsonYDevolverUnaListaDeEmpresas() {
+//		
+//
+//		final String listaEmpresasJson = representacionJSON;
+//		List<Empresa> listaEmpresasTest = new ArrayList<Empresa>();
+//
+//		listaEmpresasTest = AdapterJson.transformarDeJSONaListaEmpresas(listaEmpresasJson);
+//		assertEquals(listaEmpresasTest.size(), 2);
+//
+//		// for (Empresa unaEmpresa : listaEmpresasTest) {
+//		// unaEmpresa.consultarCuentas();
+//	}
+//
+//	@Test
+//	public void debeCargarListadeEmpresasAlRepo() {
+//		this.repo.cargarListaDeEmpresas(listaEmpresas);
+//		assertEquals(repo.empresas.size(), 2);
 //		assertTrue(repo.existeEmpresaDeNombre("IBM"));
 //		assertTrue(repo.existeEmpresaDeNombre("YPF"));
-//	 }
+//		
+//	}
+	
+	
+	@Test
+	 public void debePasarJsonAListadeEmpresasYCargarloEnRepo() {
+		this.repo.cargarEmpresasDesdeJson(representacionJSON);
+	 assertEquals(repo.empresas.size(), 2);
+		assertTrue(repo.existeEmpresaDeNombre("IBM"));
+		assertTrue(repo.existeEmpresaDeNombre("YPF"));
+	 }
 
 }
 

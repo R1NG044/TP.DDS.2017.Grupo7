@@ -50,7 +50,7 @@ public final class Repositorio {
 
 	public boolean existeEmpresaDeNombre(String nombreEmpresa) {
 		for (Empresa empresa : empresas) {
-			if (empresa.getNombre() == nombreEmpresa) {
+			if (empresa.getNombre().equals(nombreEmpresa)) {
 				return true;
 			}
 		}

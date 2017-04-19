@@ -35,8 +35,8 @@ public class Empresa {
 
 	boolean existeCuentaDelMismoPeriodo(Cuenta unaCuenta) {
 		for (Cuenta cuenta : cuentas) {
-			if ((cuenta.getNombreCuenta() == unaCuenta.getNombreCuenta())
-					& (cuenta.getPeriodo() == unaCuenta.getPeriodo())) {
+			if ((cuenta.getNombreCuenta().equals(unaCuenta.getNombreCuenta()))
+					& (cuenta.getPeriodo().equals(unaCuenta.getPeriodo()))) {
 				return true;
 			}
 		}
