@@ -44,8 +44,7 @@ public class Empresa {
 	}
 
 	public void consultarCuentas() {
-		Set<Cuenta> set = new HashSet<Cuenta>(this.cuentas);
-		for (Cuenta cuenta : set) {
+		for (Cuenta cuenta : cuentas) {
 			System.out.printf("El valor de la cuenta %s es: %.0f\n", cuenta.getNombreCuenta(), cuenta.getValor());
 		}
 

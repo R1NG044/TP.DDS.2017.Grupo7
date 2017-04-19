@@ -23,12 +23,6 @@ public final class Repositorio {
 		return REPO;
 	}
 
-	public  void cargarEmpresasDesdeJson(String jsonEmpresas) {
-		List<Empresa> listaEmpresas = new ArrayList<Empresa>();
-		listaEmpresas = AdapterJson.transformarDeJSONaListaEmpresas(jsonEmpresas);
-		this.cargarListaDeEmpresas(listaEmpresas);
-
-	}
 	public void cargarListaDeEmpresas(List<Empresa> listaEmpresas) {
 		for (Empresa unaEmpresa : listaEmpresas) {
 			this.agregarEmpresa(unaEmpresa);
@@ -36,16 +30,19 @@ public final class Repositorio {
 
 	}
 
-	void agregarEmpresa(Empresa unaEmpresaInput) {
-		for (Empresa empresa : empresas) {
-			if (empresa.getNombre() == unaEmpresaInput.getNombre()) {
-				empresa.cargarCuentas(unaEmpresaInput.cuentas);
-				return;
+	public void agregarEmpresa(Empresa unaEmpresaInput) {
+		if (existeEmpresaDeNombre(unaEmpresaInput.getNombre())) {
+			for (Empresa empresa : empresas) {
+				if (empresa.getNombre() == unaEmpresaInput.getNombre()) {
+					empresa.cargarCuentas(unaEmpresaInput.cuentas);
+					break;
+				}
 			}
+		} else {
+			Empresa nuevaEmpresa = new Empresa(unaEmpresaInput.getNombre());
+			nuevaEmpresa.cargarCuentas(unaEmpresaInput.cuentas);
+			this.empresas.add(nuevaEmpresa);
 		}
-		Empresa nuevaEmpresa = new Empresa(unaEmpresaInput.getNombre());
-		nuevaEmpresa.cargarCuentas(unaEmpresaInput.cuentas);
-		this.empresas.add(nuevaEmpresa);
 	}
 
 	public boolean existeEmpresaDeNombre(String nombreEmpresa) {
@@ -56,5 +53,13 @@ public final class Repositorio {
 		}
 		return false;
 	}
+	// public boolean existeEmpresaDeNombre(String nombreEmpresa) {
+	// for (Empresa empresa : empresas) {
+	// if (empresa.getNombre().equals(nombreEmpresa)) {
+	// return true;
+	// }
+	// }
+	// return false;
+	// }
 
 }
