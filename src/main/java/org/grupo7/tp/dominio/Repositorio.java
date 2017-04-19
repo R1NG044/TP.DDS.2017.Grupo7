@@ -4,53 +4,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class Repositorio {
-	
-	
+
 	List<Empresa> empresas = new ArrayList<Empresa>();
 	Empresa empresaACrear;
-	
 
 	private static Repositorio REPO = null;
 
 	private Repositorio() {
 	}
-	
+
 	public static Repositorio getInstance() {
 
 		if (REPO == null) {
 
-		REPO = new Repositorio();
-
+			REPO = new Repositorio();
 		}
 
 		return REPO;
-
-		}
-	
-	void agregarEmpresa(Empresa unaEmpresa) {		
-		this.empresas.add(unaEmpresa);		
 	}
-	
+
+	void agregarEmpresa(Empresa unaEmpresa) {
+		this.empresas.add(unaEmpresa);
+	}
+
 	boolean existeEmpresa(String nombreEmpresa) {
-		for (Empresa empresa : empresas) {			
+		for (Empresa empresa : empresas) {
 			if (empresa.getNombre() == nombreEmpresa) {
 				return true;
-			}				
-		}		
-		return false;		
+			}
+		}
+		return false;
 	}
-	
+
 	Empresa obtenerEmpresa(String nombreEmpresa) {
-		for (Empresa empresa : empresas) {			
+		for (Empresa empresa : empresas) {
 			if (empresa.getNombre() == nombreEmpresa) {
 				return empresa;
-			}				
-		}		
+			}
+		}
 		Empresa nuevaEmpresa = new Empresa(nombreEmpresa);
 		this.agregarEmpresa(nuevaEmpresa);
-		return nuevaEmpresa;		
+		return nuevaEmpresa;
 	}
-	
-}
-	
 
+}

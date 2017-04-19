@@ -7,37 +7,36 @@ import java.util.Set;;
 
 public class Empresa {
 
+	String nombreEmpresa;
 	List<Cuenta> cuentas = new ArrayList<Cuenta>();
-	String nombre;
 
 	public Empresa(final String _nombre, final ArrayList<Cuenta> _cuentas) {
-		this.nombre = _nombre;
+		this.nombreEmpresa = _nombre;
 		this.setCuentas(_cuentas);
 	}
-	
-//	public Empresa(final String _nombre) {
-//		this.nombre = _nombre;
-//		this.cuentas = new ArrayList<Cuenta>();
-//	}
+
+	 public Empresa(final String _nombre) {
+	 this.nombreEmpresa = _nombre;
+	 this.cuentas = new ArrayList<Cuenta>();
+	 }
 
 	void agregarCuenta(Cuenta unaCuenta) {
 		if (!this.existeCuentaDelMismoPeriodo(unaCuenta)) {
-				this.cuentas.add(unaCuenta);
+			this.cuentas.add(unaCuenta);
 		}
 	}
-	
+
 	boolean existeCuentaDelMismoPeriodo(Cuenta unaCuenta) {
-		for (Cuenta cuenta : cuentas) {			
-			if ((cuenta.getNombreCuenta() == unaCuenta.getNombreCuenta()) & (cuenta.getAnio() == unaCuenta.getAnio())) {
+		for (Cuenta cuenta : cuentas) {
+			if ((cuenta.getNombreCuenta() == unaCuenta.getNombreCuenta()) & (cuenta.getPeriodo() == unaCuenta.getPeriodo())) {
 				return true;
-			}				
-		}		
-		return false;		
+			}
+		}
+		return false;
 	}
 
-
 	public void consultarCuentas() {
-		 Set<Cuenta> set = new HashSet<Cuenta>(this.cuentas);
+		Set<Cuenta> set = new HashSet<Cuenta>(this.cuentas);
 		for (Cuenta cuenta : set) {
 			System.out.printf("El valor de la cuenta %s es: %.0f\n", cuenta.getNombreCuenta(), cuenta.getValor());
 		}
@@ -50,12 +49,12 @@ public class Empresa {
 			agregarCuenta(unaCuenta);
 		}
 	}
-	
+
 	public String getNombre() {
-		return nombre;
+		return nombreEmpresa;
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombreEmpresa = nombre;
 	}
 }

@@ -1,19 +1,16 @@
 package org.grupo7.tp.dominio;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Cuenta {
 
 	String nombreCuenta;
-	//Map<Integer, Long> anioYValor = new HashMap<Integer, Long>();
-long valor;
-int anio;
 	
-public Cuenta(final String _nombre, final long _valor, final int _anio) {
+long valor;
+int periodo;
+	
+public Cuenta(final String _nombre, final long _valor, final int _periodo) {
 		this.nombreCuenta = _nombre;
 		this.setValor(_valor);
-		this.setAnio(_anio);
+		this.setPeriodo(_periodo);
 	}
 	
 
@@ -26,12 +23,12 @@ public Cuenta(final String _nombre, final long _valor, final int _anio) {
 		this.nombreCuenta = nombreCuenta;
 	}
 
-	public int getAnio() {
-		return anio;
+	public int getPeriodo() {
+		return periodo;
 	}
 
-	public void setAnio(int anio) {
-		this.anio = anio;
+	public void setPeriodo(int periodo) {
+		this.periodo = periodo;
 	}
 
 	public float getValor() {
@@ -41,9 +38,13 @@ public Cuenta(final String _nombre, final long _valor, final int _anio) {
 	public void setValor(long valor) {
 		this.valor = valor;
 	}
+
+
 }
 
 
+
+//--------------------------------
 // String nombreEmpresa;
 // Date inicioPeriodo;
 // Date finPeriodo;
@@ -67,3 +68,5 @@ public Cuenta(final String _nombre, final long _valor, final int _anio) {
 // public void setFinPeriodo(Date finPeriodo) {
 // this.finPeriodo = finPeriodo;
 // }
+
+//Map<Integer, Long> periodoYValor = new HashMap<Integer, Long>();
