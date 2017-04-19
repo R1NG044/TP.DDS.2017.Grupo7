@@ -2,9 +2,6 @@ package org.grupo7.tp.test;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.grupo7.tp.dominio.AdapterJson;
 import org.grupo7.tp.dominio.Cuenta;
 import org.grupo7.tp.dominio.Empresa;
@@ -12,89 +9,75 @@ import org.grupo7.tp.dominio.Repositorio;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.gson.Gson;
-
 public class TestCargaDeJson {
-	private Empresa ibm;
-	private Empresa ypf;
+	private Empresa ypf1;
+	private Empresa ypf2;
 	private Repositorio repo;
+	private Cuenta fds15;
 	private Cuenta fds16;
 	private Cuenta fds17;
-	private Cuenta ind16;
-	private Cuenta ind17;
-
-	private ArrayList<Cuenta> cuentasIBM;
-	private ArrayList<Cuenta> cuentasYPF;
-	private ArrayList<Empresa> listaEmpresas;
 	
-	private Gson gson;
-	private String representacionJSON;
+	private String textoJSON1 = "{\"empresas\":[{\"nombre\":	\"empresa1\",	\"cuentas\":	[{\"nombre\":\"cuentalalala1\",\"periodo\":2014,\"valor\":1000},{\"nombre\":\"cuentalelele2\",\"periodo\":2015,\"valor\":2000},{\"nombre\":\"cuentalilili3\",\"periodo\":2016,\"valor\":3000}]},{\"nombre\":	\"empresa2\",	\"cuentas\":	[{\"nombre\":\"cuentananana1\",\"periodo\":2014,\"valor\":1000},{\"nombre\":\"cuentanenene2\",\"periodo\":2015,\"valor\":2000},{\"nombre\":\"cuentaninini3\",\"periodo\":2016,\"valor\":3000}]},{\"nombre\":	\"empresa2\",	\"cuentas\":	[{\"nombre\":\"cuentapapapa1\",\"periodo\":2014,\"valor\":1000},{\"nombre\":\"cuentapepepe2\",\"periodo\":2015,\"valor\":2000},{\"nombre\":\"cuentapipipi3\",\"periodo\":2016,\"valor\":3000}]}]}";
 
 	@Before
 	public void SetUp() {
 
 		this.repo = Repositorio.getInstance();
-		this.fds16 = new Cuenta("FDS", 3000025, 2016);
-		this.fds17 = new Cuenta("FDS", 3000000, 2017);
-		this.ind16 = new Cuenta("INDICADOR", 1000, 2016);
-		this.ind17 = new Cuenta("INDICADOR", 2000, 2017);
-		this.cuentasIBM = new ArrayList<Cuenta>();
-
-		this.cuentasIBM.add(fds16);
-		this.cuentasIBM.add(fds17);
-		this.cuentasYPF = new ArrayList<Cuenta>();
-		this.cuentasYPF.add(ind16);
-		this.cuentasYPF.add(ind17);
-
-		this.ibm = new Empresa("IBM", cuentasIBM);
-		this.ypf = new Empresa("YPF", cuentasYPF);
-		this.listaEmpresas = new ArrayList<Empresa>();
-		this.listaEmpresas.add(ibm);
-		this.listaEmpresas.add(ypf);
-		this.gson = new Gson();
-		representacionJSON = gson.toJson(listaEmpresas);
+		this.fds15 = new Cuenta("FDS", 2015, 3000025);
+		this.fds16 = new Cuenta("FDS", 2016, 3000025);
+		this.fds17 = new Cuenta("FDS", 2017, 3000000);
+		this.ypf1 = new Empresa("YPF");
+		this.ypf1.agregarCuenta(fds15);
+		this.ypf1.agregarCuenta(fds16);
+		this.ypf2 = new Empresa("YPF");
+		this.ypf2.agregarCuenta(fds15);
+		this.ypf2.agregarCuenta(fds17);
+		
 	}
 
 	@Test
 	public void debeDevolverLaRepresentacionJSONDeUnaListaDeEmpresas() {
-			System.out.println(representacionJSON);
+		
+		}
+	
+	
+	@Test
+	public void seRepiteTodoPeroAndaIgualDePiola() {
+		/*	Se agrega 2 veces la misma empresa,
+		 * 	la primera tiene 2 cuentas, y la segunda
+		 * 	tambien, pero repite una de la anterior,
+		 * 	por lo tanto al final va a quedar una sola
+		 * 	empresa, con 3 cuentas en total
+		 */
+		repo.agregarEmpresa(ypf1);
+		repo.agregarEmpresa(ypf2);
+		assertEquals(repo.cantidadEmpresas(),1);
+		int cantidadCuentas = repo.obtenerEmpresa("YPF").cantidadCuentas();
+		assertEquals(cantidadCuentas,3);
+			
 	}
 
 	@Test
 	public void debeTomarUnJsonYDevolverUnaListaDeEmpresas() {
 		
-
-		final String listaEmpresasJson = representacionJSON;
-		List<Empresa> listaEmpresasTest = new ArrayList<Empresa>();
-
-		listaEmpresasTest = AdapterJson.transformarDeJSONaListaEmpresas(listaEmpresasJson);
-		assertEquals(listaEmpresasTest.size(), 2);
-
-		// for (Empresa unaEmpresa : listaEmpresasTest) {
-		// unaEmpresa.consultarCuentas();
+		AdapterJson.cargarDesdeJSON(textoJSON1,repo);
+		repo.mostrarEmpresas();
 	}
 
 	@Test
-	public void debeCargarListadeEmpresasAlRepo() {
-		this.repo.cargarListaDeEmpresas(listaEmpresas);
-		assertEquals(repo.empresas.size(), 2);
-		assertTrue(repo.existeEmpresaDeNombre("IBM"));
-		assertTrue(repo.existeEmpresaDeNombre("YPF"));
+	public void cargarRepoDesdeJSON() {
+		/*	La lista tiene 2 empresas repetidas
+		 * 	por lo que el JSON tiene 3 pero la cantidad total
+		 * 	en el repo es de 2
+		 */
+		
+		AdapterJson.cargarDesdeJSON(textoJSON1,repo);
+		assertEquals(repo.cantidadEmpresas(), 2);
+		assertTrue(repo.existeEmpresa("empresa1"));
+		assertTrue(repo.existeEmpresa("empresa2"));
+		assertFalse(repo.existeEmpresa("empresa3"));
 		
 	}
 	
-	
-//	@Test
-//	 public void debePasarJsonAListadeEmpresasYCargarloEnRepo() {
-//		this.repo.cargarEmpresasDesdeJson(representacionJSON);
-//	 assertEquals(repo.empresas.size(), 2);
-//		assertTrue(repo.existeEmpresaDeNombre("IBM"));
-//		assertTrue(repo.existeEmpresaDeNombre("YPF"));
-//	 }
 
 }
-
-// @Test
-// public void verCuentasDeEmpresa() {
-// this.ibm.consultarCuentas();
-// }

@@ -7,10 +7,10 @@ public class Cuenta {
 long valor;
 int periodo;
 	
-public Cuenta(final String _nombre, final long _valor, final int _periodo) {
+public Cuenta(String _nombre, Integer _periodo, Integer _valor) {
 		this.nombreCuenta = _nombre;
-		this.setValor(_valor);
 		this.setPeriodo(_periodo);
+		this.setValor(_valor);
 	}
 	
 
@@ -23,7 +23,7 @@ public Cuenta(final String _nombre, final long _valor, final int _periodo) {
 		this.nombreCuenta = nombreCuenta;
 	}
 
-	public int getPeriodo() {
+	public Integer getPeriodo() {
 		return periodo;
 	}
 

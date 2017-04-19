@@ -1,21 +1,35 @@
 package org.grupo7.tp.dominio;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import org.json.*;
 
 public class AdapterJson {
-
-	private static ArrayList<Empresa> listaEmpresas;
 	
-	public static List<Empresa> transformarDeJSONaListaEmpresas(final String listaEmpresasJson) {
-	 	final Gson gson = new Gson();
-	 	final Type tipoListaEmpleados = new TypeToken<List<Empresa>>() {}.getType();
-		listaEmpresas = new ArrayList<Empresa>();
-		listaEmpresas = gson.fromJson(listaEmpresasJson, tipoListaEmpleados);
-		 return listaEmpresas;
+	
+
+public static void cargarDesdeJSON(String textoJSON, Repositorio repo) {
+	
+	String json = textoJSON;
+	
+	JSONObject arrEmpresas = new JSONObject(json);
+		
+		JSONArray empresas = arrEmpresas.getJSONArray("empresas");
+		
+		for (int i=0; i<=empresas.length()-1; i++) { 
+			JSONObject empresa = empresas.getJSONObject(i);
+			Empresa newEmpresa = repo.obtenerEmpresa(empresa.getString("nombre"));		
+			
+			JSONArray cuentas = empresa.getJSONArray("cuentas");
+			for (int j=0; j<=cuentas.length()-1; j++) {
+				
+				JSONObject unaCuenta = cuentas.getJSONObject(j);
+				String nombreCuenta = unaCuenta.getString("nombre");
+				int periodoCuenta = unaCuenta.getInt("periodo");
+				int valorCuenta = unaCuenta.getInt("valor");
+				
+				Cuenta newCuenta = new Cuenta(nombreCuenta, periodoCuenta, valorCuenta);				
+				newEmpresa.agregarCuenta(newCuenta);
+				
+			}
+		}
 	}
 }

@@ -5,8 +5,7 @@ import java.util.List;
 
 public final class Repositorio {
 
-	public List<Empresa> empresas = new ArrayList<Empresa>();
-	Empresa empresaACrear;
+	public static List<Empresa> empresas = new ArrayList<Empresa>();
 
 	private static Repositorio REPO = null;
 
@@ -18,43 +17,54 @@ public final class Repositorio {
 		if (REPO == null) {
 
 			REPO = new Repositorio();
+			Repositorio.empresas = new ArrayList<Empresa>();
 		}
-
+		
 		return REPO;
 	}
 
-	public  void cargarEmpresasDesdeJson(String jsonEmpresas) {
-		List<Empresa> listaEmpresas = new ArrayList<Empresa>();
-		listaEmpresas = AdapterJson.transformarDeJSONaListaEmpresas(jsonEmpresas);
-		this.cargarListaDeEmpresas(listaEmpresas);
-
-	}
-	public void cargarListaDeEmpresas(List<Empresa> listaEmpresas) {
-		for (Empresa unaEmpresa : listaEmpresas) {
-			this.agregarEmpresa(unaEmpresa);
-		}
-
-	}
-
-	void agregarEmpresa(Empresa unaEmpresaInput) {
+	public void agregarEmpresa(Empresa unaEmpresa) {
 		for (Empresa empresa : empresas) {
-			if (empresa.getNombre() == unaEmpresaInput.getNombre()) {
-				empresa.cargarCuentas(unaEmpresaInput.cuentas);
+			if (this.existeEmpresa(unaEmpresa.getNombre())) {
+				for (Cuenta cuenta : unaEmpresa.getCuentas()){
+					empresa.agregarCuenta(cuenta);
+				}
 				return;
 			}
 		}
-		Empresa nuevaEmpresa = new Empresa(unaEmpresaInput.getNombre());
-		nuevaEmpresa.cargarCuentas(unaEmpresaInput.cuentas);
-		this.empresas.add(nuevaEmpresa);
+		Repositorio.empresas.add(unaEmpresa);
 	}
 
-	public boolean existeEmpresaDeNombre(String nombreEmpresa) {
+	public Empresa obtenerEmpresa(String nombreEmpresa) {
 		for (Empresa empresa : empresas) {
-			if (empresa.getNombre() == nombreEmpresa) {
+			if (nombreEmpresa.equals(empresa.getNombre())) {
+				return empresa;
+			}
+		}
+		Empresa empresa = new Empresa(nombreEmpresa);
+		this.agregarEmpresa(empresa);
+		return empresa;
+	}
+	
+	public int cantidadEmpresas() {
+		return empresas.size();
+	}
+	
+	public boolean existeEmpresa(String nombreEmpresa) {
+		for (Empresa empresa : empresas) {
+			if (nombreEmpresa.equals(empresa.getNombre())) {
 				return true;
 			}
 		}
 		return false;
+		
+	}
+	
+	public void mostrarEmpresas() {
+		for (Empresa empresa: empresas) {
+			System.out.println(empresa.getNombre());
+		}
+		
 	}
 
 }
