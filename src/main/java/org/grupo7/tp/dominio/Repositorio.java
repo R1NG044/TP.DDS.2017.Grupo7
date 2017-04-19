@@ -45,6 +45,7 @@ public final class Repositorio {
 		}
 	}
 
+	
 	public boolean existeEmpresaDeNombre(String nombreEmpresa) {
 		for (Empresa empresa : empresas) {
 			if (empresa.getNombre().equals(nombreEmpresa)) {
@@ -53,13 +54,14 @@ public final class Repositorio {
 		}
 		return false;
 	}
-	// public boolean existeEmpresaDeNombre(String nombreEmpresa) {
-	// for (Empresa empresa : empresas) {
-	// if (empresa.getNombre().equals(nombreEmpresa)) {
-	// return true;
-	// }
-	// }
-	// return false;
-	// }
+
+	public void devolverCuentasDeEmpresaDeNombre(String nombreEmpresa) {
+		for (Empresa empresa : empresas) {
+			if (empresa.getNombre().equals(nombreEmpresa)) {
+				empresa.consultarCuentas();
+				;
+			}
+		}
+	}
 
 }

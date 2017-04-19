@@ -1,9 +1,7 @@
 package org.grupo7.tp.dominio;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;;
+import java.util.List;;
 
 public class Empresa {
 
@@ -45,9 +43,18 @@ public class Empresa {
 
 	public void consultarCuentas() {
 		for (Cuenta cuenta : cuentas) {
-			System.out.printf("El valor de la cuenta %s es: %.0f\n", cuenta.getNombreCuenta(), cuenta.getValor());
+			System.out.printf("Para %s el valor de la cuenta %s es: %.0f para el Periodo %s\n", this.getNombre(), cuenta.getNombreCuenta(), cuenta.getValor(),cuenta.getPeriodo());
 		}
+	}
 
+	
+	public boolean existeCuentaDeNombre(String nombreCuenta) {
+		for (Cuenta cuenta : cuentas) {
+			if (cuenta.getNombreCuenta() == (nombreCuenta)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	// Getters y Setters
