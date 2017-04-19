@@ -15,10 +15,17 @@ public class Empresa {
 		this.setCuentas(_cuentas);
 	}
 
-	 public Empresa(final String _nombre) {
-	 this.nombreEmpresa = _nombre;
-	 this.cuentas = new ArrayList<Cuenta>();
-	 }
+	public Empresa(final String _nombre) {
+		this.nombreEmpresa = _nombre;
+		this.cuentas = new ArrayList<Cuenta>();
+	}
+
+	public void cargarCuentas(List<Cuenta> listaCuentas) {
+		for (Cuenta unaCuenta : listaCuentas) {
+			this.agregarCuenta(unaCuenta);
+		}
+
+	}
 
 	void agregarCuenta(Cuenta unaCuenta) {
 		if (!this.existeCuentaDelMismoPeriodo(unaCuenta)) {
@@ -28,7 +35,8 @@ public class Empresa {
 
 	boolean existeCuentaDelMismoPeriodo(Cuenta unaCuenta) {
 		for (Cuenta cuenta : cuentas) {
-			if ((cuenta.getNombreCuenta() == unaCuenta.getNombreCuenta()) & (cuenta.getPeriodo() == unaCuenta.getPeriodo())) {
+			if ((cuenta.getNombreCuenta() == unaCuenta.getNombreCuenta())
+					& (cuenta.getPeriodo() == unaCuenta.getPeriodo())) {
 				return true;
 			}
 		}
@@ -44,6 +52,7 @@ public class Empresa {
 	}
 
 	// Getters y Setters
+
 	public void setCuentas(final ArrayList<Cuenta> _cuentas) {
 		for (Cuenta unaCuenta : _cuentas) {
 			agregarCuenta(unaCuenta);
@@ -57,4 +66,5 @@ public class Empresa {
 	public void setNombre(String nombre) {
 		this.nombreEmpresa = nombre;
 	}
+
 }

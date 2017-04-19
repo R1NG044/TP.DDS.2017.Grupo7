@@ -2,7 +2,6 @@ package org.grupo7.tp.test;
 
 import static org.junit.Assert.*;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,12 +9,10 @@ import org.grupo7.tp.dominio.AdapterJson;
 import org.grupo7.tp.dominio.Cuenta;
 import org.grupo7.tp.dominio.Empresa;
 import org.grupo7.tp.dominio.Repositorio;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 public class TestCargaDeJson {
 	private Empresa ibm;
@@ -29,9 +26,13 @@ public class TestCargaDeJson {
 	private ArrayList<Cuenta> cuentasIBM;
 	private ArrayList<Cuenta> cuentasYPF;
 	private ArrayList<Empresa> listaEmpresas;
+	
+	private Gson gson;
+	private String representacionJSON;
 
 	@Before
 	public void SetUp() {
+
 		this.repo = Repositorio.getInstance();
 		this.fds16 = new Cuenta("FDS", 3000025, 2016);
 		this.fds17 = new Cuenta("FDS", 3000000, 2017);
@@ -50,44 +51,50 @@ public class TestCargaDeJson {
 		this.listaEmpresas = new ArrayList<Empresa>();
 		this.listaEmpresas.add(ibm);
 		this.listaEmpresas.add(ypf);
+		this.gson = new Gson();
+		representacionJSON = gson.toJson(listaEmpresas);
 	}
 
-	// @Test
-	// public void verCuentasDeEmpresa() {
-	// this.ibm.consultarCuentas();
-	// }
+	@Test
+	public void debeDevolverLaRepresentacionJSONDeUnaListaDeEmpresas() {
+			System.out.println(representacionJSON);
+	}
 
-	// @Test
-	// public void debeDevolverLaRepresentacionJSONDeUnObjeto() {
-	// final Gson gson = new Gson();
-	// final String representacionJSON = gson.toJson(listaEmpresas);
-	// System.out.println(representacionJSON);
-	//
-	// final String listaEmpresasJson = representacionJSON;
-	//
-	// final Type tipoListaEmpleados = new TypeToken<List<Empresa>>() {
-	// }.getType();
-	// final List<Empresa> empresas = gson.fromJson(listaEmpresasJson,
-	// tipoListaEmpleados);
-	// for (Empresa unaEmpresa : empresas) {
-	// unaEmpresa.consultarCuentas();
-	// assertEquals(empresas.size() , 2);
-	// }
-	// }
 	@Test
 	public void debeTomarUnJsonYDevolverUnaListaDeEmpresas() {
-		final Gson gson = new Gson();
-		final String representacionJSON = gson.toJson(listaEmpresas);
-		// System.out.println(representacionJSON);
+		
 
 		final String listaEmpresasJson = representacionJSON;
 		List<Empresa> listaEmpresasTest = new ArrayList<Empresa>();
 
 		listaEmpresasTest = AdapterJson.transformarDeJSONaListaEmpresas(listaEmpresasJson);
+		assertEquals(listaEmpresasTest.size(), 2);
 
-		for (Empresa unaEmpresa : listaEmpresasTest) {
-			unaEmpresa.consultarCuentas();
-			assertEquals(listaEmpresasTest.size(), 2);
-		}
+		// for (Empresa unaEmpresa : listaEmpresasTest) {
+		// unaEmpresa.consultarCuentas();
 	}
+
+	@Test
+	public void debeCargarListadeEmpresasAlRepo() {
+		this.repo.cargarListaDeEmpresas(listaEmpresas);
+		assertEquals(repo.empresas.size(), 2);
+		assertTrue(repo.existeEmpresaDeNombre("IBM"));
+		assertTrue(repo.existeEmpresaDeNombre("YPF"));
+		
+	}
+	
+	
+//	@Test
+//	 public void debePasarJsonAListadeEmpresasYCargarloEnRepo() {
+//		this.repo.cargarEmpresasDesdeJson(representacionJSON);
+//	 assertEquals(repo.empresas.size(), 2);
+//		assertTrue(repo.existeEmpresaDeNombre("IBM"));
+//		assertTrue(repo.existeEmpresaDeNombre("YPF"));
+//	 }
+
 }
+
+// @Test
+// public void verCuentasDeEmpresa() {
+// this.ibm.consultarCuentas();
+// }
