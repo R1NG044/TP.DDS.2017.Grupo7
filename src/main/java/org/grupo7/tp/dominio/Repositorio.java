@@ -5,23 +5,23 @@ import java.util.List;
 
 public final class Repositorio {
 
-	public static List<Empresa> empresas = new ArrayList<Empresa>();
+	public List<Empresa> empresas = new ArrayList<Empresa>();
 
-	private static Repositorio REPO = null;
-
-	private Repositorio() {
-	}
-
-	public static Repositorio getInstance() {
-
-		if (REPO == null) {
-
-			REPO = new Repositorio();
-			Repositorio.empresas = new ArrayList<Empresa>();
-		}
-		
-		return REPO;
-	}
+//	private static Repositorio REPO = null;
+//
+//	private Repositorio() {
+//	}
+//
+//	public static Repositorio getInstance() {
+//
+//		if (REPO == null) {
+//
+//			REPO = new Repositorio();
+//			Repositorio.empresas = new ArrayList<Empresa>();
+//		}
+//		
+//		return REPO;
+//	}
 
 	public void agregarEmpresa(Empresa unaEmpresa) {
 		for (Empresa empresa : empresas) {
@@ -32,7 +32,7 @@ public final class Repositorio {
 				return;
 			}
 		}
-		Repositorio.empresas.add(unaEmpresa);
+		this.empresas.add(unaEmpresa);
 	}
 
 	public Empresa obtenerEmpresa(String nombreEmpresa) {

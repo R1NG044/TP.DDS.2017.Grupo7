@@ -22,7 +22,7 @@ public class TestCargaDeJson {
 	@Before
 	public void SetUp() {
 
-		this.repo = Repositorio.getInstance();
+		this.repo = new Repositorio();
 		this.fds15 = new Cuenta("FDS", 2015, 3000025);
 		this.fds16 = new Cuenta("FDS", 2016, 3000025);
 		this.fds17 = new Cuenta("FDS", 2017, 3000000);
