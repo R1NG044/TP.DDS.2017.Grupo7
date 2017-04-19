@@ -36,13 +36,7 @@ public class TestCargaDeJson {
 	}
 
 	@Test
-	public void debeDevolverLaRepresentacionJSONDeUnaListaDeEmpresas() {
-		
-		}
-	
-	
-	@Test
-	public void seRepiteTodoPeroAndaIgualDePiola() {
+	public void seRepiteTodoPeroNoAgregaRepetidos() {
 		/*	Se agrega 2 veces la misma empresa,
 		 * 	la primera tiene 2 cuentas, y la segunda
 		 * 	tambien, pero repite una de la anterior,

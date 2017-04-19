@@ -7,22 +7,6 @@ public final class Repositorio {
 
 	public List<Empresa> empresas = new ArrayList<Empresa>();
 
-//	private static Repositorio REPO = null;
-//
-//	private Repositorio() {
-//	}
-//
-//	public static Repositorio getInstance() {
-//
-//		if (REPO == null) {
-//
-//			REPO = new Repositorio();
-//			Repositorio.empresas = new ArrayList<Empresa>();
-//		}
-//		
-//		return REPO;
-//	}
-
 	public void agregarEmpresa(Empresa unaEmpresa) {
 		for (Empresa empresa : empresas) {
 			if (this.existeEmpresa(unaEmpresa.getNombre())) {

@@ -41,32 +41,3 @@ public Cuenta(String _nombre, Integer _periodo, Integer _valor) {
 
 
 }
-
-
-
-//--------------------------------
-// String nombreEmpresa;
-// Date inicioPeriodo;
-// Date finPeriodo;
-
-// TODO: Revisar el tema de los períodos
-// public String getNombreEmpresa() {
-// return nombreEmpresa;
-// }
-// public void setNombreEmpresa(String nombreEmpresa) {
-// this.nombreEmpresa = nombreEmpresa;
-// }
-// public Date getInicioPeriodo() {
-// return inicioPeriodo;
-// }
-// public void setInicioPeriodo(Date inicioPeriodo) {
-// this.inicioPeriodo = inicioPeriodo;
-// }
-// public Date getFinPeriodo() {
-// return finPeriodo;
-// }
-// public void setFinPeriodo(Date finPeriodo) {
-// this.finPeriodo = finPeriodo;
-// }
-
-//Map<Integer, Long> periodoYValor = new HashMap<Integer, Long>();
