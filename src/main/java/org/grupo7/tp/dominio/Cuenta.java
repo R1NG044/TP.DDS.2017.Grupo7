@@ -49,7 +49,7 @@ public Cuenta(final String _nombre, final long _valor, final Integer _periodo) {
 // Date inicioPeriodo;
 // Date finPeriodo;
 
-// TODO: Revisar el tema de los períodos
+// Revisar el tema de los períodos
 // public String getNombreEmpresa() {
 // return nombreEmpresa;
 // }
