@@ -6,10 +6,11 @@ import java.util.List;;
 public class Empresa {
 
 	String nombreEmpresa;
-	List<Cuenta> cuentas = new ArrayList<Cuenta>();
+	List<Cuenta> cuentas;
 
 	public Empresa(final String _nombre, final ArrayList<Cuenta> _cuentas) {
 		this.nombreEmpresa = _nombre;
+		this.cuentas = new ArrayList<Cuenta>();
 		this.setCuentas(_cuentas);
 	}
 
@@ -50,7 +51,7 @@ public class Empresa {
 	
 	public boolean existeCuentaDeNombre(String nombreCuenta) {
 		for (Cuenta cuenta : cuentas) {
-			if (cuenta.getNombreCuenta() == (nombreCuenta)) {
+			if (cuenta.getNombreCuenta().equals((nombreCuenta))) {
 				return true;
 			}
 		}

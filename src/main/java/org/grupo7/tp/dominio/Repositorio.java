@@ -6,7 +6,6 @@ import java.util.List;
 public final class Repositorio {
 
 	public List<Empresa> empresas = new ArrayList<Empresa>();
-	Empresa empresaACrear;
 
 	private static Repositorio REPO = null;
 
@@ -33,7 +32,7 @@ public final class Repositorio {
 	public void agregarEmpresa(Empresa unaEmpresaInput) {
 		if (existeEmpresaDeNombre(unaEmpresaInput.getNombre())) {
 			for (Empresa empresa : empresas) {
-				if (empresa.getNombre() == unaEmpresaInput.getNombre()) {
+				if (empresa.getNombre().equals(unaEmpresaInput.getNombre())) {
 					empresa.cargarCuentas(unaEmpresaInput.cuentas);
 					break;
 				}
@@ -62,6 +61,10 @@ public final class Repositorio {
 				;
 			}
 		}
+	}
+	
+	public Integer cantidadEmpresas() {
+		return empresas.size();
 	}
 
 }

@@ -95,7 +95,7 @@ public class TestCargaDeJson {
 	}
 
 	@Test
-	public void debeProbarMétodoExisteCuentaDeNombre() {
+	public void debeProbarMetodoExisteCuentaDeNombre() {
 		assertTrue(ibm.existeCuentaDeNombre("FDS"));
 		assertFalse(ibm.existeCuentaDeNombre("INDICADOR"));
 		assertTrue(ypf.existeCuentaDeNombre("INDICADOR"));
@@ -104,7 +104,7 @@ public class TestCargaDeJson {
 	@Test
 	public void debePasarJsonAListadeEmpresasYCargarloEnReposinDuplicar() {
 		IniciarAplicacion.cargarEmpresasDesdeJson(representacionJSON);
-		assertEquals(repo.empresas.size(), 2);
+		assertEquals(repo.cantidadEmpresas(), (Integer) 2);
 		assertTrue(repo.existeEmpresaDeNombre("IBM"));
 		assertTrue(repo.existeEmpresaDeNombre("YPF"));
 		assertFalse(repo.existeEmpresaDeNombre("AXION"));
@@ -112,7 +112,7 @@ public class TestCargaDeJson {
 		repo.devolverCuentasDeEmpresaDeNombre("IBM");
 		/*
 		 * Las cuentas de la lista cuentasYPF tienen dos cuentas del mismo
-		 * nombre y distinto período vemos como se guardaron las 2
+		 * nombre y distinto perï¿½odo vemos como se guardaron las 2
 		 */
 		repo.devolverCuentasDeEmpresaDeNombre("YPF");
 
@@ -122,7 +122,7 @@ public class TestCargaDeJson {
 		 * cargaremos este al Repo y verificaremos que no se duplican
 		 */
 		IniciarAplicacion.cargarEmpresasDesdeJson(representacionJSON2);
-		assertEquals(repo.empresas.size(), 3);
+		assertEquals(repo.cantidadEmpresas(), (Integer) 3);
 		assertTrue(repo.existeEmpresaDeNombre("IBM"));
 		assertTrue(repo.existeEmpresaDeNombre("YPF"));
 		assertTrue(repo.existeEmpresaDeNombre("AXION"));
