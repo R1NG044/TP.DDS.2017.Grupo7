@@ -14,7 +14,7 @@ public class Empresa {
 		this.setCuentas(_cuentas);
 	}
 
-	public Empresa(final String _nombre) {
+	public Empresa(String _nombre) {
 		this.nombreEmpresa = _nombre;
 		this.cuentas = new ArrayList<Cuenta>();
 	}
@@ -44,12 +44,12 @@ public class Empresa {
 
 	public void consultarCuentas() {
 		for (Cuenta cuenta : cuentas) {
-			System.out.printf("Para %s el valor de la cuenta %s es: %.0f para el Periodo %s\n", this.getNombre(), cuenta.getNombreCuenta(), cuenta.getValor(),cuenta.getPeriodo());
+			System.out.printf("Para %s el valor de la cuenta %s es: %d para el Periodo %s\n", this.getNombre(), cuenta.getNombreCuenta(), cuenta.getValor(),cuenta.getPeriodo());
 		}
 	}
 
 	
-	public boolean existeCuentaDeNombre(String nombreCuenta) {
+	public Boolean existeCuentaDeNombre(String nombreCuenta) {
 		for (Cuenta cuenta : cuentas) {
 			if (cuenta.getNombreCuenta().equals((nombreCuenta))) {
 				return true;
