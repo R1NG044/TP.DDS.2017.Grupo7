@@ -3,10 +3,10 @@ package org.grupo7.tp.dominio;
 public class Cuenta {
 
 	String nombreCuenta;	
-	Integer valor;
+	Long valor;
 	Integer periodo;
 
-	public Cuenta(final String _nombre, final Integer _valor, final Integer _periodo) {
+	public Cuenta(final String _nombre, final Long _valor, final Integer _periodo) {
 		this.nombreCuenta = _nombre;
 		this.setValor(_valor);
 		this.setPeriodo(_periodo);
@@ -30,11 +30,11 @@ public class Cuenta {
 		this.periodo = periodo;
 	}
 
-	public Integer getValor() {
+	public Long getValor() {
 		return valor;
 	}
 
-	public void setValor(Integer valor) {
+	public void setValor(Long valor) {
 		this.valor = valor;
 	}
 

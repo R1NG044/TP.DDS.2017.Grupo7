@@ -40,11 +40,11 @@ public class TestCargaDeJson {
 	public void SetUp() {
 
 		this.repo = Repositorio.getInstance();
-		this.fds16 = new Cuenta("FDS", 3000025, 2016);
-		this.fds17 = new Cuenta("FDS", 3000000, 2017);
-		this.ind16 = new Cuenta("INDICADOR", 1000, 2016);
-		this.ind17 = new Cuenta("INDICADOR", 2000, 2017);
-		this.ind17v2 = new Cuenta("INDICADOR", 5620, 2014);
+		this.fds16 = new Cuenta("FDS", (long) 3000025, 2016);
+		this.fds17 = new Cuenta("FDS", (long) 3000000, 2017);
+		this.ind16 = new Cuenta("INDICADOR", (long) 1000, 2016);
+		this.ind17 = new Cuenta("INDICADOR", (long) 2000, 2017);
+		this.ind17v2 = new Cuenta("INDICADOR", (long) 5620, 2014);
 
 		this.cuentasIBM = new ArrayList<Cuenta>();
 
