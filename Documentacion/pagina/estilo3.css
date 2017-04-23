@@ -1,0 +1,151 @@
+#div1 {
+	position:relative;
+	margin-left: auto;
+	margin-right: auto;
+	top: 5px;
+	left:auto;
+	width: 1100px;
+	height: 100px;
+	right: auto;
+	bottom: auto;
+    box-shadow:0px 0px 4px #000, 0px 0px 10px #000 inset;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+#div2 {
+	width: 380px;
+	float: left;
+	height: 163px;
+	background-image: url(images/logo.png);
+}
+#div3 {
+	font-family: Verdana;
+	font-size: 28px;
+	font-weight: bold;
+	background-color: #FFF;
+	width: 720px;
+	float: right;
+	height: 95px;
+	background-image: url(images/titulo.png);
+}
+#div4 {
+	width: 147px;
+	float: right;
+	height: 38px;
+	background-image: url(images/fondoOscuro.png);
+}
+#div41 {
+	width: 109px;
+	float: right;
+	height: 38px;
+}
+#div42 {
+	width: 120px;
+	float: right;
+	height: 38px;
+}
+#div43 {
+	width: 115px;
+	float: right;
+	height: 38px;
+}
+#div45 {
+	width: 106px;
+	float: right;
+	height: 38px;
+}
+#div46 {
+	width: 123px;
+	float: right;
+	height: 38px;
+}
+#div4b {
+	width: 147px;
+	float: right;
+	height: 30px;
+	background-image: url(images/MAQUETA_14.png);
+}
+#div4b1 {
+	width: 109px;
+	float: right;
+	height: 30px;
+	background-image: url(images/MAQUETA_13.png);
+}
+#div4b2 {
+	width: 120px;
+	float: right;
+	height: 30px;
+	background-image: url(images/MAQUETA_13.png);
+}
+#div4b3 {
+	width: 115px;
+	float: right;
+	height: 30px;
+	background-image: url(images/MAQUETA_13.png);
+}
+#div4b4 {
+	width: 106px;
+	float: right;
+	height: 30px;
+	background-image: url(images/MAQUETA_13.png);
+}
+#div4b5 {
+	width: 123px;
+	float: left;
+	height: 30px;
+	background-image: url(images/MAQUETA_09.png);
+}
+
+#iz {
+	background-color: #fff;
+	width: 330px;
+	color: #999;
+	height:600px;
+	float: left;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-style: normal;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	background-image: url(images/index_11.jpg);
+}
+
+#cen {
+	background-color: #fff;
+	width: 770px;
+	color: #999;
+	height: 600px;
+	float: left;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	font-style: normal;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	color: #666;
+	background-image: url(images/fondo2.jpg);
+}
+#cenn {
+	background-color: #fff;
+	width: 660px;
+	color: #999;
+	height: 600px;
+	float: left;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-style: normal;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	
+}
+#bordeOscuro {
+	background-color: #fff;
+	width: 110px;
+	color: #999;
+	height: 600px;
+	float: left;
+	background-image: url(images/fondoOscuro.png);
+}
