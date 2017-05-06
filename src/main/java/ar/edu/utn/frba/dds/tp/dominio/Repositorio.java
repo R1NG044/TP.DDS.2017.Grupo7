@@ -1,4 +1,4 @@
-package org.grupo7.tp.dominio;
+package ar.edu.utn.frba.dds.tp.dominio;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,10 @@ public final class Repositorio {
 
 		return REPO;
 	}
+	
+	public void limpiarRepo() {
+		this.empresas.clear();
+		}
 
 	public void cargarListaDeEmpresas(List<Empresa> listaEmpresas) {
 		for (Empresa unaEmpresa : listaEmpresas) {
@@ -44,7 +48,6 @@ public final class Repositorio {
 		}
 	}
 
-	
 	public boolean existeEmpresaDeNombre(String nombreEmpresa) {
 		for (Empresa empresa : empresas) {
 			if (empresa.getNombre().equals(nombreEmpresa)) {
@@ -62,9 +65,19 @@ public final class Repositorio {
 			}
 		}
 	}
-	
+
 	public Integer cantidadEmpresas() {
 		return empresas.size();
 	}
 
+	public boolean existeEmpresaDeNombreConCuenta(String nombreEmpresa, String unNombreDeCuenta) {
+		for (Empresa empresa : empresas) {
+			if (empresa.getNombre().equals(nombreEmpresa)) {
+				if (empresa.existeCuentaDeNombre(unNombreDeCuenta)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

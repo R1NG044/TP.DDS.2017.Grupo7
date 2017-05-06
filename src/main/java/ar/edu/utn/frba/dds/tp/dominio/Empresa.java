@@ -1,4 +1,4 @@
-package org.grupo7.tp.dominio;
+package ar.edu.utn.frba.dds.tp.dominio;
 
 import java.util.ArrayList;
 import java.util.List;;

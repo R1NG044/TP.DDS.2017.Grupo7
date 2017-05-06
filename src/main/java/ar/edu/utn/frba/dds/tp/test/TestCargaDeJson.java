@@ -1,19 +1,20 @@
-package org.grupo7.tp.test;
+package ar.edu.utn.frba.dds.tp.test;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.grupo7.tp.dominio.AdapterJson;
-import org.grupo7.tp.dominio.Cuenta;
-import org.grupo7.tp.dominio.Empresa;
-import org.grupo7.tp.dominio.IniciarAplicacion;
-import org.grupo7.tp.dominio.Repositorio;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.google.gson.Gson;
+
+import ar.edu.utn.frba.dds.tp.dominio.AdapterJson;
+import ar.edu.utn.frba.dds.tp.dominio.Cuenta;
+import ar.edu.utn.frba.dds.tp.dominio.Empresa;
+import ar.edu.utn.frba.dds.tp.dominio.IniciarAplicacion;
+import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 
 public class TestCargaDeJson {
 	private Empresa ibm;
@@ -100,7 +101,16 @@ public class TestCargaDeJson {
 		assertFalse(ibm.existeCuentaDeNombre("INDICADOR"));
 		assertTrue(ypf.existeCuentaDeNombre("INDICADOR"));
 	}
-
+	
+	@Test
+	public void debePasarJsonAListadeEmpresasYContenerLasCuentasSinDuplicar() {
+		repo.limpiarRepo();
+		IniciarAplicacion.cargarEmpresasDesdeJson(representacionJSON);
+		assertEquals(repo.cantidadEmpresas(), (Integer) 2);
+		assertTrue(repo.existeEmpresaDeNombreConCuenta("IBM", "FDS"));
+		assertTrue(repo.existeEmpresaDeNombreConCuenta("IBM", "FDS"));
+	}
+	
 	@Test
 	public void debePasarJsonAListadeEmpresasYCargarloEnReposinDuplicar() {
 		IniciarAplicacion.cargarEmpresasDesdeJson(representacionJSON);
@@ -112,10 +122,9 @@ public class TestCargaDeJson {
 		repo.devolverCuentasDeEmpresaDeNombre("IBM");
 		/*
 		 * Las cuentas de la lista cuentasYPF tienen dos cuentas del mismo
-		 * nombre y distinto per�odo vemos como se guardaron las 2
+		 * nombre y distinto periodo vemos como se guardaron las 2
 		 */
 		repo.devolverCuentasDeEmpresaDeNombre("YPF");
-
 
 		/*
 		 * El Json 2 Tiene duplicada la Empresa IBM respecto del Json1,
@@ -135,4 +144,6 @@ public class TestCargaDeJson {
 		repo.devolverCuentasDeEmpresaDeNombre("AXION");
 
 	}
+	
+	
 }
