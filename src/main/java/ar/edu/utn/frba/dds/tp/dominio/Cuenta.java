@@ -2,9 +2,9 @@ package ar.edu.utn.frba.dds.tp.dominio;
 
 public class Cuenta {
 
-	String nombreCuenta;
-	Long valor;
-	Integer periodo;
+	private String nombreCuenta;
+	private Long valor;
+	private Integer periodo;
 
 	public Cuenta(final String _nombre, final Long _valor, final Integer _periodo) {
 		this.nombreCuenta = _nombre;
@@ -12,8 +12,7 @@ public class Cuenta {
 		this.setPeriodo(_periodo);
 	}
 
-
-	//Getters y Setters
+	// Getters y Setters
 	public String getNombreCuenta() {
 		return nombreCuenta;
 	}
@@ -37,6 +36,5 @@ public class Cuenta {
 	public void setValor(Long valor) {
 		this.valor = valor;
 	}
-
 
 }

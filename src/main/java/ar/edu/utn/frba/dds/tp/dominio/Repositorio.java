@@ -5,7 +5,7 @@ import java.util.List;
 
 public final class Repositorio {
 
-	public List<Empresa> empresas = new ArrayList<Empresa>();
+	private List<Empresa> empresas = new ArrayList<Empresa>();
 
 	private static Repositorio REPO = null;
 
@@ -33,17 +33,17 @@ public final class Repositorio {
 
 	}
 
-	public void agregarEmpresa(Empresa unaEmpresaInput) {
+	private void agregarEmpresa(Empresa unaEmpresaInput) {
 		if (existeEmpresaDeNombre(unaEmpresaInput.getNombre())) {
 			for (Empresa empresa : empresas) {
 				if (empresa.getNombre().equals(unaEmpresaInput.getNombre())) {
-					empresa.cargarCuentas(unaEmpresaInput.cuentas);
+					empresa.cargarCuentas(unaEmpresaInput.getCuentas());
 					break;
 				}
 			}
 		} else {
 			Empresa nuevaEmpresa = new Empresa(unaEmpresaInput.getNombre());
-			nuevaEmpresa.cargarCuentas(unaEmpresaInput.cuentas);
+			nuevaEmpresa.cargarCuentas(unaEmpresaInput.getCuentas());
 			this.empresas.add(nuevaEmpresa);
 		}
 	}
@@ -89,4 +89,9 @@ public final class Repositorio {
 		}
 		return false;
 	}
+
+	public List<Empresa> getEmpresas() {
+		return empresas;
+	}
+
 }

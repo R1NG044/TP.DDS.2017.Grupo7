@@ -5,7 +5,7 @@ import java.util.List;
 import java.io.FileNotFoundException;
 import ar.edu.utn.frba.dds.tp.herramientas.AdapterJson;
 
-public final class  IniciarAplicacion {
+public final class  Aplicacion {
 
 
 	public static void cargarEmpresasDesdeJson(String jsonEmpresas) throws FileNotFoundException {

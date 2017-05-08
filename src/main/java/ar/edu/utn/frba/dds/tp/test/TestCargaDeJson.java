@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.utn.frba.dds.tp.dominio.Empresa;
-import ar.edu.utn.frba.dds.tp.dominio.IniciarAplicacion;
+import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 import ar.edu.utn.frba.dds.tp.herramientas.AdapterJson;
 
@@ -52,7 +52,7 @@ public class TestCargaDeJson {
 	@Test
 	public void debePasarJsonAListadeEmpresasYContenerLasEmpresasSinDuplicar() throws FileNotFoundException {
 		// El Json1 contiene 2 Empresas IBM e YPF
-		IniciarAplicacion.cargarEmpresasDesdeJson(representacionJSON);
+		Aplicacion.cargarEmpresasDesdeJson(representacionJSON);
 		assertEquals(repo.cantidadEmpresas(), 2);
 		assertTrue(repo.existeEmpresaDeNombre("IBM"));
 		assertTrue(repo.existeEmpresaDeNombre("YPF"));
@@ -61,7 +61,7 @@ public class TestCargaDeJson {
 
 		// El Json2 contiene 3 Empresas IBM y Axion. Cuando se cargue en el Repo
 		// no debe duplicarse IBM.
-		IniciarAplicacion.cargarEmpresasDesdeJson(representacionJSON2);
+		Aplicacion.cargarEmpresasDesdeJson(representacionJSON2);
 		assertEquals(repo.cantidadEmpresas(), 4);
 		assertTrue(repo.existeEmpresaDeNombre("IBM"));
 		assertTrue(repo.existeEmpresaDeNombre("YPF"));
@@ -76,7 +76,7 @@ public class TestCargaDeJson {
 		 * Para la Empresa YPF el Json tienen la cuenta INDICADOR periodo 2017
 		 * duplicada, vemos como se guardo una sola.
 		 */
-		IniciarAplicacion.cargarEmpresasDesdeJson(representacionJSON);
+		Aplicacion.cargarEmpresasDesdeJson(representacionJSON);
 		assertEquals(repo.cantidadEmpresas(), 2);
 		assertEquals(repo.cantidadDeCuentasParaEmpresa("IBM"), 2);
 		assertEquals(repo.cantidadDeCuentasParaEmpresa("YPF"), 3);
@@ -91,7 +91,7 @@ public class TestCargaDeJson {
 		 * cargaremos este al Repo y verificaremos que no se duplican ni la
 		 * empresa ni las cuentas. Y se agregan las empresas Axion y Petrobras.
 		 */
-		IniciarAplicacion.cargarEmpresasDesdeJson(representacionJSON2);
+		Aplicacion.cargarEmpresasDesdeJson(representacionJSON2);
 		assertEquals(repo.cantidadEmpresas(), 4);
 		assertEquals(repo.cantidadDeCuentasParaEmpresa("IBM"), 3);
 		assertEquals(repo.cantidadDeCuentasParaEmpresa("YPF"), 3);
