@@ -5,8 +5,8 @@ import java.util.List;;
 
 public class Empresa {
 
-	String nombreEmpresa;
-	List<Cuenta> cuentas;
+	private String nombreEmpresa;
+	private List<Cuenta> cuentas;
 
 	public Empresa(final String _nombre, final ArrayList<Cuenta> _cuentas) {
 		this.nombreEmpresa = _nombre;
@@ -26,13 +26,13 @@ public class Empresa {
 
 	}
 
-	void agregarCuenta(Cuenta unaCuenta) {
+	private void agregarCuenta(Cuenta unaCuenta) {
 		if (!this.existeCuentaDelMismoPeriodo(unaCuenta)) {
 			this.cuentas.add(unaCuenta);
 		}
 	}
 
-	boolean existeCuentaDelMismoPeriodo(Cuenta unaCuenta) {
+	private boolean existeCuentaDelMismoPeriodo(Cuenta unaCuenta) {
 		for (Cuenta cuenta : cuentas) {
 			if ((cuenta.getNombreCuenta().equals(unaCuenta.getNombreCuenta()))
 					& (cuenta.getPeriodo().equals(unaCuenta.getPeriodo()))) {
@@ -41,17 +41,18 @@ public class Empresa {
 		}
 		return false;
 	}
-	
+
 	public int cantidadDeCuentas() {
 		return cuentas.size();
 	}
+
 	public void consultarCuentas() {
 		for (Cuenta cuenta : cuentas) {
-			System.out.printf("Para %s el valor de la cuenta %s es: %d para el Periodo %s\n", this.getNombre(), cuenta.getNombreCuenta(), cuenta.getValor(),cuenta.getPeriodo());
+			System.out.printf("Para %s el valor de la cuenta %s es: %d para el Periodo %s\n", this.getNombre(),
+					cuenta.getNombreCuenta(), cuenta.getValor(), cuenta.getPeriodo());
 		}
 	}
 
-	
 	public Boolean existeCuentaDeNombre(String nombreCuenta) {
 		for (Cuenta cuenta : cuentas) {
 			if (cuenta.getNombreCuenta().equals((nombreCuenta))) {
@@ -62,6 +63,10 @@ public class Empresa {
 	}
 
 	// Getters y Setters
+
+	public List<Cuenta> getCuentas() {
+		return cuentas;
+	}
 
 	public void setCuentas(final ArrayList<Cuenta> _cuentas) {
 		for (Cuenta unaCuenta : _cuentas) {
