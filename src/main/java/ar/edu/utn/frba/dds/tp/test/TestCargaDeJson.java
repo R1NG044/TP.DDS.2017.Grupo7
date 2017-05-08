@@ -2,148 +2,118 @@ package ar.edu.utn.frba.dds.tp.test;
 
 import static org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.gson.Gson;
-
-import ar.edu.utn.frba.dds.tp.dominio.AdapterJson;
-import ar.edu.utn.frba.dds.tp.dominio.Cuenta;
 import ar.edu.utn.frba.dds.tp.dominio.Empresa;
 import ar.edu.utn.frba.dds.tp.dominio.IniciarAplicacion;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
+import ar.edu.utn.frba.dds.tp.herramientas.AdapterJson;
 
 public class TestCargaDeJson {
-	private Empresa ibm;
-	private Empresa ypf;
-	private Empresa axion;
 	private Repositorio repo;
-	private Cuenta fds16;
-	private Cuenta fds17;
-	private Cuenta ind16;
-	private Cuenta ind17;
-	private Cuenta ind17v2;
-
-	private ArrayList<Cuenta> cuentasIBM;
-	private ArrayList<Cuenta> cuentasYPF;
-	private ArrayList<Cuenta> cuentasAxion;
-	private ArrayList<Empresa> listaEmpresas;
-	private ArrayList<Empresa> listaEmpresas2;
-
-	private Gson gson;
 	private String representacionJSON;
 	private String representacionJSON2;
 
 	@Before
 	public void SetUp() {
-
+		this.representacionJSON = "H:\\descargas\\DDS\\TP.DDS.2017.Grupo7\\archivosInput\\empresasjson1.txt";
+		this.representacionJSON2 = "H:\\descargas\\DDS\\TP.DDS.2017.Grupo7\\archivosInput\\empresasjson2.txt";
 		this.repo = Repositorio.getInstance();
-		this.fds16 = new Cuenta("FDS", (long) 3000025, 2016);
-		this.fds17 = new Cuenta("FDS", (long) 3000000, 2017);
-		this.ind16 = new Cuenta("INDICADOR", (long) 1000, 2016);
-		this.ind17 = new Cuenta("INDICADOR", (long) 2000, 2017);
-		this.ind17v2 = new Cuenta("INDICADOR", (long) 5620, 2014);
+	}
 
-		this.cuentasIBM = new ArrayList<Cuenta>();
+	//
 
-		this.cuentasIBM.add(fds16);
-		this.cuentasIBM.add(fds17);
-		this.cuentasYPF = new ArrayList<Cuenta>();
-		this.cuentasYPF.add(ind16);
-		this.cuentasYPF.add(ind17);
-		this.cuentasYPF.add(ind17v2);
-		this.cuentasAxion = new ArrayList<Cuenta>();
-		this.cuentasAxion.add(ind17v2);
-		this.cuentasAxion.add(ind17v2);
+	@Test
+	public void debeTomarUnJsonYDevolverUnaListaDeEmpresas() throws FileNotFoundException {
 
-		this.ibm = new Empresa("IBM", cuentasIBM);
-		this.ypf = new Empresa("YPF", cuentasYPF);
-		this.axion = new Empresa("AXION", cuentasAxion);
+		// IMPORTANTE: Para que no arroje error se debe modificar el path segun
+		// donde se encuentre guardado tu Proyecto. Si el path es erroneo arroja
+		// FileNotFound Error
 
-		this.listaEmpresas = new ArrayList<Empresa>();
-		this.listaEmpresas.add(ibm);
-		this.listaEmpresas.add(ypf);
+		List<Empresa> listaEmpresasTest1 = new ArrayList<Empresa>();
+		List<Empresa> listaEmpresasTest2 = new ArrayList<Empresa>();
 
-		this.listaEmpresas2 = new ArrayList<Empresa>();
-		this.listaEmpresas2.add(ibm);
-		this.listaEmpresas2.add(axion);
+		// Se cargan los dos archivos txt de Json con el Adapter a las listas
+		// auxiliares
+		listaEmpresasTest1 = AdapterJson.transformarDeJSONaListaEmpresas(representacionJSON);
+		listaEmpresasTest2 = AdapterJson.transformarDeJSONaListaEmpresas(representacionJSON2);
 
-		this.gson = new Gson();
-		representacionJSON = gson.toJson(listaEmpresas);
-		representacionJSON2 = gson.toJson(listaEmpresas2);
+		// Se verifica que carga las Empresas en cada lista
+		assertEquals(listaEmpresasTest1.size(), 2);
+		assertEquals(listaEmpresasTest2.size(), 4);
+
 	}
 
 	@Test
-	public void debeDevolverLaRepresentacionJSONDeUnaListaDeEmpresas() {
-		// System.out.println(representacionJSON);
-	}
-
-	@Test
-	public void debeTomarUnJsonYDevolverUnaListaDeEmpresas() {
-
-		final String listaEmpresasJson = representacionJSON;
-		List<Empresa> listaEmpresasTest = new ArrayList<Empresa>();
-
-		listaEmpresasTest = AdapterJson.transformarDeJSONaListaEmpresas(listaEmpresasJson);
-		assertEquals(listaEmpresasTest.size(), 2);
-
-		// for (Empresa unaEmpresa : listaEmpresasTest) {
-		// unaEmpresa.consultarCuentas();
-		// }
-	}
-
-	@Test
-	public void debeProbarMetodoExisteCuentaDeNombre() {
-		assertTrue(ibm.existeCuentaDeNombre("FDS"));
-		assertFalse(ibm.existeCuentaDeNombre("INDICADOR"));
-		assertTrue(ypf.existeCuentaDeNombre("INDICADOR"));
-	}
-	
-	@Test
-	public void debePasarJsonAListadeEmpresasYContenerLasCuentasSinDuplicar() {
-		repo.limpiarRepo();
+	public void debePasarJsonAListadeEmpresasYContenerLasEmpresasSinDuplicar() throws FileNotFoundException {
+		// El Json1 contiene 2 Empresas IBM e YPF
 		IniciarAplicacion.cargarEmpresasDesdeJson(representacionJSON);
-		assertEquals(repo.cantidadEmpresas(), (Integer) 2);
-		assertTrue(repo.existeEmpresaDeNombreConCuenta("IBM", "FDS"));
-		assertTrue(repo.existeEmpresaDeNombreConCuenta("IBM", "FDS"));
-	}
-	
-	@Test
-	public void debePasarJsonAListadeEmpresasYCargarloEnReposinDuplicar() {
-		IniciarAplicacion.cargarEmpresasDesdeJson(representacionJSON);
-		assertEquals(repo.cantidadEmpresas(), (Integer) 2);
+		assertEquals(repo.cantidadEmpresas(), 2);
 		assertTrue(repo.existeEmpresaDeNombre("IBM"));
 		assertTrue(repo.existeEmpresaDeNombre("YPF"));
 		assertFalse(repo.existeEmpresaDeNombre("AXION"));
+		assertFalse(repo.existeEmpresaDeNombre("PETROBRAS"));
 
-		repo.devolverCuentasDeEmpresaDeNombre("IBM");
-		/*
-		 * Las cuentas de la lista cuentasYPF tienen dos cuentas del mismo
-		 * nombre y distinto periodo vemos como se guardaron las 2
-		 */
-		repo.devolverCuentasDeEmpresaDeNombre("YPF");
-
-		/*
-		 * El Json 2 Tiene duplicada la Empresa IBM respecto del Json1,
-		 * cargaremos este al Repo y verificaremos que no se duplican
-		 */
+		// El Json2 contiene 3 Empresas IBM y Axion. Cuando se cargue en el Repo
+		// no debe duplicarse IBM.
 		IniciarAplicacion.cargarEmpresasDesdeJson(representacionJSON2);
-		assertEquals(repo.cantidadEmpresas(), (Integer) 3);
+		assertEquals(repo.cantidadEmpresas(), 4);
 		assertTrue(repo.existeEmpresaDeNombre("IBM"));
 		assertTrue(repo.existeEmpresaDeNombre("YPF"));
 		assertTrue(repo.existeEmpresaDeNombre("AXION"));
+		assertTrue(repo.existeEmpresaDeNombre("PETROBRAS"));
+		repo.limpiarRepo();
+	}
+
+	@Test
+	public void debePasarJsonAListadeEmpresasYCargarloEnReposinDuplicarCuentas() throws FileNotFoundException {
+		/*
+		 * Para la Empresa YPF el Json tienen la cuenta INDICADOR periodo 2017
+		 * duplicada, vemos como se guardo una sola.
+		 */
+		IniciarAplicacion.cargarEmpresasDesdeJson(representacionJSON);
+		assertEquals(repo.cantidadEmpresas(), 2);
+		assertEquals(repo.cantidadDeCuentasParaEmpresa("IBM"), 2);
+		assertEquals(repo.cantidadDeCuentasParaEmpresa("YPF"), 3);
+		assertTrue(repo.existeEmpresaDeNombreConCuenta("IBM", "FDS"));
+		assertTrue(repo.existeEmpresaDeNombreConCuenta("YPF", "INDICADOR"));
+
+		// repo.devolverCuentasDeEmpresaDeNombre("IBM");
+		// repo.devolverCuentasDeEmpresaDeNombre("YPF");
 
 		/*
-		 * A su vez las cuentas de la lista cuentasAxion estan duplicadas pero
-		 * vemos que en el repo solo se cargo una instancia
+		 * El Json 2 Tiene duplicada la Empresa IBM respecto del Json1,
+		 * cargaremos este al Repo y verificaremos que no se duplican ni la
+		 * empresa ni las cuentas. Y se agregan las empresas Axion y Petrobras.
 		 */
+		IniciarAplicacion.cargarEmpresasDesdeJson(representacionJSON2);
+		assertEquals(repo.cantidadEmpresas(), 4);
+		assertEquals(repo.cantidadDeCuentasParaEmpresa("IBM"), 3);
+		assertEquals(repo.cantidadDeCuentasParaEmpresa("YPF"), 3);
+		assertTrue(repo.existeEmpresaDeNombreConCuenta("IBM", "DIVIDENDOS"));
+		assertTrue(repo.existeEmpresaDeNombreConCuenta("YPF", "INDICADOR"));
+		/*
+		 * A su vez la Empresa Axion esta duplicada pero con cuentas distintas
+		 * vemos que en el repo solo se cargo una empresa con las 2 cuentas
+		 */
+		assertEquals(repo.cantidadDeCuentasParaEmpresa("AXION"), 2);
+		assertEquals(repo.cantidadDeCuentasParaEmpresa("PETROBRAS"), 2);
 
-		repo.devolverCuentasDeEmpresaDeNombre("AXION");
-
+		// repo.devolverCuentasDeEmpresaDeNombre("IBM");
+		// repo.devolverCuentasDeEmpresaDeNombre("YPF");
+		// repo.devolverCuentasDeEmpresaDeNombre("AXION");
+		// repo.devolverCuentasDeEmpresaDeNombre("PETROBRAS");
+		repo.limpiarRepo();
 	}
-	
-	
+
+	// @Test
+	// public void debeDevolverLaRepresentacionJSONDeUnaListaDeEmpresas() {
+	// System.out.println(representacionJSON2);
+	// }
+
 }

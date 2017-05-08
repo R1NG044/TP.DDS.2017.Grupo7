@@ -21,10 +21,10 @@ public final class Repositorio {
 
 		return REPO;
 	}
-	
+
 	public void limpiarRepo() {
 		this.empresas.clear();
-		}
+	}
 
 	public void cargarListaDeEmpresas(List<Empresa> listaEmpresas) {
 		for (Empresa unaEmpresa : listaEmpresas) {
@@ -66,8 +66,17 @@ public final class Repositorio {
 		}
 	}
 
-	public Integer cantidadEmpresas() {
+	public int cantidadEmpresas() {
 		return empresas.size();
+	}
+
+	public int cantidadDeCuentasParaEmpresa(String nombreEmpresa) {
+		for (Empresa empresa : empresas) {
+			if (empresa.getNombre().equals(nombreEmpresa)) {
+				return empresa.cantidadDeCuentas();
+			}
+		}
+		return 0;
 	}
 
 	public boolean existeEmpresaDeNombreConCuenta(String nombreEmpresa, String unNombreDeCuenta) {

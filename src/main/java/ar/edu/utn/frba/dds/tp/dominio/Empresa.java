@@ -41,7 +41,10 @@ public class Empresa {
 		}
 		return false;
 	}
-
+	
+	public int cantidadDeCuentas() {
+		return cuentas.size();
+	}
 	public void consultarCuentas() {
 		for (Cuenta cuenta : cuentas) {
 			System.out.printf("Para %s el valor de la cuenta %s es: %d para el Periodo %s\n", this.getNombre(), cuenta.getNombreCuenta(), cuenta.getValor(),cuenta.getPeriodo());

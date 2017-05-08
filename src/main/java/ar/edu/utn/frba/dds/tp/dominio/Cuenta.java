@@ -2,7 +2,7 @@ package ar.edu.utn.frba.dds.tp.dominio;
 
 public class Cuenta {
 
-	String nombreCuenta;	
+	String nombreCuenta;
 	Long valor;
 	Integer periodo;
 
