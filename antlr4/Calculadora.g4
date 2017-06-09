@@ -8,7 +8,7 @@ expresion : termino ((SUM | RES) termino)* ;
 
 termino  : factor ((MUL | DIV) factor)* ;
 
-factor : NUMERO | '(' expresion ')';
+factor : NUMERO | '(' expresion ')' | indicador | cuenta ;
 
 NUMERO : DIGIT+ ;
 
@@ -21,5 +21,15 @@ RES : '-' ;
 DIV : '/' ;
 
 DIGIT : ('0' .. '9') ;
+
+//TEXTO :  ('a'..'z'|'A'..'Z')+ ;
+
+//INDICADOR: 'IND('(('a'..'z'|'A'..'Z')+)')';
+
+indicador: 'IND('NOMBRE')';
+
+cuenta: 'CUENTA('NOMBRE')';
+
+NOMBRE: (('a'..'z'|'A'..'Z')+) ;
 
 WS : [ \r\n\t] + -> channel (HIDDEN) ;
