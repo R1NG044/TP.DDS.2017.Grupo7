@@ -2,6 +2,19 @@ package dds;
 
 public class ExpresionCompuesta implements IExpresion{
 
+	private IExpresion Operando1, Operando2;
+	private IOperador Operador;
+	
+	public ExpresionCompuesta(){
+		
+	}
+	
+	public ExpresionCompuesta(IExpresion op1, IExpresion op2, IOperador operador)  {
+		this.Operando1 = op1;
+		this.Operando2 = op2;
+		this.Operador = operador;
+	}
+	
 	public IExpresion getOperando1() {
 		return Operando1;
 	}
@@ -26,14 +39,7 @@ public class ExpresionCompuesta implements IExpresion{
 		Operador = operador;
 	}
 
-	private IExpresion Operando1, Operando2;
-	private IOperador Operador;
 	
-	public ExpresionCompuesta(IExpresion op1, IExpresion op2, IOperador operador)  {
-		this.Operando1 = op1;
-		this.Operando2 = op2;
-		this.Operador = operador;
-	}
 	
 	@Override
 	public double calcularResultado(){

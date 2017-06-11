@@ -1,8 +1,11 @@
 package dds;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.naming.StringRefAddr;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -14,11 +17,15 @@ import dds.CalculadoraParser.ExpresionContext;
 public class ParserListener extends CalculadoraBaseListener {
 	
 	private Map<String, IOperador> operadores;
+	private ExpresionCompuesta expresionPadre;
+	private ArrayList errores;
 	
 	 public ParserListener() {
 	        super();
 	        
 	        this.cargarOperadores();
+	        this.expresionPadre = new ExpresionCompuesta();
+	        this.errores = new ArrayList();
 	 }
 	 
 	 private Map<String, IOperador> getOperadores(){
@@ -36,13 +43,12 @@ public class ParserListener extends CalculadoraBaseListener {
 		// TODO Falta agregar a gramatica parentesis para modificar precedencia y crear clase cuenta
 		int i;
 		ParseTree child = ctx.getChild(0);
+
 		
-		
-		
-		
-        this.iterateNodes(ctx);
-       
-		
+		if(ctx.children != null){
+			this.iterateNodes(ctx);
+		}
+        
 	}
 	
 	private void iterateNodes(ExpresionContext ctx) {
@@ -50,18 +56,50 @@ public class ParserListener extends CalculadoraBaseListener {
 		// Recorro childs. Cada child es un termino: constante o expresion o indicador o cuenta
 		
 		int i;
-
+		
+		
 		for (i=0;i<ctx.getChildCount();i++) {
 			ParseTree tree = ctx.getChild(i);
 			
 			//System.out.println(tree.getText()); 
 			
-			// convertir los terminos a objetos. Si los puede parsear y crear, voy asignandolos a las
-			// extensiones.
-
+			asignarToken(tree.getText());
 			
 		}
 		
+	}
+	
+	public void asignarToken(String token){
+		// convertir terminos a los objetos. Si los puede parsear, los mete en un objeto
+		//Por ahora solo se parsean los "-" 
+		
+		IOperador op = this.operadores.get(token);	
+		IExpresion termino = null;
+		
+		//Es un operador
+		if(op != null){
+			
+			this.expresionPadre.setOperador(op);		
+		}else {
+			//es una expre compleja, una constante, una cuenta o un indicador
+			try{
+				termino = new Constante(Double.parseDouble(token));
+				
+			}catch(NumberFormatException e){
+				//No es un numero: es una expresion, indicador o cuenta
+				if(token.contains("*") || token.toString().contains("/")){
+					//Es una expresion compleja
+				}
+			}
+			
+			
+			if(this.expresionPadre.getOperando1() != null){
+				this.expresionPadre.setOperando1(termino);
+			}else{
+				this.expresionPadre.setOperando2(termino);
+			}
+			
+		}
 	}
 
 	public void exitExpresion(CalculadoraParser.ExpresionContext ctx){}
