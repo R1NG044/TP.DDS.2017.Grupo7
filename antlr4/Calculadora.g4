@@ -6,6 +6,8 @@ grammar Calculadora;
 
 expresion : termino ((SUM | RES) termino)* ;
 
+//El uso de parentesis no está andando bien y habria que usarlo para modificar la precedencia. x ej: 3*(4+5)
+
 termino  : factor ((MUL | DIV) factor)* ;
 
 factor : NUMERO | '(' expresion ')' | indicador | cuenta ;

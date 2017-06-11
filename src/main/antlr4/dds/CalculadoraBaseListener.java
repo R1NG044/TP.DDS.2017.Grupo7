@@ -49,6 +49,30 @@ public class CalculadoraBaseListener implements CalculadoraListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFactor(CalculadoraParser.FactorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIndicador(CalculadoraParser.IndicadorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIndicador(CalculadoraParser.IndicadorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCuenta(CalculadoraParser.CuentaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCuenta(CalculadoraParser.CuentaContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
