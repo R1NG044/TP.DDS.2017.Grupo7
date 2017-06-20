@@ -8,19 +8,20 @@ import java.io.IOException;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-
-
+import org.antlr.v4.tool.Grammar;
+import org.antlr.v4.tool.LexerGrammar;
 import org.junit.Test;
 
 
 import dds.CalculadoraLexer;
 import dds.CalculadoraParser;
 import dds.GramaticaListener;
+import dds.ParserHelper;
 import dds.ParserListener;
 
 public class TestAntlr {
 	
-	public static final String INPUT_PATH = "/Users/brenda/repos/dds2017/TP.DDS.2017.Grupo7/archivosInput/pruebaantlr.txt";
+	public static final String INPUT_PATH = "/Users/brenda/repos/dds2017/TP.DDS.2017.Grupo7/archivosInput/pruebaantlr2.txt";
 	
 	
 	@SuppressWarnings("deprecation")
@@ -31,8 +32,10 @@ public class TestAntlr {
 		
 		//ANTLRFileStream fs = new ANTLRFileStream(INPUT_PATH);
 		
-        CalculadoraLexer lexer = new CalculadoraLexer(new ANTLRFileStream(INPUT_PATH));
- 
+        
+		CalculadoraLexer lexer = new CalculadoraLexer(new ANTLRFileStream(INPUT_PATH));
+	       
+		 
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         CalculadoraParser parser = new CalculadoraParser(tokens);
         CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
@@ -53,6 +56,7 @@ public class TestAntlr {
 		//ANTLRFileStream fs = new ANTLRFileStream(INPUT_PATH);
 		
         CalculadoraLexer lexer = new CalculadoraLexer(new ANTLRFileStream(INPUT_PATH));
+       
  
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         CalculadoraParser parser = new CalculadoraParser(tokens);
@@ -64,6 +68,14 @@ public class TestAntlr {
 
         assertEquals(6, 6);
         //assertEquals(6, listener.getExpresion().getResultado(), 0.01);
+	}
+	
+	@Test
+	public void testGramaticaFromString() throws IOException{
+		//Invoco metodo Parser Helper
+		
+		ParserHelper.ParseExpresion("3*2");
+		//ParserHelper.ParseExpresion("3+5+IND(INGRESO)*CUENTA(NETO)+3*2-5");
 	}
 	
 

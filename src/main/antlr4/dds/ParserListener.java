@@ -36,6 +36,8 @@ public class ParserListener extends CalculadoraBaseListener {
 		 this.operadores = new HashMap<String, IOperador>();
 		 this.operadores.put("+", new OperadorSUM());
 		 this.operadores.put("-", new OperadorRES());
+		 this.operadores.put("*", new OperadorMUL());
+		 this.operadores.put("/", new OperadorDIV());
 	 }
 	
 	@Override
@@ -61,45 +63,62 @@ public class ParserListener extends CalculadoraBaseListener {
 		for (i=0;i<ctx.getChildCount();i++) {
 			ParseTree tree = ctx.getChild(i);
 			
-			//System.out.println(tree.getText()); 
+			System.out.println(tree.getChildCount()); 
 			
-			asignarToken(tree.getText());
+			descomponerEnObjetos(tree, this.expresionPadre);
 			
 		}
+		
+		//System.out.print(this.expresionPadre.calcularResultado());
 		
 	}
 	
-	public void asignarToken(String token){
-		// convertir terminos a los objetos. Si los puede parsear, los mete en un objeto
+	public void descomponerEnObjetos(ParseTree tree, ExpresionCompuesta expresion){
+		//Convertir terminos a los objetos. Si los puede parsear, los mete en un objeto
 		//Por ahora solo se parsean los "-" 
 		
-		IOperador op = this.operadores.get(token);	
-		IExpresion termino = null;
-		
-		//Es un operador
-		if(op != null){
+		//es nodo terminal
+		if(tree.getChildCount() == 0){
+			IOperador op = this.operadores.get(tree.getText());	
+			IExpresion termino = null;
 			
-			this.expresionPadre.setOperador(op);		
-		}else {
-			//es una expre compleja, una constante, una cuenta o un indicador
-			try{
-				termino = new Constante(Double.parseDouble(token));
+			//Es un operador
+			if(op != null){
 				
-			}catch(NumberFormatException e){
-				//No es un numero: es una expresion, indicador o cuenta
-				if(token.contains("*") || token.toString().contains("/")){
-					//Es una expresion compleja
+				this.expresionPadre.setOperador(op);		
+			}else {
+				//es una constante
+				try{
+					termino = new Constante(Double.parseDouble(tree.getText()));
+					
+				}catch(NumberFormatException e){
+					//Input invalido
+					System.out.println(e.getMessage());
+					
+					/*
+					if(tree.getText().contains("IND(")){
+						
+					}*/
+					
 				}
+				if(this.expresionPadre.getOperando1() == null){
+					//System.out.print("Setea operando1");
+					this.expresionPadre.setOperando1(termino);
+				}else{
+					//System.out.print("Setea operando2");
+					this.expresionPadre.setOperando2(termino);
+				}
+				
 			}
-			
-			
-			if(this.expresionPadre.getOperando1() != null){
-				this.expresionPadre.setOperando1(termino);
-			}else{
-				this.expresionPadre.setOperando2(termino);
+		}else{
+			//Si tiene hijos, es una expresion compuesta
+			ExpresionCompuesta exp = new ExpresionCompuesta();
+			int j;
+			for(j=0;j<tree.getChildCount();j++){
+				descomponerEnObjetos(tree.getChild(j), exp);
 			}
-			
 		}
+		
 	}
 
 	public void exitExpresion(CalculadoraParser.ExpresionContext ctx){}

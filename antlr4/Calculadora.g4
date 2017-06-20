@@ -4,6 +4,7 @@ grammar Calculadora;
 	package dds;
 }
 
+//expresion : termino ((SUM | RES) termino)* | termino ((MUL | DIV) termino)* ;
 expresion : termino ((SUM | RES) termino)* ;
 
 //El uso de parentesis no está andando bien y habria que usarlo para modificar la precedencia. x ej: 3*(4+5)
@@ -12,7 +13,9 @@ termino  : factor ((MUL | DIV) factor)* ;
 
 factor : NUMERO | '(' expresion ')' | indicador | cuenta ;
 
-NUMERO : DIGIT+ ;
+NUMERO: ('0' .. '9')+ ;
+
+//NUMERO : DIGIT+ ;
 
 SUM : '+' ;
 
@@ -22,7 +25,7 @@ RES : '-' ;
 
 DIV : '/' ;
 
-DIGIT : ('0' .. '9') ;
+//DIGIT : ('0' .. '9') ;
 
 //TEXTO :  ('a'..'z'|'A'..'Z')+ ;
 
