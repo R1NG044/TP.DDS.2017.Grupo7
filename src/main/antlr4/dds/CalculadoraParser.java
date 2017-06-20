@@ -20,7 +20,7 @@ public class CalculadoraParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, NUMERO=5, SUM=6, MUL=7, RES=8, DIV=9, 
-		DIGIT=10, NOMBRE=11, WS=12;
+		NOMBRE=10, WS=11;
 	public static final int
 		RULE_expresion = 0, RULE_termino = 1, RULE_factor = 2, RULE_indicador = 3, 
 		RULE_cuenta = 4;
@@ -33,8 +33,8 @@ public class CalculadoraParser extends Parser {
 		"'/'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, null, "NUMERO", "SUM", "MUL", "RES", "DIV", "DIGIT", 
-		"NOMBRE", "WS"
+		null, null, null, null, null, "NUMERO", "SUM", "MUL", "RES", "DIV", "NOMBRE", 
+		"WS"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -397,7 +397,7 @@ public class CalculadoraParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\16.\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\r.\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\3\2\3\2\7\2\20\n\2\f\2\16\2\23\13\2\3\3"+
 		"\3\3\3\3\7\3\30\n\3\f\3\16\3\33\13\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4$"+
 		"\n\4\3\5\3\5\3\5\3\5\3\6\3\6\3\6\3\6\3\6\2\2\7\2\4\6\b\n\2\4\4\2\b\b\n"+
@@ -407,8 +407,8 @@ public class CalculadoraParser extends Parser {
 		"\6\4\2\25\26\t\3\2\2\26\30\5\6\4\2\27\25\3\2\2\2\30\33\3\2\2\2\31\27\3"+
 		"\2\2\2\31\32\3\2\2\2\32\5\3\2\2\2\33\31\3\2\2\2\34$\7\7\2\2\35\36\7\3"+
 		"\2\2\36\37\5\2\2\2\37 \7\4\2\2 $\3\2\2\2!$\5\b\5\2\"$\5\n\6\2#\34\3\2"+
-		"\2\2#\35\3\2\2\2#!\3\2\2\2#\"\3\2\2\2$\7\3\2\2\2%&\7\5\2\2&\'\7\r\2\2"+
-		"\'(\7\4\2\2(\t\3\2\2\2)*\7\6\2\2*+\7\r\2\2+,\7\4\2\2,\13\3\2\2\2\5\21"+
+		"\2\2#\35\3\2\2\2#!\3\2\2\2#\"\3\2\2\2$\7\3\2\2\2%&\7\5\2\2&\'\7\f\2\2"+
+		"\'(\7\4\2\2(\t\3\2\2\2)*\7\6\2\2*+\7\f\2\2+,\7\4\2\2,\13\3\2\2\2\5\21"+
 		"\31#";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
