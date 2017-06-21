@@ -77,18 +77,22 @@ public class ParserListener extends CalculadoraBaseListener {
 		//Convertir terminos a los objetos. Si los puede parsear, los mete en un objeto
 		//Por ahora solo se parsean los "-" 
 		
-		//es nodo terminal
+		//es un nodo con operacion
 		if(tree.getChildCount() == 0){
 			IOperador op = this.operadores.get(tree.getText());	
-			IExpresion termino = null;
+			
 			
 			//Es un operador
 			if(op != null){
 				
-				this.expresionPadre.setOperador(op);		
-			}else {
-				//es una constante
-				try{
+				this.expresionPadre.setOperador(op);	
+			}
+		}else {
+				//es una constante o una expresion
+				
+			IExpresion termino = null;
+			try{
+					
 					termino = new Constante(Double.parseDouble(tree.getText()));
 					
 				}catch(NumberFormatException e){
@@ -101,16 +105,19 @@ public class ParserListener extends CalculadoraBaseListener {
 					}*/
 					
 				}
-				if(this.expresionPadre.getOperando1() == null){
-					//System.out.print("Setea operando1");
-					this.expresionPadre.setOperando1(termino);
-				}else{
-					//System.out.print("Setea operando2");
-					this.expresionPadre.setOperando2(termino);
+			
+				if(termino != null){
+					if(this.expresionPadre.getOperando1() == null){
+						//System.out.print("Setea operando1");
+						this.expresionPadre.setOperando1(termino);
+					}else{
+						//System.out.print("Setea operando2");
+						this.expresionPadre.setOperando2(termino);
+					}
 				}
 				
-			}
-		}else{
+				
+		}/*else{
 			//Si tiene hijos, es una expresion compuesta
 			ExpresionCompuesta exp = new ExpresionCompuesta();
 			int j;
@@ -118,6 +125,7 @@ public class ParserListener extends CalculadoraBaseListener {
 				descomponerEnObjetos(tree.getChild(j), exp);
 			}
 		}
+		*/
 		
 	}
 
