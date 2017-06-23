@@ -69,7 +69,7 @@ public class ParserListener extends CalculadoraBaseListener {
 			
 		}
 		
-		//System.out.print(this.expresionPadre.calcularResultado());
+		System.out.print(this.expresionPadre.calcularResultado());
 		
 	}
 	
@@ -88,14 +88,16 @@ public class ParserListener extends CalculadoraBaseListener {
 				this.expresionPadre.setOperador(op);	
 			}
 		}else {
-				//es una constante o una expresion
+			if(tree.getChildCount() == 1){
+				//es una constante, indicador o cuenta
 				
-			IExpresion termino = null;
-			try{
+				IExpresion termino = null;
+				try{
 					
 					termino = new Constante(Double.parseDouble(tree.getText()));
 					
-				}catch(NumberFormatException e){
+					
+				}catch(Exception e){
 					//Input invalido
 					System.out.println(e.getMessage());
 					
@@ -114,8 +116,25 @@ public class ParserListener extends CalculadoraBaseListener {
 						//System.out.print("Setea operando2");
 						this.expresionPadre.setOperando2(termino);
 					}
+				}else{
+					if(tree.getText().contains("IND(")){
+						//Crear objeto indicador.
+					}
+					else{
+						if(tree.getText().contains("CUENTA(")){
+							//Crear objeto cuenta
+						}
+					}
+					
 				}
-				
+			}else{
+				//hay que iterar, porque es una expresion compuesta
+				ExpresionCompuesta exp = new ExpresionCompuesta();
+				int j;
+				for(j=0;j<tree.getChildCount();j++){
+					descomponerEnObjetos(tree.getChild(j), exp);
+				}
+			}
 				
 		}/*else{
 			//Si tiene hijos, es una expresion compuesta
