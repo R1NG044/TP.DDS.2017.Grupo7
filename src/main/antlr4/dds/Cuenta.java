@@ -1,6 +1,6 @@
 package dds;
 
-public class Indicador implements IExpresion{
+public class Cuenta implements IExpresion{
 
 	
 	@Override

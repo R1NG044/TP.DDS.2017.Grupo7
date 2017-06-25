@@ -13,6 +13,6 @@ public class OperadorSUM implements IOperador {
 	
 	@Override
 	public String getSimbolo(){
-		return "-";
+		return "+";
 	}
 }
