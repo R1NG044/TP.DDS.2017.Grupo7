@@ -1,7 +1,6 @@
 grammar Calculadora;
-
-@header {
-	package dds;
+@header{ 
+	package ar.edu.utn.frba.dds.tp.antlr;
 }
 
 //expresion : termino ((SUM | RES) termino)* | termino ((MUL | DIV) termino)* ;

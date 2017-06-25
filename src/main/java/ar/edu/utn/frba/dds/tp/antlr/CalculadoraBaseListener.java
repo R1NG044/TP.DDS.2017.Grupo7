@@ -1,6 +1,6 @@
 // Generated from Calculadora.g4 by ANTLR 4.7
-
-	package dds;
+ 
+	package ar.edu.utn.frba.dds.tp.antlr;
 
 
 import org.antlr.v4.runtime.ParserRuleContext;

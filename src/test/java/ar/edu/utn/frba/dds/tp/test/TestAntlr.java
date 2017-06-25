@@ -7,9 +7,8 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.Test;
 
-import dds.CalculadoraLexer;
-import dds.CalculadoraParser;
-import dds.ParserListener;
+import ar.edu.utn.frba.dds.tp.antlr.*;
+import ar.edu.utn.frba.dds.tp.antlr.dds.*;
 
 public class TestAntlr {
 

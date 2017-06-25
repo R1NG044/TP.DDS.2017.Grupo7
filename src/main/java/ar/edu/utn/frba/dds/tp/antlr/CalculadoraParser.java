@@ -1,6 +1,6 @@
 // Generated from Calculadora.g4 by ANTLR 4.7
-
-	package dds;
+ 
+	package ar.edu.utn.frba.dds.tp.antlr;
 
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -112,6 +112,11 @@ public class CalculadoraParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CalculadoraListener ) ((CalculadoraListener)listener).exitExpresion(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalculadoraVisitor ) return ((CalculadoraVisitor<? extends T>)visitor).visitExpresion(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ExpresionContext expresion() throws RecognitionException {
@@ -187,6 +192,11 @@ public class CalculadoraParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CalculadoraListener ) ((CalculadoraListener)listener).exitTermino(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalculadoraVisitor ) return ((CalculadoraVisitor<? extends T>)visitor).visitTermino(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final TerminoContext termino() throws RecognitionException {
@@ -258,6 +268,11 @@ public class CalculadoraParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CalculadoraListener ) ((CalculadoraListener)listener).exitFactor(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalculadoraVisitor ) return ((CalculadoraVisitor<? extends T>)visitor).visitFactor(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final FactorContext factor() throws RecognitionException {
@@ -328,6 +343,11 @@ public class CalculadoraParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CalculadoraListener ) ((CalculadoraListener)listener).exitIndicador(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalculadoraVisitor ) return ((CalculadoraVisitor<? extends T>)visitor).visitIndicador(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final IndicadorContext indicador() throws RecognitionException {
@@ -368,6 +388,11 @@ public class CalculadoraParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CalculadoraListener ) ((CalculadoraListener)listener).exitCuenta(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalculadoraVisitor ) return ((CalculadoraVisitor<? extends T>)visitor).visitCuenta(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 

@@ -1,7 +1,6 @@
-package dds;
+package ar.edu.utn.frba.dds.tp.antlr.dds;
 
-public class OperadorDIV implements IOperador{
-
+public class OperadorSUM implements IOperador {
 	@Override
 	public double calcularOperacion(IExpresion expresion1, IExpresion expresion2){
 		
@@ -9,11 +8,11 @@ public class OperadorDIV implements IOperador{
 			throw new RuntimeException();
 		}
 		
-		return (expresion1.calcularResultado() / expresion2.calcularResultado());
+		return (expresion1.calcularResultado() + expresion2.calcularResultado());
 	}
 	
 	@Override
 	public String getSimbolo(){
-		return "/";
+		return "+";
 	}
 }

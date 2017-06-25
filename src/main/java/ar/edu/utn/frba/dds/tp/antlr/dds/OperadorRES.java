@@ -1,4 +1,4 @@
-package dds;
+package ar.edu.utn.frba.dds.tp.antlr.dds;
 
 public class OperadorRES implements IOperador {
 	@Override

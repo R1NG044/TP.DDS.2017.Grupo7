@@ -1,6 +1,6 @@
-package dds;
+package ar.edu.utn.frba.dds.tp.antlr.dds;
 
-public class Cuenta implements IExpresion{
+public class Indicador implements IExpresion{
 
 	
 	@Override
