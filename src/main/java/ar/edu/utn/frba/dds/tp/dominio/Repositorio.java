@@ -3,9 +3,12 @@ package ar.edu.utn.frba.dds.tp.dominio;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
+
 public final class Repositorio {
 
 	private List<Empresa> empresas = new ArrayList<Empresa>();
+	private List<Indicador> indicadores = new ArrayList<Indicador>();
 
 	private static Repositorio REPO = null;
 
@@ -31,6 +34,31 @@ public final class Repositorio {
 			this.agregarEmpresa(unaEmpresa);
 		}
 
+	}
+
+	public List<Indicador> getIndicadores() {
+		return indicadores;
+	}
+
+	public void setIndicadores(List<Indicador> indicadores) {
+		this.indicadores = indicadores;
+	}
+
+	public void agregarIndicador(Indicador unIndicadorInput) {
+		if (!(existeIndicadorDeNombre(unIndicadorInput.getNombre()))) {
+			this.indicadores.add(unIndicadorInput);
+		} else {
+			System.out.print("Ya Existe Indicador en Base");
+		}
+	}
+
+	private boolean existeIndicadorDeNombre(String nombreIndicador) {
+		for (Indicador indicador : indicadores) {
+			if (indicador.getNombre().equals(nombreIndicador)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void agregarEmpresa(Empresa unaEmpresaInput) {

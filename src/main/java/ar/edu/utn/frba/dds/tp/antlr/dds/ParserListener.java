@@ -10,6 +10,9 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraBaseListener;
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser;
+import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser.ExpresionContext;
+import ar.edu.utn.frba.dds.tp.dominio.Empresa;
+import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 
 public class ParserListener extends CalculadoraBaseListener {
 
@@ -22,12 +25,23 @@ public class ParserListener extends CalculadoraBaseListener {
 		super();
 
 		this.cargarOperadores();
-		// this.expresionPadre = new ExpresionCompuesta();
-		// expresionAux = expresionPadre;
 		this.errores = new ArrayList<String>();
 	}
 
-	@Override
+	public void parsearUnIndicadorNuevo(ExpresionContext ctx, String nombreNuevoIndicador) {
+		this.enterExpresion(ctx);
+		Indicador indicador = new Indicador(nombreNuevoIndicador, expresionPadre);
+		Repositorio.getInstance().agregarIndicador(indicador);
+
+	}
+//	public void probarUnIndicadorNuevo(ExpresionContext ctx, String nombreNuevoIndicador, Empresa empresa, Integer periodo) {
+//		this.enterExpresion(ctx);
+//		Indicador indicador = new Indicador(nombreNuevoIndicador, expresionPadre);
+//		indicador.evaluarIndicador(empresa,periodo);
+//
+//	}
+
+
 	public void enterExpresion(CalculadoraParser.ExpresionContext ctx) {
 		// TODO Falta agregar a gramatica parentesis para modificar precedencia
 		// y crear clase cuenta
@@ -40,7 +54,9 @@ public class ParserListener extends CalculadoraBaseListener {
 		} else {
 			System.out.println("No ingreso datos");
 		}
+
 		System.out.print(expresionPadre.calcularResultado());
+
 	}
 
 	private void iterateNodes(ParserRuleContext ctx) {
@@ -103,10 +119,27 @@ public class ParserListener extends CalculadoraBaseListener {
 				}
 			} else {
 				if (tree.getText().contains("IND(")) {
-					// Crear objeto indicador.
+					ParseTree child = tree.getChild(0);
+					Indicador indicador = new Indicador(child.getChild(0).getChild(1).getText());
+					if (expresion.getOperando1() == null) {
+						// Setea operando1
+						expresion.setOperando1(indicador);
+					} else if (expresion.getOperando2() == null) {
+						// Setea operando2;
+						expresion.setOperando2(indicador);
+					}
+
 				} else {
 					if (tree.getText().contains("CUENTA(")) {
-						// Crear objeto cuenta
+						ParseTree child = tree.getChild(0);
+						Cuenta cuenta = new Cuenta(child.getChild(0).getChild(1).getText());
+						if (expresion.getOperando1() == null) {
+							// Setea operando1
+							expresion.setOperando1(cuenta);
+						} else if (expresion.getOperando2() == null) {
+							// Setea operando2;
+							expresion.setOperando2(cuenta);
+						}
 					}
 				}
 

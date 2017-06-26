@@ -1,5 +1,7 @@
 package ar.edu.utn.frba.dds.tp.antlr.dds;
 
+import ar.edu.utn.frba.dds.tp.dominio.Empresa;
+
 public class ExpresionCompuesta implements IExpresion{
 
 	private IExpresion Operando1, Operando2;
@@ -50,4 +52,15 @@ public class ExpresionCompuesta implements IExpresion{
 		return this.Operador.calcularOperacion(this.Operando1, this.Operando2);
 	}
 
+//	public double calcularResultado(Empresa empresa, Integer periodo) {
+//		
+//		Indicador indicador = null;
+//		if(this.Operador == null){
+//			throw new RuntimeException("Operador no definido");
+//		} 
+//		else {
+//		return this.Operador.calcularOperacion(this.Operando1, this.Operando2);
+//		
+//	}
+	
 }

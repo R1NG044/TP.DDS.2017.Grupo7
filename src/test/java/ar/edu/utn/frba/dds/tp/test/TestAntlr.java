@@ -12,7 +12,7 @@ import ar.edu.utn.frba.dds.tp.antlr.dds.*;
 
 public class TestAntlr {
 
-	public static final String INPUT_PATH = "/pruebaantlr.txt";
+	public static final String INPUT_PATH = "/pruebaantlr2.txt";
 
 	@Test
 	public void testFormulaAntlr() throws IOException {
