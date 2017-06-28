@@ -20,22 +20,23 @@ import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 public class TestAntlr {
 	private Repositorio repo;
 	private String representacionJSON;
-	private String representacionJSON2;
+	
 	public static String INPUT_PATH ;
 
 	
 	@Before
 	public void SetUp() throws IOException {
-		this.representacionJSON = "/empresasjson1.txt";
-		this.representacionJSON2 = "/empresasjson2.txt";
+		this.representacionJSON = "/empresasjson3.txt";
+		
 		this.repo = Repositorio.getInstance();
 		Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON));
+		
 		
 	}
 
 	@Test
 	public void testGuardarIndicador() throws IOException {
-		INPUT_PATH = "/pruebaantlr3.txt";
+		INPUT_PATH = "/ROE.txt";
 		InputStream file = this.getInputFilePath();
 		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromStream(file));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
