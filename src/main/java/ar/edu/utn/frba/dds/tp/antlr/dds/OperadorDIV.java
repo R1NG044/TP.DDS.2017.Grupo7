@@ -7,7 +7,7 @@ public class OperadorDIV implements IOperador {
 	public double calcularOperacion(IExpresion expresion1, IExpresion expresion2,String empresa,Integer periodo) {
 
 		if (expresion1 == null || expresion2 == null) {
-			throw new RuntimeException();
+			throw new RuntimeException("No se encontro datos en la expresion");
 		} else if (expresion2 instanceof ExpresionCompuesta) {
 			ExpresionCompuesta aux = new ExpresionCompuesta(expresion1, expresion2.getOperando1(), new OperadorDIV());
 			return expresion2.getOperador().calcularOperacion(aux, (expresion2.getOperando2()), empresa, periodo);

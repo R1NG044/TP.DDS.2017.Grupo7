@@ -42,9 +42,6 @@ public class ParserListener extends CalculadoraBaseListener {
 	}
 
 	public void enterExpresion(CalculadoraParser.ExpresionContext ctx) {
-		// TODO Falta agregar a gramatica parentesis para modificar precedencia
-		// y crear clase cuenta
-		// ParseTree child = ctx.getChild(0);
 		this.expresionPadre = new ExpresionCompuesta();
 		expresionAux = expresionPadre;
 
@@ -57,7 +54,6 @@ public class ParserListener extends CalculadoraBaseListener {
 	}
 
 	private void iterateNodes(ParserRuleContext ctx) {
-		// TODO Non binary tree algorithm search;
 		// Recorro childs. Cada child es un termino: constante o expresion o
 		// indicador o cuenta
 
@@ -116,8 +112,9 @@ public class ParserListener extends CalculadoraBaseListener {
 				}
 			} else {
 				if (tree.getText().contains("IND(")) {
-					ParseTree child = tree.getChild(0);
-					String nombreIndicador = child.getChild(0).getChild(1).getText();
+					int fin = (tree.getText().length()) -1;
+					String nombreIndicador = (tree.getText().substring(4,fin));
+					//String nombreIndicador = child.getChild(0).getChild(1).getText();
 					if (Repositorio.getInstance().existeIndicador(nombreIndicador)) {
 						if (expresion.getOperando1() == null) {
 							// Setea operando1
@@ -130,8 +127,10 @@ public class ParserListener extends CalculadoraBaseListener {
 
 				} else {
 					if (tree.getText().contains("CUENTA(")) {
-						ParseTree child = tree.getChild(0);
-						CuentaExp cuenta = new CuentaExp(child.getChild(0).getChild(1).getText());
+//						ParseTree child = tree.getChild(0);
+						int fin = (tree.getText().length()) -1;
+						String nombreCuenta = (tree.getText().substring(7,fin));
+						CuentaExp cuenta = new CuentaExp(nombreCuenta);
 						if (expresion.getOperando1() == null) {
 							// Setea operando1
 							expresion.setOperando1(cuenta);

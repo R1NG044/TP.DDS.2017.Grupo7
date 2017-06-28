@@ -36,7 +36,7 @@ public class TestAntlr {
 
 	@Test
 	public void testGuardarIndicador() throws IOException {
-		INPUT_PATH = "/ROE.txt";
+		INPUT_PATH = "/IngresoNeto.txt";
 		InputStream file = this.getInputFilePath();
 		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromStream(file));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -44,7 +44,18 @@ public class TestAntlr {
 		CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
 		ParserListener listener = new ParserListener();
 		
-		listener.guardarUnIndicadorNuevo(expresionContext, "ROE");
+		listener.guardarUnIndicadorNuevo(expresionContext, "INGRESONETO");
+		assertTrue(repo.existeIndicador("INGRESONETO"));
+		
+		INPUT_PATH = "/ROE.txt";
+		file = this.getInputFilePath();
+		lexer = new CalculadoraLexer(CharStreams.fromStream(file));
+		tokens = new CommonTokenStream(lexer);
+		parser = new CalculadoraParser(tokens);
+		expresionContext = parser.expresion();
+		ParserListener listener2 = new ParserListener();
+		
+		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE");
 		assertTrue(repo.existeIndicador("ROE"));
 		
 	}
@@ -61,7 +72,7 @@ public class TestAntlr {
 		
 		
 		
-		assertTrue(listener.probarUnIndicadorNuevo(expresionContext, "YPF", 2017) ==2001);
+		assertTrue(listener.probarUnIndicadorNuevo(expresionContext, "AXION", 2017) ==101);
 		
 	}
 
