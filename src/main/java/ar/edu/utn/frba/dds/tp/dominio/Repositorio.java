@@ -36,14 +36,6 @@ public final class Repositorio {
 
 	}
 
-	public List<Indicador> getIndicadores() {
-		return indicadores;
-	}
-
-	public void setIndicadores(List<Indicador> indicadores) {
-		this.indicadores = indicadores;
-	}
-
 	public void agregarIndicador(Indicador unIndicadorInput) {
 		if (!(existeIndicadorDeNombre(unIndicadorInput.getNombre()))) {
 			this.indicadores.add(unIndicadorInput);
@@ -85,6 +77,15 @@ public final class Repositorio {
 		return false;
 	}
 
+	public Empresa darEmpresaDeNombre(String nombreEmpresa) {
+		for (Empresa empresa : empresas) {
+			if (empresa.getNombre().equals(nombreEmpresa)) {
+				return empresa;
+			}
+		}
+		throw new RuntimeException("No existe la Empresa ");
+	}
+
 	public void devolverCuentasDeEmpresaDeNombre(String nombreEmpresa) {
 		for (Empresa empresa : empresas) {
 			if (empresa.getNombre().equals(nombreEmpresa)) {
@@ -118,8 +119,33 @@ public final class Repositorio {
 		return false;
 	}
 
+	public boolean existeIndicador(String nombreIndicador) {
+		for (Indicador indicador : indicadores) {
+			if (indicador.getNombre().equals(nombreIndicador)) {
+				return true;
+			}
+		}
+			return false;
+	}
+	public Indicador darIndicadorDeNombre(String nombreIndicador) {
+		for (Indicador indicador : indicadores) {
+			if (indicador.getNombre().equals(nombreIndicador)) {
+				return indicador;
+			}
+		}
+		throw new RuntimeException("No existe el Indicador ");
+	}
+
 	public List<Empresa> getEmpresas() {
 		return empresas;
+	}
+
+	public List<Indicador> getIndicadores() {
+		return indicadores;
+	}
+
+	public void setIndicadores(List<Indicador> indicadores) {
+		this.indicadores = indicadores;
 	}
 
 }

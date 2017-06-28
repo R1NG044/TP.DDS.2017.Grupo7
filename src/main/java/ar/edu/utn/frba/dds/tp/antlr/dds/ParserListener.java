@@ -11,7 +11,6 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraBaseListener;
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser;
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser.ExpresionContext;
-import ar.edu.utn.frba.dds.tp.dominio.Empresa;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 
 public class ParserListener extends CalculadoraBaseListener {
@@ -28,19 +27,19 @@ public class ParserListener extends CalculadoraBaseListener {
 		this.errores = new ArrayList<String>();
 	}
 
-	public void parsearUnIndicadorNuevo(ExpresionContext ctx, String nombreNuevoIndicador) {
+	public void guardarUnIndicadorNuevo(ExpresionContext ctx, String nombreNuevoIndicador) {
 		this.enterExpresion(ctx);
 		Indicador indicador = new Indicador(nombreNuevoIndicador, expresionPadre);
 		Repositorio.getInstance().agregarIndicador(indicador);
 
 	}
-//	public void probarUnIndicadorNuevo(ExpresionContext ctx, String nombreNuevoIndicador, Empresa empresa, Integer periodo) {
-//		this.enterExpresion(ctx);
-//		Indicador indicador = new Indicador(nombreNuevoIndicador, expresionPadre);
-//		indicador.evaluarIndicador(empresa,periodo);
-//
-//	}
 
+	public double probarUnIndicadorNuevo(ExpresionContext ctx, String empresa, Integer periodo) {
+		this.enterExpresion(ctx);
+		Indicador indicador = new Indicador("Prueba", expresionPadre);
+		return indicador.evaluarIndicador(empresa, periodo);
+
+	}
 
 	public void enterExpresion(CalculadoraParser.ExpresionContext ctx) {
 		// TODO Falta agregar a gramatica parentesis para modificar precedencia
@@ -54,8 +53,6 @@ public class ParserListener extends CalculadoraBaseListener {
 		} else {
 			System.out.println("No ingreso datos");
 		}
-
-		System.out.print(expresionPadre.calcularResultado());
 
 	}
 
@@ -106,7 +103,7 @@ public class ParserListener extends CalculadoraBaseListener {
 				termino = new Constante(Double.parseDouble(tree.getText()));
 			} catch (Exception e) {
 				// Input invalido
-				System.out.println(e.getMessage());
+				// System.out.println(e.getMessage());
 			}
 
 			if (termino != null) {
@@ -120,19 +117,21 @@ public class ParserListener extends CalculadoraBaseListener {
 			} else {
 				if (tree.getText().contains("IND(")) {
 					ParseTree child = tree.getChild(0);
-					Indicador indicador = new Indicador(child.getChild(0).getChild(1).getText());
-					if (expresion.getOperando1() == null) {
-						// Setea operando1
-						expresion.setOperando1(indicador);
-					} else if (expresion.getOperando2() == null) {
-						// Setea operando2;
-						expresion.setOperando2(indicador);
+					String nombreIndicador = child.getChild(0).getChild(1).getText();
+					if (Repositorio.getInstance().existeIndicador(nombreIndicador)) {
+						if (expresion.getOperando1() == null) {
+							// Setea operando1
+							expresion.setOperando1(Repositorio.getInstance().darIndicadorDeNombre(nombreIndicador));
+						} else if (expresion.getOperando2() == null) {
+							// Setea operando2;
+							expresion.setOperando2(Repositorio.getInstance().darIndicadorDeNombre(nombreIndicador));
+						}
 					}
 
 				} else {
 					if (tree.getText().contains("CUENTA(")) {
 						ParseTree child = tree.getChild(0);
-						Cuenta cuenta = new Cuenta(child.getChild(0).getChild(1).getText());
+						CuentaExp cuenta = new CuentaExp(child.getChild(0).getChild(1).getText());
 						if (expresion.getOperando1() == null) {
 							// Setea operando1
 							expresion.setOperando1(cuenta);

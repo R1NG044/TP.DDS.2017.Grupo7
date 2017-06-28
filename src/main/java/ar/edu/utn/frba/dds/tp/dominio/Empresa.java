@@ -50,7 +50,7 @@ public class Empresa {
 		for (Cuenta cuenta : cuentas) {
 			System.out.printf("Para %s el valor de la cuenta %s es: %d para el Periodo %s\n", this.getNombre(),
 					cuenta.getNombreCuenta(), cuenta.getValor(), cuenta.getPeriodo());
-		}
+			}
 	}
 
 	public Boolean existeCuentaDeNombre(String nombreCuenta) {
@@ -61,7 +61,7 @@ public class Empresa {
 		}
 		return false;
 	}
-
+	
 	// Getters y Setters
 
 	public List<Cuenta> getCuentas() {

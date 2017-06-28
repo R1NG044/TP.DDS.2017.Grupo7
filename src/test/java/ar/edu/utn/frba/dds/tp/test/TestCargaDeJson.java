@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.utn.frba.dds.tp.dominio.Empresa;
+import ar.edu.utn.frba.dds.tp.antlr.dds.CuentaExp;
 import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 import ar.edu.utn.frba.dds.tp.herramientas.AdapterJson;
@@ -109,6 +110,15 @@ public class TestCargaDeJson {
 		// repo.devolverCuentasDeEmpresaDeNombre("AXION");
 		// repo.devolverCuentasDeEmpresaDeNombre("PETROBRAS");
 		repo.limpiarRepo();
+	}
+	@Test
+	public void testCalcularCuentaExp() throws FileNotFoundException   {
+		Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON));
+		
+		CuentaExp cuentaexp = new CuentaExp("INDICADOR");
+		assertTrue(cuentaexp.calcularResultado("YPF",2017) == 2000);
+		System.out.print(cuentaexp.calcularResultado("YPF",2017));
+	
 	}
 	
 	private String getInputFilePath(String input) {

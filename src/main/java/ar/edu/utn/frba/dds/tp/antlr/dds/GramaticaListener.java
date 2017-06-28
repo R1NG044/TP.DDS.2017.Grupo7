@@ -4,7 +4,6 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraBaseListener;
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser;
-import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser.ExpresionContext;
 
 public class GramaticaListener extends CalculadoraBaseListener {
 	public GramaticaListener(){

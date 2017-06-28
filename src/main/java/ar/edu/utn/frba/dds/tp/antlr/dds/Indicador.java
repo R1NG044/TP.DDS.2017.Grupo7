@@ -1,7 +1,5 @@
 package ar.edu.utn.frba.dds.tp.antlr.dds;
 
-import ar.edu.utn.frba.dds.tp.dominio.Empresa;
-
 public class Indicador implements IExpresion {
 	String nombre;
 	ExpresionCompuesta expresion;
@@ -11,14 +9,26 @@ public class Indicador implements IExpresion {
 		this.expresion = expresion;
 	}
 
+	public double evaluarIndicador(String empresa, Integer periodo) {
+		System.out.printf("El valor del Indicador %s para la Empresa %s y Periodo %d es de: %.2f %n",this.nombre,empresa,periodo,(expresion.calcularResultado(empresa, periodo)));
+		return expresion.calcularResultado(empresa, periodo);
+
+	}
+
+	@Override
+	public IExpresion getOperando2() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double calcularResultado(String empresa, Integer periodo) {
+		return (this.expresion.calcularResultado(empresa, periodo));
+	}
+
 	public Indicador(String nombre) {
 		this.nombre = nombre;
 	}
-
-//	public double evaluarIndicador(Empresa empresa, Integer periodo) {
-//
-//		return expresion.calcularResultado(empresa, periodo);
-//	}
 
 	public String getNombre() {
 		return nombre;
@@ -26,11 +36,6 @@ public class Indicador implements IExpresion {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public double calcularResultado() {
-		// TODO Llamo a clase Indicador con empresa y periodo
-		return 0;
 	}
 
 	@Override

@@ -1,74 +1,74 @@
 package ar.edu.utn.frba.dds.tp.test;
 //import org.antlr.runtime.*;
 
+import static org.junit.Assert.*;
+
 import java.io.IOException;
 import java.io.InputStream;
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
+
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.utn.frba.dds.tp.antlr.*;
-import ar.edu.utn.frba.dds.tp.antlr.dds.*;
+import ar.edu.utn.frba.dds.tp.antlr.CalculadoraLexer;
+import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser;
+import ar.edu.utn.frba.dds.tp.antlr.dds.ParserListener;
+import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
+import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 
 public class TestAntlr {
+	private Repositorio repo;
+	private String representacionJSON;
+	private String representacionJSON2;
+	public static String INPUT_PATH ;
 
-	public static final String INPUT_PATH = "/pruebaantlr2.txt";
+	
+	@Before
+	public void SetUp() throws IOException {
+		this.representacionJSON = "/empresasjson1.txt";
+		this.representacionJSON2 = "/empresasjson2.txt";
+		this.repo = Repositorio.getInstance();
+		Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON));
+		
+	}
 
 	@Test
-	public void testFormulaAntlr() throws IOException {
+	public void testGuardarIndicador() throws IOException {
+		INPUT_PATH = "/pruebaantlr3.txt";
 		InputStream file = this.getInputFilePath();
-
-		// ---- Esto es para evaluar una gramatica y crear expresiones
-		// -----------
-
 		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromStream(file));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		CalculadoraParser parser = new CalculadoraParser(tokens);
 		CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
-		ParseTreeWalker walker = new ParseTreeWalker();
-
 		ParserListener listener = new ParserListener();
-		walker.walk(listener, expresionContext);
-
-		// assertEquals(6, 6);
-		// assertEquals(6, listener.getExpresion().getResultado(), 0.01);
+		
+		listener.guardarUnIndicadorNuevo(expresionContext, "ROE");
+		assertTrue(repo.existeIndicador("ROE"));
+		
 	}
 
-	// @Test
-	// public void testGramatica() throws IOException{
-	//
-	// // ---- Esto es para evaluar una gramatica y crear expresiones
-	// -----------
-	//
-	// //ANTLRFileStream fs = new ANTLRFileStream(INPUT_PATH);
-	//
-	// CalculadoraLexer lexer = new CalculadoraLexer(new
-	// ANTLRFileStream(INPUT_PATH));
-	//
-	//
-	// CommonTokenStream tokens = new CommonTokenStream(lexer);
-	// CalculadoraParser parser = new CalculadoraParser(tokens);
-	// CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
-	// ParseTreeWalker walker = new ParseTreeWalker();
-	//
-	// GramaticaListener listener = new GramaticaListener();
-	// walker.walk(listener, expresionContext);
-	//
-	// assertEquals(6, 6);
-	// //assertEquals(6, listener.getExpresion().getResultado(), 0.01);
-	// }
-	//
-	// @Test
-	// public void testGramaticaFromString() throws IOException{
-	// //Invoco metodo Parser Helper
-	//
-	// ParserHelper.ParseExpresion("3*2");
-	// //ParserHelper.ParseExpresion("3+5+IND(INGRESO)*CUENTA(NETO)+3*2-5");
-	// }
-	//
+	@Test
+	public void testProbarIndicador() throws IOException {
+		INPUT_PATH = "/pruebaantlr2.txt";
+		InputStream file = this.getInputFilePath();
+		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromStream(file));
+		CommonTokenStream tokens = new CommonTokenStream(lexer);
+		CalculadoraParser parser = new CalculadoraParser(tokens);
+		CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
+		ParserListener listener = new ParserListener();
+		
+		
+		
+		assertTrue(listener.probarUnIndicadorNuevo(expresionContext, "YPF", 2017) ==2001);
+		
+	}
 
 	private InputStream getInputFilePath() {
 		return this.getClass().getResourceAsStream(INPUT_PATH);
 
 	}
+	private String getInputFilePath(String input) {
+        return this.getClass().getResource(input).getPath();
+    }
 }
