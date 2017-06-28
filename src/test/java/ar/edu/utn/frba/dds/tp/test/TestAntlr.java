@@ -57,7 +57,8 @@ public class TestAntlr {
 		
 		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE");
 		assertTrue(repo.existeIndicador("ROE"));
-		
+		assertTrue(repo.existeIndicador("INGRESONETO"));
+		System.out.println(listener.probarUnIndicadorNuevo(expresionContext, "AXION", 2017));
 	}
 
 	@Test

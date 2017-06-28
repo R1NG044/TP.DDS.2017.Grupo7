@@ -62,17 +62,10 @@ public class ParserListener extends CalculadoraBaseListener {
 			if (tree instanceof ErrorNode) {
 				System.err.printf("Error en nodo: %s\n", tree.getText());
 
-				// todo: manejar el error
-
 			} else {
 				System.out.printf("Nodo valido: %s\n", tree.getText());
-
-				// System.out.println(tree.getChildCount());
-
 				descomponerEnObjetos(tree, expresionAux);
-
 			}
-
 		}
 
 	}
@@ -81,6 +74,7 @@ public class ParserListener extends CalculadoraBaseListener {
 		// Convertir en terminos a los objetos. Si los puede parsear, los mete
 		// en un objeto
 		// Si es un nodo con operacion
+		System.out.print(tree.getChildCount());
 		IOperador operador = this.operadores.get(tree.getText());
 		if (operador != null) {
 			if (expresion.getOperando2() == null) {
@@ -112,9 +106,10 @@ public class ParserListener extends CalculadoraBaseListener {
 				}
 			} else {
 				if (tree.getText().contains("IND(")) {
-					int fin = (tree.getText().length()) -1;
-					String nombreIndicador = (tree.getText().substring(4,fin));
-					//String nombreIndicador = child.getChild(0).getChild(1).getText();
+					int fin = (tree.getText().length()) - 1;
+					String nombreIndicador = (tree.getText().substring(4, fin));
+					// String nombreIndicador =
+					// child.getChild(0).getChild(1).getText();
 					if (Repositorio.getInstance().existeIndicador(nombreIndicador)) {
 						if (expresion.getOperando1() == null) {
 							// Setea operando1
@@ -127,9 +122,9 @@ public class ParserListener extends CalculadoraBaseListener {
 
 				} else {
 					if (tree.getText().contains("CUENTA(")) {
-//						ParseTree child = tree.getChild(0);
-						int fin = (tree.getText().length()) -1;
-						String nombreCuenta = (tree.getText().substring(7,fin));
+						// ParseTree child = tree.getChild(0);
+						int fin = (tree.getText().length()) - 1;
+						String nombreCuenta = (tree.getText().substring(7, fin));
 						CuentaExp cuenta = new CuentaExp(nombreCuenta);
 						if (expresion.getOperando1() == null) {
 							// Setea operando1
