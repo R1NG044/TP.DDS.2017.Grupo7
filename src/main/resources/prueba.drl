@@ -1,0 +1,11 @@
+package inversores.reglas
+
+import java.io.*;
+
+rule "Regla de prueba"
+
+when
+    eval (true)
+then
+    System.out.println("Las reglas se estan leyendo.");
+end

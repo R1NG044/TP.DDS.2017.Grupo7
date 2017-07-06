@@ -1,0 +1,11 @@
+package inversores.reglas
+
+import ar.edu.utn.frba.dds.tp.dominio.Empresa;
+
+rule "esYpf"
+
+when
+    $e : Empresa(getNombre() == "YPF")
+then
+    $e.setNombre("a la grande le puse cuca");
+end
