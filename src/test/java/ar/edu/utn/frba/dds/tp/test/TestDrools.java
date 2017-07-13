@@ -5,13 +5,14 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-//import org.drools.compiler.kproject.ReleaseIdImpl;
+import org.drools.compiler.kproject.ReleaseIdImpl;
 //import org.drools.devguide.jaxb.JaxbItem;
 import org.junit.Assert;
 import org.junit.Test;
-//import org.kie.api.KieServices;
-//import org.kie.api.runtime.KieContainer;
-//import org.kie.api.runtime.KieSession;
+import org.kie.api.KieServices;
+import org.kie.api.builder.ReleaseId;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
 //import org.kie.server.api.model.KieContainerResource;
 //import org.kie.server.api.model.KieContainerStatus;
 //import org.kie.server.api.model.ReleaseId;
@@ -21,35 +22,35 @@ import org.junit.Test;
 //import org.kie.server.client.KieServicesFactory;
 
 import ar.edu.utn.frba.dds.tp.dominio.Empresa;
-import ar.edu.utn.frba.dds.tp.dominio.Item;
-import ar.edu.utn.frba.dds.tp.dominio.Item.Category;
 
 
 public class TestDrools {
 	
-@Test
+//@Test
 public void testEjemploDrools(){
-	
-//	String url = "http://localhost:8080/kie-wb/maven2/ar/utn/tp/inversores/inversores/0.0.1/inversores-0.0.1.jar";
-//	
-//	KieServices ks = KieServices.Factory.get();
-//    ks.getResources().newUrlResource(url);
-//    ReleaseIdImpl releaseId = new ReleaseIdImpl("prueba.inversores", "inversores","LATEST");
-//    KieContainer kieContainer = ks.newKieContainer(releaseId);
-//   // KieContainer kieContainer = ks.newKieContainer( ks.newReleaseId);
-//    
-//    final String nombre = "ypf";
-//    Empresa e = new Empresa(nombre);
-//    
-//    KieSession kieSession = kieContainer.newKieSession();
-//    String nombreEmpresa = e.getNombre();
-//    kieSession.insert(e);
-//    System.out.println(e.getNombre());
-//	int fired = kieSession.fireAllRules();
-//	
-//	System.out.println( "Cantidad de reglas ejecutadas: " + fired );
-//    
-//    System.out.println(e.getNombre());
+
+	String url = "http://localhost:8080/kie-wb/maven2/prueba/inversores/inversores/0.0.1/inversores-0.0.1.jar";
+
+	KieServices ks = KieServices.Factory.get();
+    ks.getResources().newUrlResource(url);
+    ReleaseIdImpl releaseId = new ReleaseIdImpl("prueba.inversores", "inversores","LATEST");
+
+    KieContainer kieContainer = ks.newKieContainer(releaseId);
+   // KieContainer kieContainer = ks.newKieContainer( ks.newReleaseId);
+
+    final String nombre = "YPF";
+    Empresa e = new Empresa(nombre);
+
+    KieSession kieSession = kieContainer.newKieSession();
+    String nombreEmpresa = e.getNombre();
+    kieSession.insert(e);
+    System.out.println(e.getNombre());
+	int fired = kieSession.fireAllRules();
+	System.out.println( "Cantidad de reglas ejecutadas: " + fired );
+
+
+
+    System.out.println(e.getNombre());
 }
 
 
