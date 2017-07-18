@@ -26,14 +26,16 @@ import ar.edu.utn.frba.dds.tp.dominio.Empresa;
 
 public class TestDrools {
 	
-//@Test
+	
+@Test
 public void testEjemploDrools(){
 
-	String url = "http://localhost:8080/kie-wb/maven2/prueba/inversores/inversores/0.0.1/inversores-0.0.1.jar";
-
+	//String url = "http://localhost:8080/kie-wb/maven2/demo/prjInversores/1.0.0/inversores-1.0.0.jar";
+	String url = "http://localhost:8080/kie-wb/maven2wb/demo/prjInversores/1.1/prjInversores-1.1.jar";
+	
 	KieServices ks = KieServices.Factory.get();
     ks.getResources().newUrlResource(url);
-    ReleaseIdImpl releaseId = new ReleaseIdImpl("prueba.inversores", "inversores","LATEST");
+    ReleaseIdImpl releaseId = new ReleaseIdImpl("demo", "prjInversores","LATEST");
 
     KieContainer kieContainer = ks.newKieContainer(releaseId);
    // KieContainer kieContainer = ks.newKieContainer( ks.newReleaseId);
@@ -42,16 +44,22 @@ public void testEjemploDrools(){
     Empresa e = new Empresa(nombre);
 
     KieSession kieSession = kieContainer.newKieSession();
+    
+    
     String nombreEmpresa = e.getNombre();
     kieSession.insert(e);
     System.out.println(e.getNombre());
+    
+    
 	int fired = kieSession.fireAllRules();
+	
 	System.out.println( "Cantidad de reglas ejecutadas: " + fired );
 
 
 
     System.out.println(e.getNombre());
 }
+
 
 
 //@Test
