@@ -1,29 +1,14 @@
 package ar.edu.utn.frba.dds.tp.test;
-import static org.junit.Assert.*;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.drools.compiler.kproject.ReleaseIdImpl;
-import org.drools.core.common.InternalAgenda;
-//import org.drools.devguide.jaxb.JaxbItem;
-import org.junit.Assert;
 import org.junit.Test;
 import org.kie.api.KieServices;
-import org.kie.api.builder.ReleaseId;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-//import org.kie.server.api.model.KieContainerResource;
-//import org.kie.server.api.model.KieContainerStatus;
-//import org.kie.server.api.model.ReleaseId;
-//import org.kie.server.api.model.ServiceResponse;
-//import org.kie.server.client.KieServicesClient;
-//import org.kie.server.client.KieServicesConfiguration;
-//import org.kie.server.client.KieServicesFactory;
-import org.kie.api.runtime.rule.AgendaFilter;
 
-import ar.edu.utn.frba.dds.tp.dominio.Empresa;
+import ar.edu.utn.frba.dds.tp.dominio.*;
+
+
 
 
 public class TestRules {
@@ -42,18 +27,23 @@ public void testEjemploDrools(){
     KieContainer kieContainer = ks.newKieContainer(releaseId);
    // KieContainer kieContainer = ks.newKieContainer( ks.newReleaseId);
 
-    final String nombre = "YPF";
-    Empresa e = new Empresa(nombre);
+    final String nombre = "YPF"; 
+    final Empresa e = new Empresa(nombre);
+    //final Empresa e2 = new Empresa("Shell");
 
     KieSession kieSession = kieContainer.newKieSession();
    
     
+    
     String nombreEmpresa = e.getNombre();
     kieSession.insert(e);
+    //kieSession.insert(e2);
     System.out.println(e.getNombre());
     kieSession.getAgenda().getAgendaGroup("Z").setFocus();
 
 	int fired = kieSession.fireAllRules();
+	
+
 	
 	System.out.println( "Cantidad de reglas ejecutadas: " + fired );
 
