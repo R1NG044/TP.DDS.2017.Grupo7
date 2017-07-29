@@ -45,17 +45,17 @@
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-core</artifactId>
-			<version>6.3.0.Final</version>
+			<version>7.0.0.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.kie</groupId>
 			<artifactId>kie-api</artifactId>
-			<version>6.3.0.Final</version>
+			<version>7.0.0.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.kie</groupId>
 			<artifactId>kie-ci</artifactId>
-			<version>6.3.0.Final</version>
+			<version>7.0.0.Final</version>
 			<exclusions>
 				<exclusion>
 					<groupId>commons-io</groupId>
@@ -66,12 +66,12 @@
 		<dependency>
 			<groupId>org.kie.server</groupId>
 			<artifactId>kie-server-api</artifactId>
-			<version>6.3.0.Final</version>
+			<version>7.0.0.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.kie</groupId>
 			<artifactId>kie-internal</artifactId>
-			<version>6.3.0.Final</version>
+			<version>7.0.0.Final</version>
 		</dependency>
 	</dependencies>
 	<properties>

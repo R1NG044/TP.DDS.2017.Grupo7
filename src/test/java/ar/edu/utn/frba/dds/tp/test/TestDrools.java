@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.drools.compiler.kproject.ReleaseIdImpl;
+import org.drools.core.common.InternalAgenda;
 //import org.drools.devguide.jaxb.JaxbItem;
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,7 +21,9 @@ import org.kie.api.runtime.KieSession;
 //import org.kie.server.client.KieServicesClient;
 //import org.kie.server.client.KieServicesConfiguration;
 //import org.kie.server.client.KieServicesFactory;
+import org.kie.api.runtime.rule.AgendaFilter;
 
+import ar.edu.utn.frba.dds.tp.antlr.dds.Cuenta;
 import ar.edu.utn.frba.dds.tp.dominio.Empresa;
 
 
@@ -30,8 +33,8 @@ public class TestDrools {
 @Test
 public void testEjemploDrools(){
 
-	//String url = "http://localhost:8080/kie-wb/maven2/demo/prjInversores/1.0.0/inversores-1.0.0.jar";
-	String url = "http://localhost:8080/kie-wb/maven2wb/demo/prjInversores/1.1/prjInversores-1.1.jar";
+	
+	String url = "http://localhost:8080/kie-wb/maven2wb/demo/prjInversores/1.9/prjInversores-1.9.jar";
 	
 	KieServices ks = KieServices.Factory.get();
     ks.getResources().newUrlResource(url);
@@ -44,13 +47,13 @@ public void testEjemploDrools(){
     Empresa e = new Empresa(nombre);
 
     KieSession kieSession = kieContainer.newKieSession();
-    
+   
     
     String nombreEmpresa = e.getNombre();
     kieSession.insert(e);
     System.out.println(e.getNombre());
-    
-    
+    kieSession.getAgenda().getAgendaGroup("Z").setFocus();
+
 	int fired = kieSession.fireAllRules();
 	
 	System.out.println( "Cantidad de reglas ejecutadas: " + fired );
@@ -58,6 +61,7 @@ public void testEjemploDrools(){
 
 
     System.out.println(e.getNombre());
+    
 }
 
 

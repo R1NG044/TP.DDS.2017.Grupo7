@@ -6,6 +6,10 @@ public class Cuenta {
 	private Long valor;
 	private Integer periodo;
 
+	public Cuenta(){
+		
+	}
+	
 	public Cuenta(final String _nombre, final Long _valor, final Integer _periodo) {
 		this.nombreCuenta = _nombre;
 		this.setValor(_valor);

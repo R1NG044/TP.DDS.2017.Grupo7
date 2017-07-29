@@ -7,6 +7,9 @@ public class Empresa {
 
 	private String nombreEmpresa;
 	private List<Cuenta> cuentas;
+	
+	public Empresa(){
+	}
 
 	public Empresa(final String _nombre, final ArrayList<Cuenta> _cuentas) {
 		this.nombreEmpresa = _nombre;
