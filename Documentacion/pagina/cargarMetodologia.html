@@ -42,13 +42,21 @@ body {
 		</div>
 		   
 		<div id="cen"><br><br><br>
-			<table align="center" width="400" height="200">
+			<table align="center" width="500" height="100">
 				<tr>
 					<td align="right" bgcolor="#999999" class="style64"><span class="style11"><span class="style66">
 						<label>Nombre Metodología </label>
 					</span></span></td>
 					<td bgcolor="#fFF" class="style66"><span class="style11">
 						<input name="nombre" type="text" id="nombre" />
+					</span></td>
+				</tr>
+				<tr>
+					<td align="right" bgcolor="#999999" class="style64"><span class="style11"><span class="style66">
+						<label>Nueva Metodología</label>
+					</span></span></td>
+					<td bgcolor="#fFF" class="style66"><span class="style11">
+						<input name="valor" type="text" id="valor" />
 					</span></td>
 				</tr>
 				<tr>
@@ -84,33 +92,20 @@ body {
 				</tr>
 				<tr>
 					<td align="right" bgcolor="#999999" class="style64"><span class="style66">
-					<label>Cantidad de años </label>
+					<label>Condiciones</label>
 					</span></td>
 					<td valign="middle" class="style66"> 
 					<label>
-					<select name="tipo_indicador" class="style66" id="tipo_indicador">
+					<select name="tipo_condicion" class="style66" id="tipo_condicion">
 						<option >Seleccionar</option>
-						<option >1</option>
-						<option >2</option>
-						<option >3</option>
-						<option >4</option>
-						<option >5</option>
-						<option >6</option>
-						<option >7</option>
-						<option >8</option>
-						<option >9</option>
-						<option >10</option>
+						<option >Maximizar ROE</option>
+						<option >Minimizar nivel de deuda</option>
+						<option >Margenes consistentemente crecientes</option>
+						<option >Longevidad</option>
 					</select></label>
 					</td>
 				</tr>
-				<tr>
-					<td align="right" bgcolor="#999999" class="style64"><span class="style11"><span class="style66">
-						<label>Valor comparativo</label>
-					</span></span></td>
-					<td bgcolor="#fFF" class="style66"><span class="style11">
-						<input name="valor" type="text" id="valor" />
-					</span></td>
-				</tr>
+				
 				<tr align="left">
 					<td height="26" class="style64"><div align="right"><span class="style66"> </span><span class="style66">
 						<input name="Cargar" type="submit" class="botones" id="enviar" value="Cargar" />

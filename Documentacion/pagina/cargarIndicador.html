@@ -4,14 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Indicadores</title>
 <link href="estilo3.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
-<!--
-body {
-	background-color: #CCC;
-
+<style type="text/css"></style>
+<!-- Ventanas Pop up -->
+<script>
+function popUp(URL) {
+day = new Date();
+id = day.getTime();
+eval(&quot;page&quot; + id + &quot; = window.open(URL, &#39;&quot; + id + &quot;&#39;, &#39;toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=600,height=400,left=212,top=184&#39;);&quot;);
 }
--->
-</style></head>
+</script>
+</head>
 
 <body background="images/fondo.jpg">
 <div id="div1">
@@ -42,7 +44,7 @@ body {
 		 </div>
 		   
 		<div id="cen"> <br><br><br>
-			<table align="center" width="<br>400" height="150">
+			<table align="center" width="400" height="50">
 				<tr>
 					<td align="right" bgcolor="#999999" class="style64"><span class="style11"><span class="style66">
 						<label>Nombre Indicador </label>
@@ -50,22 +52,51 @@ body {
 					<td bgcolor="#fFF" class="style66"><span class="style11">
 						<input name="nombre" type="text" id="nombre" />
 					</span></td>
+										
 				</tr>
 				<tr>
 					<td align="right" bgcolor="#999999" class="style64"><span class="style11"><span class="style66">
-						<label>Cargar Fórmula </label>
+						<label>Fórmula </label>
 					</span></span></td>
 					<td bgcolor="#fFF" class="style66"><span class="style11">
 						<input name="formula" type="text" id="formula" />
 					</span></td>
 				</tr>
-				<tr align="left">
-					<td height="26" class="style64"><div align="right"><span class="style66"> </span><span class="style66">
-						<input name="Cargar" type="submit" class="botones" id="enviar" value="Cargar" />
-					</span></div></td>
-				</tr>
+				
 			</table>
-		  
+			<div align="right">
+				<a href="javascript:void(0);" onclick="window.open('borrar.html', 'popup', 'left=390, top=200, width=512, height=341, toolbar=0, resizable=1')"><input name="Cargar" type="submit" class="botones" id="enviar" value="Borrar"/></a>
+				<a href="javascript:void(0);" onclick="window.open('agregar.html', 'popup', 'left=390, top=200, width=512, height=341, toolbar=0, resizable=1')"><input name="Cargar" type="submit" class="botones" id="enviar" value="Agregar"/></a>
+			</div>
+			</br>
+			<fieldset>
+					<legend>Probar Indicador</legend>
+					<p style="COLOR: #000000; BACKGROUND-COLOR: #999999">Empresa:</p>
+						<p><select name="tipo_indicador" class="style66" id="tipo_indicador">
+							<option >Seleccionar</option>
+							<option >Ingreso Neto en Operaciones Discontinuas y Continuas</option>
+							<option >EBITDA</option>
+							<option >FDS</option>
+							<option >Free Cash Flow</option>
+						</select></p>
+					<p style="COLOR: #000000; BACKGROUND-COLOR: #999999">Período:</p>
+						<p><select name="tipo_indicador" class="style66" id="tipo_indicador">
+								<option >Seleccionar</option>
+								<option >2017</option>
+								<option >2016</option>
+								<option >2015</option>
+								<option >2014</option>
+								<option >2013</option>
+								<option >2012</option>
+								<option >2011</option>
+								<option >2010</option>
+								<option >2009</option>
+								<option >2008</option>
+						</select>
+						<div align="right">
+						<input name="Cargar" type="submit" class="botones" id="enviar" value="Probar"/>
+						</div>
+				</fieldset>
 		</div>
 		  	 
 	</div>
