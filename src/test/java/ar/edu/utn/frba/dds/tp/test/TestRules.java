@@ -19,7 +19,7 @@ import ar.edu.utn.frba.dds.tp.dominio.*;
 
 public class TestRules {
 	
-@Test
+//@Test
 public void evaluarMetodologiaBuffet(){
 
 	
@@ -69,7 +69,7 @@ public void evaluarMetodologiaBuffet(){
 }
 	
 	
-@Test
+//@Test
 public void testEjemploDrools(){
 
 	
