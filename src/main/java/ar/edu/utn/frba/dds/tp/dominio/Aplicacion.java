@@ -12,6 +12,6 @@ public final class  Aplicacion {
 		List<Empresa> listaEmpresas = new ArrayList<Empresa>();
 		listaEmpresas = AdapterJson.transformarDeJSONaListaEmpresas(jsonEmpresas);
 		Repositorio.getInstance().cargarListaDeEmpresas(listaEmpresas);
-
+		//cargar ind predefinidos
 	}
 }

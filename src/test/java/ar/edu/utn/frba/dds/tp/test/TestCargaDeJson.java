@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.utn.frba.dds.tp.dominio.Empresa;
+import ar.edu.utn.frba.dds.tp.antlr.dds.CuentaExp;
 import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 import ar.edu.utn.frba.dds.tp.herramientas.AdapterJson;
@@ -21,8 +22,8 @@ public class TestCargaDeJson {
 
 	@Before
 	public void SetUp() {
-		this.representacionJSON = "H:\\descargas\\DDS\\TP.DDS.2017.Grupo7\\archivosInput\\empresasjson1.txt";
-		this.representacionJSON2 = "H:\\descargas\\DDS\\TP.DDS.2017.Grupo7\\archivosInput\\empresasjson2.txt";
+		this.representacionJSON = "/empresasjson1.txt";
+		this.representacionJSON2 = "/empresasjson2.txt";
 		this.repo = Repositorio.getInstance();
 	}
 
@@ -40,8 +41,8 @@ public class TestCargaDeJson {
 
 		// Se cargan los dos archivos txt de Json con el Adapter a las listas
 		// auxiliares
-		listaEmpresasTest1 = AdapterJson.transformarDeJSONaListaEmpresas(representacionJSON);
-		listaEmpresasTest2 = AdapterJson.transformarDeJSONaListaEmpresas(representacionJSON2);
+		listaEmpresasTest1 = AdapterJson.transformarDeJSONaListaEmpresas(getInputFilePath(representacionJSON));
+		listaEmpresasTest2 = AdapterJson.transformarDeJSONaListaEmpresas(getInputFilePath(representacionJSON2));
 
 		// Se verifica que carga las Empresas en cada lista
 		assertEquals(listaEmpresasTest1.size(), 2);
@@ -52,7 +53,7 @@ public class TestCargaDeJson {
 	@Test
 	public void debePasarJsonAListadeEmpresasYContenerLasEmpresasSinDuplicar() throws FileNotFoundException {
 		// El Json1 contiene 2 Empresas IBM e YPF
-		Aplicacion.cargarEmpresasDesdeJson(representacionJSON);
+		Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON));
 		assertEquals(repo.cantidadEmpresas(), 2);
 		assertTrue(repo.existeEmpresaDeNombre("IBM"));
 		assertTrue(repo.existeEmpresaDeNombre("YPF"));
@@ -61,7 +62,7 @@ public class TestCargaDeJson {
 
 		// El Json2 contiene 3 Empresas IBM y Axion. Cuando se cargue en el Repo
 		// no debe duplicarse IBM.
-		Aplicacion.cargarEmpresasDesdeJson(representacionJSON2);
+		Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON2));
 		assertEquals(repo.cantidadEmpresas(), 4);
 		assertTrue(repo.existeEmpresaDeNombre("IBM"));
 		assertTrue(repo.existeEmpresaDeNombre("YPF"));
@@ -76,7 +77,7 @@ public class TestCargaDeJson {
 		 * Para la Empresa YPF el Json tienen la cuenta INDICADOR periodo 2017
 		 * duplicada, vemos como se guardo una sola.
 		 */
-		Aplicacion.cargarEmpresasDesdeJson(representacionJSON);
+		Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON));
 		assertEquals(repo.cantidadEmpresas(), 2);
 		assertEquals(repo.cantidadDeCuentasParaEmpresa("IBM"), 2);
 		assertEquals(repo.cantidadDeCuentasParaEmpresa("YPF"), 3);
@@ -91,7 +92,7 @@ public class TestCargaDeJson {
 		 * cargaremos este al Repo y verificaremos que no se duplican ni la
 		 * empresa ni las cuentas. Y se agregan las empresas Axion y Petrobras.
 		 */
-		Aplicacion.cargarEmpresasDesdeJson(representacionJSON2);
+		Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON2));
 		assertEquals(repo.cantidadEmpresas(), 4);
 		assertEquals(repo.cantidadDeCuentasParaEmpresa("IBM"), 3);
 		assertEquals(repo.cantidadDeCuentasParaEmpresa("YPF"), 3);
@@ -110,10 +111,18 @@ public class TestCargaDeJson {
 		// repo.devolverCuentasDeEmpresaDeNombre("PETROBRAS");
 		repo.limpiarRepo();
 	}
-
-	// @Test
-	// public void debeDevolverLaRepresentacionJSONDeUnaListaDeEmpresas() {
-	// System.out.println(representacionJSON2);
-	// }
+	@Test
+	public void testCalcularCuentaExp() throws FileNotFoundException   {
+		Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON));
+		
+		CuentaExp cuentaexp = new CuentaExp("INDICADOR");
+		assertTrue(cuentaexp.calcularResultado("YPF",2017) == 2000);
+		System.out.print(cuentaexp.calcularResultado("YPF",2017));
+	
+	}
+	
+	private String getInputFilePath(String input) {
+        return this.getClass().getResource(input).getPath();
+    }
 
 }

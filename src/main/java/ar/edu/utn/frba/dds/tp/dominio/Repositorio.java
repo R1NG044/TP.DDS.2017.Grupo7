@@ -3,9 +3,12 @@ package ar.edu.utn.frba.dds.tp.dominio;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
+
 public final class Repositorio {
 
 	private List<Empresa> empresas = new ArrayList<Empresa>();
+	private List<Indicador> indicadores = new ArrayList<Indicador>();
 
 	private static Repositorio REPO = null;
 
@@ -33,6 +36,23 @@ public final class Repositorio {
 
 	}
 
+	public void agregarIndicador(Indicador unIndicadorInput) {
+		if (!(existeIndicadorDeNombre(unIndicadorInput.getNombre()))) {
+			this.indicadores.add(unIndicadorInput);
+		} else {
+			System.out.print("Ya Existe Indicador en Base");
+		}
+	}
+
+	private boolean existeIndicadorDeNombre(String nombreIndicador) {
+		for (Indicador indicador : indicadores) {
+			if (indicador.getNombre().equals(nombreIndicador)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private void agregarEmpresa(Empresa unaEmpresaInput) {
 		if (existeEmpresaDeNombre(unaEmpresaInput.getNombre())) {
 			for (Empresa empresa : empresas) {
@@ -55,6 +75,15 @@ public final class Repositorio {
 			}
 		}
 		return false;
+	}
+
+	public Empresa darEmpresaDeNombre(String nombreEmpresa) {
+		for (Empresa empresa : empresas) {
+			if (empresa.getNombre().equals(nombreEmpresa)) {
+				return empresa;
+			}
+		}
+		throw new RuntimeException("No existe la Empresa ");
 	}
 
 	public void devolverCuentasDeEmpresaDeNombre(String nombreEmpresa) {
@@ -90,8 +119,41 @@ public final class Repositorio {
 		return false;
 	}
 
+	public boolean existeIndicador(String nombreIndicador) {
+		for (Indicador indicador : indicadores) {
+			if (indicador.getNombre().equals(nombreIndicador)) {
+				return true;
+			}
+		}
+			return false;
+	}
+	public Indicador darIndicadorDeNombre(String nombreIndicador) {
+		for (Indicador indicador : indicadores) {
+			if (indicador.getNombre().equals(nombreIndicador)) {
+				return indicador;
+			}
+		}
+		throw new RuntimeException("No existe el Indicador ");
+	}
+
 	public List<Empresa> getEmpresas() {
 		return empresas;
+	}
+
+	public List<Indicador> getIndicadores() {
+		return indicadores;
+	}
+
+	public void setIndicadores(List<Indicador> indicadores) {
+		this.indicadores = indicadores;
+	}
+	
+	public List<IndicadorNodo> getIndicadoresEvaluados(Integer periodo){
+		//devuelve lista de indicadores que han sido cargados en memoria y su evaluacion para todas las empresas
+		//cargadas en el json, en el periodo provisto.
+		
+		
+		return new ArrayList<IndicadorNodo>();
 	}
 
 }
