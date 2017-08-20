@@ -147,5 +147,13 @@ public final class Repositorio {
 	public void setIndicadores(List<Indicador> indicadores) {
 		this.indicadores = indicadores;
 	}
+	
+	public List<IndicadorNodo> getIndicadoresEvaluados(Integer periodo){
+		//devuelve lista de indicadores que han sido cargados en memoria y su evaluacion para todas las empresas
+		//cargadas en el json, en el periodo provisto.
+		
+		
+		return new ArrayList<IndicadorNodo>();
+	}
 
 }
