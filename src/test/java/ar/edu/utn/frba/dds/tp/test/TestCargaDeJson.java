@@ -6,8 +6,13 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.*;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import ar.edu.utn.frba.dds.tp.dominio.Empresa;
 import ar.edu.utn.frba.dds.tp.antlr.dds.CuentaExp;
@@ -15,7 +20,7 @@ import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 import ar.edu.utn.frba.dds.tp.herramientas.AdapterJson;
 
-public class TestCargaDeJson {
+public class TestCargaDeJson extends AbstractPersistenceTest implements WithGlobalEntityManager  {
 	private Repositorio repo;
 	private String representacionJSON;
 	private String representacionJSON2;
@@ -44,6 +49,8 @@ public class TestCargaDeJson {
 		listaEmpresasTest1 = AdapterJson.transformarDeJSONaListaEmpresas(getInputFilePath(representacionJSON));
 		listaEmpresasTest2 = AdapterJson.transformarDeJSONaListaEmpresas(getInputFilePath(representacionJSON2));
 
+		
+		
 		// Se verifica que carga las Empresas en cada lista
 		assertEquals(listaEmpresasTest1.size(), 2);
 		assertEquals(listaEmpresasTest2.size(), 4);
@@ -109,6 +116,18 @@ public class TestCargaDeJson {
 		// repo.devolverCuentasDeEmpresaDeNombre("YPF");
 		// repo.devolverCuentasDeEmpresaDeNombre("AXION");
 		// repo.devolverCuentasDeEmpresaDeNombre("PETROBRAS");
+		
+		
+		EntityManager entityManager = 
+				PerThreadEntityManagers.
+				getEntityManager();
+		
+		EntityTransaction tx = entityManager.getTransaction();
+		
+		entityManager.persist(repo.darEmpresaDeNombre("YPF"));
+		
+		tx.commit();
+		
 		repo.limpiarRepo();
 	}
 	@Test

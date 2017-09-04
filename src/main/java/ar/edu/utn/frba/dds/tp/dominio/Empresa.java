@@ -1,11 +1,20 @@
 package ar.edu.utn.frba.dds.tp.dominio;
 
 import java.util.ArrayList;
-import java.util.List;;
+import java.util.List;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "empresa")
 public class Empresa {
 
+	@Id @GeneratedValue
+	private Integer id;
+	
 	private String nombreEmpresa;
+	
+	@OneToMany( mappedBy = "empresa", cascade = CascadeType.ALL)
+	//@JoinTable(name = "Cuentas_Empresas", joinColumns = { @JoinColumn(name = "idEmpresa") }, inverseJoinColumns = { @JoinColumn(name = "idCuenta") })
 	private List<Cuenta> cuentas;
 
 	public Empresa(final String _nombre, final ArrayList<Cuenta> _cuentas) {

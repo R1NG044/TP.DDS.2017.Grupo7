@@ -1,10 +1,21 @@
 package ar.edu.utn.frba.dds.tp.dominio;
 
+import javax.persistence.*;
+
+@Entity
 public class Cuenta {
 
+	@Id @GeneratedValue
+	private Integer idCuenta;
+	
 	private String nombreCuenta;
 	private Long valor;
+	
 	private Integer periodo;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "empresa_id")
+	private Empresa empresa;
 
 	public Cuenta(final String _nombre, final Long _valor, final Integer _periodo) {
 		this.nombreCuenta = _nombre;
