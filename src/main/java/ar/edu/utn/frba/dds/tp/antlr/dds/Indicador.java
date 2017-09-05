@@ -1,11 +1,24 @@
 package ar.edu.utn.frba.dds.tp.antlr.dds;
 
-public class Indicador implements IExpresion {
-	String nombre;
-	ExpresionCompuesta expresion;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
-	public Indicador(String nombre, ExpresionCompuesta expresion) {
+@Entity(name="Indicador")
+@Table(name = "indicador")
+public class Indicador implements IExpresion {
+	
+	@Id
+	private String nombre;
+	private String formula;
+	
+	@Transient
+	private ExpresionCompuesta expresion;
+
+	public Indicador(String nombre, ExpresionCompuesta expresion, String formula) {
 		this.nombre = nombre;
+		this.formula = formula;
 		this.expresion = expresion;
 	}
 

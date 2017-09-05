@@ -6,18 +6,28 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.apache.commons.io.IOUtils;
+import org.apache.tools.ant.types.Path;
 import org.junit.Before;
 import org.junit.Test;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraLexer;
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser;
+import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
 import ar.edu.utn.frba.dds.tp.antlr.dds.ParserListener;
 import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
+import ar.edu.utn.frba.dds.tp.dominio.Empresa;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 
-public class TestAntlr {
+public class TestAntlr extends AbstractPersistenceTest implements WithGlobalEntityManager {
 	private Repositorio repo;
 	private String representacionJSON;
 	
@@ -36,16 +46,31 @@ public class TestAntlr {
 
 	@Test
 	public void testGuardarIndicador() throws IOException {
+		
+		EntityManager entityManager = 
+				PerThreadEntityManagers.
+				getEntityManager();
+		
+		EntityTransaction tx = entityManager.getTransaction();
+		
+		
 		INPUT_PATH = "/IngresoNeto.txt";
 		InputStream file = this.getInputFilePath();
+		
+		//IOUtils io = new IOUtils();
+		//FileReader fr = new FileReader(
+		String formula = IOUtils.toString(file,"UTF-8");
+		
 		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromStream(file));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		CalculadoraParser parser = new CalculadoraParser(tokens);
 		CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
 		ParserListener listener = new ParserListener();
 		
-		listener.guardarUnIndicadorNuevo(expresionContext, "INGRESONETO");
+		
+		listener.guardarUnIndicadorNuevo(expresionContext, "INGRESONETO", formula);
 		assertTrue(repo.existeIndicador("INGRESONETO"));
+		
 		
 		INPUT_PATH = "/ROE.txt";
 		file = this.getInputFilePath();
@@ -55,10 +80,19 @@ public class TestAntlr {
 		expresionContext = parser.expresion();
 		ParserListener listener2 = new ParserListener();
 		
-		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE");
+		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE", file.toString());
 		assertTrue(repo.existeIndicador("ROE"));
 		assertTrue(repo.existeIndicador("INGRESONETO"));
 		System.out.println(listener.probarUnIndicadorNuevo(expresionContext, "AXION", 2017));
+		
+		
+		//Persist indicador
+
+		for(Indicador i:repo.getIndicadores()){
+			entityManager.persist(i);
+		}
+		
+		tx.commit();
 	}
 
 	@Test

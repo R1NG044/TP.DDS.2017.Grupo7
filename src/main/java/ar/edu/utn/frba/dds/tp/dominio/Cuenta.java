@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.tp.dominio;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "cuenta")
 public class Cuenta {
 
 	@Id @GeneratedValue
@@ -16,6 +17,14 @@ public class Cuenta {
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "empresa_id")
 	private Empresa empresa;
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
 
 	public Cuenta(final String _nombre, final Long _valor, final Integer _periodo) {
 		this.nombreCuenta = _nombre;
@@ -47,5 +56,16 @@ public class Cuenta {
 	public void setValor(Long valor) {
 		this.valor = valor;
 	}
-
+	
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cuenta )) return false;
+        return idCuenta != null && idCuenta.equals(((Cuenta) o).idCuenta);
+    }
+	
+	 @Override
+	    public int hashCode() {
+	        return 31;
+	    }
 }

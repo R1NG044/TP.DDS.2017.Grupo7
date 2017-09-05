@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
-@Entity
+@Entity(name="Empresa")
 @Table(name = "empresa")
 public class Empresa {
 
@@ -13,7 +13,7 @@ public class Empresa {
 	
 	private String nombreEmpresa;
 	
-	@OneToMany( mappedBy = "empresa", cascade = CascadeType.ALL)
+	@OneToMany( mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
 	//@JoinTable(name = "Cuentas_Empresas", joinColumns = { @JoinColumn(name = "idEmpresa") }, inverseJoinColumns = { @JoinColumn(name = "idCuenta") })
 	private List<Cuenta> cuentas;
 
@@ -37,6 +37,7 @@ public class Empresa {
 
 	private void agregarCuenta(Cuenta unaCuenta) {
 		if (!this.existeCuentaDelMismoPeriodo(unaCuenta)) {
+			unaCuenta.setEmpresa(this);
 			this.cuentas.add(unaCuenta);
 		}
 	}

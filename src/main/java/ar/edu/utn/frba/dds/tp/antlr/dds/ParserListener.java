@@ -27,16 +27,16 @@ public class ParserListener extends CalculadoraBaseListener {
 		this.errores = new ArrayList<String>();
 	}
 
-	public void guardarUnIndicadorNuevo(ExpresionContext ctx, String nombreNuevoIndicador) {
+	public void guardarUnIndicadorNuevo(ExpresionContext ctx, String nombreNuevoIndicador, String formula) {
 		this.enterExpresion(ctx);
-		Indicador indicador = new Indicador(nombreNuevoIndicador, expresionPadre);
+		Indicador indicador = new Indicador(nombreNuevoIndicador, expresionPadre, formula);
 		Repositorio.getInstance().agregarIndicador(indicador);
 
 	}
 
 	public double probarUnIndicadorNuevo(ExpresionContext ctx, String empresa, Integer periodo) {
 		this.enterExpresion(ctx);
-		Indicador indicador = new Indicador("Prueba", expresionPadre);
+		Indicador indicador = new Indicador("Prueba", expresionPadre, "");
 		return indicador.evaluarIndicador(empresa, periodo);
 
 	}
@@ -78,10 +78,10 @@ public class ParserListener extends CalculadoraBaseListener {
 		IOperador operador = this.operadores.get(tree.getText());
 		if (operador != null) {
 			if (expresion.getOperando2() == null) {
-				// Setea operador en Expresión que vino
+				// Setea operador en Expresiï¿½n que vino
 				expresion.setOperador(operador);
 			} else {
-				// Setea operador en nueva Expresión anidando
+				// Setea operador en nueva Expresiï¿½n anidando
 				this.setearExpresionCompuesta(expresion, operador);
 
 			}
