@@ -2,20 +2,22 @@ package ar.edu.utn.frba.dds.tp.dominio;
 
 import java.util.ArrayList;
 import ar.edu.utn.frba.dds.tp.antlr.dds.*;
-
+import javax.persistence.*;
 
 import java.util.List;
 
+
+@Entity(name="Metodologia")
+@Table(name = "metodologia")
 public class Metodologia {
 	
+	@Id
 	private String nombre;
 	
-	private List<Regla> reglas;
 	
 	public Metodologia(String nombre){
 		this.nombre = nombre;
 		
-		reglas = new ArrayList<Regla>();
 	}
 	
 	public ArrayList<Empresa> evaluarMetodologia(ArrayList<Empresa> empresas){

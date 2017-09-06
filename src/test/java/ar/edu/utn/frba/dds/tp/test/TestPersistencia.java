@@ -15,6 +15,7 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
+import ar.edu.utn.frba.dds.tp.dominio.Metodologia;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 
 public class TestPersistencia extends AbstractPersistenceTest implements WithGlobalEntityManager  {
@@ -54,6 +55,22 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 
 		
 
+		
+	}
+	
+	@Test
+	public void persistirMetodologias(){
+		EntityManager entityManager = 
+				PerThreadEntityManagers.
+				getEntityManager();
+		
+		EntityTransaction tx = entityManager.getTransaction();
+		
+		Metodologia m = new Metodologia("Buffet");
+		
+		entityManager.persist(m);
+		
+		tx.commit();
 		
 	}
 	

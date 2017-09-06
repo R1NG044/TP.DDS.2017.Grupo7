@@ -11,6 +11,7 @@
 		<class>ar.edu.utn.frba.dds.tp.dominio.Empresa</class>  	
     	 <class>ar.edu.utn.frba.dds.tp.dominio.Cuenta</class>
     	 <class>ar.edu.utn.frba.dds.tp.antlr.dds.Indicador</class>
+    	 <class>ar.edu.utn.frba.dds.tp.dominio.Metodologia</class>
     	 
         <properties> 
 	    	<property name="hibernate.archive.autodetection" value="class"/>        

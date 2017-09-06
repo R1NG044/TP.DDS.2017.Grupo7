@@ -10,6 +10,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import java.io.FileNotFoundException;
 import ar.edu.utn.frba.dds.tp.herramientas.AdapterJson;
+import ar.edu.utn.frba.dds.tp.antlr.dds.*;
 
 public final class  Aplicacion {
 
@@ -44,5 +45,11 @@ public final class  Aplicacion {
 		//cargar ind predefinidos
 	}
 	
+	public static void persistirIndicador(Indicador ind){
+		
+		
+		//TODO: Persist indicador
+		
+	}
 	
 }

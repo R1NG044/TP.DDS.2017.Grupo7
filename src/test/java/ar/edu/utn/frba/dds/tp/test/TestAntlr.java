@@ -1,10 +1,12 @@
 package ar.edu.utn.frba.dds.tp.test;
 //import org.antlr.runtime.*;
+import java.nio.charset.StandardCharsets;
 
 import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -57,18 +59,21 @@ public class TestAntlr extends AbstractPersistenceTest implements WithGlobalEnti
 		INPUT_PATH = "/IngresoNeto.txt";
 		InputStream file = this.getInputFilePath();
 		
-		//IOUtils io = new IOUtils();
-		//FileReader fr = new FileReader(
-		String formula = IOUtils.toString(file,"UTF-8");
-		
+	/*
+	    String text = IOUtils.toString(inputStream, StandardCharsets.UTF_8.name());
+	
+*/
+	
 		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromStream(file));
+		
+		file = this.getInputFilePath();
+		String formula1 = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
+		
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		CalculadoraParser parser = new CalculadoraParser(tokens);
 		CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
 		ParserListener listener = new ParserListener();
-		
-		
-		listener.guardarUnIndicadorNuevo(expresionContext, "INGRESONETO", formula);
+		listener.guardarUnIndicadorNuevo(expresionContext, "INGRESONETO", formula1);
 		assertTrue(repo.existeIndicador("INGRESONETO"));
 		
 		
@@ -80,19 +85,24 @@ public class TestAntlr extends AbstractPersistenceTest implements WithGlobalEnti
 		expresionContext = parser.expresion();
 		ParserListener listener2 = new ParserListener();
 		
-		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE", file.toString());
+		//Persisto formula indicador ROE
+		file = this.getInputFilePath();
+		String formula2 = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
+		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE", formula2);
+		
 		assertTrue(repo.existeIndicador("ROE"));
 		assertTrue(repo.existeIndicador("INGRESONETO"));
 		System.out.println(listener.probarUnIndicadorNuevo(expresionContext, "AXION", 2017));
 		
-		
+
 		//Persist indicador
 
 		for(Indicador i:repo.getIndicadores()){
 			entityManager.persist(i);
 		}
-		
+
 		tx.commit();
+		
 	}
 
 	@Test
