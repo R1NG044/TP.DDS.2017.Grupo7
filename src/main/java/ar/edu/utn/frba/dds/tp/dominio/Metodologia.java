@@ -11,7 +11,9 @@ import java.util.List;
 @Table(name = "metodologia")
 public class Metodologia {
 	
-	@Id
+	@Id @GeneratedValue
+	private long id;
+	
 	private String nombre;
 	
 	

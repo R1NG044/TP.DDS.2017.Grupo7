@@ -27,6 +27,8 @@ public final class  Aplicacion {
 		listaEmpresas = AdapterJson.transformarDeJSONaListaEmpresas(jsonEmpresas);
 		Repositorio.getInstance().cargarListaDeEmpresas(listaEmpresas);
 		
+		Repositorio.getInstance().persistirEmpresas();
+		/* Lo mando a Repositorio
 		EntityManager entityManager = 
 				PerThreadEntityManagers.
 				getEntityManager();
@@ -38,10 +40,9 @@ public final class  Aplicacion {
 			
 		}
 		
-		tx.commit();
+		tx.commit();*/
 		
 		Repositorio.getInstance().limpiarRepo();
-		//Repositorio.getInstance().cargarListaDeEmpresas(listaEmpresas);
 		//cargar ind predefinidos
 	}
 	

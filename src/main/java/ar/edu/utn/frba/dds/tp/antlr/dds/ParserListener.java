@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraBaseListener;
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser;
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser.ExpresionContext;
+import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 
 public class ParserListener extends CalculadoraBaseListener {

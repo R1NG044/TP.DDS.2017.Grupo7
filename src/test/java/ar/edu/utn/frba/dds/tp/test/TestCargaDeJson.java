@@ -30,6 +30,7 @@ public class TestCargaDeJson extends AbstractPersistenceTest implements WithGlob
 		this.representacionJSON = "/empresasjson1.txt";
 		this.representacionJSON2 = "/empresasjson2.txt";
 		this.repo = Repositorio.getInstance();
+		repo.limpiarRepo();
 	}
 
 	//

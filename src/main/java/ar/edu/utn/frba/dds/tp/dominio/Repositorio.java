@@ -1,6 +1,10 @@
 package ar.edu.utn.frba.dds.tp.dominio;
 
 import java.util.ArrayList;
+import javax.persistence.*;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
 import java.util.List;
 
 import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
@@ -9,10 +13,13 @@ public final class Repositorio {
 
 	private List<Empresa> empresas = new ArrayList<Empresa>();
 	private List<Indicador> indicadores = new ArrayList<Indicador>();
-
+	
 	private static Repositorio REPO = null;
+	//EntityManager como propiedad del repositorio.
 
 	private Repositorio() {
+		
+		//Instanciar EntityManager 
 	}
 
 	public static Repositorio getInstance() {
@@ -154,6 +161,24 @@ public final class Repositorio {
 		
 		
 		return new ArrayList<IndicadorNodo>();
+	}
+	
+	public int persistirEmpresas(){
+		
+		EntityManager entityManager = 
+				PerThreadEntityManagers.
+				getEntityManager();
+		
+		EntityTransaction tx = entityManager.getTransaction();
+		
+		for(Empresa e:Repositorio.getInstance().getEmpresas()){
+			entityManager.persist(e);
+			
+		}
+		
+		tx.commit();
+		
+		return 1; //Success
 	}
 
 }
