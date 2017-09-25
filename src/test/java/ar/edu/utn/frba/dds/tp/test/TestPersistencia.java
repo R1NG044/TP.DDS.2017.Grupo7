@@ -4,16 +4,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
+import ar.edu.utn.frba.dds.tp.antlr.CalculadoraLexer;
+import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser;
+import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
+import ar.edu.utn.frba.dds.tp.antlr.dds.ParserListener;
 import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
 import ar.edu.utn.frba.dds.tp.dominio.Metodologia;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
@@ -22,12 +32,13 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 
 	private Repositorio repo;
 	private String representacionJSON;
-	private String representacionJSON2;
+	private String representacionJSON3;
+	public static String INPUT_PATH ;
 
 	@Before
 	public void SetUp() {
 		this.representacionJSON = "/empresasjson1.txt";
-		this.representacionJSON2 = "/empresasjson2.txt";
+		this.representacionJSON3 = "/empresasjson3.txt";
 		this.repo = Repositorio.getInstance();
 	}
 
@@ -74,7 +85,65 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		
 	}
 	
+	public void testGuardarIndicador() throws IOException {
+		Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
+		EntityManager entityManager = 
+				PerThreadEntityManagers.
+				getEntityManager();
+		
+		EntityTransaction tx = entityManager.getTransaction();
+		
+		
+		INPUT_PATH = "/IngresoNeto.txt";
+		InputStream file = this.getInputFilePath();
+			
+		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromStream(file));
+		
+		file = this.getInputFilePath();
+		String formula1 = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
+		
+		CommonTokenStream tokens = new CommonTokenStream(lexer);
+		CalculadoraParser parser = new CalculadoraParser(tokens);
+		CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
+		ParserListener listener = new ParserListener();
+		listener.guardarUnIndicadorNuevo(expresionContext, "INGRESONETO", formula1);
+		assertTrue(repo.existeIndicador("INGRESONETO"));
+		
+		
+		INPUT_PATH = "/ROE.txt";
+		file = this.getInputFilePath();
+		lexer = new CalculadoraLexer(CharStreams.fromStream(file));
+		tokens = new CommonTokenStream(lexer);
+		parser = new CalculadoraParser(tokens);
+		expresionContext = parser.expresion();
+		ParserListener listener2 = new ParserListener();
+		
+		//Persisto formula indicador ROE
+		file = this.getInputFilePath();
+		String formula2 = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
+		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE", formula2);
+		
+		assertTrue(repo.existeIndicador("ROE"));
+		assertTrue(repo.existeIndicador("INGRESONETO"));
+		System.out.println(listener.probarUnIndicadorNuevo(expresionContext, "AXION", 2017));
+		
+
+		//Persist indicador
+
+		for(Indicador i:repo.getIndicadores()){
+			entityManager.persist(i);
+		}
+
+		tx.commit();
+		
+	}
+	
 	private String getInputFilePath(String input) {
         return this.getClass().getResource(input).getPath();
     }
+
+private InputStream getInputFilePath() {
+	return this.getClass().getResourceAsStream(INPUT_PATH);
+
+}
 }

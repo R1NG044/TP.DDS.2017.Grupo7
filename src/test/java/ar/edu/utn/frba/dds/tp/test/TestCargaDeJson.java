@@ -20,7 +20,7 @@ import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 import ar.edu.utn.frba.dds.tp.herramientas.AdapterJson;
 
-public class TestCargaDeJson extends AbstractPersistenceTest implements WithGlobalEntityManager  {
+public class TestCargaDeJson {
 	private Repositorio repo;
 	private String representacionJSON;
 	private String representacionJSON2;
@@ -117,19 +117,7 @@ public class TestCargaDeJson extends AbstractPersistenceTest implements WithGlob
 		// repo.devolverCuentasDeEmpresaDeNombre("YPF");
 		// repo.devolverCuentasDeEmpresaDeNombre("AXION");
 		// repo.devolverCuentasDeEmpresaDeNombre("PETROBRAS");
-		
-		
-		EntityManager entityManager = 
-				PerThreadEntityManagers.
-				getEntityManager();
-		
-		EntityTransaction tx = entityManager.getTransaction();
-		
-		entityManager.persist(repo.darEmpresaDeNombre("YPF"));
-		
-		tx.commit();
-		
-		repo.limpiarRepo();
+			repo.limpiarRepo();
 	}
 	@Test
 	public void testCalcularCuentaExp() throws FileNotFoundException   {

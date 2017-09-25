@@ -29,7 +29,7 @@ import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
 import ar.edu.utn.frba.dds.tp.dominio.Empresa;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 
-public class TestAntlr extends AbstractPersistenceTest implements WithGlobalEntityManager {
+public class TestAntlr {
 	private Repositorio repo;
 	private String representacionJSON;
 	
@@ -49,20 +49,9 @@ public class TestAntlr extends AbstractPersistenceTest implements WithGlobalEnti
 	@Test
 	public void testGuardarIndicador() throws IOException {
 		
-		EntityManager entityManager = 
-				PerThreadEntityManagers.
-				getEntityManager();
-		
-		EntityTransaction tx = entityManager.getTransaction();
-		
-		
 		INPUT_PATH = "/IngresoNeto.txt";
 		InputStream file = this.getInputFilePath();
 		
-	/*
-	    String text = IOUtils.toString(inputStream, StandardCharsets.UTF_8.name());
-	
-*/
 	
 		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromStream(file));
 		
@@ -95,14 +84,6 @@ public class TestAntlr extends AbstractPersistenceTest implements WithGlobalEnti
 		System.out.println(listener.probarUnIndicadorNuevo(expresionContext, "AXION", 2017));
 		
 
-		//Persist indicador
-
-		for(Indicador i:repo.getIndicadores()){
-			entityManager.persist(i);
-		}
-
-		tx.commit();
-		
 	}
 
 	@Test
