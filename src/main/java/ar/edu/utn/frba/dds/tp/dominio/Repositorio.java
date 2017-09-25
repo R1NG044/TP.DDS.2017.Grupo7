@@ -163,6 +163,18 @@ public final class Repositorio {
 		return new ArrayList<IndicadorNodo>();
 	}
 	
+	/**** Metodos de Bases de datos ****/
+	
+	//Metodo dummy mockeado
+	public void cargarIndicadoresDesdeBD(){
+		Indicador ind1 = new Indicador("ROE");
+		Indicador ind2 = new Indicador("SuperIndice");
+		
+		indicadores.add(ind1);
+		indicadores.add(ind2);
+		
+	}
+	
 	public int persistirEmpresas(){
 		
 		EntityManager entityManager = 
