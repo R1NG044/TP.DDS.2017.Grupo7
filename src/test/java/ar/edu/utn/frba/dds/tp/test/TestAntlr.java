@@ -62,7 +62,7 @@ public class TestAntlr {
 		CalculadoraParser parser = new CalculadoraParser(tokens);
 		CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
 		ParserListener listener = new ParserListener();
-		listener.guardarUnIndicadorNuevo(expresionContext, "INGRESONETO", formula1);
+		listener.guardarUnIndicadorNuevo(expresionContext, "INGRESONETO", formula1, 1234);
 		assertTrue(repo.existeIndicador("INGRESONETO"));
 		
 		
@@ -77,7 +77,7 @@ public class TestAntlr {
 		//Persisto formula indicador ROE
 		file = this.getInputFilePath();
 		String formula2 = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
-		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE", formula2);
+		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE", formula2, 4321);
 		
 		assertTrue(repo.existeIndicador("ROE"));
 		assertTrue(repo.existeIndicador("INGRESONETO"));

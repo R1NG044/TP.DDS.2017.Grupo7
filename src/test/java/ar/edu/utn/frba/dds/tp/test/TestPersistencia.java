@@ -65,8 +65,6 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		 */
 
 		
-
-		
 	}
 	
 	@Test
@@ -77,7 +75,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		
 		EntityTransaction tx = entityManager.getTransaction();
 		
-		Metodologia m = new Metodologia("Buffet");
+		Metodologia m = new Metodologia("Buffet", 0000); // 0000 es el id de usuario de prueba
 		
 		entityManager.persist(m);
 		
@@ -85,18 +83,21 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		
 	}
 	
-	public void testGuardarIndicador() throws IOException {
+	@Test
+		public void testGuardarIndicador() throws IOException {
+		repo.limpiarRepo();			
 		Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
+		
 		EntityManager entityManager = 
 				PerThreadEntityManagers.
 				getEntityManager();
 		
 		EntityTransaction tx = entityManager.getTransaction();
 		
-		
 		INPUT_PATH = "/IngresoNeto.txt";
 		InputStream file = this.getInputFilePath();
-			
+		
+	
 		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromStream(file));
 		
 		file = this.getInputFilePath();
@@ -106,10 +107,8 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		CalculadoraParser parser = new CalculadoraParser(tokens);
 		CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
 		ParserListener listener = new ParserListener();
-		listener.guardarUnIndicadorNuevo(expresionContext, "INGRESONETO", formula1);
+		listener.guardarUnIndicadorNuevo(expresionContext, "INGRESONETO", formula1, 1234);
 		assertTrue(repo.existeIndicador("INGRESONETO"));
-		
-		
 		INPUT_PATH = "/ROE.txt";
 		file = this.getInputFilePath();
 		lexer = new CalculadoraLexer(CharStreams.fromStream(file));
@@ -121,21 +120,19 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		//Persisto formula indicador ROE
 		file = this.getInputFilePath();
 		String formula2 = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
-		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE", formula2);
+		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE", formula2, 4321);
 		
 		assertTrue(repo.existeIndicador("ROE"));
 		assertTrue(repo.existeIndicador("INGRESONETO"));
 		System.out.println(listener.probarUnIndicadorNuevo(expresionContext, "AXION", 2017));
-		
-
 		//Persist indicador
 
-		for(Indicador i:repo.getIndicadores()){
-			entityManager.persist(i);
-		}
+				for(Indicador i:repo.getIndicadores()){
+					entityManager.persist(i);
+				}
 
-		tx.commit();
-		
+				tx.commit();
+	
 	}
 	
 	private String getInputFilePath(String input) {

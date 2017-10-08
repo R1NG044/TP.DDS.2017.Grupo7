@@ -14,6 +14,7 @@ import ar.edu.utn.frba.dds.tp.antlr.dds.*;
 
 public final class  Aplicacion {
 
+	
 
 	public static void cargarEmpresasDesdeJson(String jsonEmpresas) throws FileNotFoundException {
 		List<Empresa> listaEmpresas = new ArrayList<Empresa>();

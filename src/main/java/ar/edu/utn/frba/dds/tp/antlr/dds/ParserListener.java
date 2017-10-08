@@ -17,6 +17,7 @@ import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser;
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser.ExpresionContext;
 import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
+import ar.edu.utn.frba.dds.tp.dominio.Usuario;
 
 public class ParserListener extends CalculadoraBaseListener {
 
@@ -32,16 +33,16 @@ public class ParserListener extends CalculadoraBaseListener {
 		this.errores = new ArrayList<String>();
 	}
 
-	public void guardarUnIndicadorNuevo(ExpresionContext ctx, String nombreNuevoIndicador, String formula) {
+	public void guardarUnIndicadorNuevo(ExpresionContext ctx, String nombreNuevoIndicador, String formula, Integer userId) {
 		this.enterExpresion(ctx);
-		Indicador indicador = new Indicador(nombreNuevoIndicador, expresionPadre, formula);
+		Indicador indicador = new Indicador(nombreNuevoIndicador, expresionPadre, formula, userId);
 		Repositorio.getInstance().agregarIndicador(indicador);
 
 	}
 
 	public double probarUnIndicadorNuevo(ExpresionContext ctx, String empresa, Integer periodo) {
 		this.enterExpresion(ctx);
-		Indicador indicador = new Indicador("Prueba", expresionPadre, "");
+		Indicador indicador = new Indicador("Prueba", expresionPadre, "", 0000);
 		return indicador.evaluarIndicador(empresa, periodo);
 
 	}

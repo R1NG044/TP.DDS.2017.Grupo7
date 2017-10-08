@@ -28,7 +28,9 @@ public class Server {
 		
 		
 	}
-
+public static void loguearUsuario (String usuario, String pass){
+		
+	}
 	private static Object getIndicadoresByUsuario() {
 		// TODO Auto-generated method stub
 		return null;

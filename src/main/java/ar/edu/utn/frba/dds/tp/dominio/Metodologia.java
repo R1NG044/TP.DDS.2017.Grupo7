@@ -13,13 +13,13 @@ public class Metodologia {
 	
 	@Id @GeneratedValue
 	private long id;
-	
+	private Integer userId;
 	private String nombre;
 	
 	
-	public Metodologia(String nombre){
+	public Metodologia(String nombre, Integer userId){
 		this.nombre = nombre;
-		
+		this.userId = userId;
 	}
 	
 	public ArrayList<Empresa> evaluarMetodologia(ArrayList<Empresa> empresas){
