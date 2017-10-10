@@ -19,12 +19,13 @@ public class Server {
 		
 		HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 		
-		Spark.get("/indicadores/:indicadorNombre", (req, res) ->{
+		Spark.get("/indicadores/:nombre", (req, res) ->{
 		
-			Indicador i = Repositorio.getInstance().darIndicadorDeNombre(req.params("indicadorNombre"));
+			List<Indicador> lista = Repositorio.getInstance().buscarIndicadorPorNombre(req.params("nombre"));
 			
-			return i.getNombre();
-		});
+			//return i.getNombre();
+			return new ModelAndView(lista.get(0), "listaIndicadores.hbs");
+		}, engine);
 		
 		
 	}

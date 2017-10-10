@@ -142,6 +142,8 @@ public final class Repositorio {
 		}
 		throw new RuntimeException("No existe el Indicador ");
 	}
+	
+	
 
 	public List<Empresa> getEmpresas() {
 		return empresas;
@@ -170,13 +172,31 @@ public final class Repositorio {
 		Indicador ind1 = new Indicador("ROE");
 		Indicador ind2 = new Indicador("SuperIndice");
 		
+		List<Indicador> indicadores = null;
+		//indicadores = e
+		
 		indicadores.add(ind1);
 		indicadores.add(ind2);
 		
 	}
 	
-	public int persistirEmpresas(){
+	
+	public List<Indicador> buscarIndicadorPorNombre(String nombre) {
+		List<Indicador> indicadores = null;
 		
+		EntityManager entityManager = 
+				PerThreadEntityManagers.
+				getEntityManager();
+		
+		EntityTransaction tx = entityManager.getTransaction();
+		
+		indicadores = entityManager.createNamedQuery("buscarIndicadorPorNombre").setParameter("pnombre", "%" + nombre +
+		"%").getResultList();
+		return indicadores;
+	}
+	
+	public int persistirEmpresas(){
+		 
 		EntityManager entityManager = 
 				PerThreadEntityManagers.
 				getEntityManager();

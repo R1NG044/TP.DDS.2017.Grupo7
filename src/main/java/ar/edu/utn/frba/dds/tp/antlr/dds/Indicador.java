@@ -1,15 +1,15 @@
 package ar.edu.utn.frba.dds.tp.antlr.dds;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
+import javax.persistence.*;
 import ar.edu.utn.frba.dds.tp.dominio.Usuario;
 
 @Entity(name="Indicador")
 @Table(name = "indicador")
+@NamedQuery(name="buscarIndicadorPorNombre",query="SELECT i FROM Indicador i WHERE i.nombre LIKE :pnombre")
 public class Indicador implements IExpresion {
+	
+	//@Id @GeneratedValue
+	//private Integer id;
 	
 	@Id
 	private String nombre;
