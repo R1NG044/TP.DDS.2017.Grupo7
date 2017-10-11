@@ -5,7 +5,7 @@ import ar.edu.utn.frba.dds.tp.dominio.Usuario;
 
 @Entity(name="Indicador")
 @Table(name = "indicador")
-@NamedQuery(name="buscarIndicadorPorNombre",query="SELECT i.nombre FROM Indicador i WHERE i.nombre LIKE :pnombre")
+@NamedQuery(name="buscarIndicadorPorNombre",query="SELECT i.nombre FROM Indicador i WHERE i.usuario.id = :pIdUsuario")
 public class Indicador implements IExpresion {
 	
 	//@Id @GeneratedValue

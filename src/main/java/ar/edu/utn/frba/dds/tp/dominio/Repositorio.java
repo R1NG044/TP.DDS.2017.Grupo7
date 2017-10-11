@@ -193,15 +193,14 @@ public final class Repositorio {
 		return indicadores;
 	}
 	
-	public List<String> buscarNombreIndicadorPorNombre(String nombre) {
+	public List<String> buscarNombreIndicadorPorNombre(Integer idUsuario) {
 		List<String> indicadores = null;
 		
 		EntityManager entityManager = 
 				PerThreadEntityManagers.
 				getEntityManager();
 		
-		indicadores = entityManager.createNamedQuery("buscarIndicadorPorNombre").setParameter("pnombre", "%" + nombre +
-		"%").getResultList();
+		indicadores = entityManager.createNamedQuery("buscarIndicadorPorNombre").setParameter("pIdUsuario", idUsuario).getResultList();
 		return indicadores;
 	}
 	
