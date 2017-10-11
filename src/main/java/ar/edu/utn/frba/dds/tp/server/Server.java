@@ -21,9 +21,11 @@ public class Server {
 		
 		Spark.get("/indicadores/:nombre", (req, res) ->{
 		
-			List<Indicador> lista = Repositorio.getInstance().buscarIndicadorPorNombre(req.params("nombre"));
+			List<String> lista = Repositorio.getInstance().buscarNombreIndicadorPorNombre(req.params("nombre"));
 			
 			//return i.getNombre();
+			//System.out.println(lista.get(0).getNombre());
+			
 			return new ModelAndView(lista.get(0), "listaIndicadores.hbs");
 		}, engine);
 		

@@ -14,6 +14,7 @@ import javax.persistence.EntityTransaction;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.commons.io.IOUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
@@ -27,6 +28,7 @@ import ar.edu.utn.frba.dds.tp.antlr.dds.ParserListener;
 import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
 import ar.edu.utn.frba.dds.tp.dominio.Metodologia;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
+import ar.edu.utn.frba.dds.tp.dominio.Usuario;
 
 public class TestPersistencia extends AbstractPersistenceTest implements WithGlobalEntityManager  {
 
@@ -35,13 +37,27 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 	private String representacionJSON3;
 	public static String INPUT_PATH ;
 
+
 	@Before
 	public void SetUp() {
 		this.representacionJSON = "/empresasjson1.txt";
 		this.representacionJSON3 = "/empresasjson3.txt";
 		this.repo = Repositorio.getInstance();
-	}
 
+	}
+	
+	/*
+	@After
+	public void CloseEm(){
+		
+		EntityTransaction tx = entityManager.getTransaction();
+		tx.commit();
+		
+		if(entityManager.isOpen()){
+			entityManager.close();
+		}			
+	}*/
+	
 	
 	@Test
 	public void cargarJSONEmpresasYCuentasABaseDeDatos() throws FileNotFoundException {
@@ -73,9 +89,10 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 				PerThreadEntityManagers.
 				getEntityManager();
 		
+		
 		EntityTransaction tx = entityManager.getTransaction();
 		
-		Metodologia m = new Metodologia("Buffet", 0000); // 0000 es el id de usuario de prueba
+		Metodologia m = new Metodologia("Buffet", new Usuario(1, "Brenda")); // 0000 es el id de usuario de prueba
 		
 		entityManager.persist(m);
 		
@@ -83,10 +100,11 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		
 	}
 	
-	@Test
+	@Test()
 		public void testGuardarIndicador() throws IOException {
 		repo.limpiarRepo();			
 		Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
+		
 		
 		EntityManager entityManager = 
 				PerThreadEntityManagers.
@@ -107,7 +125,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		CalculadoraParser parser = new CalculadoraParser(tokens);
 		CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
 		ParserListener listener = new ParserListener();
-		listener.guardarUnIndicadorNuevo(expresionContext, "INGRESONETO", formula1, 1234);
+		listener.guardarUnIndicadorNuevo(expresionContext, "INGRESONETO", formula1, new Usuario(1, "Brenda"));
 		assertTrue(repo.existeIndicador("INGRESONETO"));
 		INPUT_PATH = "/ROE.txt";
 		file = this.getInputFilePath();
@@ -120,7 +138,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		//Persisto formula indicador ROE
 		file = this.getInputFilePath();
 		String formula2 = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
-		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE", formula2, 4321);
+		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE", formula2, new Usuario(2, "Nadia"));
 		
 		assertTrue(repo.existeIndicador("ROE"));
 		assertTrue(repo.existeIndicador("INGRESONETO"));

@@ -13,13 +13,16 @@ public class Metodologia {
 	
 	@Id @GeneratedValue
 	private long id;
-	private Integer userId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+	private Usuario usuario;
 	private String nombre;
 	
 	
-	public Metodologia(String nombre, Integer userId){
+	public Metodologia(String nombre, Usuario user){
 		this.nombre = nombre;
-		this.userId = userId;
+		this.usuario = user;
 	}
 	
 	public ArrayList<Empresa> evaluarMetodologia(ArrayList<Empresa> empresas){

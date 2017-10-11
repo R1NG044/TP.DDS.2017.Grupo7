@@ -5,7 +5,7 @@ import ar.edu.utn.frba.dds.tp.dominio.Usuario;
 
 @Entity(name="Indicador")
 @Table(name = "indicador")
-@NamedQuery(name="buscarIndicadorPorNombre",query="SELECT i FROM Indicador i WHERE i.nombre LIKE :pnombre")
+@NamedQuery(name="buscarIndicadorPorNombre",query="SELECT i.nombre FROM Indicador i WHERE i.nombre LIKE :pnombre")
 public class Indicador implements IExpresion {
 	
 	//@Id @GeneratedValue
@@ -14,15 +14,25 @@ public class Indicador implements IExpresion {
 	@Id
 	private String nombre;
 	private String formula;
-	private Integer userId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+	private Usuario usuario;
+	
 	@Transient
 	private ExpresionCompuesta expresion;
+	
+	public Indicador(String nombre, String formula, Integer idUsuario){
+		this.nombre = nombre;
+		this.formula = formula;
+		this.usuario = new Usuario(idUsuario, "");
+	}
 
-	public Indicador(String nombre, ExpresionCompuesta expresion, String formula, Integer userId) {
+	public Indicador(String nombre, ExpresionCompuesta expresion, String formula, Usuario user) {
 		this.nombre = nombre;
 		this.formula = formula;
 		this.expresion = expresion;
-		this.userId = userId;
+		this.usuario = user;
 	}
 
 	public double evaluarIndicador(String empresa, Integer periodo) {

@@ -172,7 +172,7 @@ public final class Repositorio {
 		Indicador ind1 = new Indicador("ROE");
 		Indicador ind2 = new Indicador("SuperIndice");
 		
-		List<Indicador> indicadores = null;
+		List<Indicador> indicadores = new ArrayList<Indicador>();
 		//indicadores = e
 		
 		indicadores.add(ind1);
@@ -188,7 +188,17 @@ public final class Repositorio {
 				PerThreadEntityManagers.
 				getEntityManager();
 		
-		EntityTransaction tx = entityManager.getTransaction();
+		indicadores = entityManager.createNamedQuery("buscarIndicadorPorNombre").setParameter("pnombre", "%" + nombre +
+		"%").getResultList();
+		return indicadores;
+	}
+	
+	public List<String> buscarNombreIndicadorPorNombre(String nombre) {
+		List<String> indicadores = null;
+		
+		EntityManager entityManager = 
+				PerThreadEntityManagers.
+				getEntityManager();
 		
 		indicadores = entityManager.createNamedQuery("buscarIndicadorPorNombre").setParameter("pnombre", "%" + nombre +
 		"%").getResultList();

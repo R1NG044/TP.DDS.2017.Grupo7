@@ -33,16 +33,16 @@ public class ParserListener extends CalculadoraBaseListener {
 		this.errores = new ArrayList<String>();
 	}
 
-	public void guardarUnIndicadorNuevo(ExpresionContext ctx, String nombreNuevoIndicador, String formula, Integer userId) {
+	public void guardarUnIndicadorNuevo(ExpresionContext ctx, String nombreNuevoIndicador, String formula, Usuario user) {
 		this.enterExpresion(ctx);
-		Indicador indicador = new Indicador(nombreNuevoIndicador, expresionPadre, formula, userId);
+		Indicador indicador = new Indicador(nombreNuevoIndicador, expresionPadre, formula, user);
 		Repositorio.getInstance().agregarIndicador(indicador);
 
 	}
 
 	public double probarUnIndicadorNuevo(ExpresionContext ctx, String empresa, Integer periodo) {
 		this.enterExpresion(ctx);
-		Indicador indicador = new Indicador("Prueba", expresionPadre, "", 0000);
+		Indicador indicador = new Indicador("Prueba", expresionPadre, "", new Usuario(0, "Brendas"));
 		return indicador.evaluarIndicador(empresa, periodo);
 
 	}

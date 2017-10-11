@@ -28,6 +28,7 @@ import ar.edu.utn.frba.dds.tp.antlr.dds.ParserListener;
 import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
 import ar.edu.utn.frba.dds.tp.dominio.Empresa;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
+import ar.edu.utn.frba.dds.tp.dominio.Usuario;
 
 public class TestAntlr {
 	private Repositorio repo;
@@ -62,7 +63,7 @@ public class TestAntlr {
 		CalculadoraParser parser = new CalculadoraParser(tokens);
 		CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
 		ParserListener listener = new ParserListener();
-		listener.guardarUnIndicadorNuevo(expresionContext, "INGRESONETO", formula1, 1234);
+		listener.guardarUnIndicadorNuevo(expresionContext, "INGRESONETO", formula1, new Usuario(0, "Brenda"));
 		assertTrue(repo.existeIndicador("INGRESONETO"));
 		
 		
@@ -77,7 +78,7 @@ public class TestAntlr {
 		//Persisto formula indicador ROE
 		file = this.getInputFilePath();
 		String formula2 = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
-		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE", formula2, 4321);
+		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE", formula2, new Usuario(1, "Nadia"));
 		
 		assertTrue(repo.existeIndicador("ROE"));
 		assertTrue(repo.existeIndicador("INGRESONETO"));
