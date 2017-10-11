@@ -1,5 +1,86 @@
-<div>
-	{{#each this}}
-	<p>{{this}}</p>
-	{{/each}}
-</div>
+
+<body style="background-color:#BFC4C3;" link="#EEF9F8" vlink="#EEF9F8" alink="#EEF9F8">
+	<div id="div" align=center><h1 style="border: 2px solid #EEF9F8; padding: 10px; background-color: #EEF9F8; color: #999999; font-family: arial,helvetica; font-size: 40px;">SISTEMA DE APOYO A DECISIONES</h1></div>
+	<div id="div" align=center>
+		<p style="font-size:20px; font-family:arial; background-color: #999999; padding: 30px;"><b>
+			<a href="Index.hbs" style="text-decoration:none;"> /   Home   / </a>
+			<a href="empresas.hbs" style="text-decoration:none;">    Empresas   / </a>
+			<a href="indicadores.hbs" style="text-decoration:none;">    Indicadores   / </a>
+			<a href="metodologia.hbs" style="text-decoration:none;">    Metodologia   / </a>
+			<a href="contacto.hbs" style="text-decoration:none;">    Contacto   / </a>
+		</b></p>
+	</div>
+	
+	
+	
+	<div style='height: 550px; width: 300px; border: 3px solid #999999; background-color: #999999; float: left;'>
+		<p style="font-size:20px; font-family:arial; background-color: #DF2A56; padding: 30px;">
+			INDICADORES
+		</p>
+		<p style="font-size:20px; font-family:arial; background-color: #2A40DF; padding: 30px;">
+			<a href="/indicador/cargar"  style="text-decoration:none;">CARGAR INDICADOR</a>
+		</p>
+			
+	</div>
+		
+		<div id="cen" align="center"> <br><br><br>
+			<form>
+				<p style="border: 2px solid #999999; padding: 10px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Seleccionar Indicador</p>
+				
+				<select id="mySelect1" onchange="myFunction()">
+					<option >Seleccionar</option>
+					
+					{{#each this}}
+					<option >{{this}}</option>
+					{{/each}}	
+				</select>
+			</form>
+			<br><br>
+			<form>
+				<p style="border: 2px solid #999999; padding: 10px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Seleccionar Empresa</p>
+				
+				<select id="mySelect2" onchange="myFunction()">
+					<option >Seleccionar</option>
+					<option >Facebook</option>
+								
+				</select>
+			</form>
+			<br><br>
+			<form>
+				<p style="border: 2px solid #999999; padding: 10px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Seleccionar Período</p>
+				
+				<select id="mySelect3" onchange="myFunction()">
+					<option >Seleccionar</option>
+					<option >2017</option>
+					<option >2016</option>
+					<option >2015</option>
+					<option >2014</option>
+					<option >2013</option>
+					<option >2012</option>
+					<option >2011</option>
+					<option >2010</option>
+					<option >2009</option>
+					<option >2008</option>
+								
+				</select>
+			</form>
+			<input type="submit" onclick="myFunction()" id="enviar" value="Calcular" />
+			<p id="demo"></p>
+			
+			<script>
+				function myFunction() {
+					var x = document.getElementById("mySelect1");
+					var y = document.getElementById("mySelect2");
+					var z = document.getElementById("mySelect3");
+					var a = x.selectedIndex;
+					var e = y.selectedIndex;
+					var i = z.selectedIndex;
+					//document.getElementById("demo").innerHTML = x.options[i].text;
+				}
+			</script>
+			
+			
+		</div>
+					 
+	</div>
+</body>
