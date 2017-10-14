@@ -5,7 +5,7 @@ import ar.edu.utn.frba.dds.tp.dominio.Usuario;
 
 @Entity(name="Indicador")
 @Table(name = "indicador")
-@NamedQuery(name="buscarIndicadorPorNombre",query="SELECT i.nombre FROM Indicador i WHERE i.usuario.id = :pIdUsuario")
+@NamedQuery(name="buscarIndicadorPorUser",query="SELECT new Indicador(i.nombre,i.formula, (new Usuario(u.nombre,u.password))) FROM Indicador i join Usuario u on i.usuario.id = u.id WHERE i.usuario.id = :pIdUsuario")
 public class Indicador implements IExpresion {
 	
 	//@Id @GeneratedValue
@@ -14,7 +14,7 @@ public class Indicador implements IExpresion {
 	@Id
 	private String nombre;
 	private String formula;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
 	private Usuario usuario;
@@ -22,10 +22,14 @@ public class Indicador implements IExpresion {
 	@Transient
 	private ExpresionCompuesta expresion;
 	
-	public Indicador(String nombre, String formula, Integer idUsuario){
+	public Indicador(){
+		
+	}
+	
+	public Indicador(String nombre, String formula, Usuario idUsuario){
 		this.nombre = nombre;
 		this.formula = formula;
-		this.usuario = new Usuario(idUsuario, "");
+		this.usuario =idUsuario;
 	}
 
 	public Indicador(String nombre, ExpresionCompuesta expresion, String formula, Usuario user) {
@@ -51,7 +55,7 @@ public class Indicador implements IExpresion {
 	public double calcularResultado(String empresa, Integer periodo) {
 		return (this.expresion.calcularResultado(empresa, periodo));
 	}
-
+// GETTERS y SETTERS
 	public Indicador(String nombre) {
 		this.nombre = nombre;
 	}
@@ -74,6 +78,30 @@ public class Indicador implements IExpresion {
 	public IExpresion getOperando1() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public String getFormula() {
+		return formula;
+	}
+
+	public void setFormula(String formula) {
+		this.formula = formula;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public ExpresionCompuesta getExpresion() {
+		return expresion;
+	}
+
+	public void setExpresion(ExpresionCompuesta expresion) {
+		this.expresion = expresion;
 	}
 
 }

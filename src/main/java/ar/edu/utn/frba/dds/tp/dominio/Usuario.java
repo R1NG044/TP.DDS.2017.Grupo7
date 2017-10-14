@@ -29,6 +29,19 @@ public class Usuario {
 	@Id @GeneratedValue
 	private Integer id;
 	private String nombre;
+	
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	private String password;
 	
 	@OneToMany( mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -44,6 +57,8 @@ public class Usuario {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
+	
 
 
 

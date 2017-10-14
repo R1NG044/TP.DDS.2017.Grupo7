@@ -193,6 +193,17 @@ public final class Repositorio {
 		return indicadores;
 	}
 	
+	public List<Indicador> buscarIndicadorPorUser(Integer idUsuario) {
+		List<Indicador> indicadores = null;
+		
+		EntityManager entityManager = 
+				PerThreadEntityManagers.
+				getEntityManager();
+		
+		indicadores = entityManager.createNamedQuery("buscarIndicadorPorUser").setParameter("pIdUsuario", idUsuario).getResultList();
+		return indicadores;
+	}
+	
 	public List<String> buscarNombreIndicadorPorNombre(Integer idUsuario) {
 		List<String> indicadores = null;
 		
@@ -200,7 +211,7 @@ public final class Repositorio {
 				PerThreadEntityManagers.
 				getEntityManager();
 		
-		indicadores = entityManager.createNamedQuery("buscarIndicadorPorNombre").setParameter("pIdUsuario", idUsuario).getResultList();
+		indicadores = entityManager.createNamedQuery("buscarIndicadorPorUser").setParameter("pIdUsuario", idUsuario).getResultList();
 		return indicadores;
 	}
 	
