@@ -14,8 +14,14 @@ import spark.template.handlebars.*;
 
 public class Server {
 	
-	private Integer idUsuarioActivo;
+	public static Integer idUsuarioActivo;
 	
+	public Integer getIdUsuarioActivo() {
+		return idUsuarioActivo;
+	}
+	public void setIdUsuarioActivo(Integer idUsuarioActivo) {
+		this.idUsuarioActivo = idUsuarioActivo;
+	}
 	public static void main(String[] args) {
 		Repositorio.getInstance().cargarIndicadoresDesdeBD();
 		
@@ -42,12 +48,12 @@ public class Server {
 			return new ModelAndView(null, "cargarIndicador.hbs");
 		}, engine);
 		
-		Spark.get("/home", (req, res) -> {
-			return new ModelAndView(null, "home.hbs");
+		Spark.get("/login", (req, res) -> {
+			return new ModelAndView(null, "login.hbs");
 			
 		}, engine);
 		
-		Spark.post("/login", (req, res) ->{
+		Spark.post("/index", (req, res) ->{
 			//System.out.println(req.queryParams("login"));
 			//System.out.println(req.queryParams("password"));
 			
@@ -55,14 +61,39 @@ public class Server {
 			Boolean aut = true;
 			
 			Usuario u = new Usuario(1, req.queryParams("login"));
-			//TODO: Mandar nombre de usuario a Index
+			idUsuarioActivo = u.getId();
+			
+			
+			//TODO: Mandar nombre de usuario a Index y grabarlo en label en form, a evaluar.
 			if(aut){
 				return new ModelAndView(u, "index.hbs");
 			}
 			else{
-				return new ModelAndView(null, "home.hbs");
+				return new ModelAndView(null, "login.hbs");
 			}
 		}, engine);
+		
+		Spark.get("/index", (req, res) -> {
+			
+			return new ModelAndView(null, "index.hbs");
+			
+		}, engine);
+		
+		Spark.get("/empresas", (req, res) -> {
+			return new ModelAndView(null, "empresas.hbs");
+		}, engine);
+		
+		Spark.get("/empresa/consultaDeValores", (req, res) -> {
+			
+			return new ModelAndView(null, "consultaDeValores.hbs");
+		}, engine);
+		
+		
+		
+		Spark.get("/metodologias/:idUsuario", (req, res) -> {
+			return new ModelAndView(null, "metodologias.hbs");
+		}, engine);
+		
 		
 		/***** E N D ******/
 		

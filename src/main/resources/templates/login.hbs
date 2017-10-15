@@ -1,0 +1,39 @@
+<body style="background-color:#BFC4C3;" link="#999999">
+	<div id="div" align=center><h1 style="border: 2px solid #EEF9F8; padding: 10px; background-color: #EEF9F8; color: #999999; font-family: arial,helvetica; font-size: 40px;">SISTEMA DE APOYO A DECISIONES</h1></div>
+	<div id="div" align=center>
+		<p style="font-size:20px; font-family:arial; "><b>
+			
+		</b></p>
+	</div>
+	
+	<div style='height: 550px; width: 300px; border: 3px solid #999999; background-color: #999999; float: left;'> </div>
+				
+	<div id="cen" align="center"> <br><br><br><br><br><br>
+		<SCRIPT type="text/javascript"> 
+			function login(){
+			
+			return false;
+			alert('helloo');
+				if (document.form.password.value=='' || document.form.login.value==''){ 
+						alert("Porfavor ingrese, nombre de usuario y contrasena.");
+						//return false;  
+					} 
+					else{ 
+						 location="index.html";
+					} 
+			} 
+		</SCRIPT> 
+		<FORM name="form" action="/index" method="POST" onsubmit="javascript: login();">
+
+			<P>Usuario:    <INPUT type=text name=login> 
+			<P>Password: <INPUT type=password name=password> 
+			<br> </br>
+			<br> </br>
+			<INPUT type="submit" value=Acceder>
+			<input type="Reset">
+		</FORM> 
+			
+	</div>
+	
+</body>
+
