@@ -5,7 +5,7 @@ import ar.edu.utn.frba.dds.tp.dominio.Usuario;
 
 @Entity(name="Indicador")
 @Table(name = "indicador")
-@NamedQuery(name="buscarIndicadorPorUser",query="SELECT new Indicador(i.nombre,i.formula, (new Usuario(u.nombre,u.password))) FROM Indicador i join Usuario u on i.usuario.id = u.id WHERE i.usuario.id = :pIdUsuario")
+@NamedQuery(name="buscarIndicadorPorUser",query="SELECT i FROM Indicador i WHERE i.usuario.id = :pIdUsuario")
 public class Indicador implements IExpresion {
 	
 	//@Id @GeneratedValue
@@ -31,7 +31,7 @@ public class Indicador implements IExpresion {
 		this.formula = formula;
 		this.usuario =idUsuario;
 	}
-
+	
 	public Indicador(String nombre, ExpresionCompuesta expresion, String formula, Usuario user) {
 		this.nombre = nombre;
 		this.formula = formula;

@@ -1,6 +1,5 @@
 package ar.edu.utn.frba.dds.tp.test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
@@ -14,7 +13,6 @@ import javax.persistence.EntityTransaction;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.commons.io.IOUtils;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
