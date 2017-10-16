@@ -48,23 +48,23 @@ public class Server {
 			return new ModelAndView(null, "login.hbs");
 
 		}, engine);
-
-		Spark.post("/index", (req, res) -> {
-			// System.out.println(req.queryParams("login"));
-			// System.out.println(req.queryParams("password"));
-
-			// Autenticación contra la BD
-			Boolean aut = true;
-
+		
+		Spark.post("/index", (req, res) ->{
+			String username = req.queryParams("login");
+			String pwd = req.queryParams("password");
+			
+			//Autenticación contra la BD
+			Boolean aut = validarUsuario(username, pwd);
+			
 			Usuario u = new Usuario(1, req.queryParams("login"));
 			idUsuarioActivo = u.getId();
-
-			// TODO: Mandar nombre de usuario a Index y grabarlo en label en
-			// form, a evaluar.
-			if (aut) {
+			
+			//TODO: Mandar nombre de usuario a Index y grabarlo en label en form, a evaluar.
+			if(aut){
 				return new ModelAndView(u, "index.hbs");
-			} else {
-				return new ModelAndView(null, "login.hbs");
+			}
+			else{
+				return new ModelAndView("El usuario o la contrasena son incorrectos", "login.hbs");
 			}
 		}, engine);
 
@@ -86,9 +86,26 @@ public class Server {
 		Spark.get("/metodologias/:idUsuario", (req, res) -> {
 			return new ModelAndView(null, "metodologias.hbs");
 		}, engine);
-
+		
+		Spark.get("/logout", (req, res) -> {
+			return new ModelAndView(null, "login.hbs");
+			
+		});
+		
 		/***** E N D ******/
-
+		
+	}
+	
+	/**
+	 * @param usuario
+	 * @param pwd
+	 * @returns true si el usuario es autenticado contra la BD.
+	 */
+	public static Boolean validarUsuario (String usuario, String pwd){
+		Usuario u = Repositorio.getInstance().getUsuarioByUserAndPwd(usuario, pwd);
+		
+		return (u != null);
+		
 	}
 
 	public static void loguearUsuario(String usuario, String pass) {
