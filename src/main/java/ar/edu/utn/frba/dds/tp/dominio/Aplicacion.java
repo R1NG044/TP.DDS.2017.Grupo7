@@ -6,10 +6,15 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import java.io.FileNotFoundException;
 import ar.edu.utn.frba.dds.tp.herramientas.AdapterJson;
+import ar.edu.utn.frba.dds.tp.antlr.CalculadoraLexer;
+import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser;
+import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser.ExpresionContext;
 import ar.edu.utn.frba.dds.tp.antlr.dds.*;
 
 public final class  Aplicacion {
@@ -34,10 +39,15 @@ public final class  Aplicacion {
 		//cargar ind predefinidos
 	}
 	
-	public static void persistirIndicador(Indicador ind){
+	public static double probarUnIndicador(String indicador, String empresa, Integer periodo){
 		
+		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromString(Repositorio.getInstance().buscarIndicadorPorNombre(indicador).getFormula()));
+		CommonTokenStream tokens = new CommonTokenStream(lexer);
+		CalculadoraParser parser = new CalculadoraParser(tokens);
+		CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
+		ParserListener listener = new ParserListener();
 		
-		//TODO: Persist indicador
+		return listener.probarUnIndicadorNuevo(expresionContext, empresa, periodo);
 		
 	}
 	

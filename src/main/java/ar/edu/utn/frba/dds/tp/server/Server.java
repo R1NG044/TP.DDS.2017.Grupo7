@@ -10,7 +10,7 @@ import spark.Spark;
 import spark.template.handlebars.*;
 
 public class Server {
-
+	  
 	public static Integer idUsuarioActivo;
 
 	public static void main(String[] args) {
@@ -51,7 +51,8 @@ public class Server {
 			resultado.add(indicador);
 			resultado.add(empresa);
 			resultado.add(periodo);
-			
+			Double indicadorAux = Aplicacion.probarUnIndicador(indicador, empresa, Integer.parseInt(periodo));
+			resultado.add(indicadorAux.toString());
 				return new ModelAndView(resultado, "resultadoIndicadores.hbs");}, engine);
 
 		Spark.get("indicador/cargar", (req, res) -> {

@@ -10,11 +10,9 @@ import java.util.stream.Collectors;
 
 import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
 
-
 public final class Repositorio {
 
 	private List<Empresa> empresas = new ArrayList<Empresa>();
-	
 
 	private List<Indicador> indicadores = new ArrayList<Indicador>();
 
@@ -23,7 +21,8 @@ public final class Repositorio {
 
 	private Repositorio() {
 		this.cargarListaDeEmpresas(TraerEmpresasDeBD());
-		//this.cargarIndicadoresDesdeBD(entityManager.createNamedQuery("buscarIndicadorPorUser").setParameter("pIdUsuario", "").getResultList());
+		// this.cargarIndicadoresDesdeBD(entityManager.createNamedQuery("buscarIndicadorPorUser").setParameter("pIdUsuario",
+		// "").getResultList());
 		// Instanciar EntityManager
 	}
 
@@ -37,12 +36,10 @@ public final class Repositorio {
 		return REPO;
 	}
 
-	
-	 
 	public void limpiarRepo() {
 		this.empresas.clear();
 	}
-	
+
 	public void limpiarRepoIndicadores() {
 		this.indicadores.clear();
 	}
@@ -54,6 +51,7 @@ public final class Repositorio {
 		}
 
 	}
+
 	public void cargarListaDeIndicadores(List<Indicador> indicadores) {
 		for (Indicador indicador : indicadores) {
 			this.agregarIndicador(indicador);
@@ -119,21 +117,21 @@ public final class Repositorio {
 			}
 		}
 	}
-	
+
 	public List<Cuenta> getCuentasDeEmpresaDeIdPorPeriodo(Integer idEmpresa, Integer periodo) {
-		
+
 		List<Cuenta> listCuentas = null;
-		List<Empresa> listEmpresaFiltrada = this.empresas.stream().filter(e->e.getId() == idEmpresa).collect(Collectors.toList());
-		if(listEmpresaFiltrada  != null){
-			if(listEmpresaFiltrada .get(0) != null){
-				listCuentas = listEmpresaFiltrada .get(0).getCuentasPorPeriodo(periodo);
+		List<Empresa> listEmpresaFiltrada = this.empresas.stream().filter(e -> e.getId() == idEmpresa)
+				.collect(Collectors.toList());
+		if (listEmpresaFiltrada != null) {
+			if (listEmpresaFiltrada.get(0) != null) {
+				listCuentas = listEmpresaFiltrada.get(0).getCuentasPorPeriodo(periodo);
 			}
 		}
-		
+
 		return listCuentas;
-		
+
 	}
-	
 
 	public int cantidadEmpresas() {
 		return empresas.size();
@@ -176,24 +174,33 @@ public final class Repositorio {
 		}
 		throw new RuntimeException("No existe el Indicador ");
 	}
+
+	public List<Metodologia> buscarMetodologiaPorUser(int parseInt) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void cargarListaDeMetodologias(List<Metodologia> metodologias) {
+		// TODO Auto-generated method stub
+
+	}
 	// TODO--
 
 	/**** Metodos de Bases de datos ****/
 
-	// Metodo dummy mockeado
-		public void cargarIndicadoresDesdeBD() {
-		
-		 List<Indicador> indicador = entityManager.createQuery("SELECT i FROM Indicador i").getResultList();
-		 	 
+	public void cargarIndicadoresDesdeBD() {
+
+		List<Indicador> indicador = entityManager.createQuery("SELECT i FROM Indicador i").getResultList();
+
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Indicador> buscarIndicadorPorNombre(String nombre) {
-		List<Indicador> indicadores = null;
+	public Indicador buscarIndicadorPorNombre(String nombre) {
+		
+		Query query = entityManager.createQuery("SELECT i FROM Indicador i where i.nombre like :pnombre");
+		List<Indicador> indicadores = query.setParameter("pnombre", "%" + nombre + "%").getResultList();
 
-		indicadores = entityManager.createNamedQuery("buscarIndicadorPorNombre")
-				.setParameter("pnombre", "%" + nombre + "%").getResultList();
-		return indicadores;
+		return indicadores.get(0);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -227,42 +234,42 @@ public final class Repositorio {
 		tx.commit();
 
 		return 1; // Success
-		
-		
+
 	}
 
 	public List<Empresa> TraerEmpresasDeBD() {
-		 Query query = entityManager.createQuery("SELECT e FROM Empresa e");
-		 List<Empresa> empresas = query.getResultList();
-		 System.out.print(empresas.size());
-		 return empresas;
+		Query query = entityManager.createQuery("SELECT e FROM Empresa e");
+		List<Empresa> empresas = query.getResultList();
+		System.out.print(empresas.size());
+		return empresas;
 	}
+
 	public Usuario buscarUserPorId(Integer pidUsuarioActivo) {
-		 Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.id = :pidUsuarioActivo");
-		 List<Usuario> users = query.setParameter("pidUsuarioActivo", pidUsuarioActivo).getResultList();
-		
-		 return users.get(0);
+		Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.id = :pidUsuarioActivo");
+		List<Usuario> users = query.setParameter("pidUsuarioActivo", pidUsuarioActivo).getResultList();
+
+		return users.get(0);
 	}
-	
+
+	/*** U S U A R I O S ***/
+	public Usuario getUsuarioByUserAndPwd(String nombreUsuario, String pwd) {
+		List<Usuario> listUsers = null;
+
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+
+		listUsers = entityManager.createNamedQuery("buscarUsuario").setParameter("pNombre", nombreUsuario)
+				.setParameter("pPassword", pwd).getResultList();
+
+		return (listUsers.size() > 0 ? listUsers.get(0) : null);
+	}
+
 	/***** GETTERS Y SETTERS *******/
 	public void setEmpresas(List<Empresa> empresas) {
 		this.empresas = empresas;
 	}
+
 	public List<Empresa> getEmpresas() {
 		return empresas;
-	}
-	
-	/*** U S U A R I O S ***/
-	public Usuario getUsuarioByUserAndPwd(String nombreUsuario, String pwd){
-		List<Usuario> listUsers = null;
-		
-		EntityManager entityManager = 
-				PerThreadEntityManagers.
-				getEntityManager();
-		
-		listUsers = entityManager.createNamedQuery("buscarUsuario").setParameter("pNombre", nombreUsuario).setParameter("pPassword", pwd).getResultList();
-		
-		return (listUsers.size() > 0? listUsers.get(0): null);
 	}
 
 	public List<Indicador> getIndicadores() {
@@ -272,24 +279,5 @@ public final class Repositorio {
 	public void setIndicadores(List<Indicador> indicadores) {
 		this.indicadores = indicadores;
 	}
-	/*
-	 * M�todos para implementar KIE public List<IndicadorNodo>
-	 * getIndicadoresEvaluados(Integer periodo) { // devuelve lista de
-	 * indicadores que han sido cargados en memoria y su // evaluacion para
-	 * todas las empresas // cargadas en el json, en el periodo provisto.
-	 * 
-	 * return new ArrayList<IndicadorNodo>(); }
-	 */
 
-	public List<Metodologia> buscarMetodologiaPorUser(int parseInt) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void cargarListaDeMetodologias(List<Metodologia> metodologias) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
 }
