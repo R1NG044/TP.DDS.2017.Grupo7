@@ -5,4 +5,6 @@
 target 
 generated*
 bin
+classes/META-INF
+test-classes/META-INF
 MANIFEST.MF
