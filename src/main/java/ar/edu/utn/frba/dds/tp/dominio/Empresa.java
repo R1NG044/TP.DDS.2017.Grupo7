@@ -4,18 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
-@Entity(name="Empresa")
+@Entity(name = "Empresa")
 @Table(name = "empresa")
+@NamedQuery(name = "buscarEmpresaPorNombre", query = "SELECT e FROM Empresa e WHERE e.nombreEmpresa = :pNombre")
 public class Empresa {
 
-	@Id @GeneratedValue
+	@Id
+	@GeneratedValue
 	private Integer id;
-	
 	private String nombreEmpresa;
-	
-	@OneToMany( mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
-	//@JoinTable(name = "Cuentas_Empresas", joinColumns = { @JoinColumn(name = "idEmpresa") }, inverseJoinColumns = { @JoinColumn(name = "idCuenta") })
+
+	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+	// @JoinTable(name = "Cuentas_Empresas", joinColumns = { @JoinColumn(name =
+	// "idEmpresa") }, inverseJoinColumns = { @JoinColumn(name = "idCuenta") })
 	private List<Cuenta> cuentas;
+
+	
+	public Empresa() {
+	}
 
 	public Empresa(final String _nombre, final ArrayList<Cuenta> _cuentas) {
 		this.nombreEmpresa = _nombre;
@@ -60,7 +66,7 @@ public class Empresa {
 		for (Cuenta cuenta : cuentas) {
 			System.out.printf("Para %s el valor de la cuenta %s es: %d para el Periodo %s\n", this.getNombre(),
 					cuenta.getNombreCuenta(), cuenta.getValor(), cuenta.getPeriodo());
-			}
+		}
 	}
 
 	public Boolean existeCuentaDeNombre(String nombreCuenta) {
@@ -71,8 +77,8 @@ public class Empresa {
 		}
 		return false;
 	}
-	
-	// Getters y Setters
+
+	/**** Getters y Setters ****/
 
 	public List<Cuenta> getCuentas() {
 		return cuentas;
@@ -91,5 +97,25 @@ public class Empresa {
 	public void setNombre(String nombre) {
 		this.nombreEmpresa = nombre;
 	}
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNombreEmpresa() {
+		return nombreEmpresa;
+	}
+
+	public void setNombreEmpresa(String nombreEmpresa) {
+		this.nombreEmpresa = nombreEmpresa;
+	}
+
+	public void setCuentas(List<Cuenta> cuentas) {
+		this.cuentas = cuentas;
+	}
+
 
 }

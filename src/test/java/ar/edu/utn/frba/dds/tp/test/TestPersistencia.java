@@ -28,13 +28,12 @@ import ar.edu.utn.frba.dds.tp.dominio.Metodologia;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 import ar.edu.utn.frba.dds.tp.dominio.Usuario;
 
-public class TestPersistencia extends AbstractPersistenceTest implements WithGlobalEntityManager  {
+public class TestPersistencia extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
 	private Repositorio repo;
 	private String representacionJSON;
 	private String representacionJSON3;
-	public static String INPUT_PATH ;
-
+	public static String INPUT_PATH;
 
 	@Before
 	public void SetUp() {
@@ -43,34 +42,29 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		this.repo = Repositorio.getInstance();
 
 	}
-	
+
 	/*
-	@After
-	public void CloseEm(){
-		
-		EntityTransaction tx = entityManager.getTransaction();
-		tx.commit();
-		
-		if(entityManager.isOpen()){
-			entityManager.close();
-		}			
-	}*/
-	
-	
+	 * @After public void CloseEm(){
+	 * 
+	 * EntityTransaction tx = entityManager.getTransaction(); tx.commit();
+	 * 
+	 * if(entityManager.isOpen()){ entityManager.close(); } }
+	 */
+
 	@Test
 	public void cargarJSONEmpresasYCuentasABaseDeDatos() throws FileNotFoundException {
 		/*
 		 * Para la Empresa YPF el Json tienen la cuenta INDICADOR periodo 2017
 		 * duplicada, vemos como se guardo una sola.
 		 */
-		//Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON));
-		
+		// Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON));
 
 		/*
 		 * El Json 2 Tiene duplicada la Empresa IBM respecto del Json1,
 		 * cargaremos este al Repo y verificaremos que no se duplican ni la
 		 * empresa ni las cuentas. Y se agregan las empresas Axion y Petrobras.
 		 */
+
 		Aplicacion.persistirEmpresasDesdeJson(getInputFilePath(representacionJSON));
 
 		/*
@@ -78,47 +72,39 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		 * vemos que en el repo solo se cargo una empresa con las 2 cuentas
 		 */
 
-		
 	}
-	
+
 	@Test
-	public void persistirMetodologias(){
-		EntityManager entityManager = 
-				PerThreadEntityManagers.
-				getEntityManager();
-		
-		
+	public void persistirMetodologias() {
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+
 		EntityTransaction tx = entityManager.getTransaction();
-		
-		Metodologia m = new Metodologia("Buffet", new Usuario(1, "Brenda")); // 0000 es el id de usuario de prueba
-		
+
+		Metodologia m = new Metodologia("Buffet", new Usuario(1, "Brenda")); 
+
 		entityManager.persist(m);
-		
+
 		tx.commit();
-		
+
 	}
-	
+
 	@Test()
-		public void testGuardarIndicador() throws IOException {
-		repo.limpiarRepo();			
+	public void testGuardarIndicador() throws IOException {
+		repo.limpiarRepo();
 		Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
-		
-		
-		EntityManager entityManager = 
-				PerThreadEntityManagers.
-				getEntityManager();
-		
+
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+
 		EntityTransaction tx = entityManager.getTransaction();
-		
+
 		INPUT_PATH = "/IngresoNeto.txt";
 		InputStream file = this.getInputFilePath();
-		
-	
+
 		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromStream(file));
-		
+
 		file = this.getInputFilePath();
 		String formula1 = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
-		
+
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		CalculadoraParser parser = new CalculadoraParser(tokens);
 		CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
@@ -132,31 +118,31 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		parser = new CalculadoraParser(tokens);
 		expresionContext = parser.expresion();
 		ParserListener listener2 = new ParserListener();
-		
-		//Persisto formula indicador ROE
+
+		// Persisto formula indicador ROE
 		file = this.getInputFilePath();
 		String formula2 = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
 		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE", formula2, new Usuario(2, "Nadia"));
-		
+
 		assertTrue(repo.existeIndicador("ROE"));
 		assertTrue(repo.existeIndicador("INGRESONETO"));
 		System.out.println(listener.probarUnIndicadorNuevo(expresionContext, "AXION", 2017));
-		//Persist indicador
+		// Persist indicador
 
-				for(Indicador i:repo.getIndicadores()){
-					entityManager.persist(i);
-				}
+		for (Indicador i : repo.getIndicadores()) {
+			entityManager.persist(i);
+		}
 
-				tx.commit();
-	
+		tx.commit();
+
 	}
-	
+
 	private String getInputFilePath(String input) {
-        return this.getClass().getResource(input).getPath();
-    }
+		return this.getClass().getResource(input).getPath();
+	}
 
-private InputStream getInputFilePath() {
-	return this.getClass().getResourceAsStream(INPUT_PATH);
+	private InputStream getInputFilePath() {
+		return this.getClass().getResourceAsStream(INPUT_PATH);
 
-}
+	}
 }

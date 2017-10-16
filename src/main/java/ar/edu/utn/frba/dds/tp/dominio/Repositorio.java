@@ -12,14 +12,17 @@ import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
 public final class Repositorio {
 
 	private List<Empresa> empresas = new ArrayList<Empresa>();
-	private List<Indicador> indicadores = new ArrayList<Indicador>();
 	
+
+	private List<Indicador> indicadores = new ArrayList<Indicador>();
+
 	private static Repositorio REPO = null;
-	//EntityManager como propiedad del repositorio.
+	EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 
 	private Repositorio() {
-		
-		//Instanciar EntityManager 
+		this.cargarListaDeEmpresas(TraerEmpresasDeBD());
+		//this.cargarIndicadoresDesdeBD(entityManager.createNamedQuery("buscarIndicadorPorUser").setParameter("pIdUsuario", "").getResultList());
+		// Instanciar EntityManager
 	}
 
 	public static Repositorio getInstance() {
@@ -32,13 +35,22 @@ public final class Repositorio {
 		return REPO;
 	}
 
+	
+	 
 	public void limpiarRepo() {
 		this.empresas.clear();
 	}
 
+	// TODO --Métodos sin persistencia
 	public void cargarListaDeEmpresas(List<Empresa> listaEmpresas) {
 		for (Empresa unaEmpresa : listaEmpresas) {
 			this.agregarEmpresa(unaEmpresa);
+		}
+
+	}
+	public void cargarListaDeIndicadores(List<Indicador> indicadores) {
+		for (Indicador indicador : indicadores) {
+			this.agregarIndicador(indicador);
 		}
 
 	}
@@ -132,8 +144,9 @@ public final class Repositorio {
 				return true;
 			}
 		}
-			return false;
+		return false;
 	}
+
 	public Indicador darIndicadorDeNombre(String nombreIndicador) {
 		for (Indicador indicador : indicadores) {
 			if (indicador.getNombre().equals(nombreIndicador)) {
@@ -142,9 +155,72 @@ public final class Repositorio {
 		}
 		throw new RuntimeException("No existe el Indicador ");
 	}
-	
-	
+	// TODO--
 
+	/**** Metodos de Bases de datos ****/
+
+	// Metodo dummy mockeado
+	public void cargarIndicadoresDesdeBD() {
+		 Query query = entityManager.createQuery("SELECT i FROM Indicador i");
+		 List<Indicador> indicador = query.getResultList();
+		 	 
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Indicador> buscarIndicadorPorNombre(String nombre) {
+		List<Indicador> indicadores = null;
+
+		indicadores = entityManager.createNamedQuery("buscarIndicadorPorNombre")
+				.setParameter("pnombre", "%" + nombre + "%").getResultList();
+		return indicadores;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Indicador> buscarIndicadorPorUser(Integer idUsuario) {
+		List<Indicador> indicadores = null;
+
+		indicadores = entityManager.createNamedQuery("buscarIndicadorPorUser").setParameter("pIdUsuario", idUsuario)
+				.getResultList();
+		return indicadores;
+	}
+
+	@SuppressWarnings("unchecked")
+	private boolean existeEmpresaDeNombreenBD(String nombre) {
+
+		List<Empresa> empresas = null;
+		empresas = entityManager.createNamedQuery("buscarEmpresaPorNombre").setParameter("pNombre", nombre)
+				.getResultList();
+		return !empresas.isEmpty();
+	}
+
+	public int persistirEmpresas() {
+
+		EntityTransaction tx = entityManager.getTransaction();
+
+		for (Empresa e : Repositorio.getInstance().getEmpresas()) {
+			if (!(existeEmpresaDeNombreenBD(e.getNombre()))) {
+				entityManager.persist(e);
+			}
+		}
+
+		tx.commit();
+
+		return 1; // Success
+		
+		
+	}
+
+	public List<Empresa> TraerEmpresasDeBD() {
+		 Query query = entityManager.createQuery("SELECT e FROM Empresa e");
+		 List<Empresa> empresas = query.getResultList();
+		 System.out.print(empresas.size());
+		 return empresas;
+	}
+	
+	/***** GETTERS Y SETTERS *******/
+	public void setEmpresas(List<Empresa> empresas) {
+		this.empresas = empresas;
+	}
 	public List<Empresa> getEmpresas() {
 		return empresas;
 	}
@@ -156,81 +232,12 @@ public final class Repositorio {
 	public void setIndicadores(List<Indicador> indicadores) {
 		this.indicadores = indicadores;
 	}
-	
-	public List<IndicadorNodo> getIndicadoresEvaluados(Integer periodo){
-		//devuelve lista de indicadores que han sido cargados en memoria y su evaluacion para todas las empresas
-		//cargadas en el json, en el periodo provisto.
-		
-		
-		return new ArrayList<IndicadorNodo>();
-	}
-	
-	/**** Metodos de Bases de datos ****/
-	
-	//Metodo dummy mockeado
-	public void cargarIndicadoresDesdeBD(){
-		Indicador ind1 = new Indicador("ROE");
-		Indicador ind2 = new Indicador("SuperIndice");
-		
-		List<Indicador> indicadores = new ArrayList<Indicador>();
-		//indicadores = e
-		
-		indicadores.add(ind1);
-		indicadores.add(ind2);
-		
-	}
-	
-	
-	public List<Indicador> buscarIndicadorPorNombre(String nombre) {
-		List<Indicador> indicadores = null;
-		
-		EntityManager entityManager = 
-				PerThreadEntityManagers.
-				getEntityManager();
-		
-		indicadores = entityManager.createNamedQuery("buscarIndicadorPorNombre").setParameter("pnombre", "%" + nombre +
-		"%").getResultList();
-		return indicadores;
-	}
-	
-	public List<Indicador> buscarIndicadorPorUser(Integer idUsuario) {
-		List<Indicador> indicadores = null;
-		
-		EntityManager entityManager = 
-				PerThreadEntityManagers.
-				getEntityManager();
-		
-		indicadores = entityManager.createNamedQuery("buscarIndicadorPorUser").setParameter("pIdUsuario", idUsuario).getResultList();
-		return indicadores;
-	}
-	
-	public List<String> buscarNombreIndicadorPorNombre(Integer idUsuario) {
-		List<String> indicadores = null;
-		
-		EntityManager entityManager = 
-				PerThreadEntityManagers.
-				getEntityManager();
-		
-		indicadores = entityManager.createNamedQuery("buscarIndicadorPorUser").setParameter("pIdUsuario", idUsuario).getResultList();
-		return indicadores;
-	}
-	
-	public int persistirEmpresas(){
-		 
-		EntityManager entityManager = 
-				PerThreadEntityManagers.
-				getEntityManager();
-		
-		EntityTransaction tx = entityManager.getTransaction();
-		
-		for(Empresa e:Repositorio.getInstance().getEmpresas()){
-			entityManager.persist(e);
-			
-		}
-		
-		tx.commit();
-		
-		return 1; //Success
-	}
-
+	/*
+	 * Métodos para implementar KIE public List<IndicadorNodo>
+	 * getIndicadoresEvaluados(Integer periodo) { // devuelve lista de
+	 * indicadores que han sido cargados en memoria y su // evaluacion para
+	 * todas las empresas // cargadas en el json, en el periodo provisto.
+	 * 
+	 * return new ArrayList<IndicadorNodo>(); }
+	 */
 }

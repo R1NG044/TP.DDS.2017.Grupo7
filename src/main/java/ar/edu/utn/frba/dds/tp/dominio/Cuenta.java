@@ -6,18 +6,40 @@ import javax.persistence.*;
 @Table(name = "cuenta")
 public class Cuenta {
 
-	@Id @GeneratedValue
+	@Id
+	@GeneratedValue
 	private Integer idCuenta;
-	
 	private String nombreCuenta;
 	private Long valor;
-	
 	private Integer periodo;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "empresa_id")
+	//@JoinColumn(name = "empresa_id")
 	private Empresa empresa;
 
+	public Cuenta() {
+	}
+
+	
+	public Cuenta(final String _nombre, final Long _valor, final Integer _periodo) {
+		this.nombreCuenta = _nombre;
+		this.setValor(_valor);
+		this.setPeriodo(_periodo);
+	}
+
+
+	
+
+
+	/**** Getters y Setters ****/
+	public Integer getIdCuenta() {
+		return idCuenta;
+	}
+
+
+	public void setIdCuenta(Integer idCuenta) {
+		this.idCuenta = idCuenta;
+	}
 	public Empresa getEmpresa() {
 		return empresa;
 	}
@@ -26,13 +48,6 @@ public class Cuenta {
 		this.empresa = empresa;
 	}
 
-	public Cuenta(final String _nombre, final Long _valor, final Integer _periodo) {
-		this.nombreCuenta = _nombre;
-		this.setValor(_valor);
-		this.setPeriodo(_periodo);
-	}
-
-	// Getters y Setters
 	public String getNombreCuenta() {
 		return nombreCuenta;
 	}
@@ -56,16 +71,18 @@ public class Cuenta {
 	public void setValor(Long valor) {
 		this.valor = valor;
 	}
-	
+
 	@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Cuenta )) return false;
-        return idCuenta != null && idCuenta.equals(((Cuenta) o).idCuenta);
-    }
-	
-	 @Override
-	    public int hashCode() {
-	        return 31;
-	    }
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof Cuenta))
+			return false;
+		return idCuenta != null && idCuenta.equals(((Cuenta) o).idCuenta);
+	}
+
+	@Override
+	public int hashCode() {
+		return 31;
+	}
 }

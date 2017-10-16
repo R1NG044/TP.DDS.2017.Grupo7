@@ -8,9 +8,7 @@ import ar.edu.utn.frba.dds.tp.dominio.Usuario;
 @NamedQuery(name="buscarIndicadorPorUser",query="SELECT i FROM Indicador i WHERE i.usuario.id = :pIdUsuario")
 public class Indicador implements IExpresion {
 	
-	//@Id @GeneratedValue
-	//private Integer id;
-	
+		
 	@Id
 	private String nombre;
 	private String formula;

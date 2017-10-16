@@ -30,8 +30,8 @@
 				<select id="mySelect1" onchange="myFunction()">
 					<option >Seleccionar</option>
 					
-					{{#each this}}
-					{{usuario.nombre}}
+					{{#each indicadores}}
+					
 					<option >{{nombre}}</option>
 					{{/each}}	
 				</select>
@@ -42,7 +42,10 @@
 				
 				<select id="mySelect2" onchange="myFunction()">
 					<option >Seleccionar</option>
-													
+					{{#each empresas}}
+					
+					<option >{{nombreEmpresa}}</option>
+					{{/each}}									
 				</select>
 			</form>
 			<br><br>

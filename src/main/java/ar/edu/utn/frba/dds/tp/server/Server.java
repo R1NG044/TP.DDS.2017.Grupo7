@@ -32,11 +32,15 @@ public class Server {
 
 			// List<String> lista =
 			// Repositorio.getInstance().buscarNombreIndicadorPorNombre(Integer.parseInt(req.params("idUsuario")));
-
-			List<Indicador> lista = Repositorio.getInstance()
+			 
+			List<Indicador> indicadores = Repositorio.getInstance()
 					.buscarIndicadorPorUser(Integer.parseInt(req.params("idUsuario")));
-
-			return new ModelAndView(lista, "listaIndicadores.hbs");
+			
+			 Repositorio.getInstance().cargarListaDeIndicadores(indicadores);
+		//	 Repositorio.getInstance().cargarListaDeEmpresas(Repositorio.getInstance().TraerEmpresasDeBD());
+			 
+			 
+			return new ModelAndView(Repositorio.getInstance(), "listaIndicadores.hbs");
 		}, engine);
 
 		Spark.get("indicador/cargar", (req, res) -> {
