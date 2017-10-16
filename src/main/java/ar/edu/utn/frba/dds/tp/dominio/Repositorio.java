@@ -132,35 +132,8 @@ public final class Repositorio {
 		
 		return listCuentas;
 		
-		/*
-				= usuario.getCapturas().stream()
-				.filter(x->x.getApodo().equals(req.params("pokemon")))
-				.collect(Collectors.toList());
-		*/
-	
-		
 	}
 	
-	
-	/*
-	public void filtrarCuentasDeEmpresaDeIdPorPeriodo(Integer idEmpresa, Integer periodo) {
-		List<Cuenta> listaCuentasRemover = new ArrayList<Cuenta>();
-		for (Empresa empresa : empresas) {
-			if (empresa.getId() == idEmpresa) {
-				for(Cuenta cuenta: empresa.getCuentas()){
-					if(cuenta.getPeriodo() != periodo){
-						listaCuentasRemover.add(cuenta);
-					}
-				}
-				for(Cuenta cuenta: listaCuentasRemover){
-					empresa.getCuentas().remove(cuenta);
-				}
-				break;
-			}
-		}
-		
-	}
-	*/
 
 	public int cantidadEmpresas() {
 		return empresas.size();
