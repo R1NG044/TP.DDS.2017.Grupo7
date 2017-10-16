@@ -22,68 +22,71 @@
 		</p>
 			
 	</div>
-		
+		<div><br><br>
+		Valor indicador: {{value}}
+		</div>
 		<div id="cen" align="center"> <br><br><br>
-			<form>
+			<FORM name="formListaIndicadores" action="/indicadores" method="GET" onsubmit="javascript: return enviar();">
 				<p style="border: 2px solid #999999; padding: 10px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Seleccionar Indicador</p>
 				
-				<select id="mySelect1" onchange="myFunction()">
+				<select id="mySelectIndicadores" onchange="myFunction()" name="mySelectIndicadores">
 					<option >Seleccionar</option>
 					
 					{{#each indicadores}}
 					
-					<option >{{nombre}}</option>
+					<option value={{nombre}}>{{nombre}}</option>
 					{{/each}}	
 				</select>
-			</form>
+			
 			<br><br>
-			<form>
 				<p style="border: 2px solid #999999; padding: 10px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Seleccionar Empresa</p>
 				
-				<select id="mySelect2" onchange="myFunction()">
+				<select id="mySelectEmpresas" onchange="myFunction()" name="mySelectEmpresas">
 					<option >Seleccionar</option>
 					{{#each empresas}}
 					
-					<option >{{nombreEmpresa}}</option>
+					<option value={{id}}>{{nombreEmpresa}}</option>
 					{{/each}}									
 				</select>
-			</form>
 			<br><br>
-			<form>
 				<p style="border: 2px solid #999999; padding: 10px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Seleccionar Período</p>
 				
-				<select id="mySelect3" onchange="myFunction()">
+				<select id="mySelectPeriodos" onchange="myFunction()" name="mySelectPeriodos">
 					<option >Seleccionar</option>
-					<option >2017</option>
-					<option >2016</option>
-					<option >2015</option>
-					<option >2014</option>
-					<option >2013</option>
-					<option >2012</option>
-					<option >2011</option>
-					<option >2010</option>
-					<option >2009</option>
-					<option >2008</option>
+					<option value="2017">2017</option>
+					<option value="2016">2016</option>
+					<option value="2015">2015</option>
+					<option value="2014">2014</option>
+					<option value="2013">2013</option>
+					<option value="2012">2012</option>
+					<option value="2011">2011</option>
+					<option value="2010">2010</option>
+					<option value="2009">2009</option>
+					<option value="2008">2008</option>
 								
 				</select>
+				<input type="submit" onsubmit="myFunction()" id="obtenerIndicador" value="Calcular" />
 			</form>
-			<input type="submit" onclick="myFunction()" id="enviar" value="Calcular" />
 			<p id="demo"></p>
 			
 			<script>
 				function myFunction() {
-					var x = document.getElementById("mySelect1");
-					var y = document.getElementById("mySelect2");
-					var z = document.getElementById("mySelect3");
-					var a = x.selectedIndex;
-					var e = y.selectedIndex;
-					var i = z.selectedIndex;
+					var x = document.getElementById("mySelectIndicadores");
+					var y = document.getElementById("mySelectEmpresas");
+					var z = document.getElementById("mySelectPeriodos");
+					var a = x.value;
+					var e = y.value;
+					var i = z.value;
+					
 					//document.getElementById("demo").innerHTML = x.options[i].text;
 				}
+				
+				function enviar(){
+					alert(document.getElementById("mySelectIndicadores").value);
+					alert(document.getElementById("mySelectEmpresas").value);
+					alert(document.getElementById("mySelectPeriodos").value);
+				}
 			</script>
-			
-			
-		</div>
-					 
+		</div>			 
 	</div>
 </body>

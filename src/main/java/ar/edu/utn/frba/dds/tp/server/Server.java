@@ -27,6 +27,10 @@ public class Server {
 			Repositorio.getInstance().limpiarRepoIndicadores();
 			Repositorio.getInstance().cargarListaDeIndicadores(indicadores);
 
+			if(req.queryParams("mySelectIndicadores") != "" && req.queryParams("mySelectEmpresas") != "" && req.queryParams("mySelectPeriodos") !=""){
+				//Repositorio.getInstance().bu
+			}
+			
 			return new ModelAndView(Repositorio.getInstance(), "listaIndicadores.hbs");
 		}, engine);
 

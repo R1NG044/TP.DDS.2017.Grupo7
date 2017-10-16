@@ -85,7 +85,7 @@ public final class Repositorio {
 				}
 			}
 		} else {
-			Empresa nuevaEmpresa = new Empresa(unaEmpresaInput.getNombre());
+			Empresa nuevaEmpresa = new Empresa(unaEmpresaInput.getId(), unaEmpresaInput.getNombre());
 			nuevaEmpresa.cargarCuentas(unaEmpresaInput.getCuentas());
 			this.empresas.add(nuevaEmpresa);
 		}

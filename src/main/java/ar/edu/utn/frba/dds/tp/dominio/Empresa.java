@@ -33,6 +33,14 @@ public class Empresa {
 		this.nombreEmpresa = _nombre;
 		this.cuentas = new ArrayList<Cuenta>();
 	}
+	
+	public Empresa(Integer _id, String _nombre) {
+		this.nombreEmpresa = _nombre;
+		this.id = _id;
+		this.cuentas = new ArrayList<Cuenta>();
+	}
+	
+	
 
 	public void cargarCuentas(List<Cuenta> listaCuentas) {
 		for (Cuenta unaCuenta : listaCuentas) {
