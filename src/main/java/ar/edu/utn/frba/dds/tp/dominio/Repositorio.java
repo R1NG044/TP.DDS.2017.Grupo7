@@ -216,6 +216,12 @@ public final class Repositorio {
 		 System.out.print(empresas.size());
 		 return empresas;
 	}
+	public Usuario buscarUserPorId(Integer pidUsuarioActivo) {
+		 Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.id = :pidUsuarioActivo");
+		 List<Usuario> users = query.setParameter("pidUsuarioActivo", pidUsuarioActivo).getResultList();
+		
+		 return users.get(0);
+	}
 	
 	/***** GETTERS Y SETTERS *******/
 	public void setEmpresas(List<Empresa> empresas) {
@@ -253,4 +259,16 @@ public final class Repositorio {
 	 * 
 	 * return new ArrayList<IndicadorNodo>(); }
 	 */
+
+	public List<Metodologia> buscarMetodologiaPorUser(int parseInt) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void cargarListaDeMetodologias(List<Metodologia> metodologias) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 }

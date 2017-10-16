@@ -34,12 +34,14 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 	private String representacionJSON;
 	private String representacionJSON3;
 	public static String INPUT_PATH;
-
+	EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+	
 	@Before
 	public void SetUp() {
 		this.representacionJSON = "/empresasjson1.txt";
 		this.representacionJSON3 = "/empresasjson3.txt";
 		this.repo = Repositorio.getInstance();
+		
 
 	}
 
@@ -76,8 +78,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 
 	@Test
 	public void persistirMetodologias() {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-
+		
 		EntityTransaction tx = entityManager.getTransaction();
 
 		Metodologia m = new Metodologia("Buffet", new Usuario(1, "Brenda")); 
@@ -92,8 +93,6 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 	public void testGuardarIndicador() throws IOException {
 		repo.limpiarRepo();
 		Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
-
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 
 		EntityTransaction tx = entityManager.getTransaction();
 
@@ -132,7 +131,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		for (Indicador i : repo.getIndicadores()) {
 			entityManager.persist(i);
 		}
-
+	
 		tx.commit();
 
 	}

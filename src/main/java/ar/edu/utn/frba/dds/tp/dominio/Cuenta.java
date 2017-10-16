@@ -12,34 +12,28 @@ public class Cuenta {
 	private String nombreCuenta;
 	private Long valor;
 	private Integer periodo;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	//@JoinColumn(name = "empresa_id")
 	private Empresa empresa;
 
 	public Cuenta() {
 	}
 
-	
 	public Cuenta(final String _nombre, final Long _valor, final Integer _periodo) {
 		this.nombreCuenta = _nombre;
 		this.setValor(_valor);
 		this.setPeriodo(_periodo);
 	}
 
-
-	
-
-
 	/**** Getters y Setters ****/
 	public Integer getIdCuenta() {
 		return idCuenta;
 	}
 
-
 	public void setIdCuenta(Integer idCuenta) {
 		this.idCuenta = idCuenta;
 	}
+
 	public Empresa getEmpresa() {
 		return empresa;
 	}

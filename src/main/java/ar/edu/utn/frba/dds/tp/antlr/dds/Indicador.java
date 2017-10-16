@@ -14,8 +14,7 @@ public class Indicador implements IExpresion {
 	private String formula;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id")
-	private Usuario usuario;
+  	private Usuario usuario;
 	
 	@Transient
 	private ExpresionCompuesta expresion;
