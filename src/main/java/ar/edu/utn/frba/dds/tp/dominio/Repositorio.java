@@ -45,7 +45,7 @@ public final class Repositorio {
 		this.indicadores.clear();
 	}
 
-	// TODO --M�todos sin persistencia
+	// TODO --Metodos sin persistencia
 	public void cargarListaDeEmpresas(List<Empresa> listaEmpresas) {
 		for (Empresa unaEmpresa : listaEmpresas) {
 			this.agregarEmpresa(unaEmpresa);
@@ -164,9 +164,9 @@ public final class Repositorio {
 	/**** Metodos de Bases de datos ****/
 
 	// Metodo dummy mockeado
-	public void cargarIndicadoresDesdeBD() {
-		 Query query = entityManager.createQuery("SELECT i FROM Indicador i");
-		 List<Indicador> indicador = query.getResultList();
+		public void cargarIndicadoresDesdeBD() {
+		
+		 List<Indicador> indicador = entityManager.createQuery("SELECT i FROM Indicador i").getResultList();
 		 	 
 	}
 

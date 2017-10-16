@@ -15,11 +15,9 @@ public class Empresa {
 	private String nombreEmpresa;
 
 	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
-	// @JoinTable(name = "Cuentas_Empresas", joinColumns = { @JoinColumn(name =
-	// "idEmpresa") }, inverseJoinColumns = { @JoinColumn(name = "idCuenta") })
 	private List<Cuenta> cuentas;
-
 	
+	 /**** Builders ****/
 	public Empresa() {
 	}
 
@@ -41,7 +39,7 @@ public class Empresa {
 	}
 	
 	
-
+ /***** Metodos sin persistencia *****/
 	public void cargarCuentas(List<Cuenta> listaCuentas) {
 		for (Cuenta unaCuenta : listaCuentas) {
 			this.agregarCuenta(unaCuenta);
@@ -85,6 +83,7 @@ public class Empresa {
 		}
 		return false;
 	}
+	
 
 	/**** Getters y Setters ****/
 

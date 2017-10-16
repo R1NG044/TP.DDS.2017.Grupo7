@@ -33,6 +33,21 @@ public class Server {
 			
 			return new ModelAndView(Repositorio.getInstance(), "listaIndicadores.hbs");
 		}, engine);
+		Spark.post("/indicadores", (req, res) -> {
+			
+			String indicador = req.queryParams("mySelectIndicadores");
+			String empresa = req.queryParams("mySelectIndicadores");
+			//String periodo = req.queryParams("i");
+			System.out.println(indicador);System.out.println(empresa);//System.out.println(periodo);
+			// Autenticación contra la BD
+			//Boolean auth = false;
+			//Usuario u = Repositorio.getInstance().getUsuarioByUserAndPwd(username, pwd);
+			
+		
+//				auth = true;
+//				res.cookie("idUsuarioActivo", u.getId().toString());
+			
+				return new ModelAndView(empresa, "listaIndicadores.hbs");}, engine);
 
 		Spark.get("indicador/cargar", (req, res) -> {
 
@@ -131,6 +146,6 @@ public class Server {
 	}
 
 	public void setIdUsuarioActivo(Integer idUsuarioActivo) {
-		this.idUsuarioActivo = idUsuarioActivo;
+		Server.idUsuarioActivo = idUsuarioActivo;
 	}
 }
