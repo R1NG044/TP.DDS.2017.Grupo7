@@ -9,30 +9,27 @@
 	<div style='height: 550px; width: 300px; border: 3px solid #999999; background-color: #999999; float: left;'> </div>
 				
 	<div id="cen" align="center"> <br><br><br><br><br><br>
-	<SCRIPT type="text/javascript"> 
-		function enviar(){
-
-			if (document.formLogin.password.value=='' || document.formLogin.login.value==''){ 
-					alert("Porfavor ingrese, nombre de usuario y contrasena.");
-					return false;  
-				} 
-				else{ 
-					 location="index.html";
-				}
-				
-				return true;
+		<SCRIPT  language=JavaScript> 
+			function go(){
+				if (document.form.password.value=='CONTRASE�A' && document.form.login.value=='USUARIO'){ 
+						location="index.html"; 
+					} 
+					else{ 
+						 alert("Porfavor ingrese, nombre de usuario y contrase�a correctos."); 
+					} 
 			} 
 		</SCRIPT> 
-		<FORM name="formLogin" action="/index" method="POST" onsubmit="javascript: return enviar();">
-			{{this}}
+		<FORM name=form action="/login" method="POST">
+
 			<P>Usuario:    <INPUT type=text name=login> 
 			<P>Password: <INPUT type=password name=password> 
 			<br> </br>
 			<br> </br>
-			<INPUT type="submit" value=Acceder>
+			<INPUT onclick=go() type=submit value=Acceder>
 			<input type="Reset">
 		</FORM> 
 			
 	</div>
+	
 </body>
 

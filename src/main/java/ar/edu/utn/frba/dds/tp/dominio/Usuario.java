@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -13,6 +14,7 @@ import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
 
 @Entity
 @Table(name = "usuario")
+@NamedQuery(name="buscarUsuario",query="SELECT u FROM Usuario u WHERE u.nombre = :pNombre AND u.password = :pPassword")
 public class Usuario {
 
 	public Usuario() {

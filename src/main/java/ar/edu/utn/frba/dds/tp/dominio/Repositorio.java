@@ -224,6 +224,19 @@ public final class Repositorio {
 	public List<Empresa> getEmpresas() {
 		return empresas;
 	}
+	
+	/*** U S U A R I O S ***/
+	public Usuario getUsuarioByUserAndPwd(String nombreUsuario, String pwd){
+		List<Usuario> listUsers = null;
+		
+		EntityManager entityManager = 
+				PerThreadEntityManagers.
+				getEntityManager();
+		
+		listUsers = entityManager.createNamedQuery("buscarUsuario").setParameter("pNombre", nombreUsuario).setParameter("pPassword", pwd).getResultList();
+		
+		return (listUsers.size() > 0? listUsers.get(0): null);
+	}
 
 	public List<Indicador> getIndicadores() {
 		return indicadores;
