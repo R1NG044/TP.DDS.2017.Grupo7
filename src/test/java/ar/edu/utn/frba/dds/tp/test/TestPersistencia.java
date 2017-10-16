@@ -45,15 +45,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 
 	}
 
-	/*
-	 * @After public void CloseEm(){
-	 * 
-	 * EntityTransaction tx = entityManager.getTransaction(); tx.commit();
-	 * 
-	 * if(entityManager.isOpen()){ entityManager.close(); } }
-	 */
-
-	@Test
+		@Test
 	public void cargarJSONEmpresasYCuentasABaseDeDatos() throws FileNotFoundException {
 		/*
 		 * Para la Empresa YPF el Json tienen la cuenta INDICADOR periodo 2017

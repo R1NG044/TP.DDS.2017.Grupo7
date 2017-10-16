@@ -35,21 +35,18 @@ public class Server {
 			
 			return new ModelAndView(Repositorio.getInstance(), "listaIndicadores.hbs");
 		}, engine);
+		
 		Spark.post("/indicadores", (req, res) -> {
 			
 			String indicador = req.queryParams("mySelectIndicadores");
-			String empresa = req.queryParams("mySelectIndicadores");
-			//String periodo = req.queryParams("i");
-			System.out.println(indicador);System.out.println(empresa);//System.out.println(periodo);
-			// Autenticación contra la BD
-			//Boolean auth = false;
-			//Usuario u = Repositorio.getInstance().getUsuarioByUserAndPwd(username, pwd);
+			String empresa = req.queryParams("mySelectEmpresas");
+			String periodo = req.queryParams("mySelectPeriodos");
+			List<String> resultado = new ArrayList<String>();
+			resultado.add(indicador);
+			resultado.add(empresa);
+			resultado.add(periodo);
 			
-		
-//				auth = true;
-//				res.cookie("idUsuarioActivo", u.getId().toString());
-			
-				return new ModelAndView(empresa, "listaIndicadores.hbs");}, engine);
+				return new ModelAndView(resultado, "resultadoIndicadores.hbs");}, engine);
 
 		Spark.get("indicador/cargar", (req, res) -> {
 
