@@ -19,11 +19,12 @@ public class Server {
 
 		/***** E N D P O I N T S *******/
 
-		Spark.get("/indicadores/:idUsuario", (req, res) -> {
+		Spark.get("/indicadores", (req, res) -> {
 
 			List<Indicador> indicadores = Repositorio.getInstance()
-					.buscarIndicadorPorUser(Integer.parseInt(req.params("idUsuario")));
+					.buscarIndicadorPorUser(Integer.parseInt(req.cookie("idUsuarioActivo")));
 
+			Repositorio.getInstance().limpiarRepoIndicadores();
 			Repositorio.getInstance().cargarListaDeIndicadores(indicadores);
 
 			return new ModelAndView(Repositorio.getInstance(), "listaIndicadores.hbs");
@@ -42,28 +43,30 @@ public class Server {
 		Spark.post("/index", (req, res) -> {
 			String username = req.queryParams("login");
 			String pwd = req.queryParams("password");
+			
 
 			// Autenticación contra la BD
-			Boolean aut = validarUsuario(username, pwd);
-
-			// TODO: Mandar nombre de usuario a Index y grabarlo en label en
-			// form, a evaluar.
-			if (aut) {
-
-				Usuario u = new Usuario(1, req.queryParams("login"));
+			Boolean auth = false;
+			Usuario u = Repositorio.getInstance().getUsuarioByUserAndPwd(username, pwd);
+			
+			if(u != null){
+				auth = true;
+				res.cookie("idUsuarioActivo", u.getId().toString());
+			}
+			
+			if(auth){
 				idUsuarioActivo = u.getId();
 				return new ModelAndView(u, "index.hbs");
 			}
-
 			else {
 				return new ModelAndView("El usuario o la contrasena son incorrectos", "login.hbs");
 			}
 
 		}, engine);
 
-		Spark.get("/index", (req, res) ->
-
-		{
+		Spark.get("/index", (req, res) ->{
+			
+			idUsuarioActivo = Integer.parseInt(req.cookie("idUsuarioActivo"));
 			return new ModelAndView(Repositorio.getInstance().buscarUserPorId(idUsuarioActivo), "index.hbs");
 
 		}, engine);
@@ -77,7 +80,7 @@ public class Server {
 			return new ModelAndView(null, "consultaDeValores.hbs");
 		}, engine);
 
-		Spark.get("/metodologias/:idUsuario", (req, res) -> {
+		Spark.get("/metodologias", (req, res) -> {
 
 			// List<Metodologia> metodologias = Repositorio.getInstance()
 			// .buscarMetodologiaPorUser(Integer.parseInt(req.params("idUsuario")));
@@ -86,12 +89,17 @@ public class Server {
 
 			return new ModelAndView(Repositorio.getInstance(), "metodologias.hbs");
 		}, engine);
+		
+		Spark.get("/metodologias/cargar", (req, res) -> {
+			
+			return new ModelAndView(Repositorio.getInstance(), "cargarMetodologia.hbs");
+		}, engine);
 
 		Spark.get("/logout", (req, res) -> {
-
+			res.cookie("idUsuarioActivo", "");
 			return new ModelAndView(null, "login.hbs");
 
-		});
+		}, engine);
 
 		/***** E N D ******/
 

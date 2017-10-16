@@ -40,8 +40,12 @@ public final class Repositorio {
 	public void limpiarRepo() {
 		this.empresas.clear();
 	}
+	
+	public void limpiarRepoIndicadores() {
+		this.indicadores.clear();
+	}
 
-	// TODO --Métodos sin persistencia
+	// TODO --Mï¿½todos sin persistencia
 	public void cargarListaDeEmpresas(List<Empresa> listaEmpresas) {
 		for (Empresa unaEmpresa : listaEmpresas) {
 			this.agregarEmpresa(unaEmpresa);
@@ -252,7 +256,7 @@ public final class Repositorio {
 		this.indicadores = indicadores;
 	}
 	/*
-	 * Métodos para implementar KIE public List<IndicadorNodo>
+	 * Mï¿½todos para implementar KIE public List<IndicadorNodo>
 	 * getIndicadoresEvaluados(Integer periodo) { // devuelve lista de
 	 * indicadores que han sido cargados en memoria y su // evaluacion para
 	 * todas las empresas // cargadas en el json, en el periodo provisto.
