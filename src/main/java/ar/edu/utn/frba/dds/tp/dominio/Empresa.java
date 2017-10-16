@@ -85,6 +85,19 @@ public class Empresa {
 	}
 	
 
+	public List<Cuenta> getCuentasPorPeriodo(Integer periodo){
+		List<Cuenta> cuentasPorPeriodo = new ArrayList<Cuenta>();
+		
+		for(Cuenta cuenta: cuentas){
+			if(cuenta.getPeriodo().equals(periodo)){
+				cuentasPorPeriodo.add(cuenta);
+			}
+		}
+		
+		return cuentasPorPeriodo;
+	}
+	
+
 	/**** Getters y Setters ****/
 
 	public List<Cuenta> getCuentas() {

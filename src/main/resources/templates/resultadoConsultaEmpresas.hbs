@@ -1,0 +1,44 @@
+
+<body style="background-color:#BFC4C3;" link="#EEF9F8" vlink="#EEF9F8" alink="#EEF9F8">
+	<div id="div" align=center><h1 style="border: 2px solid #EEF9F8; padding: 10px; background-color: #EEF9F8; color: #999999; font-family: arial,helvetica; font-size: 40px;">SISTEMA DE APOYO A DECISIONES</h1></div>
+	<div id="div" align=center>
+		<p style="font-size:20px; font-family:arial; background-color: #999999; padding: 30px;"><b>
+			<a href="/index" style="text-decoration:none;"> /   Home   / </a>
+			<a href="/empresas" style="text-decoration:none;">    Empresas   / </a>
+			<a href="/indicadores" style="text-decoration:none;">    Indicadores   / </a>
+			<a href="/metodologias" style="text-decoration:none;">    Metodologias   / </a>
+			<a href="mailto:grupo7.dds@gmail.com" style="text-decoration:none;">    Contacto   / </a>
+		</b></p>
+	</div>
+	
+	
+	<div style='height: 550px; width: 300px; border: 3px solid #999999; background-color: #999999; float: left;'>
+		<p style="font-size:20px; font-family:arial; background-color: #2A40DF; padding: 30px;">
+			<a href="/empresas"  style="text-decoration:none;">CARGAR EMPRESA</a>
+		</p>
+		<p style="font-size:20px; font-family:arial; background-color: #DF2A56; padding: 30px;">
+			CONSULTAR VALORES
+		</p>
+			
+	</div>
+	<div id="listaCuentas">
+		{{#each this}}
+			<p>
+				Id: {{idCuenta}} || 
+				Nombre cuenta: {{nombreCuenta}} || 
+				Valor: {{valor}}
+			</p>
+		{{/each}}
+	</div>
+		   
+	<div id="cen" align="center"><br><br>
+		<fieldset>
+			<form name="formListaIndicadores" action="/empresas/consultaDeValores" method="GET" onsubmit="javascript: return enviar();">
+				<input type="submit" value="Volver a filtros" />
+			</form>
+		</fieldset>
+		</div>
+		  	 
+	</div>
+</body>
+

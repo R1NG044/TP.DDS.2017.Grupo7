@@ -6,8 +6,10 @@ import javax.persistence.*;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
+
 
 public final class Repositorio {
 
@@ -117,6 +119,48 @@ public final class Repositorio {
 			}
 		}
 	}
+	
+	public List<Cuenta> getCuentasDeEmpresaDeIdPorPeriodo(Integer idEmpresa, Integer periodo) {
+		
+		List<Cuenta> listCuentas = null;
+		List<Empresa> listEmpresaFiltrada = this.empresas.stream().filter(e->e.getId() == idEmpresa).collect(Collectors.toList());
+		if(listEmpresaFiltrada  != null){
+			if(listEmpresaFiltrada .get(0) != null){
+				listCuentas = listEmpresaFiltrada .get(0).getCuentasPorPeriodo(periodo);
+			}
+		}
+		
+		return listCuentas;
+		
+		/*
+				= usuario.getCapturas().stream()
+				.filter(x->x.getApodo().equals(req.params("pokemon")))
+				.collect(Collectors.toList());
+		*/
+	
+		
+	}
+	
+	
+	/*
+	public void filtrarCuentasDeEmpresaDeIdPorPeriodo(Integer idEmpresa, Integer periodo) {
+		List<Cuenta> listaCuentasRemover = new ArrayList<Cuenta>();
+		for (Empresa empresa : empresas) {
+			if (empresa.getId() == idEmpresa) {
+				for(Cuenta cuenta: empresa.getCuentas()){
+					if(cuenta.getPeriodo() != periodo){
+						listaCuentasRemover.add(cuenta);
+					}
+				}
+				for(Cuenta cuenta: listaCuentasRemover){
+					empresa.getCuentas().remove(cuenta);
+				}
+				break;
+			}
+		}
+		
+	}
+	*/
 
 	public int cantidadEmpresas() {
 		return empresas.size();

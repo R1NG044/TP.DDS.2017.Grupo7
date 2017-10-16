@@ -1,0 +1,80 @@
+
+<body style="background-color:#BFC4C3;" link="#EEF9F8" vlink="#EEF9F8" alink="#EEF9F8">
+	<div id="div" align=center><h1 style="border: 2px solid #EEF9F8; padding: 10px; background-color: #EEF9F8; color: #999999; font-family: arial,helvetica; font-size: 40px;">SISTEMA DE APOYO A DECISIONES</h1></div>
+	<div id="div" align=center>
+		<p style="font-size:20px; font-family:arial; background-color: #999999; padding: 30px;"><b>
+			<a href="/index" style="text-decoration:none;"> /   Home   / </a>
+			<a href="/empresas" style="text-decoration:none;">    Empresas   / </a>
+			<a href="/indicadores" style="text-decoration:none;">    Indicadores   / </a>
+			<a href="/metodologias" style="text-decoration:none;">    Metodologias   / </a>
+			<a href="mailto:grupo7.dds@gmail.com" style="text-decoration:none;">    Contacto   / </a>
+		</b></p>
+	</div>
+	
+	
+	<div style='height: 550px; width: 300px; border: 3px solid #999999; background-color: #999999; float: left;'>
+		<p style="font-size:20px; font-family:arial; background-color: #2A40DF; padding: 30px;">
+			<a href="/empresas"  style="text-decoration:none;">CARGAR EMPRESA</a>
+		</p>
+		<p style="font-size:20px; font-family:arial; background-color: #DF2A56; padding: 30px;">
+			CONSULTAR VALORES
+		</p>
+			
+	</div> 
+	<div id="cen" align="center"><br><br>
+		<fieldset>
+			<form name="formListaIndicadores" action="/empresas/resultadoConsultaEmpresas" method="GET" onsubmit="javascript: return enviar();">
+				<p style="border: 2px solid #999999; padding: 10px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Seleccionar Empresa</p>
+					
+				<select id="mySelectEmpresas" onchange="myFunction()" name="mySelectEmpresas">
+					<option ></option>
+					{{#each empresas}}
+					
+					<option value={{id}}>{{nombreEmpresa}}</option>
+					{{/each}}									
+				</select>
+			
+				<br>
+			
+				
+				<p style="border: 2px solid #999999; padding: 10px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Seleccionar Per�odo</p>
+					
+				<select id="mySelectPeriodos" onchange="myFunction()" name="mySelectPeriodos">
+					<option ></option>
+					<option value="2017">2017</option>
+					<option value="2016">2016</option>
+					<option value="2015">2015</option>
+					<option value="2014">2014</option>
+					<option value="2013">2013</option>
+					<option value="2012">2012</option>
+					<option value="2011">2011</option>
+					<option value="2010">2010</option>
+					<option value="2009">2009</option>
+					<option value="2008">2008</option>
+								
+				</select>
+
+				<br>
+				<br><br>
+				<input type="submit" onclick="myFunction()" id="enviar" value="Calcular" />
+				<p id="demo"></p>
+				
+				<script>
+					function myFunction() {
+						var x = document.getElementById("mySelect1");
+						var y = document.getElementById("mySelect2");
+						var z = document.getElementById("mySelect3");
+						var a = x.selectedIndex;
+						var e = y.selectedIndex;
+						var i = z.selectedIndex;
+						//document.getElementById("demo").innerHTML = x.options[i].text;
+					}
+				</script>
+			</form>
+			
+		</fieldset>
+		</div>
+		  	 
+	</div>
+</body>
+

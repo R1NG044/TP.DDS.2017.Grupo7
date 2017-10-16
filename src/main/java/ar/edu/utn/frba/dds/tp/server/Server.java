@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.tp.server;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.utn.frba.dds.tp.antlr.dds.*;
@@ -28,7 +29,8 @@ public class Server {
 			Repositorio.getInstance().cargarListaDeIndicadores(indicadores);
 
 			if(req.queryParams("mySelectIndicadores") != "" && req.queryParams("mySelectEmpresas") != "" && req.queryParams("mySelectPeriodos") !=""){
-				//Repositorio.getInstance().bu
+				//TODO: Traer metodos de evaluar indicadores de los Tests y pasarlos al módulo Aplicacion
+				//TODO: Llamar a evaluarIndicador acá y mostrarlo.
 			}
 			
 			return new ModelAndView(Repositorio.getInstance(), "listaIndicadores.hbs");
@@ -93,10 +95,22 @@ public class Server {
 		Spark.get("/empresas", (req, res) -> {
 			return new ModelAndView(null, "empresas.hbs");
 		}, engine);
+	
+		Spark.get("empresas/resultadoConsultaEmpresas", (req, res) ->{
+			List<Cuenta> listCuentas = new ArrayList<Cuenta>();
+			if(req.queryParams("mySelectEmpresas") != null && req.queryParams("mySelectPeriodos") != null &&
+					req.queryParams("mySelectEmpresas").toString().length() > 0 && req.queryParams("mySelectPeriodos").toString().length() > 0){
+				listCuentas = Repositorio.getInstance().getCuentasDeEmpresaDeIdPorPeriodo(Integer.parseInt(req.queryParams("mySelectEmpresas")), 
+							Integer.parseInt(req.queryParams("mySelectPeriodos")));
+			}
+			
+			return new ModelAndView(listCuentas, "resultadoConsultaEmpresas.hbs");
+			
+		}, engine);
 
-		Spark.get("/empresa/consultaDeValores", (req, res) -> {
-
-			return new ModelAndView(null, "consultaDeValores.hbs");
+		Spark.get("/empresas/consultaDeValores", (req, res) -> {
+			return new ModelAndView(Repositorio.getInstance(), "filtrosListaEmpresas.hbs");
+		
 		}, engine);
 
 		Spark.get("/metodologias", (req, res) -> {
