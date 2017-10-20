@@ -1,0 +1,71 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>SISTEMA DE APOYO A DECISIONES</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+  <!-- Start your project here-->
+
+                        <!--Body-->
+<body link="#EEF9F8"; vlink="#EEF9F8"; alink="#EEF9F8";>
+
+  
+                        
+     	<div id="div" ><h1  style="border: 2px solid #EEF9F8; padding: 10px; background-color: #EEF9F8; color: #999999; ">SISTEMA DE APOYO A DECISIONES</h1></div>
+	
+	<!-- Form login -->
+<form class="mt-5" style="width: 40rem;" name="formLogin" action="/index" method="POST" onsubmit="javascript: return enviar();" >
+    <p class="h5 text-center mb-4">Por favor ingrese sus datos:</p>
+	
+    <div class="md-form" >
+        <i class="fa fa-envelope prefix grey-text" >
+        </i>
+        <input type="text" id="defaultForm-email" class="form-control" name=login>
+        <label for="defaultForm-email">Tu Email</label>
+    </div>
+
+    <div class="md-form">
+        <i class="fa fa-lock prefix grey-text" >
+        </i>
+        <input type="password" id="defaultForm-pass" class="form-control" name=password>
+        <label for="defaultForm-pass">Tu Password</label>
+    </div>
+
+    <div class="text-center">
+        <button class="btn btn-default" INPUT type="submit" value=Acceder>Acceder</button>
+    </div>
+</form>
+<!-- Form login -->
+	
+		<SCRIPT type="text/javascript"> 
+		function enviar(){
+
+			if (document.formLogin.password.value=='' || document.formLogin.login.value==''){ 
+					alert("Porfavor ingrese, nombre de usuario y contraseña.");
+					return false;  
+				} 
+				else{ 
+					 location="index.html";
+				}
+				
+				return true;
+			} 
+		</SCRIPT> 
+		<!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+</body>
+

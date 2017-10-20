@@ -7,6 +7,7 @@ import ar.edu.utn.frba.dds.tp.antlr.dds.*;
 import ar.edu.utn.frba.dds.tp.dominio.*;
 import spark.ModelAndView;
 import spark.Spark;
+import static spark.Spark.*;
 import spark.template.handlebars.*;
 
 public class Server {
@@ -15,7 +16,10 @@ public class Server {
 
 	public static void main(String[] args) {
 		Repositorio.getInstance().cargarIndicadoresDesdeBD();
-
+		staticFiles.location("/public");
+		
+		staticFiles.expireTime(600);
+		init();
 		HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
 		/***** E N D P O I N T S *******/
