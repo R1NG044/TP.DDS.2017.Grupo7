@@ -47,7 +47,7 @@ public final class  Aplicacion {
 		CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
 		ParserListener listener = new ParserListener();
 		
-		return listener.probarUnIndicadorNuevo(expresionContext, empresa, periodo);
+		return listener.probarUnIndicador(expresionContext,Repositorio.getInstance().buscarIndicadorPorNombre(indicador), empresa, periodo);
 		
 	}
 	

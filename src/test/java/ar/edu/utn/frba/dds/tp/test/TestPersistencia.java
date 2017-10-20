@@ -113,7 +113,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		// Persisto formula indicador ROE
 		file = this.getInputFilePath();
 		String formula2 = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
-		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE", formula2, new Usuario(2, "Nadia"));
+		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE", formula2, new Usuario(1, "Brenda"));
 
 		assertTrue(repo.existeIndicador("ROE"));
 		assertTrue(repo.existeIndicador("INGRESONETO"));
