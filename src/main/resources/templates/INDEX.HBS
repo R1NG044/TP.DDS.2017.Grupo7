@@ -1,5 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,42 +13,34 @@
     <!-- Your custom styles (optional) -->
     <link href="css/style.css" rel="stylesheet">
 </head>
-
-<body>
+<body >
 	<div id="contenedor">
 		<div id="cabecera" align="center" ><h1 >SISTEMA DE APOYO A DECISIONES</h1></div>
 		
-		<div id="menu" align="center">
+		<div id="menu" align="center" >
 			<nav class="nav-menu">
 				<ul class="clearfix">
 					<li><a href="/index" class="linksMenu">Home</a></li>
 					<li><a href="/empresas" class="linksMenu">Empresas</a></li>
 					<li><a href="/indicadores" class="linksMenu">Indicadores</a></li>
 					<li><a href="/metodologias" class="linksMenu">Metodolog&iacuteas</a></li>
-					<li><a href="/logout" class="linksMenu"> Cerrar Sesi&oacuten</a></li>
+					<li><a href="/logout" class="linksMenu"> Cerrar &oacute</a></li>
 				</ul>
 			</nav>
-		</div>
+		</div>	
 		
-		<div id="submenu">
-			<br>
-			<p class="linksSubmenu"><a href="/metodologias" class="links" >Aplicar Metodolog&iacutea</a></p>
-			<p class="linksActual">Cargar Metodolog&iacutea</p>
-		</div>
-
-		<div id="contenido" align="center"> <br><br><br>
-			<form name="myForm"  onsubmit="return validateForm()" method="post" id="forma3" align="center">
-					<br><br>
-					<P align="center"><b>Nombre Metodolog&iacutea:	<input type="text" name="Met_name">
-					<br>
-					<P align="center">Nueva F&oacutermula: <input name="valor" type="text" id="formula" />
-					<br>
-					<br>
-					<input type="submit" value="Cargar" id="button">
-			</form>
+		<div id="submenu" ></div>
+					
+		<div id="contenido"  align="center"> 
+			<h1 style="font-size:35px;">Bienvenido</h1>
+			
 		</div>
 		
 	</div>
+	<script type="text/javascript">
+		alert({{id}}');
+		document.cookie = 'idUsuarioActivo = {{id}}';
+	</script>
 	<!-- JQuery -->
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<!-- Bootstrap tooltips -->

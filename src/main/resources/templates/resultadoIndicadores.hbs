@@ -1,64 +1,83 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<body style="background-color:#BFC4C3;" link="#EEF9F8" vlink="#EEF9F8" alink="#EEF9F8">
-	<div id="div" align=center><h1 style="border: 2px solid #EEF9F8; padding: 10px; background-color: #EEF9F8; color: #999999; font-family: arial,helvetica; font-size: 40px;">SISTEMA DE APOYO A DECISIONES</h1></div>
-	<div id="div" align=center>
-		<p style="font-size:20px; font-family:arial; background-color: #999999; padding: 30px;"><b>
-			<a href="/index" style="text-decoration:none;"> /   Home   / </a>
-			<a href="/empresas" style="text-decoration:none;">    Empresas   / </a>
-			<a href="/indicadores" style="text-decoration:none;">    Indicadores   / </a>
-			<a href="/metodologias" style="text-decoration:none;">    Metodologias   / </a>
-			<a href="mailto:grupo7.dds@gmail.com" style="text-decoration:none;">    Contacto   / </a>
-			<a href="/logout" style="text-decoration:none;"> Cerrar Sesión   / </a>
-		</b></p>
-	</div>
-	
-	
-	
-	<div style='height: 550px; width: 300px; border: 3px solid #999999; background-color: #999999; float: left;'>
-		<p style="font-size:20px; font-family:arial; background-color: #DF2A56; padding: 30px;">
-			EVALUAR INDICADOR
-		</p>
-		<p style="font-size:20px; font-family:arial; background-color: #2A40DF; padding: 30px;">
-			<a href="/indicador/cargar"  style="text-decoration:none;">CARGAR INDICADOR</a>
-		</p>
-			
-	</div>
-		<p style="border: 2px solid #999999; padding: 15px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Complete los datos del Indicador a evaluar:</p>
-		<div id="cen" align="center">
-			<FORM name="formListaIndicadores" action="/indicadores" method="GET" onsubmit="javascript: return enviar();">
-				<p style="border: 2px solid #999999; padding: 10px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Seleccionar Indicador</p>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>SISTEMA DE APOYO A DECISIONES</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+	<div id="contenedor">
+		<div id="cabecera" align="center" ><h1 >SISTEMA DE APOYO A DECISIONES</h1></div>
+		
+		<div id="menu" align="center">
+			<nav class="nav-menu">
+				<ul class="clearfix">
+					<li><a href="/index" class="linksMenu">Home</a></li>
+					<li><a href="/empresas" class="linksMenu">Empresas</a></li>
+					<li><a href="/indicadores" class="linksMenu">Indicadores</a></li>
+					<li><a href="/metodologias" class="linksMenu">Metodolog&iacuteas</a></li>
+					<li><a href="/logout" class="linksMenu"> Cerrar Sesi&oacuten</a></li>	
+				</ul>
+			</nav>
+		</div>
+		<div id="submenu">
+			<br>
+			<p class="linksActual"> Evaluar Indicador</p>
+			<p class="linksSubmenu"><a href="/indicador/cargar"" class="links" >Cargar Indicador</a></p>
+		</div>
+		
+		
+		<div id="contenido" align="center"> <br>
+			<p style="border: 2px solid #999999; padding: 15px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Complete los datos del Indicador a evaluar:</p>
+			<form name="formListaIndicadores" action="/indicadores" method="GET" onsubmit="javascript: return enviar();">
+				<p align="center" ><b>Seleccionar Indicador
 				
 				<select id="mySelectIndicadores" onchange="myFunction()" name="mySelectIndicadores" disabled>
 					<option > {{this.[0]}}</option>
  				  							
-		</select>
+				</select>
 			
-			<br><br>
-				<p style="border: 2px solid #999999; padding: 10px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Seleccionar Empresa</p>
+				<br><br>
+				<p align="center" >Seleccionar Empresa
 				
 				<select id="mySelectEmpresas" onchange="myFunction()" name="mySelectEmpresas" disabled>
 					<option >{{this.[1]}}</option>
 												
 				</select>
-			<br><br>
-				<p style="border: 2px solid #999999; padding: 10px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Seleccionar Período</p>
+				<br><br>
+				<p align="center">Seleccionar Per&iacuteodo
 				
 				<select id="mySelectPeriodos" onchange="myFunction()" name="mySelectPeriodos" disabled>
 					<option >{{this.[2]}}</option>
-					
-								
+											
 				</select>
-				<input type="submit" onsubmit="myFunction()" id="obtenerIndicador" value="Calcular" disabled />
-				<div>
-		<p align="center" style=" border: 2px solid #999999; padding: 15px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">
-			Resultado Indicador: {{this.[3]}}
-		</p>
-		<input type="submit" onsubmit="myFunction()" id="volverAIndicadores" value="Volver" />
-		</div>
+				<br><br>
+				<input type="submit" onsubmit="myFunction()" id="obtenerIndicador" value="Calcular" disabled class="button"/>
+				<br><br>
+				<p align="center"> Resultado Indicador: {{this.[3]}}
+	
+				<input type="submit" onsubmit="myFunction()" id="volverAIndicadores" value="Volver" class="button" />
+		
 			</form>
-			<p id="demo"></p>
-			
-						
+							
 		</div>			 
 	</div>
+	<!-- JQuery -->
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="js/popper.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="js/mdb.min.js"></script>
 </body>
