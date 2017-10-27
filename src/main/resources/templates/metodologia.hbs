@@ -26,28 +26,47 @@
 					<li><a href="/empresas" class="linksMenu">Empresas</a></li>
 					<li><a href="/indicadores" class="linksMenu">Indicadores</a></li>
 					<li><a href="/metodologias" class="linksMenu">Metodolog&iacuteas</a></li>
-					<li><a href="/logout" class="linksMenu"> Cerrar Sesi&oacuten</a></li>
+					<li><a href="/logout" class="linksMenu"> Cerrar Sesi&oacuten</a></li>	
 				</ul>
 			</nav>
 		</div>
-		
 		<div id="submenu">
 			<br>
-			<p class="linksSubmenu"><a href="/metodologias" class="links" >Aplicar Metodolog&iacutea</a></p>
-			<p class="linksActual">Cargar Metodolog&iacutea</p>
+			<p class="linksActual">Aplicar Metodología</p>
+			<p class="linksSubmenu"><a href="/metodologias/cargar" class="links">Cargar Metodología</a></p>
 		</div>
-
+		
 		<div id="contenido" align="center"> <br><br><br>
-			<form name="myForm"  onsubmit="return validateForm()" method="post" id="forma3" align="center">
-					<br><br>
-					<P align="center"><b>Nombre Metodolog&iacutea:	<input type="text" name="Met_name">
-					<br>
-					<P align="center">Nueva F&oacutermula: <input name="valor" type="text" id="formula" />
-					<br>
-					<br>
-					<input type="submit" value="Cargar" id="button">
-			</form>
+			<form id="forma3" align="center"><br><br>
+				<p align="center" ><b>Seleccionar Metodolog&iacutea
+				<select id="mySelect1" onchange="myFunction()">
+					<option >Seleccionar</option>
+					<option >Maximizar Roe</option>
+					<option >Minimizar el nivel de deuda</option>
+				</select>
+				<br>
+				<p align="center">Seleccionar Empresa
+				<select id="mySelect2" onchange="myFunction()">
+					<option >Seleccionar</option>
+					<option >Facebook</option>
+				</select>
+				<br>
+			<br><br>
+			<input type="submit" onclick="myFunction()" id="enviar" value="Calcular" class=button />
+			</form>		
+			<script>
+				function myFunction() {
+					var x = document.getElementById("mySelect");
+					var i = x.selectedIndex;
+					//document.getElementById("demo").innerHTML = x.options[i].text;
+				}
+			</script>
+			<br><br><br>
+			<form >
+				<P align="center">Resultado: <input name="valor" type="text" id="formula" />
+			</form> 
 		</div>
+		
 		
 	</div>
 	<!-- JQuery -->

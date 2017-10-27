@@ -1,43 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>SISTEMA DE APOYO A DECISIONES</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
 
-<body style="background-color:#BFC4C3;" link="#EEF9F8" vlink="#EEF9F8" alink="#EEF9F8">
-	<div id="div" align=center><h1 style="border: 2px solid #EEF9F8; padding: 10px; background-color: #EEF9F8; color: #999999; font-family: arial,helvetica; font-size: 40px;">SISTEMA DE APOYO A DECISIONES</h1></div>
-	<div id="div" align=center>
-		<p style="font-size:20px; font-family:arial; background-color: #999999; padding: 30px;"><b>
-			<a href="/index" style="text-decoration:none;"> /   Home   / </a>
-			<a href="/empresas" style="text-decoration:none;">    Empresas   / </a>
-			<a href="/indicadores" style="text-decoration:none;">    Indicadores   / </a>
-			<a href="/metodologias" style="text-decoration:none;">    Metodologias   / </a>
-			<a href="mailto:grupo7.dds@gmail.com" style="text-decoration:none;">    Contacto   / </a>
-			<a href="/logout" style="text-decoration:none;"> Cerrar Sesión   / </a>
-		</b></p>
-	</div>
-	
-	
-	<div style='height: 550px; width: 300px; border: 3px solid #999999; background-color: #999999; float: left;'>
-		<p style="font-size:20px; font-family:arial; background-color: #2A40DF; padding: 30px;">
-			<a href="/indicadores"  style="text-decoration:none;">INDICADORES</a>
-		</p>
-		<p style="font-size:20px; font-family:arial; background-color: #DF2A56; padding: 30px;">
-			CARGAR INDICADOR
-		</p>
-			
-	</div>
-
-		<div id="cen" align="center"> <br><br><br>
-			<form name="myForm"  onsubmit="return validateForm()" method="post">
-				<p style="border: 2px solid #999999; padding: 10px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Nombre Indicador</p>
-				<input type="text" name="Met_name">
-				<br>
-				<p style="border: 2px solid #999999; padding: 10px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Nueva F�rmula</p>
-				<input name="valor" type="text" id="formula" />
-				<br>
-				<br>
-				<input type="submit" value="Cargar">
-			</form>
-				
+<body>
+	<div id="contenedor">
+		<div id="cabecera" align="center" ><h1 >SISTEMA DE APOYO A DECISIONES</h1></div>
+		
+		<div id="menu" align="center">
+			<nav class="nav-menu">
+				<ul class="clearfix">
+					<li><a href="/index" class="linksMenu">Home</a></li>
+					<li><a href="/empresas" class="linksMenu">Empresas</a></li>
+					<li><a href="/indicadores" class="linksMenu">Indicadores</a></li>
+					<li><a href="/metodologias" class="linksMenu">Metodolog&iacuteas</a></li>
+					<li><a href="/logout" class="linksMenu"> Cerrar Sesi&oacuten</a></li>	
+				</ul>
+			</nav>
 			
 		</div>
-		  	 
-	</div>
-</body>
+		
+		<div id="submenu">
+			<br>
+			<p class="linksSubmenu">
+				<a href="/indicadores"  class="links" >Usar Indicador</a>
+			</p>
+			<p class="linksActual"> Cargar Indicador</p>
+			
+		</div>
 
+		<div id="contenido" align="center"> <br><br><br>
+			<form name="myForm"  onsubmit="return validateForm()" method="post" id="forma3" align="center">
+				<br><br>
+				<P align="center"><b>Nombre Indicador:	<input type="text" name="Met_name">
+				<br>
+				<P align="center">Nueva F&oacutermula: <input name="valor" type="text" id="formula" />
+				<br>
+				<br>
+				<input type="submit" value="Cargar" id="button">
+			</form>
+		</div>
+	 
+	</div>
+	<!-- JQuery -->
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="js/popper.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="js/mdb.min.js"></script>	
+</body>
+</html>

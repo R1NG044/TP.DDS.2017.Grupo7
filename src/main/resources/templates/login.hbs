@@ -1,39 +1,61 @@
-<body style="background-color:#BFC4C3;" link="#999999">
-	<div id="div" align=center><h1 style="border: 2px solid #EEF9F8; padding: 10px; background-color: #EEF9F8; color: #999999; font-family: arial,helvetica; font-size: 40px;">SISTEMA DE APOYO A DECISIONES</h1></div>
-	<div id="div" align=center>
-		<p style="font-size:20px; font-family:arial; "><b>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>SISTEMA DE APOYO A DECISIONES</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+	<div id="contenedor">
+		<div id="cabecera" align="center" ><h1 >SISTEMA DE APOYO A DECISIONES</h1></div>
+		
+		<div id="menu" ></div>	
+		
+		<div id="submenu" ></div>
+					
+		<div id="contenido"  align="center"> 
+			<br><br>
+			<FORM id="forma3" name=form action="home.HTML" align="center">
+				<P align="center">Usuario:    <INPUT type=text id="defaultForm-email" class="form-control" name=login> 
+				<P align="center">Contrase&ntilde;a: <INPUT type="password" id="defaultForm-pass" class="form-control" name=password> 
+				<br><br><br>
+				<INPUT class="btn btn-default" type="submit" value=Acceder id="button">
+				<INPUT type="Reset" id="button">
+			</FORM> 
 			
-		</b></p>
-	</div>
+		</div>
+		<!-- Form login -->
 	
-	<div style='height: 550px; width: 300px; border: 3px solid #999999; background-color: #999999; float: left;'> </div>
-				
-	<div id="cen" align="center"> <br><br><br><br><br><br>
-	<SCRIPT type="text/javascript"> 
-		function enviar(){
-
-			if (document.formLogin.password.value=='' || document.formLogin.login.value==''){ 
-					alert("Porfavor ingrese, nombre de usuario y contrasena.");
+		<SCRIPT type="text/javascript"> 
+			function enviar(){
+				if (document.formLogin.password.value=='' || document.formLogin.login.value==''){ 
+					alert("Porfavor ingrese, nombre de usuario y contraseña.");
 					return false;  
 				} 
 				else{ 
-					 location="index.html";
+					 location="/index";
 				}
 				
 				return true;
 			} 
-		</SCRIPT> 
-		<FORM name="formLogin" action="/index" method="POST" onsubmit="javascript: return enviar();">
-			<div style="font-size: 20px;"> Complete usuario y contrasena: </div>
-			{{this}}
-			<P>Usuario:    <INPUT type=text name=login> 
-			<P>Password: <INPUT type=password name=password> 
-			<br> </br>
-			<br> </br>
-			<INPUT type="submit" value=Acceder>
-			<input type="Reset">
-		</FORM> 
-			
+		
 	</div>
+	</SCRIPT> 
+	<!-- JQuery -->
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="js/popper.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="js/mdb.min.js"></script>
 </body>
 

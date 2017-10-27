@@ -1,30 +1,43 @@
-<body style="background-color:#BFC4C3;" link="#EEF9F8" vlink="#EEF9F8" alink="#EEF9F8">
-	<div id="div" align=center><h1 style="border: 2px solid #EEF9F8; padding: 10px; background-color: #EEF9F8; color: #999999; font-family: arial,helvetica; font-size: 40px;">SISTEMA DE APOYO A DECISIONES</h1></div>
-	<div id="div" align=center>
-		<p style="font-size:20px; font-family:arial; background-color: #999999; padding: 30px;"><b>
-			<a href="/index" style="text-decoration:none;"> /   Home   / </a>
-			<a href="/empresas" style="text-decoration:none;">    Empresas   / </a>
-			<a href="/indicadores" style="text-decoration:none;" id="anchorIndicadores">    Indicadores   / </a>
-			<a href="/metodologias" style="text-decoration:none;" id="anchorMetodologias">    Metodologias   / </a>
-			<a href="mailto:grupo7.dds@gmail.com" style="text-decoration:none;">    Contacto   / </a>
-			<a href="/logout" style="text-decoration:none;"> Cerrar Sesión   / </a>
-		</b></p>
-	</div>
-	
-	
-	
-	<div style='height: 550px; width: 300px; border: 3px solid #999999; background-color: #999999; float: left;'>
-		<p style="font-size:20px; font-family:arial; background-color: #DF2A56; padding: 30px;">
-			CARGAR EMPRESA
-		</p>
-		<p style="font-size:20px; font-family:arial; background-color: #2A40DF; padding: 30px;">
-			<a href="/empresas/consultaDeValores"  style="text-decoration:none;">CONSULTAR VALORES</a>
-		</p>
-			
-	</div>
-				
-	<div id="cen" align="center"> <br><br><br><br><br><br>
-		<table align="center" width="400" height="100">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>SISTEMA DE APOYO A DECISIONES</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+	<div id="contenedor">
+		<div id="cabecera" align="center" ><h1 >SISTEMA DE APOYO A DECISIONES</h1></div>
+		
+		<div id="menu" align="center">
+			<nav class="nav-menu">
+				<ul class="clearfix">
+					<li><a href="/index" class="linksMenu">Home</a></li>
+					<li><a href="/empresas" class="linksMenu">Empresas</a></li>
+					<li><a href="/indicadores" class="linksMenu">Indicadores</a></li>
+					<li><a href="/metodologias" class="linksMenu">Metodolog&iacuteas</a></li>
+					<li><a href="/logout" class="linksMenu"> Cerrar Sesi&oacuten</a></li>	
+				</ul>
+			</nav>
+		</div>
+		
+		<div id="submenu">
+			<br>
+			<p class="linksActual">Cargar Empresa</p>
+			<p class="linksSubmenu"><a href="/filtroListaEmpresas" class="links">Consultar Cuentas</a></p>
+		</div>
+
+		<div id="contenido" align="center"> <br><br><br>
+			<table align="center" width="400" height="100">
 			<tr>
 				<td align="center" bgcolor="#999999" class="style64" HEIGHT="50">
 					<label><font color=#FFFFFF>Adjuntar Archivo</font></label>
@@ -35,7 +48,7 @@
 					<form id="form" action="javascript: mandarForm(this)" enctype=" multipart/form-data" >
 						<input name="archivo_json" type="file" class="botones" id="archivo_json" value="archivo_json" />
 						<br><br>
-						<input type="submit" value="Enviar"/>
+						<input type="submit" value="Enviar" id="button"/>
 					</form>
 						
 				<script>
@@ -45,7 +58,7 @@
 					y le pasamos como parametro el formulario HTML */
 						var Data = new FormData(form);
 								
-						/* Creamos el objeto que hara la petici�n AJAX al servidor, debemos de validar si existe el 	objeto " XMLHttpRequest" ya que en internet explorer viejito no esta, y si no esta usamos 
+						/* Creamos el objeto que hara la petici?n AJAX al servidor, debemos de validar si existe el 	objeto " XMLHttpRequest" ya que en internet explorer viejito no esta, y si no esta usamos 
 						"ActiveXObject" */
 								
 						if(window.XMLHttpRequest) {
@@ -54,34 +67,33 @@
 							var Req = new ActiveXObject("Microsoft.XMLHTTP");
 						}
 								
-						//Pas�ndole la url a la que haremos la petici�n
+						//Pas?ndole la url a la que haremos la petici?n
 						Req.open("POST", "uploader.php", true);
 								
 						/* Le damos un evento al request, esto quiere decir que cuando
-						termine de hacer la petici�n, se ejecutara este fragmento de
-						c�digo */
+						termine de hacer la petici?n, se ejecutara este fragmento de
+						c?digo */
 								
 						Req.onload = function(Event) {
 						//Validamos que el status http sea  ok
 							if (Req.status == 200) {
-							/*Como la info de respuesta vendr� en JSON 
+							/*Como la info de respuesta vendr? en JSON 
 										la parseamos */
 								var st = JSON.parse(Req.responseText);
 										
 								if(st.success){
-							/* C�digo si el return fue true */
+							/* C?digo si el return fue true */
 								}else{
-							/* C�digo si el return fue false */
+							/* C?digo si el return fue false */
 								}
 							} else {
 								console.log(Req.status); //Vemos que paso.
 							}
 						};	  
 								
-								//Enviamos la petici�n
+								//Enviamos la petici?n
 						Req.send(Data);
 					}
-
 				</script>
 				</td>
 			</tr>
@@ -89,5 +101,17 @@
 		</table>
 			
 		<p align="center"><font size=2 color=#2F4F4F>** El archivo debe estar en formato .json</font></p>
+			
+		</div>	
+			
+		
 	</div>
-
+	<!-- JQuery -->
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<!-- Bootstrap tooltips -->
+		<script type="text/javascript" src="js/popper.min.js"></script>
+		<!-- Bootstrap core JavaScript -->
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<!-- MDB core JavaScript -->
+		<script type="text/javascript" src="js/mdb.min.js"></script>
+</html>
