@@ -255,7 +255,7 @@ public final class Repositorio {
 
 	}
 	public int persistirIndicadores() {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		//EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();
 
 		for (Indicador i : Repositorio.getInstance().getIndicadores()) {
@@ -270,11 +270,11 @@ public final class Repositorio {
 
 	}
 	public int persistirUsuarios(List<Usuario> usuarios) {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		//EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();
 
 		for (Usuario u : usuarios ) {
-			if ((Repositorio.getInstance().buscarUserPorId(u.getId()) !=null)) {
+			if ((Repositorio.getInstance().getUsuarioByUserAndPwd(u.getNombre(),u.getPassword()) ==null)) {
 				entityManager.persist(u);
 			}
 		}
