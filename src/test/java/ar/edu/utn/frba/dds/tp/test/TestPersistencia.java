@@ -86,7 +86,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		repo.limpiarRepo();
 		Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
 
-		EntityTransaction tx = entityManager.getTransaction();
+		//EntityTransaction tx = entityManager.getTransaction();
 
 		INPUT_PATH = "/IngresoNeto.txt";
 		InputStream file = this.getInputFilePath();

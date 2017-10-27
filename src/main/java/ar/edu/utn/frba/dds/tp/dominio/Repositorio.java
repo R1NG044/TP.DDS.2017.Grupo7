@@ -214,9 +214,10 @@ public final class Repositorio {
 
 	@SuppressWarnings("unchecked")
 	public Indicador buscarIndicadorPorNombre(String nombre) {
-		
+		List<Indicador> indicadores = null;
+
 		Query query = entityManager.createQuery("SELECT i FROM Indicador i where i.nombre like :pnombre");
-		List<Indicador> indicadores = query.setParameter("pnombre", "%" + nombre + "%").getResultList();
+		 indicadores = query.setParameter("pnombre", "%" + nombre + "%").getResultList();
 
 		return indicadores.get(0);
 	}
@@ -259,7 +260,7 @@ public final class Repositorio {
 		EntityTransaction tx = entityManager.getTransaction();
 
 		for (Indicador i : Repositorio.getInstance().getIndicadores()) {
-			if (!(existeIndicadorDeNombre(i.getNombre()))) {
+			if (!(existeIndicadorDeNombreEnBD(i.getNombre()))) {
 				entityManager.persist(i);
 			}
 		}
@@ -269,6 +270,13 @@ public final class Repositorio {
 		return 1; // Success
 
 	}
+	private boolean existeIndicadorDeNombreEnBD(String nombre) {
+		List<Indicador> indicadores = null;
+		Query query = entityManager.createQuery("SELECT i FROM Indicador i where i.nombre like :pnombre");
+		 indicadores = query.setParameter("pnombre", nombre).getResultList();
+		return !indicadores.isEmpty();
+	}
+
 	public int persistirUsuarios(List<Usuario> usuarios) {
 		//EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();
