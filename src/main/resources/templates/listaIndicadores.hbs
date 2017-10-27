@@ -26,18 +26,11 @@
 		<p style="border: 2px solid #999999; padding: 15px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Complete los datos del Indicador a evaluar:</p>
 		<div id="cen" align="center">
 			<FORM name="formListaIndicadores" action="/indicadores" method="POST" onsubmit="javascript: return enviar();">
-				<p style="border: 2px solid #999999; padding: 10px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Seleccionar Indicador</p>
 				
-				<select id="mySelectIndicadores" onchange="myFunction()" name="mySelectIndicadores">
-					<option >Seleccionar</option>
-					
-					{{#each indicadores}}
-					
-					<option value={{nombre}}>{{nombre}}</option>
-					{{/each}}	
-				</select>
-			
-			<br><br>
+				<p style="border: 2px solid #999999; padding: 10px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Por favor escriba su indicador a probar</p>
+				
+				<INPUT type=text  id="mySelectIndicadores" onchange="myFunction()" name="mySelectIndicadores">
+<br>
 				<p style="border: 2px solid #999999; padding: 10px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Seleccionar Empresa</p>
 				
 				<select id="mySelectEmpresas" onchange="myFunction()" name="mySelectEmpresas">

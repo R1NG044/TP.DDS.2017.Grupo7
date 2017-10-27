@@ -51,5 +51,17 @@ public final class  Aplicacion {
 		return listener.probarUnIndicador(expresionContext,Repositorio.getInstance().buscarIndicadorPorNombre(indicador), empresa, periodo);
 		
 	}
+public static double probarUnIndicador2(String indicador, String empresa, Integer periodo){
+		
+		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromString(indicador));
+		CommonTokenStream tokens = new CommonTokenStream(lexer);
+		CalculadoraParser parser = new CalculadoraParser(tokens);
+		CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
+		ParserListener listener = new ParserListener();
+		
+		return listener.probarUnIndicadorNuevo( expresionContext, empresa, periodo);
+		
+	}
+
 	
 }

@@ -27,12 +27,7 @@ public class Server {
 		Spark.get("/indicadores", (req, res) -> {
 			
 			if( req.cookie("idUsuarioActivo").toString().length() > 0){
-				List<Indicador> indicadores = Repositorio.getInstance()
-						.buscarIndicadorPorUser(Integer.parseInt(req.cookie("idUsuarioActivo")));
-	
-				Repositorio.getInstance().limpiarRepoIndicadores();
-				Repositorio.getInstance().cargarListaDeIndicadores(indicadores);
-	
+				
 				if(req.queryParams("mySelectIndicadores") != "" && req.queryParams("mySelectEmpresas") != "" && req.queryParams("mySelectPeriodos") !=""){
 					//TODO: Traer metodos de evaluar indicadores de los Tests y pasarlos al módulo Aplicacion
 					//TODO: Llamar a evaluarIndicador acá y mostrarlo.

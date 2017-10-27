@@ -48,10 +48,14 @@ public class ParserListener extends CalculadoraBaseListener {
 	}
 	public double probarUnIndicador(ExpresionContext ctx, Indicador indicador,String empresa, Integer periodo) {
 		this.enterExpresion(ctx);
-		
+		//indicador.setExpresion(expresionPadre);
 		return indicador.evaluarIndicador(empresa, periodo);
 
 	}
+	public void cargarExpresionaIndicador(ExpresionContext ctx, Indicador indicador) {
+		this.enterExpresion(ctx);
+		indicador.setExpresion(expresionPadre);
+		}
 
 	public void enterExpresion(CalculadoraParser.ExpresionContext ctx) {
 		this.expresionPadre = new ExpresionCompuesta();

@@ -3,13 +3,18 @@ package ar.edu.utn.frba.dds.tp.dominio;
 import java.util.ArrayList;
 import javax.persistence.*;
 
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.tools.ant.taskdefs.Length;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ar.edu.utn.frba.dds.tp.antlr.CalculadoraLexer;
+import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser;
 import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
+import ar.edu.utn.frba.dds.tp.antlr.dds.ParserListener;
 
 public final class Repositorio {
 
@@ -22,8 +27,7 @@ public final class Repositorio {
 
 	private Repositorio() {
 		this.cargarListaDeEmpresas(TraerEmpresasDeBD());
-		// this.cargarIndicadoresDesdeBD(entityManager.createNamedQuery("buscarIndicadorPorUser").setParameter("pIdUsuario",
-		// "").getResultList());
+		
 		// Instanciar EntityManager
 	}
 
@@ -190,9 +194,22 @@ public final class Repositorio {
 	/**** Metodos de Bases de datos ****/
 
 	public void cargarIndicadoresDesdeBD() {
+		Repositorio.getInstance().limpiarRepoIndicadores();
+		List<Indicador> indicadores = entityManager.createQuery("SELECT i FROM Indicador i").getResultList();
+		cargarExpresionesaIndicadores(indicadores);
+	}
 
-		List<Indicador> indicador = entityManager.createQuery("SELECT i FROM Indicador i").getResultList();
-
+	private void cargarExpresionesaIndicadores(List<Indicador> indicadores) {
+		for (Indicador indicador : indicadores) {
+			CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromString(indicador.getFormula()));
+			CommonTokenStream tokens = new CommonTokenStream(lexer);
+			CalculadoraParser parser = new CalculadoraParser(tokens);
+			CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
+			ParserListener listener = new ParserListener();
+			listener.cargarExpresionaIndicador(expresionContext, indicador);
+		}
+		
+		
 	}
 
 	@SuppressWarnings("unchecked")
