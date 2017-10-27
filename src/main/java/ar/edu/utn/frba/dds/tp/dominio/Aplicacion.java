@@ -39,6 +39,7 @@ public final class  Aplicacion {
 		//cargar ind predefinidos
 	}
 	
+	
 	public static double probarUnIndicador(String indicador, String empresa, Integer periodo){
 		
 		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromString(Repositorio.getInstance().buscarIndicadorPorNombre(indicador).getFormula()));

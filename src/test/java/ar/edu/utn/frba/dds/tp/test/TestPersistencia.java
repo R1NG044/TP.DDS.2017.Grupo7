@@ -119,13 +119,8 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		assertTrue(repo.existeIndicador("INGRESONETO"));
 		System.out.println(listener.probarUnIndicadorNuevo(expresionContext, "AXION", 2017));
 		// Persist indicador
-
-		for (Indicador i : repo.getIndicadores()) {
-			entityManager.persist(i);
-		}
-	
-		tx.commit();
-
+		repo.persistirIndicadores();
+		
 	}
 
 	private String getInputFilePath(String input) {

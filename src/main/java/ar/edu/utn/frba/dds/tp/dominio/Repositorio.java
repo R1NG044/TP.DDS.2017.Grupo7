@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.tp.dominio;
 import java.util.ArrayList;
 import javax.persistence.*;
 
+import org.apache.tools.ant.taskdefs.Length;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import java.util.List;
@@ -236,7 +237,36 @@ public final class Repositorio {
 		return 1; // Success
 
 	}
+	public int persistirIndicadores() {
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction tx = entityManager.getTransaction();
 
+		for (Indicador i : Repositorio.getInstance().getIndicadores()) {
+			if (!(existeIndicadorDeNombre(i.getNombre()))) {
+				entityManager.persist(i);
+			}
+		}
+
+		tx.commit();
+
+		return 1; // Success
+
+	}
+	public int persistirUsuarios(List<Usuario> usuarios) {
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction tx = entityManager.getTransaction();
+
+		for (Usuario u : usuarios ) {
+			if ((Repositorio.getInstance().buscarUserPorId(u.getId()) !=null)) {
+				entityManager.persist(u);
+			}
+		}
+
+		tx.commit();
+
+		return 1; // Success
+
+	}
 	public List<Empresa> TraerEmpresasDeBD() {
 		Query query = entityManager.createQuery("SELECT e FROM Empresa e");
 		List<Empresa> empresas = query.getResultList();
@@ -247,8 +277,10 @@ public final class Repositorio {
 	public Usuario buscarUserPorId(Integer pidUsuarioActivo) {
 		Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.id = :pidUsuarioActivo");
 		List<Usuario> users = query.setParameter("pidUsuarioActivo", pidUsuarioActivo).getResultList();
-
-		return users.get(0);
+		if (users.isEmpty())
+			return null;
+			else
+			return users.get(0);
 	}
 
 	/*** U S U A R I O S ***/
