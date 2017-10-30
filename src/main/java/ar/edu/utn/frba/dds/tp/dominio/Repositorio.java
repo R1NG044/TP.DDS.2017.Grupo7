@@ -197,6 +197,7 @@ public final class Repositorio {
 		Repositorio.getInstance().limpiarRepoIndicadores();
 		List<Indicador> indicadores = entityManager.createQuery("SELECT i FROM Indicador i").getResultList();
 		cargarExpresionesaIndicadores(indicadores);
+		Repositorio.getInstance().cargarListaDeIndicadores(indicadores);		
 	}
 
 	private void cargarExpresionesaIndicadores(List<Indicador> indicadores) {
@@ -228,6 +229,7 @@ public final class Repositorio {
 
 		indicadores = entityManager.createNamedQuery("buscarIndicadorPorUser").setParameter("pIdUsuario", idUsuario)
 				.getResultList();
+		REPO.cargarExpresionesaIndicadores(indicadores);
 		return indicadores;
 	}
 

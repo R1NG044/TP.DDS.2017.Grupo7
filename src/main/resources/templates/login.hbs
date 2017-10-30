@@ -23,8 +23,9 @@
 					
 		<div id="contenido"  align="center"> 
 			<br><br>
-			<FORM id="forma3" name=form action="home.HTML" align="center">
-				<P align="center">Usuario:    <INPUT type=text id="defaultForm-email" class="form-control" name=login> 
+			<FORM id="forma3" name="formLogin" action="/index" align="center" method="POST" onsubmit="javascript: return enviar();">
+				<div align="center"> Complete usuario y contrase&ntilde;a: </div>
+				<P align="center">Usuario: <INPUT type=text id="defaultForm-email" class="form-control" name=login> 
 				<P align="center">Contrase&ntilde;a: <INPUT type="password" id="defaultForm-pass" class="form-control" name=password> 
 				<br><br><br>
 				<INPUT class="btn btn-default" type="submit" value=Acceder id="button">

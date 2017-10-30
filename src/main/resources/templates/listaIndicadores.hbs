@@ -38,36 +38,16 @@
 		</div>
 		
 		<div id="contenido" align="center"> <br>
-			<form align="right">
-				<a href="javascript:void(0);" onclick="window.open('probarIndicador.html', 'popup', 'left=390, top=200, width=650, height=400, toolbar=0, resizable=1')"><input name="Cargar" type="submit" class=button id="enviar" value="Probar Indicador"/></a>
-			</form>
-			
-<<<<<<< HEAD
-	</div>
-		<p style="border: 2px solid #999999; padding: 15px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Complete los datos del Indicador a evaluar:</p>
-		<div id="cen" align="center">
-			<FORM name="formListaIndicadores" action="/indicadores" method="POST" onsubmit="javascript: return enviar();">
-				
-				<p style="border: 2px solid #999999; padding: 10px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Por favor escriba su indicador a probar</p>
+				<FORM name="formListaIndicadores" action="/indicadores" method="POST" onsubmit="javascript: return enviar();">
+					<p align="center" >Indicadores ya creados 
+				{{#each indicadores}}
+				{{nombre}}
+					{{/each}}	
+<p align="center" > >Por favor escriba su indicador a probar</p>
 				
 				<INPUT type=text  id="mySelectIndicadores" onchange="myFunction()" name="mySelectIndicadores">
 <br>
-				<p style="border: 2px solid #999999; padding: 10px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Seleccionar Empresa</p>
-				
-=======
-			<form name="formListaIndicadores" action="/indicadores" method="POST" onsubmit="javascript: return enviar();" id="forma3" align="center">
-				<p align="center" ><b>Seleccionar Indicador
-				<select id="mySelectIndicadores" onchange="myFunction()" name="mySelectIndicadores">
-					<option >Seleccionar</option>
-					
-					{{#each indicadores}}
-					
-					<option value={{nombre}}>{{nombre}}</option>
-					{{/each}}	
-				</select>
-				<br>
 				<p align="center">Seleccionar Empresa
->>>>>>> 416cfe28cd495cbc0b1e850380fa32e0c7d01dbc
 				<select id="mySelectEmpresas" onchange="myFunction()" name="mySelectEmpresas">
 					<option >Seleccionar</option>
 					{{#each empresas}}
@@ -90,13 +70,9 @@
 					<option >2009</option>
 					<option >2008</option>
 				</select>
-				<br><br><br>
-				<input type="submit" onsubmit="myFunction()" id="obtenerIndicador" value="Calcular" class=button />
-			</form>
-			
-			
-			<form >
-				<P align="center">Resultado: <input name="valor" type="text" id="formula" />
+				<br>
+				<input type="submit" onsubmit="myFunction()" id="obtenerIndicador" value="Calcular" />
+				<P align="center">Resultado: 
 			</form> 
 		</div>	
 	

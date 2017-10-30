@@ -32,17 +32,17 @@ public class Server {
 					//TODO: Traer metodos de evaluar indicadores de los Tests y pasarlos al módulo Aplicacion
 					//TODO: Llamar a evaluarIndicador acá y mostrarlo.
 				}
-				
+				System.out.println(req.cookie("idUsuarioActivo"));
+			//	Repositorio.getInstance().cargarIndicadoresDesdeBD();
 				return new ModelAndView(Repositorio.getInstance(), "listaIndicadores.hbs");
 			}
 			else
 			{
-				return new ModelAndView(null, "login.hbs");
+				return new ModelAndView(null, "login2.hbs");
 			}
 		}, engine);
 		
-		Spark.post("/indicadores", (req, res) -> {
-			
+		Spark.post("/indicadores", (req, res) -> {			
 			String indicador = req.queryParams("mySelectIndicadores");
 			String empresa = req.queryParams("mySelectEmpresas");
 			String periodo = req.queryParams("mySelectPeriodos");
@@ -60,7 +60,7 @@ public class Server {
 		}, engine);
 
 		Spark.get("/login", (req, res) -> {
-			return new ModelAndView(null, "login.hbs");
+			return new ModelAndView(null, "login2.hbs");
 
 		}, engine);
 
@@ -83,7 +83,7 @@ public class Server {
 				return new ModelAndView(u, "index.hbs");
 			}
 			else {
-				return new ModelAndView("El usuario o la contrasena son incorrectos", "login.hbs");
+				return new ModelAndView("El usuario o la contrasena son incorrectos", "login2.hbs");
 			}
 
 		}, engine);
@@ -91,10 +91,13 @@ public class Server {
 		Spark.get("/index", (req, res) ->{
 			if( req.cookie("idUsuarioActivo").toString().length() > 0){
 				idUsuarioActivo = Integer.parseInt(req.cookie("idUsuarioActivo"));
-				return new ModelAndView(Repositorio.getInstance().buscarUserPorId(idUsuarioActivo), "index.hbs");
+				Usuario user = new Usuario();
+				user = Repositorio.getInstance().buscarUserPorId(idUsuarioActivo);
+				Repositorio.getInstance().cargarListaDeIndicadores(Repositorio.getInstance().buscarIndicadorPorUser(user.getId()));
+				return new ModelAndView(user, "index.hbs");
 			}
 			else{
-				return new ModelAndView(null, "login.hbs");
+				return new ModelAndView(null, "login2.hbs");
 			}
 				
 			
@@ -138,7 +141,7 @@ public class Server {
 
 		Spark.get("/logout", (req, res) -> {
 			res.cookie("idUsuarioActivo", "");
-			return new ModelAndView(null, "login.hbs");
+			return new ModelAndView(null, "login2.hbs");
 
 		}, engine);
 
