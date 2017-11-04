@@ -1,24 +1,25 @@
 package ar.edu.utn.frba.dds.tp.dominio;
 
 import java.util.ArrayList;
-import ar.edu.utn.frba.dds.tp.antlr.dds.*;
 import javax.persistence.*;
 
-import java.util.List;
+import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
 
 
 @Entity(name="Metodologia")
 @Table(name = "metodologia")
+@NamedQuery(name="buscarMetodologiaPorUser",query="SELECT i FROM Metodologia i WHERE i.usuario.id = :pIdUsuario OR i.usuario.id = 0")
 public class Metodologia {
 	
 	@Id @GeneratedValue
-	private long id;
+	private Integer id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id")
-	private Usuario usuario;
+    private Usuario usuario;
 	private String nombre;
-	
+		
+	public Metodologia(){
+		}
 	
 	public Metodologia(String nombre, Usuario user){
 		this.nombre = nombre;
@@ -50,6 +51,31 @@ public class Metodologia {
 		}
 		return empresas;
 		
+	}
+	
+	// ---getters y setters---
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 }
