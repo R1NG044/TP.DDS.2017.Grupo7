@@ -9,6 +9,12 @@ import spark.ModelAndView;
 import spark.Spark;
 import static spark.Spark.*;
 import spark.template.handlebars.*;
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.http.Part;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 
 public class Server {
 	  
@@ -123,7 +129,20 @@ public class Server {
 			return new ModelAndView(Repositorio.getInstance(), "filtrosListaEmpresas.hbs");
 		
 		}, engine);
+		
+		Spark.get("/empresas/upload", (req, res) -> {
+			Boolean resultUpload = true;
+			
+			return new ModelAndView(resultUpload, "empresas.hbs");
+		}, engine);
+		
+		
+		Spark.post("/empresas/upload", (req, res) -> {
+			Boolean resultUpload = true;
+			return new ModelAndView(resultUpload, "empresas.hbs");
+		}, engine);
 
+		
 		Spark.get("/metodologias", (req, res) -> {
 
 			// List<Metodologia> metodologias = Repositorio.getInstance()
