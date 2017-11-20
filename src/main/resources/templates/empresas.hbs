@@ -8,11 +8,11 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="css/mdb.min.css" rel="stylesheet">
+    <link href="/css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
 	<div id="contenedor">
@@ -33,7 +33,7 @@
 		<div id="submenu">
 			<br>
 			<p class="linksActual">Cargar Empresa</p>
-			<p class="linksSubmenu"><a href="/filtroListaEmpresas" class="links">Consultar Cuentas</a></p>
+			<p class="linksSubmenu"><a href="/empresas/consultaDeValores" class="links">Consultar Cuentas</a></p>
 		</div>
 
 		<div id="contenido" align="center"> <br><br><br>
@@ -45,7 +45,7 @@
 			</tr>
 			<tr>
 				<td align="center" height="50" >
-					<form id="form" action="javascript: mandarForm(this)" enctype=" multipart/form-data" >
+					<form id="form" action="/empresas/upload" method="POST" enctype=" multipart/form-data" >
 						<input name="archivo_json" type="file" class="botones" id="archivo_json" value="archivo_json" />
 						<br><br>
 						<input type="submit" value="Enviar" id="button"/>
@@ -57,6 +57,8 @@
 					/* Creamos un objeto FormData que es un formulario con 	enctype=multipart/form-data 
 					y le pasamos como parametro el formulario HTML */
 						var Data = new FormData(form);
+						
+						alert(Data);
 								
 						/* Creamos el objeto que hara la petici?n AJAX al servidor, debemos de validar si existe el 	objeto " XMLHttpRequest" ya que en internet explorer viejito no esta, y si no esta usamos 
 						"ActiveXObject" */
@@ -67,24 +69,31 @@
 							var Req = new ActiveXObject("Microsoft.XMLHTTP");
 						}
 								
-						//Pas?ndole la url a la que haremos la petici?n
-						Req.open("POST", "uploader.php", true);
+						//Pasandole la url a la que haremos la peticion
+						Req.open("POST", "/empresas/upload", true);
 								
 						/* Le damos un evento al request, esto quiere decir que cuando
-						termine de hacer la petici?n, se ejecutara este fragmento de
-						c?digo */
+						termine de hacer la peticion, se ejecutara este fragmento de
+						codigo */
+
 								
 						Req.onload = function(Event) {
 						//Validamos que el status http sea  ok
 							if (Req.status == 200) {
-							/*Como la info de respuesta vendr? en JSON 
+
+							/*Como la info de respuesta vendra en JSON 
+
 										la parseamos */
-								var st = JSON.parse(Req.responseText);
+								alert(Req.responseText);
+								//var st = JSON.parse(Req.responseText);
+								var st = Req.responseText;
 										
 								if(st.success){
-							/* C?digo si el return fue true */
+
+							/* Codigo si el return fue true */
 								}else{
-							/* C?digo si el return fue false */
+							/* Codigo si el return fue false */
+
 								}
 							} else {
 								console.log(Req.status); //Vemos que paso.
@@ -107,11 +116,11 @@
 		
 	</div>
 	<!-- JQuery -->
-		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
 		<!-- Bootstrap tooltips -->
-		<script type="text/javascript" src="js/popper.min.js"></script>
+		<script type="text/javascript" src="/js/popper.min.js"></script>
 		<!-- Bootstrap core JavaScript -->
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 		<!-- MDB core JavaScript -->
-		<script type="text/javascript" src="js/mdb.min.js"></script>
+		<script type="text/javascript" src="/js/mdb.min.js"></script>
 </html>

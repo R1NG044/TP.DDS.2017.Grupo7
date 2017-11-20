@@ -1,16 +1,30 @@
 package ar.edu.utn.frba.dds.tp.server;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import ar.edu.utn.frba.dds.tp.antlr.dds.*;
 import ar.edu.utn.frba.dds.tp.dominio.*;
+import ar.edu.utn.frba.dds.tp.jobs.*;
+import static org.quartz.JobBuilder.newJob;
+import static org.quartz.TriggerBuilder.newTrigger;
+import static org.quartz.SimpleScheduleBuilder.*;
+import static org.quartz.Scheduler.*;
+
 import spark.ModelAndView;
 import spark.Spark;
 import static spark.Spark.*;
 import spark.template.handlebars.*;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.http.Part;
+
+import org.quartz.JobDetail;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.Trigger;
+import org.quartz.impl.StdSchedulerFactory;
+
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -28,6 +42,18 @@ public class Server {
 		init();
 		HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
+		//Inicia el Job de Carga Batch Empresas
+		String[] cargaBatchFrequency = new String[1];
+		cargaBatchFrequency[0] = "60000";
+		
+		try {
+			Job.main(cargaBatchFrequency); // 60000ms = 1 min
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		/***** E N D P O I N T S *******/
 
 		Spark.get("/indicadores", (req, res) -> {
@@ -139,6 +165,7 @@ public class Server {
 		
 		Spark.post("/empresas/upload", (req, res) -> {
 			Boolean resultUpload = true;
+			
 			return new ModelAndView(resultUpload, "empresas.hbs");
 		}, engine);
 
@@ -167,7 +194,7 @@ public class Server {
 		/***** E N D ******/
 
 	}
-
+	
 	/**
 	 * @param usuario
 	 * @param pwd
