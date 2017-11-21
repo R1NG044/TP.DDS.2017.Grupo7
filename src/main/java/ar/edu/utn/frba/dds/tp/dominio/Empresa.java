@@ -34,7 +34,7 @@ public class Empresa {
 	
 	public Empresa(Integer _id, String _nombre) {
 		this.nombreEmpresa = _nombre;
-		this.id = _id;
+//		this.id = _id;
 		this.cuentas = new ArrayList<Cuenta>();
 	}
 	

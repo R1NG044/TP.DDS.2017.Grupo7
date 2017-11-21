@@ -210,7 +210,7 @@ public class Server {
 		try {
 			Job.main(cargaBatchFrequency); // 6000 ms = 1 min
 		} catch (InterruptedException e) {
-			e.printStackTrace(e);
+			e.printStackTrace();
 		}
 
 

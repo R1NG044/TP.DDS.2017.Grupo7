@@ -249,11 +249,13 @@ public final class Repositorio {
 
 		for (Empresa e : Repositorio.getInstance().getEmpresas()) {
 			if (!(existeEmpresaDeNombreenBD(e.getNombre()))) {
+				tx.begin();
 				entityManager.persist(e);
+				tx.commit();
 			}
 		}
 
-		tx.commit();
+//		tx.commit();
 
 		return 1; // Success
 
