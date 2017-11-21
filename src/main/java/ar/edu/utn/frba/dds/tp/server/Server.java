@@ -43,8 +43,8 @@ public class Server {
 		HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
 		//Inicia el Job de Carga Batch Empresas
-//		String[] cargaBatchFrequency = new String[1];
-//		cargaBatchFrequency[0] = "60000";
+		String[] cargaBatchFrequency = new String[1];
+		cargaBatchFrequency[0] = "60000";
 //		
 //		try {
 //			Job.main(cargaBatchFrequency); // 60000ms = 1 min
@@ -206,6 +206,13 @@ public class Server {
 		}, engine);
 
 		/***** E N D ******/
+
+		try {
+			Job.main(cargaBatchFrequency); // 6000 ms = 1 min
+		} catch (InterruptedException e) {
+			e.printStackTrace(e);
+		}
+
 
 	}
 	
