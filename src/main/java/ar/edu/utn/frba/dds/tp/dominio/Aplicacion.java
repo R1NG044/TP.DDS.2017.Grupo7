@@ -35,7 +35,21 @@ public final class  Aplicacion {
 	public static void persistirEmpresasDesdeJson(String jsonEmpresas) throws FileNotFoundException {
 		List<Empresa> listaEmpresas = new ArrayList<Empresa>();
 		listaEmpresas = AdapterJson.transformarDeJSONaListaEmpresas(jsonEmpresas);
+		
+		//Cargar en memoria las empresas y cuentas. Asi despues Persistir se hace
+		//sobre objetos existentes en memoria.
 		Repositorio.getInstance().cargarListaDeEmpresas(listaEmpresas);
+		
+		Repositorio.getInstance().persistirEmpresas();
+		
+		Repositorio.getInstance().limpiarRepo();
+		//cargar ind predefinidos
+	}
+	
+	public static void persistirActualizarEmpresasDesdeJson(String jsonEmpresas) throws FileNotFoundException {
+		List<Empresa> listaEmpresas = new ArrayList<Empresa>();
+		listaEmpresas = AdapterJson.transformarDeJSONaListaEmpresas(jsonEmpresas);
+		Repositorio.getInstance().cargarActualizarListaDeEmpresas(listaEmpresas);
 		
 		Repositorio.getInstance().persistirEmpresas();
 		

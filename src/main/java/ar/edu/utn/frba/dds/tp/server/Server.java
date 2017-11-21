@@ -29,6 +29,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import java.lang.Runnable;
+
 
 public class Server {
 	  
@@ -45,14 +47,6 @@ public class Server {
 		//Inicia el Job de Carga Batch Empresas
 		String[] cargaBatchFrequency = new String[1];
 		cargaBatchFrequency[0] = "60000";
-//		
-//		try {
-//			Job.main(cargaBatchFrequency); // 60000ms = 1 min
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
 		
 		/***** E N D P O I N T S *******/
 
@@ -212,7 +206,6 @@ public class Server {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
 
 	}
 	

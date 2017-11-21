@@ -9,10 +9,13 @@ import javax.persistence.*;
 @NamedQuery(name = "buscarEmpresaPorNombre", query = "SELECT e FROM Empresa e WHERE e.nombreEmpresa = :pNombre")
 public class Empresa {
 
-	@Id	@GeneratedValue(strategy=GenerationType.IDENTITY) private Integer id;
+
+	@Id
+	@GeneratedValue//(strategy = GenerationType.AUTO)
+	private Integer id;
 	private String nombreEmpresa;
 
-	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "empresa", cascade = CascadeType.PERSIST, orphanRemoval = true)
 	private List<Cuenta> cuentas;
 	
 	 /**** Builders ****/
@@ -32,7 +35,7 @@ public class Empresa {
 	
 	public Empresa(Integer _id, String _nombre) {
 		this.nombreEmpresa = _nombre;
-//		this.id = _id;
+
 		this.cuentas = new ArrayList<Cuenta>();
 	}
 	
@@ -51,6 +54,35 @@ public class Empresa {
 			this.cuentas.add(unaCuenta);
 		}
 	}
+	
+	/** Metodos para actualizar cuentas **/
+
+	public void cargarActualizarCuentas(List<Cuenta> listaCuentas) {
+		for (Cuenta unaCuenta : listaCuentas) {
+			this.agregarActualizarCuenta(unaCuenta);
+		}
+
+	}
+
+	private void agregarActualizarCuenta(Cuenta unaCuenta) {
+			if (!this.existeCuentaDelMismoPeriodo(unaCuenta)) {
+				//Agrego la cuenta
+				unaCuenta.setEmpresa(this);
+				this.cuentas.add(unaCuenta);
+			}
+			else{
+				//actualizar la cuenta!
+				for(Cuenta cuenta: cuentas){
+					if ((cuenta.getNombreCuenta().equals(unaCuenta.getNombreCuenta()))
+							& (cuenta.getPeriodo().equals(unaCuenta.getPeriodo()))) {
+						cuenta.setValor(unaCuenta.getValor());
+					}
+				}
+			}
+	}
+	
+	/** End Actualizar cuentas **/
+	
 
 	private boolean existeCuentaDelMismoPeriodo(Cuenta unaCuenta) {
 		for (Cuenta cuenta : cuentas) {

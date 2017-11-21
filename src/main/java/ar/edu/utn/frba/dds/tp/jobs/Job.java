@@ -44,8 +44,7 @@ public class Job {
               scheduler.start();
               Thread.sleep(60000); //1 minuto hasta desactivarse
               scheduler.shutdown();
-              
-            
+  
 
           } catch (SchedulerException se) {
               se.printStackTrace();

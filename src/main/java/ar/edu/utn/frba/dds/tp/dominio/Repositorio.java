@@ -54,7 +54,12 @@ public final class Repositorio {
 		for (Empresa unaEmpresa : listaEmpresas) {
 			this.agregarEmpresa(unaEmpresa);
 		}
-
+	}
+	
+	public void cargarActualizarListaDeEmpresas(List<Empresa> listaEmpresas) {
+		for (Empresa unaEmpresa : listaEmpresas) {
+			this.agregarActualizarEmpresa(unaEmpresa);
+		}
 	}
 
 	public void cargarListaDeIndicadores(List<Indicador> indicadores) {
@@ -92,6 +97,22 @@ public final class Repositorio {
 		} else {
 			Empresa nuevaEmpresa = new Empresa(unaEmpresaInput.getId(), unaEmpresaInput.getNombre());
 			nuevaEmpresa.cargarCuentas(unaEmpresaInput.getCuentas());
+			this.empresas.add(nuevaEmpresa);
+		}
+	}
+	
+	//Agregar Empresa actualizando la cuenta.
+	private void agregarActualizarEmpresa(Empresa unaEmpresaInput) {
+		if (existeEmpresaDeNombre(unaEmpresaInput.getNombre())) {
+			for (Empresa empresa : empresas) {
+				if (empresa.getNombre().equals(unaEmpresaInput.getNombre())) {
+					empresa.cargarActualizarCuentas(unaEmpresaInput.getCuentas());
+					break;
+				}
+			}
+		} else {
+			Empresa nuevaEmpresa = new Empresa(unaEmpresaInput.getId(), unaEmpresaInput.getNombre());
+			nuevaEmpresa.cargarActualizarCuentas(unaEmpresaInput.getCuentas());
 			this.empresas.add(nuevaEmpresa);
 		}
 	}
@@ -246,7 +267,7 @@ public final class Repositorio {
 	public int persistirEmpresas() {
 
 		EntityTransaction tx = entityManager.getTransaction();
-
+	//	tx.begin();
 		for (Empresa e : Repositorio.getInstance().getEmpresas()) {
 			if (!(existeEmpresaDeNombreenBD(e.getNombre()))) {
 				entityManager.persist(e);
@@ -254,6 +275,22 @@ public final class Repositorio {
 			}
 		}
 		tx.commit();
+
+			/*
+			entityManager.persist(e);	
+			for(Cuenta c: e.getCuentas()){
+					try{
+						tx.begin();
+						
+						entityManager.persist(c);
+						tx.commit();
+					}catch(Exception exc){
+						System.out.println(exc.getMessage());
+					}	
+				}
+				
+			
+			*/
 		return 1; // Success
 
 	}
