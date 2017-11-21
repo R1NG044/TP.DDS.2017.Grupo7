@@ -9,9 +9,7 @@ import javax.persistence.*;
 @NamedQuery(name = "buscarEmpresaPorNombre", query = "SELECT e FROM Empresa e WHERE e.nombreEmpresa = :pNombre")
 public class Empresa {
 
-	@Id
-	@GeneratedValue
-	private Integer id;
+	@Id	@GeneratedValue(strategy=GenerationType.IDENTITY) private Integer id;
 	private String nombreEmpresa;
 
 	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
