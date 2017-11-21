@@ -41,19 +41,17 @@
 			
 		</div>
 
-		<div id="contenido" align="center"> <br>
-			<form name="formCargarIndicadores" action="/indicador/cargar" method="POST" onsubmit="javascript: return enviar();">
+		<div id="contenido" align="center"> <br><br><br>
+			<form name="myForm"  onsubmit="return validateForm()" method="post" align="center">
 				<br><br>
-				<P align="center"><b>Nombre Indicador:	<input type="text" name="nombreIndicador" id="nombreIndicador">
+				<P align="center"><b>Nombre Indicador:{{this.[0]}}
 				<br>
-				<P align="center">Nueva F&oacutermula: <input type="text" name="formulaIndicador" id="formulaIndicador">
+				<P align="center">Nueva F&oacutermula:{{this.[1]}}
 				<br>
-				<br>
-				<input type="submit"  onsubmit="myFunction()" value="Cargar" id="button" />
+				<p align="center" >{{this.[3]}}
 			</form>
 		</div>
-	 
-	</div>
+	 </div>
 	
 	<!-- JQuery -->
 		<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>

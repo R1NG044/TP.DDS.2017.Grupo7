@@ -43,15 +43,15 @@ public class Server {
 		HandlebarsTemplateEngine engine = new HandlebarsTemplateEngine();
 
 		//Inicia el Job de Carga Batch Empresas
-		String[] cargaBatchFrequency = new String[1];
-		cargaBatchFrequency[0] = "60000";
-		
-		try {
-			Job.main(cargaBatchFrequency); // 60000ms = 1 min
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		String[] cargaBatchFrequency = new String[1];
+//		cargaBatchFrequency[0] = "60000";
+//		
+//		try {
+//			Job.main(cargaBatchFrequency); // 60000ms = 1 min
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		
 		/***** E N D P O I N T S *******/
@@ -88,9 +88,22 @@ public class Server {
 
 		Spark.get("indicador/cargar", (req, res) -> {
 
-			return new ModelAndView(null, "cargarIndicador.hbs");
+			return new ModelAndView(null, "cargarIndicador.hbs");}, engine);
+		
+		Spark.post("indicador/cargar", (req, res) -> {
+		String nombreIndicador = req.queryParams("nombreIndicador");
+		String formulaIndicador = req.queryParams("formulaIndicador");
+		String usuarioId = req.cookie("idUsuarioActivo").toString();
+		List<String> resultado = new ArrayList<String>();
+		resultado.add(nombreIndicador);
+		resultado.add(formulaIndicador);
+		resultado.add(usuarioId);
+		String statusGuardado = Aplicacion.guardarUnIndicador(nombreIndicador, formulaIndicador, Integer.parseInt(usuarioId));
+		resultado.add(statusGuardado);
+		return new ModelAndView(resultado, "resultadoCargarIndicador.hbs");
 		}, engine);
-
+		
+		
 		Spark.get("/login", (req, res) -> {
 			return new ModelAndView(null, "login2.hbs");
 
@@ -185,6 +198,7 @@ public class Server {
 			return new ModelAndView(Repositorio.getInstance(), "cargarMetodologia.hbs");
 		}, engine);
 
+		
 		Spark.get("/logout", (req, res) -> {
 			res.cookie("idUsuarioActivo", "");
 			return new ModelAndView(null, "login2.hbs");

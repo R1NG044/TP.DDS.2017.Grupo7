@@ -27,7 +27,7 @@ public final class Repositorio {
 
 	private Repositorio() {
 		this.cargarListaDeEmpresas(TraerEmpresasDeBD());
-		
+
 		// Instanciar EntityManager
 	}
 
@@ -195,9 +195,11 @@ public final class Repositorio {
 
 	public void cargarIndicadoresDesdeBD() {
 		Repositorio.getInstance().limpiarRepoIndicadores();
-		List<Indicador> indicadores = entityManager.createQuery("SELECT i FROM Indicador i ORDER BY i.nombre DESC").getResultList();
+		@SuppressWarnings("unchecked")
+		List<Indicador> indicadores = entityManager.createQuery("SELECT i FROM Indicador i ORDER BY i.nombre DESC")
+				.getResultList();
 		cargarExpresionesaIndicadores(indicadores);
-		Repositorio.getInstance().cargarListaDeIndicadores(indicadores);		
+		Repositorio.getInstance().cargarListaDeIndicadores(indicadores);
 	}
 
 	private void cargarExpresionesaIndicadores(List<Indicador> indicadores) {
@@ -209,8 +211,7 @@ public final class Repositorio {
 			ParserListener listener = new ParserListener();
 			listener.cargarExpresionaIndicador(expresionContext, indicador);
 		}
-		
-		
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -218,7 +219,7 @@ public final class Repositorio {
 		List<Indicador> indicadores = null;
 
 		Query query = entityManager.createQuery("SELECT i FROM Indicador i where i.nombre like :pnombre");
-		 indicadores = query.setParameter("pnombre", "%" + nombre + "%").getResultList();
+		indicadores = query.setParameter("pnombre", "%" + nombre + "%").getResultList();
 
 		return indicadores.get(0);
 	}
@@ -257,34 +258,64 @@ public final class Repositorio {
 		return 1; // Success
 
 	}
-	public int persistirIndicadores() {
-		//EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction tx = entityManager.getTransaction();
 
+	public String persistirIndicadores() {
+		EntityTransaction tx = entityManager.getTransaction();
 		for (Indicador i : Repositorio.getInstance().getIndicadores()) {
 			if (!(existeIndicadorDeNombreEnBD(i.getNombre()))) {
 				entityManager.persist(i);
 			}
 		}
+		try {
+			tx.commit();
+			return "Se ha guardado el indicador OK"; // Success
+		} catch (PersistenceException error) {
+			return "No se guardo el indicador - Persistence"; // Error de
+																// persistencia
+		}
 
-		tx.commit();
-
-		return 1; // Success
-
+		// catch(IllegalStateException error){
+		// return "No se guardo el indicador - Illegal"; //Error de persistencia
+		// }
 	}
+
+	public String persistirIndicador(String nombreIndicador) {
+		try {
+			EntityTransaction tx = entityManager.getTransaction();
+			
+			for (Indicador i : Repositorio.getInstance().getIndicadores()) {
+				if (i.getNombre() == nombreIndicador)
+					if (!(existeIndicadorDeNombreEnBD(i.getNombre()))) {
+						entityManager.persist(i);
+					}
+			}
+			tx.commit();
+			return "Se ha guardado el indicador OK"; // Success
+		} catch (PersistenceException error) {
+			return "No se guardo el indicador - Persistence"; // Error de
+																// persistencia
+		}
+
+		catch (IllegalStateException error) {
+			return "No se guardo el indicador - Illegal"; // Error de
+															// persistencia
+		}
+	}
+
 	private boolean existeIndicadorDeNombreEnBD(String nombre) {
 		List<Indicador> indicadores = null;
 		Query query = entityManager.createQuery("SELECT i FROM Indicador i where i.nombre like :pnombre");
-		 indicadores = query.setParameter("pnombre", nombre).getResultList();
+		indicadores = query.setParameter("pnombre", nombre).getResultList();
 		return !indicadores.isEmpty();
 	}
 
 	public int persistirUsuarios(List<Usuario> usuarios) {
-		//EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		// EntityManager entityManager =
+		// PerThreadEntityManagers.getEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();
 
-		for (Usuario u : usuarios ) {
-			if ((Repositorio.getInstance().getUsuarioByUserAndPwd(u.getNombre(),u.getPassword()) ==null)) {
+		for (Usuario u : usuarios) {
+			if ((Repositorio.getInstance().getUsuarioByUserAndPwd(u.getNombre(), u.getPassword()) == null)) {
 				entityManager.persist(u);
 			}
 		}
@@ -294,6 +325,7 @@ public final class Repositorio {
 		return 1; // Success
 
 	}
+
 	public List<Empresa> TraerEmpresasDeBD() {
 		Query query = entityManager.createQuery("SELECT e FROM Empresa e");
 		List<Empresa> empresas = query.getResultList();
@@ -305,8 +337,8 @@ public final class Repositorio {
 		Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.id = :pidUsuarioActivo");
 		List<Usuario> users = query.setParameter("pidUsuarioActivo", pidUsuarioActivo).getResultList();
 		if (users.isEmpty())
-			return null;
-			else
+			return new Usuario(0, "GENERICO");
+		else
 			return users.get(0);
 	}
 

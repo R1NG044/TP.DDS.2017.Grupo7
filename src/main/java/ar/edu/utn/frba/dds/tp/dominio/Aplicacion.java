@@ -8,9 +8,13 @@ import javax.persistence.EntityTransaction;
 
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.apache.commons.io.IOUtils;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+
 import ar.edu.utn.frba.dds.tp.herramientas.AdapterJson;
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraLexer;
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser;
@@ -63,5 +67,15 @@ public static double probarUnIndicador(String indicador, String empresa, Integer
 		
 	}
 
+public static String guardarUnIndicador(String nombreIndicador, String formulaIndicador, Integer usuario){
 	
+	CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromString(formulaIndicador));
+	CommonTokenStream tokens = new CommonTokenStream(lexer);
+	CalculadoraParser parser = new CalculadoraParser(tokens);
+	CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
+	ParserListener listener = new ParserListener();
+
+	listener.guardarUnIndicadorNuevo(expresionContext, nombreIndicador, formulaIndicador,Repositorio.getInstance().buscarUserPorId(usuario));
+	return Repositorio.getInstance().persistirIndicador(nombreIndicador);
+	}
 }

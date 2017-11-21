@@ -86,11 +86,28 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		repo.limpiarRepo();
 		Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
 
-		//EntityTransaction tx = entityManager.getTransaction();
-
 		INPUT_PATH = "/IngresoNeto.txt";
 		InputStream file = this.getInputFilePath();
+		String formula = IOUtils.toString(file,StandardCharsets.ISO_8859_1.name() );
+		String mensaje = Aplicacion.guardarUnIndicador("INGRESONETO", formula, 0);
+		System.out.println(mensaje+" INGRESONETO");
 
+		assertTrue(repo.existeIndicador("INGRESONETO"));
+	}
+
+@Test()
+		public void testGuardarIndicadorROE() throws IOException {
+			repo.limpiarRepo();
+			Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
+		
+		INPUT_PATH = "/ROE.txt";
+		InputStream file2 = this.getInputFilePath();
+		String formula2 = IOUtils.toString(file2,StandardCharsets.ISO_8859_1.name() );
+		String mensaje2 = Aplicacion.guardarUnIndicador("ROE", formula2, 0);
+		System.out.println(mensaje2+" ROE");
+		assertTrue(repo.existeIndicador("ROE"));
+		
+		/*	
 		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromStream(file));
 
 		file = this.getInputFilePath();
@@ -120,7 +137,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		System.out.println(listener.probarUnIndicadorNuevo(expresionContext, "AXION", 2017));
 		// Persist indicador
 		repo.persistirIndicadores();
-		
+		*/
 	}
 
 	private String getInputFilePath(String input) {
