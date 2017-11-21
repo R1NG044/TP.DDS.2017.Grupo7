@@ -246,21 +246,14 @@ public final class Repositorio {
 	public int persistirEmpresas() {
 
 		EntityTransaction tx = entityManager.getTransaction();
-		
-		//tx.begin();
 
 		for (Empresa e : Repositorio.getInstance().getEmpresas()) {
 			if (!(existeEmpresaDeNombreenBD(e.getNombre()))) {
-				//tx.begin();
 				entityManager.persist(e);
 				tx.commit();
-				tx.begin();
 			}
-		//	tx.commit();
 		}
-
-//		tx.commit();
-//		entityManager.flush();
+		
 		entityManager.close();
 
 		return 1; // Success
