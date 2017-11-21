@@ -253,8 +253,6 @@ public final class Repositorio {
 				tx.commit();
 			}
 		}
-		
-		entityManager.close();
 
 		return 1; // Success
 
