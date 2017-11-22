@@ -38,7 +38,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 	
 	@Before
 	public void SetUp() {
-		this.representacionJSON = "/empresasJson1.txt";
+		this.representacionJSON = "/empresasJson4.txt";
 		this.representacionJSON3 = "/empresasJson3.txt";
 		this.repo = Repositorio.getInstance();
 		
