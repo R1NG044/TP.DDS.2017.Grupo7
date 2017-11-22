@@ -33,6 +33,8 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 	private Repositorio repo;
 	private String representacionJSON;
 	private String representacionJSON3;
+	private String representacionJSON4;
+	
 	public static String INPUT_PATH;
 	EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 	
@@ -40,6 +42,8 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 	public void SetUp() {
 		this.representacionJSON = "/empresasJson4.txt";
 		this.representacionJSON3 = "/empresasJson3.txt";
+		this.representacionJSON4 = "/empresasJson4.txt";
+		
 		this.repo = Repositorio.getInstance();
 		
 
@@ -59,7 +63,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		 * empresa ni las cuentas. Y se agregan las empresas Axion y Petrobras.
 		 */
 
-		Aplicacion.persistirEmpresasDesdeJson(getInputFilePath(representacionJSON));
+		Aplicacion.persistirEmpresasDesdeJson(getInputFilePath(representacionJSON4));
 
 		/*
 		 * A su vez la Empresa Axion esta duplicada pero con cuentas distintas
@@ -148,4 +152,30 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		return this.getClass().getResourceAsStream(INPUT_PATH);
 
 	}
+	
+	/**** Empresas y cuentas ****/
+	
+	@Test
+	public void cargarActualizarJSONEmpresasYCuentasABaseDeDatos() throws FileNotFoundException {
+		/*
+		 * Para la Empresa YPF el Json tienen la cuenta INDICADOR periodo 2017
+		 * duplicada, vemos como se guardo una sola.
+		 */
+		// Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON));
+
+		/*
+		 * El Json 2 Tiene duplicada la Empresa IBM respecto del Json1,
+		 * cargaremos este al Repo y verificaremos que no se duplican ni la
+		 * empresa ni las cuentas. Y se agregan las empresas Axion y Petrobras.
+		 */
+		Aplicacion.persistirActualizarEmpresasDesdeJson(getInputFilePath(representacionJSON));
+
+		/*
+		 * A su vez la Empresa Axion esta duplicada pero con cuentas distintas
+		 * vemos que en el repo solo se cargo una empresa con las 2 cuentas
+		 */
+
+	}
+	
+	/** E N D **/
 }

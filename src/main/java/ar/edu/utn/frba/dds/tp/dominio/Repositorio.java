@@ -263,34 +263,74 @@ public final class Repositorio {
 				.getResultList();
 		return !empresas.isEmpty();
 	}
-
+	
 	public int persistirEmpresas() {
 
 		EntityTransaction tx = entityManager.getTransaction();
-	//	tx.begin();
+
 		for (Empresa e : Repositorio.getInstance().getEmpresas()) {
 			if (!(existeEmpresaDeNombreenBD(e.getNombre()))) {
 				entityManager.persist(e);
-//				tx.commit();
 			}
 		}
+
 		tx.commit();
 
-			/*
-			entityManager.persist(e);	
-			for(Cuenta c: e.getCuentas()){
-					try{
-						tx.begin();
+		return 1; // Success
+
+	}
+
+	public int persistirActualizarEmpresas() {
+
+		EntityTransaction tx = entityManager.getTransaction();
+	//	tx.begin();
+		
+		try{
+			for (Empresa e : Repositorio.getInstance().getEmpresas()) {
+				if (!(existeEmpresaDeNombreenBD(e.getNombre()))) {
+					entityManager.persist(e);
+//					tx.commit();
+				}else{
+					//Si existe, actualizar las cuentas
+					for(Cuenta c: e.getCuentas()){
 						
+						//tx.begin();
 						entityManager.persist(c);
-						tx.commit();
-					}catch(Exception exc){
-						System.out.println(exc.getMessage());
-					}	
+						//entityManager.persist(c);
+							
+					}
 				}
+					
+			}
+			tx.commit();
+		}catch(Exception exc){
+			System.out.println(exc.getMessage());
+		}
+		
+		
+
+		/*
+		try{
+			for (Empresa e : Repositorio.getInstance().getEmpresas()) {
 				
+				for(Cuenta c: e.getCuentas()){
+					
+						//tx.begin();
+						entityManager.persist(c);
+						//entityManager.persist(c);
+							
+				}
+				entityManager.persist(e);
+			}
 			
-			*/
+			tx.commit();
+			
+		}catch(Exception exc){
+			System.out.println(exc.getMessage());
+		}
+		*/
+		
+		
 		return 1; // Success
 
 	}

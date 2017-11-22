@@ -7,13 +7,13 @@ import javax.persistence.*;
 public class Cuenta {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue//(strategy=GenerationType.IDENTITY)
 	private Integer idCuenta;
 	private String nombreCuenta;
 	private Long valor;
 	private Integer periodo;
 
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)//,cascade = CascadeType.ALL)
 	private Empresa empresa;
 
 	public Cuenta() {

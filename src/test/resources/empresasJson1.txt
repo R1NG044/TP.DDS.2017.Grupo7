@@ -1,7 +1,7 @@
 [
  {"nombreEmpresa":"IBM",
 	 "cuentas":[
-	 	{"nombreCuenta":"FDS","valor":3000025,"periodo":2016}
+	 	{"nombreCuenta":"FDS","valor":5000025,"periodo":2016}
 	 ]
 }
 ]

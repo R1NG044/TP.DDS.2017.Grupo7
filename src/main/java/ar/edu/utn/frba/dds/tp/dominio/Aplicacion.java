@@ -51,7 +51,7 @@ public final class  Aplicacion {
 		listaEmpresas = AdapterJson.transformarDeJSONaListaEmpresas(jsonEmpresas);
 		Repositorio.getInstance().cargarActualizarListaDeEmpresas(listaEmpresas);
 		
-		Repositorio.getInstance().persistirEmpresas();
+		Repositorio.getInstance().persistirActualizarEmpresas();
 		
 		Repositorio.getInstance().limpiarRepo();
 		//cargar ind predefinidos

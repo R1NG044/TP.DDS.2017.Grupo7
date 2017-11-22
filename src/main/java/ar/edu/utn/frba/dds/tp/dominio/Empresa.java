@@ -15,7 +15,7 @@ public class Empresa {
 	private Integer id;
 	private String nombreEmpresa;
 
-	@OneToMany(mappedBy = "empresa", cascade = CascadeType.PERSIST, orphanRemoval = true)
+	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Cuenta> cuentas;
 	
 	 /**** Builders ****/
