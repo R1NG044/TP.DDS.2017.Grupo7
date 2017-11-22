@@ -27,7 +27,7 @@ public class TestCargaDeJson {
 
 	@Before
 	public void SetUp() {
-		this.representacionJSON = "/empresasjson4.txt";
+		this.representacionJSON = "/empresasjson1.txt";
 		this.representacionJSON2 = "/empresasjson2.txt";
 		this.repo = Repositorio.getInstance();
 		repo.limpiarRepo();
