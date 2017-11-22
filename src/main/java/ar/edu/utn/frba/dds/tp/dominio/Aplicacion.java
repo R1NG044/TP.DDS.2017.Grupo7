@@ -45,7 +45,7 @@ public final class  Aplicacion {
 		Repositorio.getInstance().limpiarRepo();
 		//cargar ind predefinidos
 	}
-	
+	/*
 	public static void persistirActualizarEmpresasDesdeJson(String jsonEmpresas) throws FileNotFoundException {
 		List<Empresa> listaEmpresas = new ArrayList<Empresa>();
 		listaEmpresas = AdapterJson.transformarDeJSONaListaEmpresas(jsonEmpresas);
@@ -56,7 +56,7 @@ public final class  Aplicacion {
 		Repositorio.getInstance().limpiarRepo();
 		//cargar ind predefinidos
 	}
-	
+	*/
 	
 	public static double probarUnIndicador2(String indicador, String empresa, Integer periodo){
 		

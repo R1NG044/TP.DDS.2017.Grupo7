@@ -16,6 +16,7 @@ public class Metodologia {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;
+	@Column(unique = true)
 	private String nombre;
 		
 	public Metodologia(){

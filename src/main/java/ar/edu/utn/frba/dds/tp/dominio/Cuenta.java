@@ -3,7 +3,10 @@ package ar.edu.utn.frba.dds.tp.dominio;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "cuenta")
+@Table	(name = "cuenta",
+		uniqueConstraints = {@UniqueConstraint(columnNames = "nombreCuenta"),
+							@UniqueConstraint(columnNames = "periodo"),
+							@UniqueConstraint(columnNames = "empresa")})
 public class Cuenta {
 
 	@Id

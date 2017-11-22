@@ -13,6 +13,7 @@ public class Empresa {
 	@Id
 	@GeneratedValue//(strategy = GenerationType.AUTO)
 	private Integer id;
+	@Column(unique = true)
 	private String nombreEmpresa;
 
 	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)

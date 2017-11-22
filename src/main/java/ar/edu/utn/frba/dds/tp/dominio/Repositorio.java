@@ -266,20 +266,38 @@ public final class Repositorio {
 	
 	public int persistirEmpresas() {
 
-		EntityTransaction tx = entityManager.getTransaction();
-
 		for (Empresa e : Repositorio.getInstance().getEmpresas()) {
-			if (!(existeEmpresaDeNombreenBD(e.getNombre()))) {
-				entityManager.persist(e);
-			}
+			persistirEmpresa(e);
+
 		}
 
+		return 1; // Success
+
+	}
+
+	public int persistirEmpresa(Empresa e) {
+
+		EntityTransaction tx = entityManager.getTransaction();
+		entityManager.persist(e);
 		tx.commit();
 
 		return 1; // Success
 
 	}
 
+
+	public int persistirCuenta(Cuenta c) {
+
+		EntityTransaction tx = entityManager.getTransaction();
+		entityManager.persist(c);
+		tx.commit();
+
+		return 1; // Success
+
+	}
+
+
+/*
 	public int persistirActualizarEmpresas() {
 
 		EntityTransaction tx = entityManager.getTransaction();
@@ -309,7 +327,7 @@ public final class Repositorio {
 		
 		
 
-		/*
+			/*
 		try{
 			for (Empresa e : Repositorio.getInstance().getEmpresas()) {
 				
@@ -328,12 +346,15 @@ public final class Repositorio {
 		}catch(Exception exc){
 			System.out.println(exc.getMessage());
 		}
-		*/
+			-- EL COMENTARIO LLEGABA HASTA ACA
 		
 		
 		return 1; // Success
 
 	}
+*/
+
+
 
 	public String persistirIndicadores() {
 		EntityTransaction tx = entityManager.getTransaction();
