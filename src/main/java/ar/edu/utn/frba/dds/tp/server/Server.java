@@ -101,6 +101,10 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 		}, engine);
 		
 		
+		Spark.get("/indicador/evaluar", (req, res) -> {
+			return new ModelAndView(null, "evaluarIndicador.hbs");
+			}, engine);
+		
 		Spark.get("/login", (req, res) -> {
 			return new ModelAndView(null, "login2.hbs");
 

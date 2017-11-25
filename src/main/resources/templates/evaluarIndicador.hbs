@@ -17,9 +17,8 @@
 
 <body>
 	<div id="contenedor">
-	
 		<div id="cabecera" align="center" ><h1 >SISTEMA DE APOYO A DECISIONES</h1></div>
-				
+		
 		<div id="menu" align="center">
 			<nav class="nav-menu">
 				<ul class="clearfix">
@@ -27,27 +26,39 @@
 					<li><a href="/empresas" class="linksMenu">Empresas</a></li>
 					<li><a href="/indicadores" class="linksMenu">Indicadores</a></li>
 					<li><a href="/metodologias" class="linksMenu">Metodolog&iacuteas</a></li>
-					<li><a href="/logout" class="linksMenu"> Cerrar Sesi&oacuten</a></li>
+					<li><a href="/logout" class="linksMenu"> Cerrar Sesi&oacuten</a></li>	
 				</ul>
 			</nav>
 		</div>
-
+		
 		<div id="submenu">
 			<br>
-			<p class="linksSubmenu"><a href="/empresas" class="links" >Cargar Empresa</a></p>
-			<p class="linksActual">Consultar Cuentas</p>
+			<p class="linksSubmenu"><a href="/indicadores" class="links"> Probar Indicador</a></p>
+			<p class="linksActual">Evaluar Indicador</p>
+			<p class="linksSubmenu"><a href="/indicador/cargar" class="links" >Cargar Indicador</a></p>
+			
 		</div>
-
+		
 		<div id="contenido" align="center"> <br><br>
-			<form name="formListaIndicadores" action="/empresas/resultadoConsultaEmpresas" method="GET" onsubmit="javascript: return enviar();" id="forma3" align="center">
+			<FORM name="formListaIndicadores" action="/indicadores" method="POST" onsubmit="javascript: return enviar();" id="forma3" align="center">
 				<br><br>
-				<p align="center"><b>Seleccionar Empresa
+				<p align="center" ><b>Seleccionar Indicador
+				<select id="mySelectIndicadores" onchange="myFunction()" name="mySelectIndicadores">
+					<option >Seleccionar</option>
+					
+					{{#each indicadores}}
+					
+					<option value={{nombre}}>{{nombre}}</option>
+					{{/each}}	
+				</select>
+				<br>
+				<p align="center">Seleccionar Empresa
 				<select id="mySelectEmpresas" onchange="myFunction()" name="mySelectEmpresas">
-					<option ></option>
+					<option >Seleccionar</option>
 					{{#each empresas}}
 					
-					<option value={{id}}>{{nombreEmpresa}}</option>
-					{{/each}}
+					<option value={{nombreEmpresa}}>{{nombreEmpresa}}</option>
+					{{/each}}									
 				</select>
 				<br>
 				<p align="center">Seleccionar Per&iacuteodo
@@ -64,29 +75,13 @@
 					<option >2009</option>
 					<option >2008</option>
 				</select>
-				<br>
-				<br>
-				<input type="submit" onclick="myFunction()" id="enviar" value="Calcular" class="button" />
+				<br><br><br>
+				<input type="submit" onsubmit="myFunction()" id="obtenerIndicador" value="Calcular" class=button />
 			</form>
-			
-			<script>
-				function myFunction() {
-					var x = document.getElementById("mySelect1");
-					var y = document.getElementById("mySelect2");
-					var z = document.getElementById("mySelect3");
-					var a = x.selectedIndex;
-					var e = y.selectedIndex;
-					var i = z.selectedIndex;
-					//document.getElementById("demo").innerHTML = x.options[i].text;
-				}
-			</script>
-			<br><br>
-			<form >
-				<P align="center">Resultado: <input name="valor" type="text" id="formula" />
-			</form> 
-					
-		</div>
-		 
+						
+			 
+		</div>	
+	
 	</div>
 	<!-- JQuery -->
 	<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
@@ -97,4 +92,3 @@
 	<!-- MDB core JavaScript -->
 	<script type="text/javascript" src="/js/mdb.min.js"></script>
 </body>
-</html>

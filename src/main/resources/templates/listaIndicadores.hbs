@@ -33,46 +33,49 @@
 		
 		<div id="submenu">
 			<br>
-			<p class="linksActual"> Evaluar Indicador</p>
+			<p class="linksActual">Probar Indicador</p>
+			<p class="linksSubmenu"><a href="/indicador/evaluar" class="links">Evaluar Indicador</a></p>
 			<p class="linksSubmenu"><a href="/indicador/cargar" class="links" >Cargar Indicador</a></p>
+			
 		</div>
 		
-		<div id="contenido" align="center"> <br>
-				<FORM name="formListaIndicadores" action="/indicadores" method="POST" onsubmit="javascript: return enviar();">
+		<div id="contenido" align="center"><br><br>
+		
+				<FORM name="formListaIndicadores" action="/indicadores" method="POST" onsubmit="javascript: return enviar();" id="forma3" align="center">
 					<p align="center" >Indicadores ya creados 
-				{{#each indicadores}}
-				{{nombre}}
+					{{#each indicadores}}
+					{{nombre}}
 					{{/each}}	
-<p align="center" > >Por favor escriba su indicador a probar</p>
+					<p align="center" > >Por favor escriba su indicador a probar</p>
 				
-				<INPUT type=text  id="mySelectIndicadores" onchange="myFunction()" name="mySelectIndicadores">
-<br>
-				<p align="center">Seleccionar Empresa
-				<select id="mySelectEmpresas" onchange="myFunction()" name="mySelectEmpresas">
-					<option >Seleccionar</option>
-					{{#each empresas}}
-					
-					<option value={{nombreEmpresa}}>{{nombreEmpresa}}</option>
-					{{/each}}									
-				</select>
-				<br>
-				<p align="center">Seleccionar Periodo
-				<select id="mySelectPeriodos" onchange="myFunction()" name="mySelectPeriodos">
-					<option >Seleccionar</option>
-					<option >2017</option>
-					<option >2016</option>
-					<option >2015</option>
-					<option >2014</option>
-					<option >2013</option>
-					<option >2012</option>
-					<option >2011</option>
-					<option >2010</option>
-					<option >2009</option>
-					<option >2008</option>
-				</select>
-				<br>
-				<input type="submit" onsubmit="myFunction()" id="obtenerIndicador" value="Calcular" />
-				<P align="center">Resultado: 
+					<INPUT type=text  id="mySelectIndicadores" onchange="myFunction()" name="mySelectIndicadores">
+					<br>
+					<p align="center">Seleccionar Empresa
+					<select id="mySelectEmpresas" onchange="myFunction()" name="mySelectEmpresas">
+						<option >Seleccionar</option>
+						{{#each empresas}}
+						
+						<option value={{nombreEmpresa}}>{{nombreEmpresa}}</option>
+						{{/each}}									
+					</select>
+					<br>
+					<p align="center">Seleccionar Per&iacuteodo
+					<select id="mySelectPeriodos" onchange="myFunction()" name="mySelectPeriodos">
+						<option >Seleccionar</option>
+						<option >2017</option>
+						<option >2016</option>
+						<option >2015</option>
+						<option >2014</option>
+						<option >2013</option>
+						<option >2012</option>
+						<option >2011</option>
+						<option >2010</option>
+						<option >2009</option>
+						<option >2008</option>
+					</select>
+					<br>
+					<input type="submit" onsubmit="myFunction()" id="obtenerIndicador" value="Calcular" />
+					<P align="center">Resultado: 
 			</form> 
 		</div>	
 	

@@ -34,22 +34,25 @@
 		
 		<div id="submenu">
 			<br>
-			<p class="linksSubmenu">
-				<a href="/indicadores"  class="links" >Usar Indicador</a>
-			</p>
-			<p class="linksActual"> Cargar Indicador</p>
+			<p class="linksSubmenu"><a href="/indicadores" class="links"> Probar Indicador</a></p>
+			
+			<p class="linksSubmenu"> <a href="/indicador/evaluar" class="links"> Evaluar Indicador</a></p>
+			
+			<p class="linksActual"> Cargar Indicador </p>
 			
 		</div>
 
-		<div id="contenido" align="center"> <br>
-			<form name="formCargarIndicadores" action="/indicador/cargar" method="POST" onsubmit="javascript: return enviar();">
+		<div id="contenido" align="center"><br><br>
+		
+			<form name="formCargarIndicadores" action="/indicador/cargar" method="POST" onsubmit="javascript: return enviar();" id="forma3" align="center">
 				<br><br>
 				<P align="center"><b>Nombre Indicador:	<input type="text" name="nombreIndicador" id="nombreIndicador">
 				<br>
 				<P align="center">Nueva F&oacutermula: <input type="text" name="formulaIndicador" id="formulaIndicador">
-				<br>
-				<br>
+				
+				<br><br>
 				<input type="submit"  onsubmit="myFunction()" value="Cargar" id="button" />
+				
 			</form>
 		</div>
 	 

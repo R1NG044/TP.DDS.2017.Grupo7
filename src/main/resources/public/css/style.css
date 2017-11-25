@@ -45,8 +45,8 @@
 	color: #2E2E2E; 
 }
 #forma3{
-	width: 600px;
-	height: 200px;
+	width: 700px;
+	height: 300px; 
 	padding: 5px;
 	border-radius: 50px;
 	-webkit-shape-inside: rectangle(0,0,100%,100%,50px,50px);
@@ -90,29 +90,30 @@
 }  
 .linksSubmenu{
 	width: 200px;
-	height: 25px;
-	padding: 15px 15px;
 	font-family: "Trebuchet MS"; 
 	font-size: 18px;
-	border: 2px solid #2E2E2E;
-	text-align: center;
-    text-decoration: none;
 	background-color: #01A9DB;
-	border-radius: 10px;
+    color: #585858;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+	border: 2px solid #2E2E2E;
 	
 }
 .linksActual{
 	width: 200px;
-	height: 25px;
-	padding: 15px 15px;
 	font-family: "Trebuchet MS"; 
 	font-size: 18px;
-	border: 2px solid #2E2E2E;
-	text-align: center;
+	background-color: #01A9DB;
+    color: #585858;
+    padding: 10px 15px;
+    text-align: center;
     text-decoration: none;
-	background-color: #01A9DB; 
-	border-radius: 10px;
+    border-radius: 10px;
+	border: 2px solid #2E2E2E;
 	box-shadow: 4px 4px 4px black;
+	
 }
 #button
   {
