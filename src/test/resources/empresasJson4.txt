@@ -1,13 +1,12 @@
 [
  {"nombreEmpresa":"IBM",
-	 "cuentas":[
-	 {"nombreCuenta":"FDS","valor":3000025,"periodo":2016},
-	 {"nombreCuenta":"FDS","valor":10,"periodo":2015},
-	 {"nombreCuenta":"FDS","valor":3000000,"periodo":2017}]},
-	 {"nombreEmpresa":"YPF",
-	 "cuentas":[
-	 {"nombreCuenta":"INDICADOR","valor":1000,"periodo":2016},
-	 {"nombreCuenta":"INDICADOR","valor":2000,"periodo":2017},
-	 {"nombreCuenta":"INDICADOR","valor":2000,"periodo":2017},
-	 {"nombreCuenta":"INDICADOR","valor":5620,"periodo":2014}]}
+ "cuentas":[
+ {"nombreCuenta":"FDS","valor":30,"periodo":2016},
+ {"nombreCuenta":"FDS","valor":70,"periodo":2017}]},
+ {"nombreEmpresa":"YPF",
+ "cuentas":[
+ {"nombreCuenta":"INDICADOR","valor":1000,"periodo":2016},
+ {"nombreCuenta":"INDICADOR","valor":2000,"periodo":2017},
+ {"nombreCuenta":"INDICADOR","valor":2000,"periodo":2017},
+ {"nombreCuenta":"INDICADOR","valor":5620,"periodo":2014}]}
 ]

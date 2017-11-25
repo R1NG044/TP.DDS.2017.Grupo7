@@ -24,7 +24,7 @@ public final class Repositorio implements WithGlobalEntityManager{
 	private List<Indicador> indicadores = new ArrayList<Indicador>();
 
 	private static Repositorio REPO = null;
-	EntityManager entityManager = entityManager();
+	
 
 	private Repositorio() {
 		this.empresas = TraerEmpresasDeBD();
@@ -219,6 +219,7 @@ public final class Repositorio implements WithGlobalEntityManager{
 	public void cargarIndicadoresDesdeBD() {
 		Repositorio.getInstance().limpiarRepoIndicadores();
 		@SuppressWarnings("unchecked")
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		List<Indicador> indicadores = entityManager.createQuery("SELECT i FROM Indicador i ORDER BY i.nombre DESC")
 				.getResultList();
 		cargarExpresionesaIndicadores(indicadores);
@@ -240,7 +241,7 @@ public final class Repositorio implements WithGlobalEntityManager{
 	@SuppressWarnings("unchecked")
 	public Indicador buscarIndicadorPorNombre(String nombre) {
 		List<Indicador> indicadores = null;
-
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		Query query = entityManager.createQuery("SELECT i FROM Indicador i where i.nombre like :pnombre");
 		indicadores = query.setParameter("pnombre", "%" + nombre + "%").getResultList();
 
@@ -250,7 +251,7 @@ public final class Repositorio implements WithGlobalEntityManager{
 	@SuppressWarnings("unchecked")
 	public List<Indicador> buscarIndicadorPorUser(Integer idUsuario) {
 		List<Indicador> indicadores = null;
-
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		indicadores = entityManager.createNamedQuery("buscarIndicadorPorUser").setParameter("pIdUsuario", idUsuario)
 				.getResultList();
 		REPO.cargarExpresionesaIndicadores(indicadores);
@@ -259,7 +260,7 @@ public final class Repositorio implements WithGlobalEntityManager{
 
 	@SuppressWarnings("unchecked")
 	private boolean existeEmpresaDeNombreenBD(String nombre) {
-
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		List<Empresa> empresas = null;
 		empresas = entityManager.createNamedQuery("buscarEmpresaPorNombre").setParameter("pNombre", nombre)
 				.getResultList();
@@ -267,7 +268,7 @@ public final class Repositorio implements WithGlobalEntityManager{
 	}
 	
 	public int persistirEmpresas() {
-
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();
 
 		for (Empresa e : Repositorio.getInstance().getEmpresas()) {
@@ -283,9 +284,9 @@ public final class Repositorio implements WithGlobalEntityManager{
 	}
 
 	public int persistirActualizarEmpresas() {
-
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();
-	//	tx.begin();
+		tx.begin();
 		
 		try{
 			for (Empresa e : Repositorio.getInstance().getEmpresas()) {
@@ -307,37 +308,14 @@ public final class Repositorio implements WithGlobalEntityManager{
 			tx.commit();
 		}catch(Exception exc){
 			System.out.println(exc.getMessage());
+			tx.rollback();
 		}
-		
-		
-
-		/*
-		try{
-			for (Empresa e : Repositorio.getInstance().getEmpresas()) {
-				
-				for(Cuenta c: e.getCuentas()){
-					
-						//tx.begin();
-						entityManager.persist(c);
-						//entityManager.persist(c);
-							
-				}
-				entityManager.persist(e);
-			}
-			
-			tx.commit();
-			
-		}catch(Exception exc){
-			System.out.println(exc.getMessage());
-		}
-		*/
-		
-		
 		return 1; // Success
 
 	}
 
 	public String persistirIndicadores() {
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();
 		for (Indicador i : Repositorio.getInstance().getIndicadores()) {
 			if (!(existeIndicadorDeNombreEnBD(i.getNombre()))) {
@@ -359,6 +337,7 @@ public final class Repositorio implements WithGlobalEntityManager{
 
 	public String persistirIndicador(String nombreIndicador) {
 		try {
+			EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 			EntityTransaction tx = entityManager.getTransaction();
 			
 			for (Indicador i : Repositorio.getInstance().getIndicadores()) {
@@ -382,14 +361,15 @@ public final class Repositorio implements WithGlobalEntityManager{
 
 	private boolean existeIndicadorDeNombreEnBD(String nombre) {
 		List<Indicador> indicadores = null;
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		Query query = entityManager.createQuery("SELECT i FROM Indicador i where i.nombre like :pnombre");
 		indicadores = query.setParameter("pnombre", nombre).getResultList();
 		return !indicadores.isEmpty();
 	}
 
 	public int persistirUsuarios(List<Usuario> usuarios) {
-		// EntityManager entityManager =
-		// PerThreadEntityManagers.getEntityManager();
+		 EntityManager entityManager =
+		 PerThreadEntityManagers.getEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();
 
 		for (Usuario u : usuarios) {
@@ -405,6 +385,7 @@ public final class Repositorio implements WithGlobalEntityManager{
 	}
 
 	public List<Empresa> TraerEmpresasDeBD() {
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		Query query = entityManager.createQuery("FROM Empresa");
 		List<Empresa> empresas = query.getResultList();
 		System.out.print(empresas.size());
@@ -412,6 +393,7 @@ public final class Repositorio implements WithGlobalEntityManager{
 	}
 
 	public Usuario buscarUserPorId(Integer pidUsuarioActivo) {
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.id = :pidUsuarioActivo");
 		List<Usuario> users = query.setParameter("pidUsuarioActivo", pidUsuarioActivo).getResultList();
 		if (users.isEmpty())

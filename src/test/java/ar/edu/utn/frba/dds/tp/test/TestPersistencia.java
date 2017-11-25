@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -40,7 +41,6 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 	private Integer idUsuarioPredefinidos = 1;
 	
 	public static String INPUT_PATH;
-	EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 	
 	@Before
 	public void SetUp() {
@@ -49,72 +49,77 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		this.representacionJSON4 = "/empresasJson4.txt";
 		
 		this.repo = Repositorio.getInstance();
-		
+		List<Usuario> usuarios =new ArrayList<>();
+		usuarios.add(new Usuario("general", "123"));
+		usuarios.add(new Usuario("brenda.stolarz@gmail.com", "654321"));
+		usuarios.add( new Usuario("nadia@utn.edu.ar", "nadia"));
+		usuarios.add(new Usuario("ale@utn.edu.ar", "ale"));
+		Repositorio.getInstance().persistirUsuarios(usuarios);				
+				}
 
-	}
+//		@Test
+//	public void cargarJSONEmpresasYCuentasABaseDeDatos() throws FileNotFoundException {
+//		/*
+//		 * Para la Empresa YPF el Json tienen la cuenta INDICADOR periodo 2017
+//		 * duplicada, vemos como se guardo una sola.
+//		 */
+//		// Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON));
+//
+//		/*
+//		 * El Json 2 Tiene duplicada la Empresa IBM respecto del Json1,
+//		 * cargaremos este al Repo y verificaremos que no se duplican ni la
+//		 * empresa ni las cuentas. Y se agregan las empresas Axion y Petrobras.
+//		 */
+//
+//		Aplicacion.persistirEmpresasDesdeJson(getInputFilePath(representacionJSON4));
+//
+//		/*
+//		 * A su vez la Empresa Axion esta duplicada pero con cuentas distintas
+//		 * vemos que en el repo solo se cargo una empresa con las 2 cuentas
+//		 */
+//
+//	}
 
-		@Test
-	public void cargarJSONEmpresasYCuentasABaseDeDatos() throws FileNotFoundException {
-		/*
-		 * Para la Empresa YPF el Json tienen la cuenta INDICADOR periodo 2017
-		 * duplicada, vemos como se guardo una sola.
-		 */
-		// Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON));
+//	@Test
+//	public void persistirMetodologias() {
+//		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+//		
+//		EntityTransaction tx = entityManager.getTransaction();
+//		tx.begin();
+//		Metodologia m = new Metodologia("Buffet", new Usuario(1, "Brenda")); 
+//
+//		entityManager.persist(m);
+//
+//		tx.commit();
+//
+//	}
 
-		/*
-		 * El Json 2 Tiene duplicada la Empresa IBM respecto del Json1,
-		 * cargaremos este al Repo y verificaremos que no se duplican ni la
-		 * empresa ni las cuentas. Y se agregan las empresas Axion y Petrobras.
-		 */
-
-		Aplicacion.persistirEmpresasDesdeJson(getInputFilePath(representacionJSON4));
-
-		/*
-		 * A su vez la Empresa Axion esta duplicada pero con cuentas distintas
-		 * vemos que en el repo solo se cargo una empresa con las 2 cuentas
-		 */
-
-	}
-
-	@Test
-	public void persistirMetodologias() {
-		
-		EntityTransaction tx = entityManager.getTransaction();
-
-		Metodologia m = new Metodologia("Buffet", new Usuario(1, "Brenda")); 
-
-		entityManager.persist(m);
-
-		tx.commit();
-
-	}
-
-	@Test()
-	public void testGuardarIndicador() throws IOException {
-		repo.limpiarRepo();
-		Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
-
-		INPUT_PATH = "/IngresoNeto.txt";
-		InputStream file = this.getInputFilePath();
-		String formula = IOUtils.toString(file,StandardCharsets.ISO_8859_1.name() );
-		String mensaje = Aplicacion.guardarUnIndicador("INGRESONETO", formula, idUsuarioPredefinidos);
-		System.out.println(mensaje+" INGRESONETO");
-
-		assertTrue(repo.existeIndicador("INGRESONETO"));
-	}
-
-@Test()
-		public void testGuardarIndicadorROE() throws IOException {
-			repo.limpiarRepo();
-			Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
-		
-		INPUT_PATH = "/ROE.txt";
-		InputStream file2 = this.getInputFilePath();
-		String formula2 = IOUtils.toString(file2,StandardCharsets.ISO_8859_1.name() );
-		String mensaje2 = Aplicacion.guardarUnIndicador("ROE", formula2, idUsuarioPredefinidos);
-		System.out.println(mensaje2+" ROE");
-		assertTrue(repo.existeIndicador("ROE"));
-		
+//	@Test()
+//	public void testGuardarIndicador() throws IOException {
+//		repo.limpiarRepo();
+//		Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
+//
+//		INPUT_PATH = "/IngresoNeto.txt";
+//		InputStream file = this.getInputFilePath();
+//		String formula = IOUtils.toString(file,StandardCharsets.ISO_8859_1.name() );
+//		String mensaje = Aplicacion.guardarUnIndicador("INGRESONETO", formula, idUsuarioPredefinidos);
+//		System.out.println(mensaje+" INGRESONETO");
+//
+//		assertTrue(repo.existeIndicador("INGRESONETO"));
+//	}
+//
+//@Test()
+//		public void testGuardarIndicadorROE() throws IOException {
+//			repo.limpiarRepo();
+//			Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
+//		
+//		INPUT_PATH = "/ROE.txt";
+//		InputStream file2 = this.getInputFilePath();
+//		String formula2 = IOUtils.toString(file2,StandardCharsets.ISO_8859_1.name() );
+//		String mensaje2 = Aplicacion.guardarUnIndicador("ROE", formula2, idUsuarioPredefinidos);
+//		System.out.println(mensaje2+" ROE");
+//		assertTrue(repo.existeIndicador("ROE"));
+//		
 		/*	
 		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromStream(file));
 
@@ -146,16 +151,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		// Persist indicador
 		repo.persistirIndicadores();
 		*/
-	}
-
-	private String getInputFilePath(String input) {
-		return this.getClass().getResource(input).getPath();
-	}
-
-	private InputStream getInputFilePath() {
-		return this.getClass().getResourceAsStream(INPUT_PATH);
-
-	}
+	//}
 	
 	/**** Empresas y cuentas ****/
 	
@@ -173,7 +169,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		 * empresa ni las cuentas. Y se agregan las empresas Axion y Petrobras.
 		 */
 		Aplicacion.persistirActualizarEmpresasDesdeJson(getInputFilePath(representacionJSON));
-
+		Aplicacion.persistirActualizarEmpresasDesdeJson(getInputFilePath(representacionJSON4));
 		/*
 		 * A su vez la Empresa Axion esta duplicada pero con cuentas distintas
 		 * vemos que en el repo solo se cargo una empresa con las 2 cuentas
@@ -181,15 +177,25 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 
 	}
 	
-	@Test
-	public void lala(){
-		List<Empresa> empresas = PerThreadEntityManagers.getEntityManager().createQuery("from Empresa").getResultList();
-		for (Empresa empresa : empresas) {
-			for (Cuenta cuenta : empresa.getCuentas()) {
-				System.out.println(cuenta.getEmpresa().getId());			
-			}
-		}
+//	@Test
+//	public void lala(){
+//		List<Empresa> empresas = PerThreadEntityManagers.getEntityManager().createQuery("from Empresa").getResultList();
+//		for (Empresa empresa : empresas) {
+//			for (Cuenta cuenta : empresa.getCuentas()) {
+//				System.out.println(cuenta.getEmpresa().getId());			
+//			}
+//		}
+//	}
+//	
+
+	private String getInputFilePath(String input) {
+		return this.getClass().getResource(input).getPath();
 	}
-	
+
+	private InputStream getInputFilePath() {
+		return this.getClass().getResourceAsStream(INPUT_PATH);
+
+	}
+
 	/** E N D **/
 }
