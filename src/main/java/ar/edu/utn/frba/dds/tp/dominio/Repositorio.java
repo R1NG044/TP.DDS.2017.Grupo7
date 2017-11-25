@@ -392,12 +392,16 @@ public final class Repositorio implements WithGlobalEntityManager{
 		return empresas;
 	}
 
-	public Usuario buscarUserPorId(Integer pidUsuarioActivo) {
+
+	public Usuario buscarUserPorId(Integer pidUsuarioActivo) throws Exception {
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.id = :pidUsuarioActivo");
 		List<Usuario> users = query.setParameter("pidUsuarioActivo", pidUsuarioActivo).getResultList();
-		if (users.isEmpty())
-			return new Usuario(0, "GENERICO");
+		if (users.isEmpty()){
+			throw new Exception("El usuario no existe en la BD");
+			//return new Usuario(0, "GENERICO");
+		}
+			
 		else
 			return users.get(0);
 	}

@@ -89,7 +89,19 @@ public static String guardarUnIndicador(String nombreIndicador, String formulaIn
 	CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
 	ParserListener listener = new ParserListener();
 
-	listener.guardarUnIndicadorNuevo(expresionContext, nombreIndicador, formulaIndicador,Repositorio.getInstance().buscarUserPorId(usuario));
-	return Repositorio.getInstance().persistirIndicador(nombreIndicador);
+	Usuario user;
+	try{
+		user = Repositorio.getInstance().buscarUserPorId(usuario);
+		listener.guardarUnIndicadorNuevo(expresionContext, nombreIndicador, formulaIndicador, user);
+		return Repositorio.getInstance().persistirIndicador(nombreIndicador);
+		
+	}catch(Exception e){
+		System.out.println("Error al intentar guardar indicador");
+		return "Error al intentar guardar indicador";
+	}
+	
+	
+	
+	
 	}
 }

@@ -49,6 +49,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		this.representacionJSON4 = "/empresasJson4.txt";
 		
 		this.repo = Repositorio.getInstance();
+
 		List<Usuario> usuarios =new ArrayList<>();
 		usuarios.add(new Usuario("general", "123"));
 		usuarios.add(new Usuario("brenda.stolarz@gmail.com", "654321"));
@@ -120,6 +121,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 //		System.out.println(mensaje2+" ROE");
 //		assertTrue(repo.existeIndicador("ROE"));
 //		
+
 		/*	
 		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromStream(file));
 
