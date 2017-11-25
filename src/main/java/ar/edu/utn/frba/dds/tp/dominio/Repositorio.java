@@ -7,6 +7,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.tools.ant.taskdefs.Length;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,17 +17,18 @@ import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser;
 import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
 import ar.edu.utn.frba.dds.tp.antlr.dds.ParserListener;
 
-public final class Repositorio {
+public final class Repositorio implements WithGlobalEntityManager{
 
 	private List<Empresa> empresas = new ArrayList<Empresa>();
 
 	private List<Indicador> indicadores = new ArrayList<Indicador>();
 
 	private static Repositorio REPO = null;
-	EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+	EntityManager entityManager = entityManager();
 
 	private Repositorio() {
-		this.cargarListaDeEmpresas(TraerEmpresasDeBD());
+		this.empresas = TraerEmpresasDeBD();
+		//this.cargarListaDeEmpresas(TraerEmpresasDeBD());
 
 		// Instanciar EntityManager
 	}
@@ -403,7 +405,7 @@ public final class Repositorio {
 	}
 
 	public List<Empresa> TraerEmpresasDeBD() {
-		Query query = entityManager.createQuery("SELECT e FROM Empresa e");
+		Query query = entityManager.createQuery("FROM Empresa");
 		List<Empresa> empresas = query.getResultList();
 		System.out.print(empresas.size());
 		return empresas;

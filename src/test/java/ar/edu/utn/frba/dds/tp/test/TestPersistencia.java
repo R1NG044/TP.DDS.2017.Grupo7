@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -24,6 +25,8 @@ import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser;
 import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
 import ar.edu.utn.frba.dds.tp.antlr.dds.ParserListener;
 import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
+import ar.edu.utn.frba.dds.tp.dominio.Cuenta;
+import ar.edu.utn.frba.dds.tp.dominio.Empresa;
 import ar.edu.utn.frba.dds.tp.dominio.Metodologia;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 import ar.edu.utn.frba.dds.tp.dominio.Usuario;
@@ -34,13 +37,14 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 	private String representacionJSON;
 	private String representacionJSON3;
 	private String representacionJSON4;
+	private Integer idUsuarioPredefinidos = 1;
 	
 	public static String INPUT_PATH;
 	EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 	
 	@Before
 	public void SetUp() {
-		this.representacionJSON = "/empresasJson4.txt";
+		this.representacionJSON = "/empresasJson1.txt";
 		this.representacionJSON3 = "/empresasJson3.txt";
 		this.representacionJSON4 = "/empresasJson4.txt";
 		
@@ -93,7 +97,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		INPUT_PATH = "/IngresoNeto.txt";
 		InputStream file = this.getInputFilePath();
 		String formula = IOUtils.toString(file,StandardCharsets.ISO_8859_1.name() );
-		String mensaje = Aplicacion.guardarUnIndicador("INGRESONETO", formula, 0);
+		String mensaje = Aplicacion.guardarUnIndicador("INGRESONETO", formula, idUsuarioPredefinidos);
 		System.out.println(mensaje+" INGRESONETO");
 
 		assertTrue(repo.existeIndicador("INGRESONETO"));
@@ -107,7 +111,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		INPUT_PATH = "/ROE.txt";
 		InputStream file2 = this.getInputFilePath();
 		String formula2 = IOUtils.toString(file2,StandardCharsets.ISO_8859_1.name() );
-		String mensaje2 = Aplicacion.guardarUnIndicador("ROE", formula2, 0);
+		String mensaje2 = Aplicacion.guardarUnIndicador("ROE", formula2, idUsuarioPredefinidos);
 		System.out.println(mensaje2+" ROE");
 		assertTrue(repo.existeIndicador("ROE"));
 		
@@ -175,6 +179,16 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		 * vemos que en el repo solo se cargo una empresa con las 2 cuentas
 		 */
 
+	}
+	
+	@Test
+	public void lala(){
+		List<Empresa> empresas = PerThreadEntityManagers.getEntityManager().createQuery("from Empresa").getResultList();
+		for (Empresa empresa : empresas) {
+			for (Cuenta cuenta : empresa.getCuentas()) {
+				System.out.println(cuenta.getEmpresa().getId());			
+			}
+		}
 	}
 	
 	/** E N D **/

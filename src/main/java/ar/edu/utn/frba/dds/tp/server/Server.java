@@ -24,6 +24,9 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -32,7 +35,7 @@ import java.io.OutputStream;
 import java.lang.Runnable;
 
 
-public class Server {
+public class Server implements TransactionalOps, WithGlobalEntityManager {
 	  
 	public static Integer idUsuarioActivo;
 
@@ -159,6 +162,7 @@ public class Server {
 		}, engine);
 
 		Spark.get("/empresas/consultaDeValores", (req, res) -> {
+			
 			return new ModelAndView(Repositorio.getInstance(), "filtrosListaEmpresas.hbs");
 		
 		}, engine);
@@ -171,6 +175,7 @@ public class Server {
 		
 		
 		Spark.post("/empresas/upload", (req, res) -> {
+
 			Boolean resultUpload = true;
 			
 			return new ModelAndView(resultUpload, "empresas.hbs");

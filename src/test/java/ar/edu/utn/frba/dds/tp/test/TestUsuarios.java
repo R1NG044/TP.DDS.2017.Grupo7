@@ -20,6 +20,7 @@ public class TestUsuarios extends AbstractPersistenceTest implements WithGlobalE
 	@Test
 	public void cargarUsuariosEnBD(){
 		List<Usuario> usuarios =new ArrayList<>();
+		usuarios.add(new Usuario("general", "123"));
 		usuarios.add(new Usuario("brenda.stolarz@gmail.com", "654321"));
 		usuarios.add( new Usuario("nadia@utn.edu.ar", "nadia"));
 		usuarios.add(new Usuario("ale@utn.edu.ar", "ale"));
