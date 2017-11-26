@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.tp.test;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -21,9 +22,9 @@ public class TestJob {
 	
 	
 	@Test
-	public void testFechaUltModJson() throws IOException {
+	public void testFechaUltModJson() throws IOException, FileNotFoundException  {
 //		
-		Path path = Paths.get("/IngresoNeto.txt");//esta es la ruta de tu archivo en mi caso estoy utilizando GNU/Linux
+		Path path = Paths.get(getInputFilePath("/IngresoNeto.txt"));//esta es la ruta de tu archivo en mi caso estoy utilizando GNU/Linux
 		System.out.println(Files.getLastModifiedTime(path));
 		File fichero = new File("/empresasJson1.txt");
 		String fecha = fechaModificado(fichero);

@@ -1,6 +1,9 @@
 package ar.edu.utn.frba.dds.tp.dominio;
 
+import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
+import java.util.Date;
+
 import javax.persistence.*;
 
 import org.antlr.v4.runtime.CharStreams;
@@ -438,6 +441,17 @@ public final class Repositorio implements WithGlobalEntityManager{
 
 	public void setIndicadores(List<Indicador> indicadores) {
 		this.indicadores = indicadores;
+	}
+	
+	
+	/***** PROCESO CARGA BATCH ****/
+	
+	//TODO: Completar este DUMMY Method haciendo select de la BD y comparando ultima
+	//con parametro ultimaFechaModificacion
+	public boolean esArchivoYaProcesado(FileTime ultimaFechaModificacion){
+		//EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		
+		return false;
 	}
 
 }
