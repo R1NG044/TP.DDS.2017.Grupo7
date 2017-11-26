@@ -297,13 +297,14 @@ public final class Repositorio implements WithGlobalEntityManager{
 			for (Empresa e : Repositorio.getInstance().getEmpresas()) {
 				
 				//entityManager.persist(e);
-				
+				entityManager.persist(e);
+				/*
 				if (!(existeEmpresaDeNombreenBD(e.getNombre()))) {
 					entityManager.persist(e);
 //					tx.commit();
 				}else{
 					//Si existe, actualizar las cuentas
-					entityManager.persist(e);
+					//entityManager.persist(e);
 					for(Cuenta c: e.getCuentas()){
 						
 						//tx.begin();
@@ -311,7 +312,7 @@ public final class Repositorio implements WithGlobalEntityManager{
 						//entityManager.persist(c);
 							
 					}
-				}
+				}*/
 			}
 			
 			tx.commit();
