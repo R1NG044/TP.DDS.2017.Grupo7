@@ -58,102 +58,48 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		Repositorio.getInstance().persistirUsuarios(usuarios);				
 				}
 
-//		@Test
-//	public void cargarJSONEmpresasYCuentasABaseDeDatos() throws FileNotFoundException {
-//		/*
-//		 * Para la Empresa YPF el Json tienen la cuenta INDICADOR periodo 2017
-//		 * duplicada, vemos como se guardo una sola.
-//		 */
-//		// Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON));
-//
-//		/*
-//		 * El Json 2 Tiene duplicada la Empresa IBM respecto del Json1,
-//		 * cargaremos este al Repo y verificaremos que no se duplican ni la
-//		 * empresa ni las cuentas. Y se agregan las empresas Axion y Petrobras.
-//		 */
-//
-//		Aplicacion.persistirEmpresasDesdeJson(getInputFilePath(representacionJSON4));
-//
-//		/*
-//		 * A su vez la Empresa Axion esta duplicada pero con cuentas distintas
-//		 * vemos que en el repo solo se cargo una empresa con las 2 cuentas
-//		 */
-//
-//	}
+	
 
-//	@Test
-//	public void persistirMetodologias() {
-//		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-//		
-//		EntityTransaction tx = entityManager.getTransaction();
-//		tx.begin();
-//		Metodologia m = new Metodologia("Buffet", new Usuario(1, "Brenda")); 
-//
-//		entityManager.persist(m);
-//
-//		tx.commit();
-//
-//	}
+	@Test
+	public void persistirMetodologias() {
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		
+		EntityTransaction tx = entityManager.getTransaction();
+		tx.begin();
+		Metodologia m = new Metodologia("Buffet", new Usuario(1, "Brenda")); 
 
-//	@Test()
-//	public void testGuardarIndicador() throws IOException {
-//		repo.limpiarRepo();
-//		Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
-//
-//		INPUT_PATH = "/IngresoNeto.txt";
-//		InputStream file = this.getInputFilePath();
-//		String formula = IOUtils.toString(file,StandardCharsets.ISO_8859_1.name() );
-//		String mensaje = Aplicacion.guardarUnIndicador("INGRESONETO", formula, idUsuarioPredefinidos);
-//		System.out.println(mensaje+" INGRESONETO");
-//
-//		assertTrue(repo.existeIndicador("INGRESONETO"));
-//	}
-//
-//@Test()
-//		public void testGuardarIndicadorROE() throws IOException {
-//			repo.limpiarRepo();
-//			Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
-//		
-//		INPUT_PATH = "/ROE.txt";
-//		InputStream file2 = this.getInputFilePath();
-//		String formula2 = IOUtils.toString(file2,StandardCharsets.ISO_8859_1.name() );
-//		String mensaje2 = Aplicacion.guardarUnIndicador("ROE", formula2, idUsuarioPredefinidos);
-//		System.out.println(mensaje2+" ROE");
-//		assertTrue(repo.existeIndicador("ROE"));
-//		
+		entityManager.persist(m);
 
-		/*	
-		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromStream(file));
+		tx.commit();
 
-		file = this.getInputFilePath();
-		String formula1 = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
+	}
 
-		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		CalculadoraParser parser = new CalculadoraParser(tokens);
-		CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
-		ParserListener listener = new ParserListener();
-		listener.guardarUnIndicadorNuevo(expresionContext, "INGRESONETO", formula1, new Usuario(1, "Brenda"));
+	@Test()
+	public void testGuardarIndicador() throws IOException {
+		//repo.limpiarRepo();
+		Aplicacion.persistirActualizarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
+
+		INPUT_PATH = "/IngresoNeto.txt";
+		InputStream file = this.getInputFilePath();
+		String formula = IOUtils.toString(file,StandardCharsets.ISO_8859_1.name() );
+		String mensaje = Aplicacion.guardarUnIndicador("INGRESONETO", formula, idUsuarioPredefinidos);
+		System.out.println(mensaje+" INGRESONETO");
+
 		assertTrue(repo.existeIndicador("INGRESONETO"));
+	}
+
+@Test()
+		public void testGuardarIndicadorROE() throws IOException {
+			//repo.limpiarRepo();
+			Aplicacion.persistirActualizarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
+		
 		INPUT_PATH = "/ROE.txt";
-		file = this.getInputFilePath();
-		lexer = new CalculadoraLexer(CharStreams.fromStream(file));
-		tokens = new CommonTokenStream(lexer);
-		parser = new CalculadoraParser(tokens);
-		expresionContext = parser.expresion();
-		ParserListener listener2 = new ParserListener();
-
-		// Persisto formula indicador ROE
-		file = this.getInputFilePath();
-		String formula2 = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
-		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE", formula2, new Usuario(1, "Brenda"));
-
+		InputStream file2 = this.getInputFilePath();
+		String formula2 = IOUtils.toString(file2,StandardCharsets.ISO_8859_1.name() );
+		String mensaje2 = Aplicacion.guardarUnIndicador("ROE", formula2, idUsuarioPredefinidos);
+		System.out.println(mensaje2+" ROE");
 		assertTrue(repo.existeIndicador("ROE"));
-		assertTrue(repo.existeIndicador("INGRESONETO"));
-		System.out.println(listener.probarUnIndicadorNuevo(expresionContext, "AXION", 2017));
-		// Persist indicador
-		repo.persistirIndicadores();
-		*/
-	//}
+}
 	
 	/**** Empresas y cuentas ****/
 	
@@ -200,5 +146,26 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 
 	}
 
-	/** E N D **/
+	/** TEST VIEJOS **/
+	//@Test
+		//public void cargarJSONEmpresasYCuentasABaseDeDatos() throws FileNotFoundException {
+			/*
+			 * Para la Empresa YPF el Json tienen la cuenta INDICADOR periodo 2017
+			 * duplicada, vemos como se guardo una sola.
+			 */
+			// Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON));
+
+			/*
+			 * El Json 2 Tiene duplicada la Empresa IBM respecto del Json1,
+			 * cargaremos este al Repo y verificaremos que no se duplican ni la
+			 * empresa ni las cuentas. Y se agregan las empresas Axion y Petrobras.
+			 */
+
+			//Aplicacion.persistirEmpresasDesdeJson(getInputFilePath(representacionJSON4));
+
+			/* * A su vez la Empresa Axion esta duplicada pero con cuentas distintas
+			 * vemos que en el repo solo se cargo una empresa con las 2 cuentas
+			 */
+		//}
+
 }

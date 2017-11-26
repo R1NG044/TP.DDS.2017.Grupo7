@@ -348,7 +348,7 @@ public final class Repositorio implements WithGlobalEntityManager{
 		try {
 			EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 			EntityTransaction tx = entityManager.getTransaction();
-			
+			tx.begin();
 			for (Indicador i : Repositorio.getInstance().getIndicadores()) {
 				if (i.getNombre() == nombreIndicador)
 					if (!(existeIndicadorDeNombreEnBD(i.getNombre()))) {
