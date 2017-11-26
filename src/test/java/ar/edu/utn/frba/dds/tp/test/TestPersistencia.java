@@ -172,6 +172,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		 */
 		Aplicacion.persistirActualizarEmpresasDesdeJson(getInputFilePath(representacionJSON));
 		Aplicacion.persistirActualizarEmpresasDesdeJson(getInputFilePath(representacionJSON4));
+		Aplicacion.persistirActualizarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
 		/*
 		 * A su vez la Empresa Axion esta duplicada pero con cuentas distintas
 		 * vemos que en el repo solo se cargo una empresa con las 2 cuentas

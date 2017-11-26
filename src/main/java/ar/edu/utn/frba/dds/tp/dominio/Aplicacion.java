@@ -53,7 +53,7 @@ public final class  Aplicacion {
 		
 		Repositorio.getInstance().persistirActualizarEmpresas();
 		
-		Repositorio.getInstance().limpiarRepo();
+		//Repositorio.getInstance().limpiarRepo();
 		//cargar ind predefinidos
 	}
 	
