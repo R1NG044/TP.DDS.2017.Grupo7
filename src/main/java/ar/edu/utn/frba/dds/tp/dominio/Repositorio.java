@@ -19,6 +19,7 @@ import ar.edu.utn.frba.dds.tp.antlr.CalculadoraLexer;
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser;
 import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
 import ar.edu.utn.frba.dds.tp.antlr.dds.ParserListener;
+import ar.edu.utn.frba.dds.tp.jobs.HistorialCargaBatch;
 
 public final class Repositorio implements WithGlobalEntityManager{
 
@@ -292,7 +293,7 @@ public final class Repositorio implements WithGlobalEntityManager{
 		tx.begin();
 		
 		try{
-			
+			//entityManager.createQuery()
 			for (Empresa e : Repositorio.getInstance().getEmpresas()) {
 				
 				//entityManager.persist(e);
@@ -446,12 +447,18 @@ public final class Repositorio implements WithGlobalEntityManager{
 	
 	/***** PROCESO CARGA BATCH ****/
 	
-	//TODO: Completar este DUMMY Method haciendo select de la BD y comparando ultima
-	//con parametro ultimaFechaModificacion
+	//Solo procesa el archivo, si el mismo no ha sido ya procesado (verifica fecha modif)
 	public boolean esArchivoYaProcesado(FileTime ultimaFechaModificacion){
-		//EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		Query q = entityManager.createQuery("SELECT h from HistorialCargaBatch h ORDER BY h.ultimaFechaModificacion desc");
+		q.setMaxResults(1);
+		List<HistorialCargaBatch> resultados = q.getResultList();
 		
-		return false;
+		if(resultados.size() == 0){
+			return false;
+		}else{
+			return (ultimaFechaModificacion.toMillis() == resultados.get(0).getUltimaFechaModificacion());
+		}
 	}
 
 }

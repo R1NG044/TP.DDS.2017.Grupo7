@@ -46,10 +46,14 @@ public class CargaBatchEmpresas implements org.quartz.Job{
 			
 			if(!Repositorio.getInstance().esArchivoYaProcesado(ultimaFechaModificacion)){
 				
-				Aplicacion.persistirActualizarEmpresasDesdeJson(getInputFilePath("/empresasJson4.txt"));
+				//Aplicacion.persistirActualizarEmpresasDesdeJson(getInputFilePath("/empresasJson4.txt"));
 				HistorialCargaBatch historial = new HistorialCargaBatch();
 				historial.setNombreArchivo("/empresasJson4.txt");
-				historial.setUltimaFechaModificacion(Calendar.getInstance().getTimeInMillis());
+				historial.setUltimaFechaModificacion(ultimaFechaModificacion.toMillis());
+				entityManager.getTransaction().begin();
+				entityManager.persist(historial);
+				entityManager.getTransaction().commit();
+				
 			}else{
 				System.out.println("El archivo no será procesado porque ya ha sido procesado anteriormente.");
 			}
