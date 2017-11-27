@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>SISTEMA DE APOYO A DECISIONES</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+	<div id="contenedor">
+		<div id="cabecera" align="center" ><h1 >SISTEMA DE APOYO A DECISIONES</h1></div>
+		
+		<div id="menu" align="center">
+			<nav class="nav-menu">
+				<ul class="clearfix">
+					<li><a href="/index" class="linksMenu">Home</a></li>
+					<li><a href="/empresas" class="linksMenu">Empresas</a></li>
+					<li><a href="/indicadores" class="linksMenu">Indicadores</a></li>
+					<li><a href="/metodologias" class="linksMenu">Metodolog&iacuteas</a></li>
+					<li><a href="/logout" class="linksMenu"> Cerrar Sesi&oacuten</a></li>	
+				</ul>
+			</nav>
+		</div>
+		
+		<div id="submenu">
+			<br>
+			<p class="linksSubmenu"><a href="/indicadores" class="links"> Probar Indicador</a></p>
+			<p class="linksActual">Evaluar Indicador</p>
+			<p class="linksSubmenu"><a href="/indicador/cargar" class="links" >Cargar Indicador</a></p>
+			
+		</div>
+		
+		<div id="contenido" align="center"> <br><br>
+			<FORM name="formListaIndicadores" action="/indicadores" method="POST" onsubmit="javascript: return enviar();" id="forma3" align="center">
+				<br><br>
+				<p align="center" ><b>Seleccionar Indicador
+				<select id="mySelectIndicadores" onchange="myFunction()" name="mySelectIndicadores">
+					<option >Seleccionar</option>
+					
+					{{#each indicadores}}
+					
+					<option value={{nombre}}>{{nombre}}</option>
+					{{/each}}	
+				</select>
+				<br>
+				<p align="center">Seleccionar Empresa
+				<select id="mySelectEmpresas" onchange="myFunction()" name="mySelectEmpresas">
+					<option >Seleccionar</option>
+					{{#each empresas}}
+					
+					<option value={{nombre}}>{{nombre}}</option>
+					{{/each}}									
+				</select>
+				<br>
+				<p align="center">Seleccionar Per&iacuteodo
+				<select id="mySelectPeriodos" onchange="myFunction()" name="mySelectPeriodos">
+					<option >Seleccionar</option>
+					<option >2017</option>
+					<option >2016</option>
+					<option >2015</option>
+					<option >2014</option>
+					<option >2013</option>
+					<option >2012</option>
+					<option >2011</option>
+					<option >2010</option>
+					<option >2009</option>
+					<option >2008</option>
+				</select>
+				<br><br><br>
+				<p align="center" >
+					Resultado Indicador: {{this.[3]}}
+				</p>
+				<input type="submit" onsubmit="myFunction()" id="obtenerIndicador" value="Calcular" class=button />
+			</form>
+						
+			 
+		</div>	
+	
+	</div>
+	<!-- JQuery -->
+	<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="/js/popper.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="/js/mdb.min.js"></script>
+</body>
