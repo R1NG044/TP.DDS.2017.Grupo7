@@ -1,35 +1,28 @@
 package ar.edu.utn.frba.dds.tp.dominio;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.apache.commons.io.IOUtils;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-
-import ar.edu.utn.frba.dds.tp.herramientas.AdapterJson;
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraLexer;
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser;
-import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser.ExpresionContext;
-import ar.edu.utn.frba.dds.tp.antlr.dds.*;
+import ar.edu.utn.frba.dds.tp.antlr.dds.ParserListener;
+import ar.edu.utn.frba.dds.tp.herramientas.AdapterJson;
 
 public final class  Aplicacion {
-
 	
+	public static void cargaDesdeBDaRepo() {
+		Repositorio.getInstance().cargarEmpresasDeBD();
+		Repositorio.getInstance().cargarIndicadoresDesdeBD();
+	}
 
 	public static void cargarEmpresasDesdeJson(String jsonEmpresas) throws FileNotFoundException {
 		List<Empresa> listaEmpresas = new ArrayList<Empresa>();
 		listaEmpresas = AdapterJson.transformarDeJSONaListaEmpresas(jsonEmpresas);
 		Repositorio.getInstance().cargarListaDeEmpresas(listaEmpresas);
-		//cargar ind predefinidos
 		}
 	
 	public static void persistirEmpresasDesdeJson(String jsonEmpresas) throws FileNotFoundException {
@@ -92,16 +85,13 @@ public static String guardarUnIndicador(String nombreIndicador, String formulaIn
 	Usuario user;
 	try{
 		user = Repositorio.getInstance().buscarUserPorId(usuario);
-		listener.guardarUnIndicadorNuevo(expresionContext, nombreIndicador, formulaIndicador, user);
-		return Repositorio.getInstance().persistirIndicador(nombreIndicador);
+		return listener.guardarUnIndicadorNuevo(expresionContext, nombreIndicador, formulaIndicador, user);
+		//return Repositorio.getInstance().persistirIndicador(nombreIndicador);
 		
 	}catch(Exception e){
 		System.out.println("Error al intentar guardar indicador");
-		return "Error al intentar guardar indicador";
+		return e.getMessage();
 	}
-	
-	
-	
-	
+		
 	}
 }

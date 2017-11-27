@@ -21,20 +21,15 @@ import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
 import ar.edu.utn.frba.dds.tp.antlr.dds.ParserListener;
 import ar.edu.utn.frba.dds.tp.jobs.HistorialCargaBatch;
 
-public final class Repositorio implements WithGlobalEntityManager{
+public final class Repositorio implements WithGlobalEntityManager {
 
 	private List<Empresa> empresas = new ArrayList<Empresa>();
 
 	private List<Indicador> indicadores = new ArrayList<Indicador>();
 
 	private static Repositorio REPO = null;
-	
 
 	private Repositorio() {
-		this.empresas = TraerEmpresasDeBD();
-		//this.cargarListaDeEmpresas(TraerEmpresasDeBD());
-
-		// Instanciar EntityManager
 	}
 
 	public static Repositorio getInstance() {
@@ -61,25 +56,28 @@ public final class Repositorio implements WithGlobalEntityManager{
 			this.agregarEmpresa(unaEmpresa);
 		}
 	}
-	
+
 	public void cargarActualizarListaDeEmpresas(List<Empresa> listaEmpresas) {
 		for (Empresa unaEmpresa : listaEmpresas) {
 			this.agregarActualizarEmpresa(unaEmpresa);
 		}
 	}
 
-	public void cargarListaDeIndicadores(List<Indicador> indicadores) {
+	public void cargarListaDeIndicadores(List<Indicador> indicadores) throws Exception {
 		for (Indicador indicador : indicadores) {
 			this.agregarIndicador(indicador);
 		}
 
 	}
 
-	public void agregarIndicador(Indicador unIndicadorInput) {
+	public String agregarIndicador(Indicador unIndicadorInput) throws Exception {
 		if (!(existeIndicadorDeNombre(unIndicadorInput.getNombre()))) {
 			this.indicadores.add(unIndicadorInput);
+			return this.persistirIndicador(unIndicadorInput);
 		} else {
 			System.out.print("Ya Existe Indicador en Base");
+			return "Ya existe el indicador";
+
 		}
 	}
 
@@ -106,8 +104,8 @@ public final class Repositorio implements WithGlobalEntityManager{
 			this.empresas.add(nuevaEmpresa);
 		}
 	}
-	
-	//Agregar Empresa actualizando la cuenta.
+
+	// Agregar Empresa actualizando la cuenta.
 	private void agregarActualizarEmpresa(Empresa unaEmpresaInput) {
 		if (existeEmpresaDeNombre(unaEmpresaInput.getNombre())) {
 			for (Empresa empresa : empresas) {
@@ -221,13 +219,13 @@ public final class Repositorio implements WithGlobalEntityManager{
 	/**** Metodos de Bases de datos ****/
 
 	public void cargarIndicadoresDesdeBD() {
-		Repositorio.getInstance().limpiarRepoIndicadores();
-		@SuppressWarnings("unchecked")
+		// Repositorio.getInstance().limpiarRepoIndicadores();
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		@SuppressWarnings("unchecked")
 		List<Indicador> indicadores = entityManager.createQuery("SELECT i FROM Indicador i ORDER BY i.nombre DESC")
 				.getResultList();
 		cargarExpresionesaIndicadores(indicadores);
-		Repositorio.getInstance().cargarListaDeIndicadores(indicadores);
+		this.setIndicadores(indicadores);
 	}
 
 	private void cargarExpresionesaIndicadores(List<Indicador> indicadores) {
@@ -270,7 +268,7 @@ public final class Repositorio implements WithGlobalEntityManager{
 				.getResultList();
 		return !empresas.isEmpty();
 	}
-	
+
 	public int persistirEmpresas() {
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();
@@ -291,32 +289,28 @@ public final class Repositorio implements WithGlobalEntityManager{
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();
 		tx.begin();
-		
-		try{
-			//entityManager.createQuery()
+
+		try {
+			// entityManager.createQuery()
 			for (Empresa e : Repositorio.getInstance().getEmpresas()) {
-				
-				//entityManager.persist(e);
+
+				// entityManager.persist(e);
 				entityManager.persist(e);
 				/*
-				if (!(existeEmpresaDeNombreenBD(e.getNombre()))) {
-					entityManager.persist(e);
-//					tx.commit();
-				}else{
-					//Si existe, actualizar las cuentas
-					//entityManager.persist(e);
-					for(Cuenta c: e.getCuentas()){
-						
-						//tx.begin();
-						entityManager.persist(c);
-						//entityManager.persist(c);
-							
-					}
-				}*/
+				 * if (!(existeEmpresaDeNombreenBD(e.getNombre()))) {
+				 * entityManager.persist(e); // tx.commit(); }else{ //Si existe,
+				 * actualizar las cuentas //entityManager.persist(e); for(Cuenta
+				 * c: e.getCuentas()){
+				 * 
+				 * //tx.begin(); entityManager.persist(c);
+				 * //entityManager.persist(c);
+				 * 
+				 * } }
+				 */
 			}
-			
+
 			tx.commit();
-		}catch(Exception exc){
+		} catch (Exception exc) {
 			System.out.println(exc.getMessage());
 			tx.rollback();
 		}
@@ -340,25 +334,24 @@ public final class Repositorio implements WithGlobalEntityManager{
 																// persistencia
 		}
 
-		// catch(IllegalStateException error){
-		// return "No se guardo el indicador - Illegal"; //Error de persistencia
-		// }
+		catch (IllegalStateException error) {
+			return "No se guardo el indicador - Illegal"; // Error de
+															// persistencia
+		}
 	}
 
-	public String persistirIndicador(String nombreIndicador) {
+	public String persistirIndicador(Indicador nuevoIndicador) {
 		try {
 			EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 			EntityTransaction tx = entityManager.getTransaction();
 			tx.begin();
-			for (Indicador i : Repositorio.getInstance().getIndicadores()) {
-				if (i.getNombre() == nombreIndicador)
-					if (!(existeIndicadorDeNombreEnBD(i.getNombre()))) {
-						entityManager.persist(i);
-					}
-			}
+			entityManager.persist(nuevoIndicador);
 			tx.commit();
 			return "Se ha guardado el indicador OK"; // Success
-		} catch (PersistenceException error) {
+
+		} catch (
+
+		PersistenceException error) {
 			return "No se guardo el indicador - Persistence"; // Error de
 																// persistencia
 		}
@@ -369,7 +362,7 @@ public final class Repositorio implements WithGlobalEntityManager{
 		}
 	}
 
-	private boolean existeIndicadorDeNombreEnBD(String nombre) {
+	public boolean existeIndicadorDeNombreEnBD(String nombre) {
 		List<Indicador> indicadores = null;
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		Query query = entityManager.createQuery("SELECT i FROM Indicador i where i.nombre like :pnombre");
@@ -378,8 +371,7 @@ public final class Repositorio implements WithGlobalEntityManager{
 	}
 
 	public int persistirUsuarios(List<Usuario> usuarios) {
-		 EntityManager entityManager =
-		 PerThreadEntityManagers.getEntityManager();
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();
 
 		for (Usuario u : usuarios) {
@@ -394,24 +386,23 @@ public final class Repositorio implements WithGlobalEntityManager{
 
 	}
 
-	public List<Empresa> TraerEmpresasDeBD() {
+	public void cargarEmpresasDeBD() {
+
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		Query query = entityManager.createQuery("FROM Empresa");
 		List<Empresa> empresas = query.getResultList();
-		System.out.print(empresas.size());
-		return empresas;
+		this.setEmpresas(empresas);
 	}
-
 
 	public Usuario buscarUserPorId(Integer pidUsuarioActivo) throws Exception {
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.id = :pidUsuarioActivo");
 		List<Usuario> users = query.setParameter("pidUsuarioActivo", pidUsuarioActivo).getResultList();
-		if (users.isEmpty()){
+		if (users.isEmpty()) {
 			throw new Exception("El usuario no existe en la BD");
-			//return new Usuario(0, "GENERICO");
+			// return new Usuario(0, "GENERICO");
 		}
-			
+
 		else
 			return users.get(0);
 	}
@@ -444,20 +435,21 @@ public final class Repositorio implements WithGlobalEntityManager{
 	public void setIndicadores(List<Indicador> indicadores) {
 		this.indicadores = indicadores;
 	}
-	
-	
+
 	/***** PROCESO CARGA BATCH ****/
-	
-	//Solo procesa el archivo, si el mismo no ha sido ya procesado (verifica fecha modif)
-	public boolean esArchivoYaProcesado(FileTime ultimaFechaModificacion){
+
+	// Solo procesa el archivo, si el mismo no ha sido ya procesado (verifica
+	// fecha modif)
+	public boolean esArchivoYaProcesado(FileTime ultimaFechaModificacion) {
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		Query q = entityManager.createQuery("SELECT h from HistorialCargaBatch h ORDER BY h.ultimaFechaModificacion desc");
+		Query q = entityManager
+				.createQuery("SELECT h from HistorialCargaBatch h ORDER BY h.ultimaFechaModificacion desc");
 		q.setMaxResults(1);
 		List<HistorialCargaBatch> resultados = q.getResultList();
-		
-		if(resultados.size() == 0){
+
+		if (resultados.size() == 0) {
 			return false;
-		}else{
+		} else {
 			return (ultimaFechaModificacion.toMillis() == resultados.get(0).getUltimaFechaModificacion());
 		}
 	}

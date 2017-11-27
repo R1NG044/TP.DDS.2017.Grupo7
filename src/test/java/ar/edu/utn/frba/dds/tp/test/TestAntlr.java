@@ -47,45 +47,45 @@ public class TestAntlr {
 		
 	}
 
-	@Test
-	public void testGuardarIndicador() throws IOException {
-		
-		INPUT_PATH = "/IngresoNeto.txt";
-		InputStream file = this.getInputFilePath();
-		
-	
-		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromStream(file));
-		
-		file = this.getInputFilePath();
-		String formula1 = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
-		
-		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		CalculadoraParser parser = new CalculadoraParser(tokens);
-		CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
-		ParserListener listener = new ParserListener();
-		listener.guardarUnIndicadorNuevo(expresionContext, "INGRESONETO", formula1, new Usuario(0, "Brenda"));
-		assertTrue(repo.existeIndicador("INGRESONETO"));
-		
-		
-		INPUT_PATH = "/ROE.txt";
-		file = this.getInputFilePath();
-		lexer = new CalculadoraLexer(CharStreams.fromStream(file));
-		tokens = new CommonTokenStream(lexer);
-		parser = new CalculadoraParser(tokens);
-		expresionContext = parser.expresion();
-		ParserListener listener2 = new ParserListener();
-		
-		//Persisto formula indicador ROE
-		file = this.getInputFilePath();
-		String formula2 = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
-		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE", formula2, new Usuario(1, "Nadia"));
-		
-		assertTrue(repo.existeIndicador("ROE"));
-		assertTrue(repo.existeIndicador("INGRESONETO"));
-		System.out.println(listener.probarUnIndicadorNuevo(expresionContext, "AXION", 2017));
-		
-
-	}
+//	@Test
+//	public void testGuardarIndicador() throws IOException {
+//		
+//		INPUT_PATH = "/IngresoNeto.txt";
+//		InputStream file = this.getInputFilePath();
+//		
+//	
+//		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromStream(file));
+//		
+//		file = this.getInputFilePath();
+//		String formula1 = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
+//		
+//		CommonTokenStream tokens = new CommonTokenStream(lexer);
+//		CalculadoraParser parser = new CalculadoraParser(tokens);
+//		CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
+//		ParserListener listener = new ParserListener();
+//		listener.guardarUnIndicadorNuevo(expresionContext, "INGRESONETO", formula1, new Usuario(0, "Brenda"));
+//		assertTrue(repo.existeIndicador("INGRESONETO"));
+//		
+//		
+//		INPUT_PATH = "/ROE.txt";
+//		file = this.getInputFilePath();
+//		lexer = new CalculadoraLexer(CharStreams.fromStream(file));
+//		tokens = new CommonTokenStream(lexer);
+//		parser = new CalculadoraParser(tokens);
+//		expresionContext = parser.expresion();
+//		ParserListener listener2 = new ParserListener();
+//		
+//		//Persisto formula indicador ROE
+//		file = this.getInputFilePath();
+//		String formula2 = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
+//		listener2.guardarUnIndicadorNuevo(expresionContext, "ROE", formula2, new Usuario(1, "Nadia"));
+//		
+//		assertTrue(repo.existeIndicador("ROE"));
+//		assertTrue(repo.existeIndicador("INGRESONETO"));
+//		System.out.println(listener.probarUnIndicadorNuevo(expresionContext, "AXION", 2017));
+//		
+//
+//	}
 
 	@Test
 	public void testProbarIndicador() throws IOException {

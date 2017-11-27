@@ -4,18 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraBaseListener;
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser;
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser.ExpresionContext;
-import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 import ar.edu.utn.frba.dds.tp.dominio.Usuario;
 
@@ -24,19 +19,17 @@ public class ParserListener extends CalculadoraBaseListener {
 	private Map<String, IOperador> operadores;
 	private ExpresionCompuesta expresionPadre;
 	private ExpresionCompuesta expresionAux;
-	private ArrayList<String> errores;
-
 	public ParserListener() {
 		super();
 
 		this.cargarOperadores();
-		this.errores = new ArrayList<String>();
+		new ArrayList<String>();
 	}
 
-	public void guardarUnIndicadorNuevo(ExpresionContext ctx, String nombreNuevoIndicador, String formula, Usuario user) {
+	public String guardarUnIndicadorNuevo(ExpresionContext ctx, String nombreNuevoIndicador, String formula, Usuario user) throws Exception {
 		this.enterExpresion(ctx);
 		Indicador indicador = new Indicador(nombreNuevoIndicador, expresionPadre, formula, user);
-		Repositorio.getInstance().agregarIndicador(indicador);
+		return Repositorio.getInstance().agregarIndicador(indicador);
 
 	}
 
