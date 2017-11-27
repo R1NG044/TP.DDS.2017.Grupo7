@@ -42,14 +42,18 @@
 		</div>
 
 		<div id="contenido" align="center"> <br><br><br>
-			<form name="myForm"  onsubmit="return validateForm()" method="post" align="center">
+			<form name="myForm"  onsubmit="return validateForm()" method="post" align="center" id="forma3" >
 				<br><br>
 				<P align="center"><b>Nombre Indicador:{{this.[0]}}
 				<br>
 				<P align="center">F&oacutermula:{{this.[1]}}
+				<br><br>
+				<input type="submit" onsubmit="myFunction()" id="obtenerIndicador" value="Calcular" disabled />
 				<br>
-				<p align="center" >{{this.[3]}}
+				<p align="center" >
+				Resultado Indicador: {{this.[3]}}
 			</form>
+			
 		</div>
 	 </div>
 	
