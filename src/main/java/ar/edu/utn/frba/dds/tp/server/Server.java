@@ -61,7 +61,7 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 					//TODO: Traer metodos de evaluar indicadores de los Tests y pasarlos al módulo Aplicacion
 					//TODO: Llamar a evaluarIndicador acá y mostrarlo.
 				}
-				System.out.println(req.cookie("idUsuarioActivo"));
+				//System.out.println(req.cookie("idUsuarioActivo"));
 			//	Repositorio.getInstance().cargarIndicadoresDesdeBD();
 				return new ModelAndView(Repositorio.getInstance(), "listaIndicadores.hbs");
 			}
@@ -102,7 +102,12 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 		
 		
 		Spark.get("/indicador/evaluar", (req, res) -> {
-			return new ModelAndView(null, "evaluarIndicador.hbs");
+			
+			System.out.println(req.cookie("idUsuarioActivo"));
+		//	Repositorio.getInstance().cargarIndicadoresDesdeBD();
+			return new ModelAndView(Repositorio.getInstance(), "evaluarIndicador.hbs");
+			
+			//return new ModelAndView(null, "evaluarIndicador.hbs");
 			}, engine);
 		
 		Spark.get("/login", (req, res) -> {
