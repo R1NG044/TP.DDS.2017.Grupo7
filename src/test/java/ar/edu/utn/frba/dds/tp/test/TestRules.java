@@ -12,6 +12,7 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
 import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
+import ar.edu.utn.frba.dds.tp.antlr.dds.IndicadorEmpresa;
 import ar.edu.utn.frba.dds.tp.dominio.*;
 
 
@@ -38,12 +39,12 @@ public void evaluarMetodologiaBuffet(){
     
    
     List<IndicadorNodo> indicadores = new ArrayList<IndicadorNodo>();//Repositorio.getIndicadoresEvaluados(Calendar.getInstance().get(Calendar.YEAR));
-    IndicadorEmpresa ie = new IndicadorEmpresa("AXION", 0.6, 2017);
-    IndicadorEmpresa ie2 = new IndicadorEmpresa("YPF", 0.8, 2017);
+    //IndicadorEmpresa ie = new IndicadorEmpresa("AXION", 0.6, 2017);
+    //IndicadorEmpresa ie2 = new IndicadorEmpresa("YPF", 0.8, 2017);
     
     List<IndicadorEmpresa> listaInd = new ArrayList<IndicadorEmpresa>();
-    listaInd.add(ie);
-    listaInd.add(ie2);
+    //listaInd.add(ie);
+    //listaInd.add(ie2);
     
     IndicadorNodo nodo = new IndicadorNodo();
     

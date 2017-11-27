@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.tp.dominio;
 import java.util.*;
 
 import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
+import ar.edu.utn.frba.dds.tp.antlr.dds.IndicadorEmpresa;
 
 public class IndicadorNodo{
 	private String indicador;

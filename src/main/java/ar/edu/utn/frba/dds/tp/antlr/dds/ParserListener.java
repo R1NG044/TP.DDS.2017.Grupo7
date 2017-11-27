@@ -29,6 +29,14 @@ public class ParserListener extends CalculadoraBaseListener {
 	public String guardarUnIndicadorNuevo(ExpresionContext ctx, String nombreNuevoIndicador, String formula, Usuario user) throws Exception {
 		this.enterExpresion(ctx);
 		Indicador indicador = new Indicador(nombreNuevoIndicador, expresionPadre, formula, user);
+		IndicadorEmpresa ie = new IndicadorEmpresa();
+		ie.setIndicador(indicador);
+		ie.setNombreEmpresa("AXION");
+		ie.setPeriodo(2016);
+		ie.setValorIndicador(100);
+		ArrayList indEmpre = new ArrayList<IndicadorEmpresa>();
+		indEmpre.add(ie);
+		indicador.setIndicadoresEmpresas(indEmpre);
 		return Repositorio.getInstance().agregarIndicador(indicador);
 
 	}

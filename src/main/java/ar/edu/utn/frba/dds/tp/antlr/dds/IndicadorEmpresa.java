@@ -1,49 +1,72 @@
 
-package ar.edu.utn.frba.dds.tp.dominio;
+package ar.edu.utn.frba.dds.tp.antlr.dds;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import ar.edu.utn.frba.dds.tp.antlr.dds.*;
 
 
-//@Entity(name="IndicadorEmpresa")
-//@Table(name = "indicadorEmpresa")
+@Entity(name="IndicadorEmpresa")
+@Table(name = "IndicadorEmpresa")
 public class IndicadorEmpresa implements IExpresion{
 	
+	@Id
+	@GeneratedValue
+	private Integer idIndicadorEmpresa;
 	private String nombreEmpresa;
 	private double valorIndicador;
 	private Integer periodo;
 	
-	public IndicadorEmpresa() {
-	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Indicador indicador;
 	
-	public IndicadorEmpresa(String nombreEmpresa, double valorIndicador, Integer periodo) {
-		super();
-		this.nombreEmpresa = nombreEmpresa;
-		this.valorIndicador = valorIndicador;
-		this.periodo = periodo;
-	}
 	
+	public Integer getIdIndicadorEmpresa() {
+		return idIndicadorEmpresa;
+	}
+
+	public void setIdIndicadorEmpresa(Integer idIndicadorEmpresa) {
+		this.idIndicadorEmpresa = idIndicadorEmpresa;
+	}
+
 	public String getNombreEmpresa() {
 		return nombreEmpresa;
 	}
+
 	public void setNombreEmpresa(String nombreEmpresa) {
 		this.nombreEmpresa = nombreEmpresa;
 	}
-	
-	
-	public double getValorIndicador(){
-		return 1.0;
+
+	public double getValorIndicador() {
+		return valorIndicador;
 	}
-	
-	
+
+	public void setValorIndicador(double valorIndicador) {
+		this.valorIndicador = valorIndicador;
+	}
+
 	public Integer getPeriodo() {
 		return periodo;
 	}
+
 	public void setPeriodo(Integer periodo) {
 		this.periodo = periodo;
 	}
+
+	public Indicador getIndicador() {
+		return indicador;
+	}
+
+	public void setIndicador(Indicador indicador) {
+		this.indicador = indicador;
+	}
+
+
 
 	@Override
 	public double calcularResultado(String empresa, Integer periodo) {
