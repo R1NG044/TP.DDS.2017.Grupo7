@@ -40,7 +40,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		this.representacionJSON3 = "/empresasJson3.txt";
 		this.representacionJSON4 = "/empresasJson4.txt";
 
-		Aplicacion.cargaDesdeBDaRepo();
+		Aplicacion.cargaDesdeBDaRepoPorUser(idUsuarioPredefinidos);
 
 		List<Usuario> usuarios = new ArrayList<>();
 		usuarios.add(new Usuario("general", "123"));

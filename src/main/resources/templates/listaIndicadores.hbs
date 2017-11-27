@@ -44,9 +44,9 @@
 				<FORM name="formListaIndicadores" action="/indicadores" method="POST" onsubmit="javascript: return enviar();" id="forma3" align="center">
 					<p align="center" >Indicadores ya creados 
 					{{#each indicadores}}
-					{{nombre}}
+					- {{nombre}} 
 					{{/each}}	
-					<p align="center" > >Por favor escriba su indicador a probar</p>
+					<p align="center" >Por favor escriba su indicador a probar</p>
 				
 					<INPUT type=text  id="mySelectIndicadores" onchange="myFunction()" name="mySelectIndicadores">
 					<br>

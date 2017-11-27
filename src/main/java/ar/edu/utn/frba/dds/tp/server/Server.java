@@ -40,7 +40,7 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 	public static Integer idUsuarioActivo;
 
 	public static void main(String[] args) {
-		Repositorio.getInstance().cargarIndicadoresDesdeBD();
+		//Repositorio.getInstance().cargarIndicadoresDesdeBD();
 		staticFiles.location("/public");
 		
 		staticFiles.expireTime(600);
@@ -122,10 +122,12 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 			if(u != null){
 				auth = true;
 				res.cookie("idUsuarioActivo", u.getId().toString());
+				
 			}
 			
 			if(auth){
 				idUsuarioActivo = u.getId();
+				Aplicacion.cargaDesdeBDaRepoPorUser(idUsuarioActivo);
 				return new ModelAndView(u, "index.hbs");
 			}
 			else {
@@ -139,7 +141,6 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 				idUsuarioActivo = Integer.parseInt(req.cookie("idUsuarioActivo"));
 				Usuario user = new Usuario();
 				user = Repositorio.getInstance().buscarUserPorId(idUsuarioActivo);
-				Repositorio.getInstance().cargarListaDeIndicadores(Repositorio.getInstance().buscarIndicadorPorUser(user.getId()));
 				return new ModelAndView(user, "index.hbs");
 			}
 			else{

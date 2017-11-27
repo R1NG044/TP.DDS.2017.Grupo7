@@ -2,18 +2,18 @@ package ar.edu.utn.frba.dds.tp.dominio;
 
 import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.apache.tools.ant.taskdefs.Length;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraLexer;
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser;
@@ -218,6 +218,9 @@ public final class Repositorio implements WithGlobalEntityManager {
 
 	/**** Metodos de Bases de datos ****/
 
+	public void cargarIndicadoresDesdeBDPorUser(Integer usuario) {
+	this.setIndicadores(this.buscarIndicadoresPorUser(usuario));
+	}
 	public void cargarIndicadoresDesdeBD() {
 		// Repositorio.getInstance().limpiarRepoIndicadores();
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
@@ -251,7 +254,7 @@ public final class Repositorio implements WithGlobalEntityManager {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Indicador> buscarIndicadorPorUser(Integer idUsuario) {
+	public List<Indicador> buscarIndicadoresPorUser(Integer idUsuario) {
 		List<Indicador> indicadores = null;
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		indicadores = entityManager.createNamedQuery("buscarIndicadorPorUser").setParameter("pIdUsuario", idUsuario)

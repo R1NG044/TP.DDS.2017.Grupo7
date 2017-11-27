@@ -18,6 +18,11 @@ public final class  Aplicacion {
 		Repositorio.getInstance().cargarEmpresasDeBD();
 		Repositorio.getInstance().cargarIndicadoresDesdeBD();
 	}
+	
+	public static void cargaDesdeBDaRepoPorUser(Integer User) {
+		Repositorio.getInstance().cargarEmpresasDeBD();
+		Repositorio.getInstance().cargarIndicadoresDesdeBDPorUser(User);
+	}
 
 	public static void cargarEmpresasDesdeJson(String jsonEmpresas) throws FileNotFoundException {
 		List<Empresa> listaEmpresas = new ArrayList<Empresa>();
