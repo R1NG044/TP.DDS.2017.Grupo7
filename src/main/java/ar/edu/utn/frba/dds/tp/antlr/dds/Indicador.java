@@ -1,5 +1,7 @@
 package ar.edu.utn.frba.dds.tp.antlr.dds;
 
+import java.util.List;
+
 import javax.persistence.*;
 import ar.edu.utn.frba.dds.tp.dominio.Usuario;
 
@@ -29,6 +31,17 @@ public class Indicador implements IExpresion {
 	@Transient
 	private ExpresionCompuesta expresion;
 	
+	@OneToMany(mappedBy = "indicador", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<IndicadorEmpresa> indicadoresEmpresas;
+	
+	public List<IndicadorEmpresa> getIndicadoresEmpresas() {
+		return indicadoresEmpresas;
+	}
+
+	public void setIndicadoresEmpresas(List<IndicadorEmpresa> indicadoresEmpresas) {
+		this.indicadoresEmpresas = indicadoresEmpresas;
+	}
+
 	public Indicador(){
 		
 	}
@@ -47,6 +60,8 @@ public class Indicador implements IExpresion {
 	}
 
 	public double evaluarIndicador(String empresa, Integer periodo) {
+		//Primero, validar que el indicador exista en memoria.
+		//Segundo, buscar el indicador en la BD.
 		System.out.printf("El valor del Indicador %s para la Empresa %s y Periodo %d es de: %.2f %n",this.nombre,empresa,periodo,(expresion.calcularResultado(empresa, periodo)));
 		return expresion.calcularResultado(empresa, periodo);
 
