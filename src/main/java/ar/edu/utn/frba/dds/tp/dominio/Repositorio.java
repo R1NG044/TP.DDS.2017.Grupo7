@@ -219,26 +219,31 @@ public final class Repositorio implements WithGlobalEntityManager {
 	/**** Metodos de Bases de datos ****/
 
 	public void cargarIndicadoresDesdeBDPorUser(Integer usuario) {
-	this.setIndicadores(this.buscarIndicadoresPorUser(usuario));
+		this.setIndicadores(this.buscarIndicadoresPorUser(usuario));
 	}
+
 	public void cargarIndicadoresDesdeBD() {
 		// Repositorio.getInstance().limpiarRepoIndicadores();
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		@SuppressWarnings("unchecked")
-		List<Indicador> indicadores = entityManager.createQuery("SELECT i FROM Indicador i ORDER BY i.nombre DESC")
+		List<Indicador> indicadores = entityManager.createQuery("SELECT i FROM Indicador i ORDER BY i.idIndicador ASC")
 				.getResultList();
 		cargarExpresionesaIndicadores(indicadores);
 		this.setIndicadores(indicadores);
 	}
 
 	private void cargarExpresionesaIndicadores(List<Indicador> indicadores) {
+		int i = 1;
 		for (Indicador indicador : indicadores) {
-			CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromString(indicador.getFormula()));
-			CommonTokenStream tokens = new CommonTokenStream(lexer);
-			CalculadoraParser parser = new CalculadoraParser(tokens);
-			CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
-			ParserListener listener = new ParserListener();
-			listener.cargarExpresionaIndicador(expresionContext, indicador);
+			if (indicador.getIdIndicador() == i) {
+				CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromString(indicador.getFormula()));
+				CommonTokenStream tokens = new CommonTokenStream(lexer);
+				CalculadoraParser parser = new CalculadoraParser(tokens);
+				CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
+				ParserListener listener = new ParserListener();
+				listener.cargarExpresionaIndicador(expresionContext, indicador);
+				i++;
+			}
 		}
 
 	}
