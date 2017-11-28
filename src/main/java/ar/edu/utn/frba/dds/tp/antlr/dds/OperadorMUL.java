@@ -3,7 +3,7 @@ package ar.edu.utn.frba.dds.tp.antlr.dds;
 public class OperadorMUL implements IOperador {
 	
 	@Override
-	public double calcularOperacion(IExpresion expresion1, IExpresion expresion2,String empresa,Integer periodo) {
+	public double calcularOperacion(IExpresion expresion1, IExpresion expresion2,String empresa,Integer periodo) throws Exception {
 
 		
 		if (expresion1 == null || expresion2 == null) {

@@ -19,7 +19,7 @@ public class CuentaExp implements IExpresion {
 	}
 
 	@Override
-	public double calcularResultado(String empresa, Integer periodo) {
+	public double calcularResultado(String empresa, Integer periodo) throws Exception {
 		if (Repositorio.getInstance().existeEmpresaDeNombreConCuenta(empresa, this.nombre)) {
 			for (Cuenta cuenta : Repositorio.getInstance().darEmpresaDeNombre(empresa).getCuentas()) {
 				if (cuenta.getNombreCuenta().equals(this.nombre) && cuenta.getPeriodo().equals(periodo)) {
@@ -27,7 +27,7 @@ public class CuentaExp implements IExpresion {
 				}
 			}
 		}
-		throw new RuntimeException("No existe la Empresa o Cuenta para Empresa");
+		throw new Exception ("No existe la Empresa o Cuenta para Empresa");
 	}	
 
 	@Override

@@ -23,8 +23,8 @@ public class TestJob {
 	
 	@Test
 	public void testFechaUltModJson() throws IOException, FileNotFoundException  {
-//		
-		Path path = Paths.get(getInputFilePath("/IngresoNeto.txt"));//esta es la ruta de tu archivo en mi caso estoy utilizando GNU/Linux
+		
+		Path path = Paths.get(getInputFilePath("/empresasJson1.txt"));//esta es la ruta de tu archivo en mi caso estoy utilizando GNU/Linux
 		System.out.println(Files.getLastModifiedTime(path));
 		File fichero = new File("/empresasJson1.txt");
 		String fecha = fechaModificado(fichero);

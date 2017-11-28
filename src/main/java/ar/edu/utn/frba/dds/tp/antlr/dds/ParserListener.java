@@ -29,25 +29,21 @@ public class ParserListener extends CalculadoraBaseListener {
 	public String guardarUnIndicadorNuevo(ExpresionContext ctx, String nombreNuevoIndicador, String formula, Usuario user) throws Exception {
 		this.enterExpresion(ctx);
 		Indicador indicador = new Indicador(nombreNuevoIndicador, expresionPadre, formula, user);
-		IndicadorEmpresa ie = new IndicadorEmpresa();
-		ie.setIndicador(indicador);
-		ie.setNombreEmpresa("AXION");
-		ie.setPeriodo(2016);
-		ie.setValorIndicador(100);
-		ArrayList indEmpre = new ArrayList<IndicadorEmpresa>();
-		indEmpre.add(ie);
-		indicador.setIndicadoresEmpresas(indEmpre);
+		//IndicadorEmpresa ie = new IndicadorEmpresa();
+		//Repositorio.getInstance().agregarIndicador(indicador);
+		//Repositorio.getInstance().cargarIndicadoresEmpresaParaIndicador(Indicador indicador)
+		
 		return Repositorio.getInstance().agregarIndicador(indicador);
 
 	}
 
-	public double probarUnIndicadorNuevo(ExpresionContext ctx, String empresa, Integer periodo) {
+	public double probarUnIndicadorNuevo(ExpresionContext ctx, String empresa, Integer periodo) throws Exception {
 		this.enterExpresion(ctx);
 		Indicador indicador = new Indicador("Prueba", expresionPadre, "", new Usuario(0, "Brendas"));
 		return indicador.evaluarIndicador(empresa, periodo);
 
 	}
-	public double probarUnIndicador(ExpresionContext ctx, Indicador indicador,String empresa, Integer periodo) {
+	public double probarUnIndicador(ExpresionContext ctx, Indicador indicador,String empresa, Integer periodo) throws Exception {
 		this.enterExpresion(ctx);
 		//indicador.setExpresion(expresionPadre);
 		return indicador.evaluarIndicador(empresa, periodo);

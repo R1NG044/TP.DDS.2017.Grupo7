@@ -18,6 +18,7 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraLexer;
 import ar.edu.utn.frba.dds.tp.antlr.CalculadoraParser;
 import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
+import ar.edu.utn.frba.dds.tp.antlr.dds.IndicadorEmpresa;
 import ar.edu.utn.frba.dds.tp.antlr.dds.ParserListener;
 import ar.edu.utn.frba.dds.tp.jobs.HistorialCargaBatch;
 
@@ -264,7 +265,7 @@ public final class Repositorio implements WithGlobalEntityManager {
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		indicadores = entityManager.createNamedQuery("buscarIndicadorPorUser").setParameter("pIdUsuario", idUsuario)
 				.getResultList();
-		REPO.cargarExpresionesaIndicadores(indicadores);
+		this.cargarExpresionesaIndicadores(indicadores);
 		return indicadores;
 	}
 
@@ -350,11 +351,13 @@ public final class Repositorio implements WithGlobalEntityManager {
 
 	public String persistirIndicador(Indicador nuevoIndicador) {
 		try {
+			cargarIndicadoresEmpresaParaIndicador(nuevoIndicador);
 			EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 			EntityTransaction tx = entityManager.getTransaction();
 			tx.begin();
 			entityManager.persist(nuevoIndicador);
 			tx.commit();
+
 			return "Se ha guardado el indicador OK"; // Success
 
 		} catch (
@@ -368,6 +371,23 @@ public final class Repositorio implements WithGlobalEntityManager {
 			return "No se guardo el indicador - Illegal"; // Error de
 															// persistencia
 		}
+	}
+
+	private void cargarIndicadoresEmpresaParaIndicador(Indicador nuevoIndicador) {
+		List<IndicadorEmpresa> listaIe = new ArrayList<IndicadorEmpresa>();
+		for (Integer periodo = 2008; periodo < 2018; periodo++) {
+			for (Empresa e : empresas) {
+				try {
+					double valor = nuevoIndicador.evaluarIndicador(e.getNombre(), periodo);
+					IndicadorEmpresa ie = new IndicadorEmpresa(nuevoIndicador, e.getNombre(), periodo, valor);
+					listaIe.add(ie);
+				} catch (Exception error) {
+					System.out.println(error.getMessage());
+				}
+			}
+			nuevoIndicador.setIndicadoresEmpresas(listaIe);
+		}
+
 	}
 
 	public boolean existeIndicadorDeNombreEnBD(String nombre) {

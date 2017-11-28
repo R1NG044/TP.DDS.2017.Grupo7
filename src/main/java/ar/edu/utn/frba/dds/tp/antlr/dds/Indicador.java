@@ -7,7 +7,7 @@ import ar.edu.utn.frba.dds.tp.dominio.Usuario;
 
 @Entity(name="Indicador")
 @Table(name = "indicador")
-@NamedQuery(name="buscarIndicadorPorUser",query="SELECT i FROM Indicador i WHERE i.usuario.id = :pIdUsuario OR i.usuario.id = 1")
+@NamedQuery(name="buscarIndicadorPorUser",query="SELECT i FROM Indicador i WHERE i.usuario.id = :pIdUsuario OR i.usuario.id = 1 order by i.idIndicador asc")
 public class Indicador implements IExpresion {
 	
 		
@@ -59,7 +59,7 @@ public class Indicador implements IExpresion {
 		this.usuario = user;
 	}
 
-	public double evaluarIndicador(String empresa, Integer periodo) {
+	public double evaluarIndicador(String empresa, Integer periodo) throws Exception {
 		//Primero, validar que el indicador exista en memoria.
 		//Segundo, buscar el indicador en la BD.
 		System.out.printf("El valor del Indicador %s para la Empresa %s y Periodo %d es de: %.2f %n",this.nombre,empresa,periodo,(expresion.calcularResultado(empresa, periodo)));
@@ -74,7 +74,7 @@ public class Indicador implements IExpresion {
 	}
 
 	@Override
-	public double calcularResultado(String empresa, Integer periodo) {
+	public double calcularResultado(String empresa, Integer periodo) throws Exception {
 		return (this.expresion.calcularResultado(empresa, periodo));
 	}
 // GETTERS y SETTERS

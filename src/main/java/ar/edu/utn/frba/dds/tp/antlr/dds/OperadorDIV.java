@@ -4,7 +4,7 @@ public class OperadorDIV implements IOperador {
 	
 
 	@Override
-	public double calcularOperacion(IExpresion expresion1, IExpresion expresion2,String empresa,Integer periodo) {
+	public double calcularOperacion(IExpresion expresion1, IExpresion expresion2,String empresa,Integer periodo) throws Exception {
 
 		if (expresion1 == null || expresion2 == null) {
 			throw new RuntimeException("No se encontro datos en la expresion");

@@ -14,10 +14,10 @@ import ar.edu.utn.frba.dds.tp.herramientas.AdapterJson;
 
 public final class  Aplicacion {
 	
-	public static void cargaDesdeBDaRepo() {
-		Repositorio.getInstance().cargarEmpresasDeBD();
-		Repositorio.getInstance().cargarIndicadoresDesdeBD();
-	}
+//	public static void cargaDesdeBDaRepo() {
+//		Repositorio.getInstance().cargarEmpresasDeBD();
+//		Repositorio.getInstance().cargarIndicadoresDesdeBD();
+//	}
 	
 	public static void cargaDesdeBDaRepoPorUser(Integer User) {
 		Repositorio.getInstance().cargarEmpresasDeBD();
@@ -56,7 +56,7 @@ public final class  Aplicacion {
 	}
 	
 	
-	public static double probarUnIndicador2(String indicador, String empresa, Integer periodo){
+	public static double probarUnIndicador2(String indicador, String empresa, Integer periodo) throws Exception{
 		
 		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromString(Repositorio.getInstance().buscarIndicadorPorNombre(indicador).getFormula()));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -67,7 +67,7 @@ public final class  Aplicacion {
 		return listener.probarUnIndicador(expresionContext,Repositorio.getInstance().buscarIndicadorPorNombre(indicador), empresa, periodo);
 		
 	}
-public static double probarUnIndicador(String indicador, String empresa, Integer periodo){
+public static double probarUnIndicador(String indicador, String empresa, Integer periodo) throws Exception{
 		
 		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromString(indicador));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);

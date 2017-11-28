@@ -9,6 +9,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import ar.edu.utn.frba.dds.tp.antlr.dds.*;
+import ar.edu.utn.frba.dds.tp.dominio.Empresa;
 
 
 @Entity(name="IndicadorEmpresa")
@@ -26,6 +27,13 @@ public class IndicadorEmpresa implements IExpresion{
 	private Indicador indicador;
 	
 	
+	public IndicadorEmpresa(Indicador nuevoIndicador, String e, Integer periodo2, double valor) {
+		this.setIndicador(nuevoIndicador);
+		this.setNombreEmpresa(e);
+		this.setPeriodo(periodo2);
+		this.setValorIndicador(valor);
+	}
+
 	public Integer getIdIndicadorEmpresa() {
 		return idIndicadorEmpresa;
 	}

@@ -120,7 +120,7 @@ public class TestCargaDeJson {
 			repo.limpiarRepo();
 	}
 	@Test
-	public void testCalcularCuentaExp() throws FileNotFoundException   {
+	public void testCalcularCuentaExp() throws Exception   {
 		Aplicacion.cargarEmpresasDesdeJson(getInputFilePath(representacionJSON));
 		
 		CuentaExp cuentaexp = new CuentaExp("INDICADOR");

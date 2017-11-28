@@ -88,7 +88,7 @@ public class TestAntlr {
 //	}
 
 	@Test
-	public void testProbarIndicador() throws IOException {
+	public void testProbarIndicador() throws Exception {
 		INPUT_PATH = "/pruebaantlr2.txt";
 		InputStream file = this.getInputFilePath();
 		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromStream(file));

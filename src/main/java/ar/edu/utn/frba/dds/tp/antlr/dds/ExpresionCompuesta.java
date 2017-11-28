@@ -41,10 +41,10 @@ public class ExpresionCompuesta implements IExpresion{
 
 	
 	
-	public double calcularResultado(String empresa, Integer periodo){
+	public double calcularResultado(String empresa, Integer periodo) throws Exception{
 		
 		if(this.Operador == null){
-			throw new RuntimeException("Operador no definido");
+			throw new Exception ("Operador no definido");
 		}
 		return this.Operador.calcularOperacion(this.Operando1, this.Operando2, empresa, periodo);
 	}

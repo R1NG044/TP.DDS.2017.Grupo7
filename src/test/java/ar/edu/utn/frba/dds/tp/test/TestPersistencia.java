@@ -52,6 +52,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 
 	@Test
 	public void persistirMetodologias() {
+		Aplicacion.cargaDesdeBDaRepoPorUser(idUsuarioPredefinidos);
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 
 		EntityTransaction tx = entityManager.getTransaction();
