@@ -47,6 +47,7 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 		String[] cargaBatchFrequency = new String[1];
 		cargaBatchFrequency[0] = "60000";
 
+		
 		/***** E N D P O I N T S *******/
 
 		Spark.get("/indicadores", (req, res) -> {
@@ -103,9 +104,23 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 			System.out.println(req.cookie("idUsuarioActivo"));
 			return new ModelAndView(Repositorio.getInstance(), "evaluarIndicador.hbs");
 
-			// return new ModelAndView(null, "evaluarIndicador.hbs");
 		}, engine);
 
+		Spark.post("/indicador/evaluar", (req, res) -> {
+			String indicador = req.queryParams("mySelectIndicadores");
+			String empresa = req.queryParams("mySelectEmpresas");
+			String periodo = req.queryParams("mySelectPeriodos");
+			List<String> resultado = new ArrayList<String>();
+			resultado.add("IND(" + indicador + ")");
+			resultado.add(empresa);
+			resultado.add(periodo);
+			Double indicadorAux = Aplicacion.probarUnIndicador(indicador, empresa, Integer.parseInt(periodo));
+			resultado.add(indicadorAux.toString());
+			
+			
+			return new ModelAndView(resultado, "resultadoEvaluarIndicador.hbs");
+		}, engine);
+		
 		Spark.get("/login", (req, res) -> {
 			return new ModelAndView(null, "login2.hbs");
 
