@@ -5,15 +5,15 @@ import java.util.List;
 import javax.persistence.*;
 import ar.edu.utn.frba.dds.tp.dominio.Usuario;
 
-@Entity(name="Indicador")
+@Entity(name = "Indicador")
 @Table(name = "indicador")
-@NamedQuery(name="buscarIndicadorPorUser",query="SELECT i FROM Indicador i WHERE i.usuario.id = :pIdUsuario OR i.usuario.id = 1 order by i.idIndicador asc")
+@NamedQuery(name = "buscarIndicadorPorUser", query = "SELECT i FROM Indicador i WHERE i.usuario.id = :pIdUsuario OR i.usuario.id = 1 order by i.idIndicador asc")
 public class Indicador implements IExpresion {
-	
-		
+
 	@Id
-	@GeneratedValue//(strategy=GenerationType.IDENTITY)
+	@GeneratedValue // (strategy=GenerationType.IDENTITY)
 	private Integer idIndicador;
+
 	public Integer getIdIndicador() {
 		return idIndicador;
 	}
@@ -26,14 +26,14 @@ public class Indicador implements IExpresion {
 	private String formula;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-  	private Usuario usuario;
-	
+	private Usuario usuario;
+
 	@Transient
 	private ExpresionCompuesta expresion;
-	
+
 	@OneToMany(mappedBy = "indicador", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<IndicadorEmpresa> indicadoresEmpresas;
-	
+
 	public List<IndicadorEmpresa> getIndicadoresEmpresas() {
 		return indicadoresEmpresas;
 	}
@@ -42,16 +42,16 @@ public class Indicador implements IExpresion {
 		this.indicadoresEmpresas = indicadoresEmpresas;
 	}
 
-	public Indicador(){
-		
+	public Indicador() {
+
 	}
-	
-	public Indicador(String nombre, String formula, Usuario idUsuario){
+
+	public Indicador(String nombre, String formula, Usuario idUsuario) {
 		this.nombre = nombre;
 		this.formula = formula;
-		this.usuario =idUsuario;
+		this.usuario = idUsuario;
 	}
-	
+
 	public Indicador(String nombre, ExpresionCompuesta expresion, String formula, Usuario user) {
 		this.nombre = nombre;
 		this.formula = formula;
@@ -60,9 +60,10 @@ public class Indicador implements IExpresion {
 	}
 
 	public double evaluarIndicador(String empresa, Integer periodo) throws Exception {
-		//Primero, validar que el indicador exista en memoria.
-		//Segundo, buscar el indicador en la BD.
-		System.out.printf("El valor del Indicador %s para la Empresa %s y Periodo %d es de: %.2f %n",this.nombre,empresa,periodo,(expresion.calcularResultado(empresa, periodo)));
+		// Primero, validar que el indicador exista en memoria.
+		// Segundo, buscar el indicador en la BD.
+		System.out.printf("El valor del Indicador %s para la Empresa %s y Periodo %d es de: %.2f %n", this.nombre,
+				empresa, periodo, (expresion.calcularResultado(empresa, periodo)));
 		return expresion.calcularResultado(empresa, periodo);
 
 	}
@@ -75,9 +76,29 @@ public class Indicador implements IExpresion {
 
 	@Override
 	public double calcularResultado(String empresa, Integer periodo) throws Exception {
-		return (this.expresion.calcularResultado(empresa, periodo));
+//		if (this.tieneIndicadorEmpresa(empresa, periodo))
+//			return (this.darValorIndicadorEmpresa(empresa, periodo));
+//		else
+			return (this.expresion.calcularResultado(empresa, periodo));
 	}
-// GETTERS y SETTERS
+
+	private double darValorIndicadorEmpresa(String empresa, Integer periodo) throws Exception {
+		for (IndicadorEmpresa ie : indicadoresEmpresas) {
+			if (ie.getNombreEmpresa() == empresa && ie.getPeriodo() == periodo)
+				return ie.getValorIndicador();
+		}
+		throw new Exception("No existe la Empresa, o cuenta para el Periodo seleccionados");
+	}
+
+	private boolean tieneIndicadorEmpresa(String empresa, Integer periodo) {
+		for (IndicadorEmpresa ie : indicadoresEmpresas) {
+			if (ie.getNombreEmpresa() == empresa && ie.getPeriodo() == periodo)
+				return true;
+		}
+		return false;
+	}
+
+	// GETTERS y SETTERS
 	public Indicador(String nombre) {
 		this.nombre = nombre;
 	}
@@ -101,7 +122,7 @@ public class Indicador implements IExpresion {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	public String getFormula() {
 		return formula;
 	}

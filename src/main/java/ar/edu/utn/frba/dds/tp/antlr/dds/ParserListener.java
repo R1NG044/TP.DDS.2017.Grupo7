@@ -19,6 +19,7 @@ public class ParserListener extends CalculadoraBaseListener {
 	private Map<String, IOperador> operadores;
 	private ExpresionCompuesta expresionPadre;
 	private ExpresionCompuesta expresionAux;
+
 	public ParserListener() {
 		super();
 
@@ -26,33 +27,38 @@ public class ParserListener extends CalculadoraBaseListener {
 		new ArrayList<String>();
 	}
 
-	public String guardarUnIndicadorNuevo(ExpresionContext ctx, String nombreNuevoIndicador, String formula, Usuario user) throws Exception {
+	public String guardarUnIndicadorNuevo(ExpresionContext ctx, String nombreNuevoIndicador, String formula,
+			Usuario user) throws Exception {
 		this.enterExpresion(ctx);
 		Indicador indicador = new Indicador(nombreNuevoIndicador, expresionPadre, formula, user);
-		//IndicadorEmpresa ie = new IndicadorEmpresa();
-		//Repositorio.getInstance().agregarIndicador(indicador);
-		//Repositorio.getInstance().cargarIndicadoresEmpresaParaIndicador(Indicador indicador)
-		
+		// IndicadorEmpresa ie = new IndicadorEmpresa();
+		// Repositorio.getInstance().agregarIndicador(indicador);
+		// Repositorio.getInstance().cargarIndicadoresEmpresaParaIndicador(Indicador
+		// indicador)
+
 		return Repositorio.getInstance().agregarIndicador(indicador);
 
 	}
 
 	public double probarUnIndicadorNuevo(ExpresionContext ctx, String empresa, Integer periodo) throws Exception {
 		this.enterExpresion(ctx);
-		Indicador indicador = new Indicador("Prueba", expresionPadre, "", new Usuario(0, "Brendas"));
+		Indicador indicador = new Indicador("Prueba", expresionPadre, "", new Usuario(0, "Prueba"));
 		return indicador.evaluarIndicador(empresa, periodo);
 
 	}
-	public double probarUnIndicador(ExpresionContext ctx, Indicador indicador,String empresa, Integer periodo) throws Exception {
+
+	public double probarUnIndicador(ExpresionContext ctx, Indicador indicador, String empresa, Integer periodo)
+			throws Exception {
 		this.enterExpresion(ctx);
-		//indicador.setExpresion(expresionPadre);
+		// indicador.setExpresion(expresionPadre);
 		return indicador.evaluarIndicador(empresa, periodo);
 
 	}
+
 	public void cargarExpresionaIndicador(ExpresionContext ctx, Indicador indicador) {
 		this.enterExpresion(ctx);
 		indicador.setExpresion(expresionPadre);
-		}
+	}
 
 	public void enterExpresion(CalculadoraParser.ExpresionContext ctx) {
 		this.expresionPadre = new ExpresionCompuesta();
@@ -121,8 +127,6 @@ public class ParserListener extends CalculadoraBaseListener {
 				if (tree.getText().contains("IND(")) {
 					int fin = (tree.getText().length()) - 1;
 					String nombreIndicador = (tree.getText().substring(4, fin));
-					// String nombreIndicador =
-					// child.getChild(0).getChild(1).getText();
 					if (Repositorio.getInstance().existeIndicador(nombreIndicador)) {
 						if (expresion.getOperando1() == null) {
 							// Setea operando1

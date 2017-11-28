@@ -246,7 +246,6 @@ public final class Repositorio implements WithGlobalEntityManager {
 				i++;
 			}
 		}
-
 	}
 
 	@SuppressWarnings("unchecked")
@@ -327,28 +326,6 @@ public final class Repositorio implements WithGlobalEntityManager {
 
 	}
 
-	public String persistirIndicadores() {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction tx = entityManager.getTransaction();
-		for (Indicador i : Repositorio.getInstance().getIndicadores()) {
-			if (!(existeIndicadorDeNombreEnBD(i.getNombre()))) {
-				entityManager.persist(i);
-			}
-		}
-		try {
-			tx.commit();
-			return "Se ha guardado el indicador OK"; // Success
-		} catch (PersistenceException error) {
-			return "No se guardo el indicador - Persistence"; // Error de
-																// persistencia
-		}
-
-		catch (IllegalStateException error) {
-			return "No se guardo el indicador - Illegal"; // Error de
-															// persistencia
-		}
-	}
-
 	public String persistirIndicador(Indicador nuevoIndicador) {
 		try {
 			cargarIndicadoresEmpresaParaIndicador(nuevoIndicador);
@@ -387,7 +364,6 @@ public final class Repositorio implements WithGlobalEntityManager {
 			}
 			nuevoIndicador.setIndicadoresEmpresas(listaIe);
 		}
-
 	}
 
 	public boolean existeIndicadorDeNombreEnBD(String nombre) {
@@ -396,6 +372,39 @@ public final class Repositorio implements WithGlobalEntityManager {
 		Query query = entityManager.createQuery("SELECT i FROM Indicador i where i.nombre like :pnombre");
 		indicadores = query.setParameter("pnombre", nombre).getResultList();
 		return !indicadores.isEmpty();
+	}
+
+	public void cargarEmpresasDeBD() {
+
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		Query query = entityManager.createQuery("FROM Empresa");
+		List<Empresa> empresas = query.getResultList();
+		this.setEmpresas(empresas);
+	}
+
+	/*** U S U A R I O S ***/
+	public Usuario getUsuarioByUserAndPwd(String nombreUsuario, String pwd) {
+		List<Usuario> listUsers = null;
+
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+
+		listUsers = entityManager.createNamedQuery("buscarUsuario").setParameter("pNombre", nombreUsuario)
+				.setParameter("pPassword", pwd).getResultList();
+
+		return (listUsers.size() > 0 ? listUsers.get(0) : null);
+	}
+
+	public Usuario buscarUserPorId(Integer pidUsuarioActivo) throws Exception {
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.id = :pidUsuarioActivo");
+		List<Usuario> users = query.setParameter("pidUsuarioActivo", pidUsuarioActivo).getResultList();
+		if (users.isEmpty()) {
+			throw new Exception("El usuario no existe en la BD");
+			// return new Usuario(0, "GENERICO");
+		}
+
+		else
+			return users.get(0);
 	}
 
 	public int persistirUsuarios(List<Usuario> usuarios) {
@@ -412,39 +421,6 @@ public final class Repositorio implements WithGlobalEntityManager {
 
 		return 1; // Success
 
-	}
-
-	public void cargarEmpresasDeBD() {
-
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		Query query = entityManager.createQuery("FROM Empresa");
-		List<Empresa> empresas = query.getResultList();
-		this.setEmpresas(empresas);
-	}
-
-	public Usuario buscarUserPorId(Integer pidUsuarioActivo) throws Exception {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.id = :pidUsuarioActivo");
-		List<Usuario> users = query.setParameter("pidUsuarioActivo", pidUsuarioActivo).getResultList();
-		if (users.isEmpty()) {
-			throw new Exception("El usuario no existe en la BD");
-			// return new Usuario(0, "GENERICO");
-		}
-
-		else
-			return users.get(0);
-	}
-
-	/*** U S U A R I O S ***/
-	public Usuario getUsuarioByUserAndPwd(String nombreUsuario, String pwd) {
-		List<Usuario> listUsers = null;
-
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-
-		listUsers = entityManager.createNamedQuery("buscarUsuario").setParameter("pNombre", nombreUsuario)
-				.setParameter("pPassword", pwd).getResultList();
-
-		return (listUsers.size() > 0 ? listUsers.get(0) : null);
 	}
 
 	/***** GETTERS Y SETTERS *******/
@@ -464,6 +440,27 @@ public final class Repositorio implements WithGlobalEntityManager {
 		this.indicadores = indicadores;
 	}
 
+	// public String persistirIndicadores() {
+	// EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+	// EntityTransaction tx = entityManager.getTransaction();
+	// for (Indicador i : Repositorio.getInstance().getIndicadores()) {
+	// if (!(existeIndicadorDeNombreEnBD(i.getNombre()))) {
+	// entityManager.persist(i);
+	// }
+	// }
+	// try {
+	// tx.commit();
+	// return "Se ha guardado el indicador OK"; // Success
+	// } catch (PersistenceException error) {
+	// return "No se guardo el indicador - Persistence"; // Error de
+	// // persistencia
+	// }
+	//
+	// catch (IllegalStateException error) {
+	// return "No se guardo el indicador - Illegal"; // Error de
+	// // persistencia
+	// }
+	// }
 	/***** PROCESO CARGA BATCH ****/
 
 	// Solo procesa el archivo, si el mismo no ha sido ya procesado (verifica
