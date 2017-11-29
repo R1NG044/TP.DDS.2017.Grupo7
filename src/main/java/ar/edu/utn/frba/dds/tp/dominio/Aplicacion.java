@@ -118,12 +118,19 @@ public final class Aplicacion {
 	public static void iniciarAppconCargaDeDatosPredefinidos() throws IOException {
 		cargarUsers();
 		cargarIndicadoresPredefinidos();
-		
+
 	}
 
 	private static void cargarIndicadoresPredefinidos() throws IOException {
-		Repositorio.getInstance().cargarIndicadoresPredefinidos();
-		
+		if (Repositorio.getInstance().getIndicadores().isEmpty())
+			Repositorio.getInstance().cargarIndicadoresPredefinidos();
+
+	}
+
+	public static void ActualizarValoresPrecargados() {
+
+		Repositorio.getInstance().ActualizarIndicadoresPrecargados();
+
 	}
 
 	private static void cargarUsers() {
@@ -135,5 +142,5 @@ public final class Aplicacion {
 		Repositorio.getInstance().persistirUsuarios(usuarios);
 
 	}
-	
+
 }

@@ -58,7 +58,7 @@ public class CargaBatchEmpresas implements org.quartz.Job{
 				entityManager.getTransaction().begin();
 				entityManager.persist(historial);
 				entityManager.getTransaction().commit();
-				
+				Aplicacion.ActualizarValoresPrecargados();
 				System.out.println("El archivo empresasJson.txt ha sido procesado - "+ dateFormat.format(date));
 				
 			}else{

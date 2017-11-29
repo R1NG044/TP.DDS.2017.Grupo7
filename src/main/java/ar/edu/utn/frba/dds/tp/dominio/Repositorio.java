@@ -223,9 +223,18 @@ public final class Repositorio implements WithGlobalEntityManager {
 		// TODO Auto-generated method stub
 
 	}
-	// TODO--
 
 	/**** Metodos de Bases de datos ****/
+	
+	public void ActualizarIndicadoresPrecargados() {
+
+		// Actualizo valores precargados
+		for (Indicador i : this.getIndicadores()) {
+			i.getIndicadoresEmpresas().clear();
+			this.persistirIndicador(i);
+		}
+
+	}
 
 	public void cargarIndicadoresDesdeBDPorUser(Integer usuario) {
 		try {
@@ -365,7 +374,7 @@ public final class Repositorio implements WithGlobalEntityManager {
 
 	private void cargarIndicadoresEmpresaParaIndicador(Indicador nuevoIndicador) {
 		List<IndicadorEmpresa> listaIe = new ArrayList<IndicadorEmpresa>();
-		for (Integer periodo = 2010; periodo < 2018; periodo++) {
+		for (Integer periodo = 2017; periodo < 2018; periodo++) {
 			for (Empresa e : empresas) {
 				try {
 					double valor = nuevoIndicador.evaluarIndicador(e.getNombre(), periodo);

@@ -1,39 +1,23 @@
 package ar.edu.utn.frba.dds.tp.server;
 
-import java.util.ArrayList;
+import static spark.Spark.init;
+import static spark.Spark.staticFiles;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-import ar.edu.utn.frba.dds.tp.antlr.dds.*;
-import ar.edu.utn.frba.dds.tp.dominio.*;
-import ar.edu.utn.frba.dds.tp.jobs.*;
-import static org.quartz.JobBuilder.newJob;
-import static org.quartz.TriggerBuilder.newTrigger;
-import static org.quartz.SimpleScheduleBuilder.*;
-import static org.quartz.Scheduler.*;
-
-import spark.ModelAndView;
-import spark.Spark;
-import static spark.Spark.*;
-import spark.template.handlebars.*;
-import javax.servlet.MultipartConfigElement;
-import javax.servlet.http.Part;
-
-import org.quartz.JobDetail;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.quartz.Trigger;
-import org.quartz.impl.StdSchedulerFactory;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import java.lang.Runnable;
+import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
+import ar.edu.utn.frba.dds.tp.dominio.Cuenta;
+import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
+import ar.edu.utn.frba.dds.tp.dominio.Usuario;
+import ar.edu.utn.frba.dds.tp.jobs.Job;
+import spark.ModelAndView;
+import spark.Spark;
+import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class Server implements TransactionalOps, WithGlobalEntityManager {
 
