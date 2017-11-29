@@ -16,6 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.FileTime;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -39,23 +41,28 @@ public class CargaBatchEmpresas implements org.quartz.Job{
 		
 		try{
 			
-			Path path = Paths.get(getInputFilePath("/empresasJson4.txt"));//esta es la ruta de tu archivo en mi caso estoy utilizando GNU/Linux
+			Path path = Paths.get(getInputFilePath("/empresasJson.txt"));//esta es la ruta de tu archivo 
 			System.out.println(Files.getLastModifiedTime(path));
 			FileTime ultimaFechaModificacion = Files.getLastModifiedTime(path);
 			
 			
 			if(!Repositorio.getInstance().esArchivoYaProcesado(ultimaFechaModificacion)){
-				
+				Aplicacion.cargaEmpresasDesdeBDaRepo();
 				Aplicacion.persistirActualizarEmpresasDesdeJson(getInputFilePath("/empresasJson.txt"));
+				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				Date date = new Date();
 				HistorialCargaBatch historial = new HistorialCargaBatch();
-				historial.setNombreArchivo("/empresasJson4.txt");
+				historial.setNombreArchivo("empresasJson.txt");
 				historial.setUltimaFechaModificacion(ultimaFechaModificacion.toMillis());
+				historial.setFechaJob(dateFormat.format(date));
 				entityManager.getTransaction().begin();
 				entityManager.persist(historial);
 				entityManager.getTransaction().commit();
 				
+				System.out.println("El archivo empresasJson.txt ha sido procesado - "+ dateFormat.format(date));
+				
 			}else{
-				System.out.println("El archivo no ser√° procesado porque ya ha sido procesado anteriormente.");
+				System.out.println("El archivo empresasJson.txt no ser· procesado porque ya ha sido procesado anteriormente.");
 			}
 				
 		}
@@ -65,7 +72,7 @@ public class CargaBatchEmpresas implements org.quartz.Job{
 	}
 	
 	private String getInputFilePath(String input) {
-		return this.getClass().getResource(input).getPath();
+		return this.getClass().getResource(input).getPath().substring(1);
 	}
 
 }

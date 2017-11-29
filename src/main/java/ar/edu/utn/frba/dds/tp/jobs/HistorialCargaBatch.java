@@ -17,7 +17,8 @@ public class HistorialCargaBatch {
 	@Id 
 	@GeneratedValue
 	private int id;
-	
+	private long ultimaFechaModificacion; 
+	private String fechaJob;
 	private String nombreArchivo;
 	public int getId() {
 		return id;
@@ -39,7 +40,12 @@ public class HistorialCargaBatch {
 	public void setUltimaFechaModificacion(long ultimaFechaModificacion) {
 		this.ultimaFechaModificacion = ultimaFechaModificacion;
 	}
-	private long ultimaFechaModificacion; 
+	public String getFechaJob() {
+		return fechaJob;
+	}
+	public void setFechaJob(String fechaJob) {
+		this.fechaJob = fechaJob;
+	}
 	
 	
 }

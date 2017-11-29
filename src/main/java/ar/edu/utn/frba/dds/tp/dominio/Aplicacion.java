@@ -14,10 +14,10 @@ import ar.edu.utn.frba.dds.tp.herramientas.AdapterJson;
 
 public final class  Aplicacion {
 	
-//	public static void cargaDesdeBDaRepo() {
-//		Repositorio.getInstance().cargarEmpresasDeBD();
+	public static void cargaEmpresasDesdeBDaRepo() {
+		Repositorio.getInstance().cargarEmpresasDeBD();
 //		Repositorio.getInstance().cargarIndicadoresDesdeBD();
-//	}
+	}
 	
 	public static void cargaDesdeBDaRepoPorUser(Integer User) throws Exception {
 		Repositorio.getInstance().cargarEmpresasDeBD();
