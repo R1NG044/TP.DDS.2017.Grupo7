@@ -225,15 +225,33 @@ public final class Repositorio implements WithGlobalEntityManager {
 	}
 
 	/**** Metodos de Bases de datos ****/
-	
-	public void ActualizarIndicadoresPrecargados() {
 
+	public void ActualizarIndicadoresPrecargados() {
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction tx = entityManager.getTransaction();
+		tx.begin();
 		// Actualizo valores precargados
 		for (Indicador i : this.getIndicadores()) {
-			i.getIndicadoresEmpresas().clear();
-			this.persistirIndicador(i);
-		}
+			try {
+				cargarIndicadoresEmpresaParaIndicador(i);
+				
+				entityManager.merge(i);
 
+				System.out.println( "Se ha guardado el indicador OK"); // Success
+
+			} catch (
+
+			PersistenceException error) {
+				System.out.println("No se guardo el indicador - Persistence"); // Error de
+																	// persistencia
+			}
+
+			catch (IllegalStateException error) {
+				System.out.println("No se guardo el indicador - Illegal"); // Error de
+																// persistencia
+			}
+		}
+		tx.commit();
 	}
 
 	public void cargarIndicadoresDesdeBDPorUser(Integer usuario) {
@@ -321,22 +339,9 @@ public final class Repositorio implements WithGlobalEntityManager {
 		tx.begin();
 
 		try {
-			// entityManager.createQuery()
 			for (Empresa e : Repositorio.getInstance().getEmpresas()) {
 
-				// entityManager.persist(e);
 				entityManager.persist(e);
-				/*
-				 * if (!(existeEmpresaDeNombreenBD(e.getNombre()))) {
-				 * entityManager.persist(e); // tx.commit(); }else{ //Si existe,
-				 * actualizar las cuentas //entityManager.persist(e); for(Cuenta
-				 * c: e.getCuentas()){
-				 * 
-				 * //tx.begin(); entityManager.persist(c);
-				 * //entityManager.persist(c);
-				 * 
-				 * } }
-				 */
 			}
 
 			tx.commit();
@@ -355,6 +360,7 @@ public final class Repositorio implements WithGlobalEntityManager {
 			EntityTransaction tx = entityManager.getTransaction();
 			tx.begin();
 			entityManager.persist(nuevoIndicador);
+
 			tx.commit();
 
 			return "Se ha guardado el indicador OK"; // Success
@@ -393,6 +399,14 @@ public final class Repositorio implements WithGlobalEntityManager {
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		Query query = entityManager.createQuery("SELECT i FROM Indicador i where i.nombre like :pnombre");
 		indicadores = query.setParameter("pnombre", nombre).getResultList();
+		return !indicadores.isEmpty();
+	}
+
+	public boolean existenIndicadoresEnBD() {
+		List<Indicador> indicadores = null;
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		Query query = entityManager.createQuery("SELECT i FROM Indicador i ");
+		indicadores = query.getResultList();
 		return !indicadores.isEmpty();
 	}
 

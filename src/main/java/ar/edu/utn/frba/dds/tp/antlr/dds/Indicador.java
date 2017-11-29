@@ -14,14 +14,6 @@ public class Indicador implements IExpresion {
 	@GeneratedValue // (strategy=GenerationType.IDENTITY)
 	private Integer idIndicador;
 
-	public Integer getIdIndicador() {
-		return idIndicador;
-	}
-
-	public void setIdIndicador(Integer idIndicador) {
-		this.idIndicador = idIndicador;
-	}
-
 	private String nombre;
 	private String formula;
 
@@ -43,13 +35,33 @@ public class Indicador implements IExpresion {
 	}
 
 	public Indicador() {
-
 	}
 
 	public Indicador(String nombre, String formula, Usuario idUsuario) {
 		this.nombre = nombre;
 		this.formula = formula;
 		this.usuario = idUsuario;
+	}
+
+	public Indicador(Integer idIndicador, String nombre, String formula, Usuario usuario, ExpresionCompuesta expresion,
+			List<IndicadorEmpresa> indicadoresEmpresas) {
+		super();
+		//this.idIndicador = idIndicador;
+		this.nombre = nombre;
+		this.formula = formula;
+		this.usuario = usuario;
+		this.expresion = expresion;
+		this.indicadoresEmpresas = indicadoresEmpresas;
+	}
+	public Indicador( String nombre, String formula, Usuario usuario, ExpresionCompuesta expresion,
+			List<IndicadorEmpresa> indicadoresEmpresas) {
+		super();
+		//this.idIndicador = idIndicador;
+		this.nombre = nombre;
+		this.formula = formula;
+		this.usuario = usuario;
+		this.expresion = expresion;
+		this.indicadoresEmpresas = indicadoresEmpresas;
 	}
 
 	public Indicador(String nombre, ExpresionCompuesta expresion, String formula, Usuario user) {
@@ -109,6 +121,15 @@ public class Indicador implements IExpresion {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+
+	public Integer getIdIndicador() {
+		return idIndicador;
+	}
+
+	public void setIdIndicador(Integer idIndicador) {
+		this.idIndicador = idIndicador;
 	}
 
 	@Override

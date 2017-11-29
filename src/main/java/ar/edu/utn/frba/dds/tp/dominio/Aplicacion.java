@@ -47,7 +47,7 @@ public final class Aplicacion {
 
 		Repositorio.getInstance().persistirEmpresas();
 
-		Repositorio.getInstance().limpiarRepo();
+		//Repositorio.getInstance().limpiarRepo();
 		// cargar ind predefinidos
 	}
 
@@ -122,7 +122,7 @@ public final class Aplicacion {
 	}
 
 	private static void cargarIndicadoresPredefinidos() throws IOException {
-		if (Repositorio.getInstance().getIndicadores().isEmpty())
+		if (!Repositorio.getInstance().existenIndicadoresEnBD())
 			Repositorio.getInstance().cargarIndicadoresPredefinidos();
 
 	}
