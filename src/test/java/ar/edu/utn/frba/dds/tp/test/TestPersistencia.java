@@ -78,7 +78,6 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 
 	@Test
 	public void persistirMetodologias() {
-		Aplicacion.cargaDesdeBDaRepoPorUser(idUsuarioPredefinidos);
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 
 		EntityTransaction tx = entityManager.getTransaction();
@@ -93,8 +92,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 
 	@Test()
 	public void testGuardarIndicadorINGRESONETO() throws IOException {
-		Aplicacion.cargaDesdeBDaRepoPorUser(idUsuarioPredefinidos);
-
+		Aplicacion.persistirActualizarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
 		INPUT_PATH = "/IngresoNeto.txt";
 		InputStream file = this.getInputFilePath();
 		String formula = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());

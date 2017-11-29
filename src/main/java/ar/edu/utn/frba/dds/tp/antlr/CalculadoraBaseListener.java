@@ -20,8 +20,9 @@ public class CalculadoraBaseListener implements CalculadoraListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 * @return 
+	 * @throws Exception 
 	 */
-	@Override public void enterExpresion(CalculadoraParser.ExpresionContext ctx) { }
+	@Override public void enterExpresion(CalculadoraParser.ExpresionContext ctx) throws Exception { }
 	/**
 	 * {@inheritDoc}
 	 *

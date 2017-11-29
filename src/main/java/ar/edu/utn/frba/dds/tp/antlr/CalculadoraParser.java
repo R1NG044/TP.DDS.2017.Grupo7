@@ -106,7 +106,13 @@ public class CalculadoraParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_expresion; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CalculadoraListener ) ((CalculadoraListener)listener).enterExpresion(this);
+			if ( listener instanceof CalculadoraListener )
+				try {
+					((CalculadoraListener)listener).enterExpresion(this);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {

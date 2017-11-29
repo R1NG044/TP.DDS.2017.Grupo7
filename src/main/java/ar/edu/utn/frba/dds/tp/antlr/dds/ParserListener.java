@@ -55,31 +55,31 @@ public class ParserListener extends CalculadoraBaseListener {
 
 	}
 
-	public void cargarExpresionaIndicador(ExpresionContext ctx, Indicador indicador) {
+	public void cargarExpresionaIndicador(ExpresionContext ctx, Indicador indicador) throws Exception {
 		this.enterExpresion(ctx);
 		indicador.setExpresion(expresionPadre);
 	}
 
-	public void enterExpresion(CalculadoraParser.ExpresionContext ctx) {
+	public void enterExpresion(CalculadoraParser.ExpresionContext ctx) throws Exception {
 		this.expresionPadre = new ExpresionCompuesta();
 		expresionAux = expresionPadre;
 
 		if (ctx.children != null) {
 			this.iterateNodes(ctx);
 		} else {
-			System.out.println("No ingreso datos");
+			throw new Exception("No ingreso datos");
 		}
 
 	}
 
-	private void iterateNodes(ParserRuleContext ctx) {
+	private void iterateNodes(ParserRuleContext ctx) throws Exception {
 		// Recorro childs. Cada child es un termino: constante o expresion o
 		// indicador o cuenta
 
 		for (int i = 0; i < ctx.getChildCount(); i++) {
 			ParseTree tree = ctx.getChild(i);
 			if (tree instanceof ErrorNode) {
-				System.err.printf("Error en nodo: %s\n", tree.getText());
+				throw new Exception("Error en nodo:"+tree.getText());
 
 			} else {
 				System.out.printf("Nodo valido: %s\n", tree.getText());
@@ -89,7 +89,7 @@ public class ParserListener extends CalculadoraBaseListener {
 
 	}
 
-	public void descomponerEnObjetos(ParseTree tree, ExpresionCompuesta expresion) {
+	public void descomponerEnObjetos(ParseTree tree, ExpresionCompuesta expresion) throws Exception {
 		// Convertir en terminos a los objetos. Si los puede parsear, los mete
 		// en un objeto
 		// Si es un nodo con operacion
@@ -135,7 +135,7 @@ public class ParserListener extends CalculadoraBaseListener {
 							// Setea operando2;
 							expresion.setOperando2(Repositorio.getInstance().darIndicadorDeNombre(nombreIndicador));
 						}
-					}
+					}else throw new Exception("No existe el Indicador utilizado en la Formula ingresada");
 
 				} else {
 					if (tree.getText().contains("CUENTA(")) {

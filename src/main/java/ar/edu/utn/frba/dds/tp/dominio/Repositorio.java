@@ -220,10 +220,15 @@ public final class Repositorio implements WithGlobalEntityManager {
 	/**** Metodos de Bases de datos ****/
 
 	public void cargarIndicadoresDesdeBDPorUser(Integer usuario) {
-		this.setIndicadores(this.buscarIndicadoresPorUser(usuario));
+		try {
+			this.buscarIndicadoresPorUser(usuario);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	public void cargarIndicadoresDesdeBD() {
+	public void cargarIndicadoresDesdeBD() throws Exception {
 		// Repositorio.getInstance().limpiarRepoIndicadores();
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		@SuppressWarnings("unchecked")
@@ -233,7 +238,7 @@ public final class Repositorio implements WithGlobalEntityManager {
 		this.setIndicadores(indicadores);
 	}
 
-	private void cargarExpresionesaIndicadores(List<Indicador> indicadores) {
+	private void cargarExpresionesaIndicadores(List<Indicador> indicadores) throws Exception {
 		int i = 1;
 		for (Indicador indicador : indicadores) {
 			if (indicador.getIdIndicador() == i) {
@@ -259,13 +264,13 @@ public final class Repositorio implements WithGlobalEntityManager {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Indicador> buscarIndicadoresPorUser(Integer idUsuario) {
-		List<Indicador> indicadores = null;
+	public void buscarIndicadoresPorUser(Integer idUsuario) throws Exception {
+		//List<Indicador> indicadores = null;
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		indicadores = entityManager.createNamedQuery("buscarIndicadorPorUser").setParameter("pIdUsuario", idUsuario)
-				.getResultList();
-		this.cargarExpresionesaIndicadores(indicadores);
-		return indicadores;
+		this.setIndicadores(entityManager.createNamedQuery("buscarIndicadorPorUser").setParameter("pIdUsuario", idUsuario)
+				.getResultList());
+		this.cargarExpresionesaIndicadores(this.getIndicadores());
+		//return indicadores;
 	}
 
 	@SuppressWarnings("unchecked")

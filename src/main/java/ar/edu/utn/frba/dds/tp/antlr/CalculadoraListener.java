@@ -12,8 +12,9 @@ public interface CalculadoraListener extends ParseTreeListener {
 	/**
 	 * Enter a parse tree produced by {@link CalculadoraParser#expresion}.
 	 * @param ctx the parse tree
+	 * @throws Exception 
 	 */
-	void enterExpresion(CalculadoraParser.ExpresionContext ctx);
+	void enterExpresion(CalculadoraParser.ExpresionContext ctx) throws Exception;
 	/**
 	 * Exit a parse tree produced by {@link CalculadoraParser#expresion}.
 	 * @param ctx the parse tree

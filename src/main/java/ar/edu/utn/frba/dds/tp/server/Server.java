@@ -47,7 +47,6 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 		String[] cargaBatchFrequency = new String[1];
 		cargaBatchFrequency[0] = "60000";
 
-		
 		/***** E N D P O I N T S *******/
 
 		Spark.get("/indicadores", (req, res) -> {
@@ -60,7 +59,7 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 					// pasarlos al módulo Aplicacion
 					// TODO: Llamar a evaluarIndicador acá y mostrarlo.
 				}
-				
+
 				return new ModelAndView(Repositorio.getInstance(), "listaIndicadores.hbs");
 			} else {
 				return new ModelAndView(null, "login2.hbs");
@@ -118,7 +117,7 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 			resultado.add(indicadorAux);
 			return new ModelAndView(resultado, "resultadoEvaluarIndicador.hbs");
 		}, engine);
-		
+
 		Spark.get("/login", (req, res) -> {
 			return new ModelAndView(null, "login2.hbs");
 
@@ -173,8 +172,13 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 						Integer.parseInt(req.queryParams("mySelectEmpresas")),
 						Integer.parseInt(req.queryParams("mySelectPeriodos")));
 			}
-
-			return new ModelAndView(listCuentas, "resultadoConsultaEmpresas.hbs");
+			String empresa = req.queryParams("mySelectEmpresas");
+			String periodo = req.queryParams("mySelectPeriodos");
+			if (listCuentas.isEmpty())
+				
+				return new ModelAndView("No existen Cuentas para la Empresa "+ empresa + " en el Per�odo "+ periodo, "resultadoConsultaEmpresasError.hbs");
+			else
+				return new ModelAndView(listCuentas, "resultadoConsultaEmpresas.hbs");
 
 		}, engine);
 

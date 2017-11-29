@@ -19,7 +19,7 @@ public final class  Aplicacion {
 //		Repositorio.getInstance().cargarIndicadoresDesdeBD();
 //	}
 	
-	public static void cargaDesdeBDaRepoPorUser(Integer User) {
+	public static void cargaDesdeBDaRepoPorUser(Integer User) throws Exception {
 		Repositorio.getInstance().cargarEmpresasDeBD();
 		Repositorio.getInstance().cargarIndicadoresDesdeBDPorUser(User);
 	}
