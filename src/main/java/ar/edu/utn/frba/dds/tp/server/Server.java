@@ -29,6 +29,7 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -46,7 +47,15 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 		// Inicia el Job de Carga Batch Empresas
 		String[] cargaBatchFrequency = new String[1];
 		cargaBatchFrequency[0] = "60000";
+		try {
+			Aplicacion.iniciarAppconCargaDeDatosPredefinidos();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 
+		
+
+		
 		/***** E N D P O I N T S *******/
 
 		Spark.get("/indicadores", (req, res) -> {
@@ -226,6 +235,7 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 
 		try {
 			Job.main(cargaBatchFrequency); // 6000 ms = 1 min
+			
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

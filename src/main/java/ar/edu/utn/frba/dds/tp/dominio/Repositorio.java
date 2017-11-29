@@ -1,5 +1,10 @@
 package ar.edu.utn.frba.dds.tp.dominio;
 
+import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +17,7 @@ import javax.persistence.Query;
 
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.apache.commons.io.IOUtils;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
@@ -23,6 +29,8 @@ import ar.edu.utn.frba.dds.tp.antlr.dds.ParserListener;
 import ar.edu.utn.frba.dds.tp.jobs.HistorialCargaBatch;
 
 public final class Repositorio implements WithGlobalEntityManager {
+
+	private static String INPUT_PATH = null;
 
 	private List<Empresa> empresas = new ArrayList<Empresa>();
 
@@ -265,12 +273,12 @@ public final class Repositorio implements WithGlobalEntityManager {
 
 	@SuppressWarnings("unchecked")
 	public void buscarIndicadoresPorUser(Integer idUsuario) throws Exception {
-		//List<Indicador> indicadores = null;
+		// List<Indicador> indicadores = null;
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		this.setIndicadores(entityManager.createNamedQuery("buscarIndicadorPorUser").setParameter("pIdUsuario", idUsuario)
-				.getResultList());
+		this.setIndicadores(entityManager.createNamedQuery("buscarIndicadorPorUser")
+				.setParameter("pIdUsuario", idUsuario).getResultList());
 		this.cargarExpresionesaIndicadores(this.getIndicadores());
-		//return indicadores;
+		// return indicadores;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -412,20 +420,21 @@ public final class Repositorio implements WithGlobalEntityManager {
 			return users.get(0);
 	}
 
-	public int persistirUsuarios(List<Usuario> usuarios) {
+	public void persistirUsuarios(List<Usuario> usuarios) {
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();
-		
-		for (Usuario u : usuarios) {
-			if ((Repositorio.getInstance().getUsuarioByUserAndPwd(u.getNombre(), u.getPassword()) == null)) {
-				entityManager.persist(u);
+		tx.begin();
+		try {
+			for (Usuario u : usuarios) {
+				if ((Repositorio.getInstance().getUsuarioByUserAndPwd(u.getNombre(), u.getPassword()) == null)) {
+					entityManager.persist(u);
+				}
 			}
+			tx.commit();
+		} catch (IllegalStateException i) {
+			tx.rollback();
+
 		}
-
-		tx.commit();
-
-		return 1; // Success
-
 	}
 
 	/***** GETTERS Y SETTERS *******/
@@ -482,6 +491,25 @@ public final class Repositorio implements WithGlobalEntityManager {
 		} else {
 			return (ultimaFechaModificacion.toMillis() == resultados.get(0).getUltimaFechaModificacion());
 		}
+	}
+
+	public void cargarIndicadoresPredefinidos() throws IOException {
+		INPUT_PATH = "/IngresoNeto.txt";
+		InputStream file = getInputFilePath();
+		String formula = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
+		Integer idUsuarioPredefinidos = 1;
+		Aplicacion.guardarUnIndicador("INGRESONETO", formula, idUsuarioPredefinidos);
+
+		INPUT_PATH = "/ROE.txt";
+		InputStream file2 = this.getInputFilePath();
+		String formula2 = IOUtils.toString(file2, StandardCharsets.ISO_8859_1.name());
+		Aplicacion.guardarUnIndicador("ROE", formula2, idUsuarioPredefinidos);
+
+	}
+
+	private InputStream getInputFilePath() {
+		return this.getClass().getResourceAsStream(INPUT_PATH);
+
 	}
 
 }
