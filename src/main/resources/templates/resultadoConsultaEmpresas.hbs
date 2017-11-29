@@ -38,17 +38,22 @@
 		</div>
 		
 				   
-		<div id="contenido" align="center"> <br>
+	<div id="contenido" align="center"> <br>
+			<div id="listaCuentas">
+			{{#each this}}
+				<p>
+				Id: {{idCuenta}} || 
+				Nombre cuenta: {{nombreCuenta}} || 
+				Valor: {{valor}}
+				</p>
+			{{/each}}
+			</div>
+		
 		<fieldset>
 			<form name="formListaIndicadores" action="/empresas" method="GET" onsubmit="javascript: return enviar();">
-				{{#each this}}
-				{{this}}
-					{/each}}
-				<br>
-				<input type="submit" value="Volver a filtros" id="button" />
+				<input type="submit" value="Volver a filtros" id="button" class=button />
 			</form>
 		</fieldset>
-		</div>
 		  	 
 	</div>
 	<!-- JQuery -->

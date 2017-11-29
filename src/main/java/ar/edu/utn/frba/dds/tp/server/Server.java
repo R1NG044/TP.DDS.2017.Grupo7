@@ -192,12 +192,6 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 
 		}, engine);
 
-		Spark.get("/empresas/consultaDeValores", (req, res) -> {
-
-			return new ModelAndView(Repositorio.getInstance(), "filtrosListaEmpresas.hbs");
-
-		}, engine);
-
 		Spark.get("/empresas/upload", (req, res) -> {
 			Boolean resultUpload = true;
 

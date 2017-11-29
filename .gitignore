@@ -5,8 +5,6 @@
 target 
 generated*
 bin
-classes/META-INF
-test-classes/META-INF
 MANIFEST.MF
 src/main/resources/META-INF/persistence.xml
 src/test/resources/META-INF/persistence.xml

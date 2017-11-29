@@ -40,6 +40,7 @@
 		<div id="contenido" align="center"> <br><br>
 			<form name="formListaIndicadores" action="/empresas/resultadoConsultaEmpresas" method="GET" onsubmit="javascript: return enviar();" id="forma3" align="center">
 				<br><br>
+				<p align="center" style="font-size: 20px">Por favor Seleccione Empresa y Periodo a Consultar:</p><br>
 				<p align="center"><b>Seleccionar Empresa
 				<select id="mySelectEmpresas" onchange="myFunction()" name="mySelectEmpresas">
 					<option >Seleccionar</option>
@@ -65,6 +66,7 @@
 				</select>
 				<br>
 				<br>
+				<br>
 				<input type="submit" onclick="myFunction()" id="enviar" value="Calcular" class="button" />
 			</form>
 			
@@ -80,10 +82,7 @@
 				}
 			</script>
 			<br><br>
-			<form >
-				<P align="center">Resultado: <input name="valor" type="text" id="formula" />
-			</form> 
-					
+								
 		</div>
 		 
 	</div>
