@@ -41,7 +41,9 @@
 		<div id="contenido" align="center"> <br>
 		<fieldset>
 			<form name="formListaIndicadores" action="/empresas" method="GET" onsubmit="javascript: return enviar();">
+				{{#each this}}
 				{{this}}
+					{/each}}
 				<br>
 				<input type="submit" value="Volver a filtros" id="button" />
 			</form>

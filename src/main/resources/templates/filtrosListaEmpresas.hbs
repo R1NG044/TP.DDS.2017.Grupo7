@@ -34,7 +34,6 @@
 
 		<div id="submenu">
 			<br>
-			<p class="linksSubmenu"><a href="/empresas" class="links" >Cargar Empresa</a></p>
 			<p class="linksActual">Consultar Cuentas</p>
 		</div>
 
@@ -43,7 +42,7 @@
 				<br><br>
 				<p align="center"><b>Seleccionar Empresa
 				<select id="mySelectEmpresas" onchange="myFunction()" name="mySelectEmpresas">
-					<option ></option>
+					<option >Seleccionar</option>
 					{{#each empresas}}
 					
 					<option value={{id}}>{{nombreEmpresa}}</option>

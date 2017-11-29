@@ -17,19 +17,19 @@
 	<div id="contenedor">
 		<div id="cabecera" align="center" ><h1 >SISTEMA DE APOYO A DECISIONES</h1></div>
 		
-		<div id="menu" ></div>	
-		
-		<div id="submenu" ></div>
+		<div style="text-align: center; font-size: 30px;">Ingrese su usuario y contrasena</div>
 					
-		<div id="contenido"  align="center"> 
+		<div id="contenido"  align="center" style="margin-left: 100px; display:table; "> 
 			<br><br>
-			<FORM id="forma3" name="formLogin" action="/index" align="center" method="POST" onsubmit="javascript: return enviar();">
-				<div align="center"> Complete usuario y contrase&ntilde;a: </div>
-				<P align="center">Usuario: <INPUT type=text id="defaultForm-email" class="form-control" name=login> 
-				<P align="center">Contrase&ntilde;a: <INPUT type="password" id="defaultForm-pass" class="form-control" name=password> 
+			<FORM id="forma3" name="formLogin" action="/index" align="center" method="POST" onsubmit="javascript: return enviar();" ">
+				<div align="center" style="vertical-align: middle> Complete usuario y contrase&ntilde;a: 
+				<P align="center" style="width: 50%;">Usuario: <INPUT type=text id="defaultForm-email" class="form-control" name=login></p> 
+				<P align="center">Contrase&ntilde;a: <INPUT type="password" id="defaultForm-pass" class="form-control" name=password></p> 
 				<br><br><br>
-				<INPUT class="btn btn-default" type="submit" value=Acceder id="button">
-				<INPUT type="Reset" id="button">
+				
+					<INPUT class="btn btn-default"  type="submit" value=Acceder id="button">
+					<INPUT  class="btn btn-default" type="Reset" id="button" value="Limpiar">
+				</div>
 			</FORM> 
 			
 		</div>
@@ -38,7 +38,7 @@
 		<SCRIPT type="text/javascript"> 
 			function enviar(){
 				if (document.formLogin.password.value=='' || document.formLogin.login.value==''){ 
-					alert("Porfavor ingrese, nombre de usuario y contraseña.");
+					alert("Porfavor ingrese, nombre de usuario y contraseï¿½a.");
 					return false;  
 				} 
 				else{ 

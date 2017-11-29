@@ -47,6 +47,7 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 		// Inicia el Job de Carga Batch Empresas
 		String[] cargaBatchFrequency = new String[1];
 		cargaBatchFrequency[0] = "60000";
+		
 		try {
 			Aplicacion.iniciarAppconCargaDeDatosPredefinidos();
 		} catch (IOException e1) {
@@ -71,7 +72,7 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 
 				return new ModelAndView(Repositorio.getInstance(), "listaIndicadores.hbs");
 			} else {
-				return new ModelAndView(null, "login2.hbs");
+				return new ModelAndView(null, "login.hbs");
 			}
 		}, engine);
 
@@ -128,7 +129,7 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 		}, engine);
 
 		Spark.get("/login", (req, res) -> {
-			return new ModelAndView(null, "login2.hbs");
+			return new ModelAndView(null, "login.hbs");
 
 		}, engine);
 
@@ -151,7 +152,7 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 				Aplicacion.cargaDesdeBDaRepoPorUser(idUsuarioActivo);
 				return new ModelAndView(u, "index.hbs");
 			} else {
-				return new ModelAndView("El usuario o la contrasena son incorrectos", "login2.hbs");
+				return new ModelAndView("El usuario o la contrasena son incorrectos", "login.hbs");
 			}
 
 		}, engine);
@@ -163,13 +164,13 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 				user = Repositorio.getInstance().buscarUserPorId(idUsuarioActivo);
 				return new ModelAndView(user, "index.hbs");
 			} else {
-				return new ModelAndView(null, "login2.hbs");
+				return new ModelAndView(null, "login.hbs");
 			}
 
 		}, engine);
 
 		Spark.get("/empresas", (req, res) -> {
-			return new ModelAndView(null, "empresas.hbs");
+			return new ModelAndView(Repositorio.getInstance(), "filtrosListaEmpresas.hbs");
 		}, engine);
 
 		Spark.get("empresas/resultadoConsultaEmpresas", (req, res) -> {
@@ -227,7 +228,7 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 
 		Spark.get("/logout", (req, res) -> {
 			res.cookie("idUsuarioActivo", "");
-			return new ModelAndView(null, "login2.hbs");
+			return new ModelAndView(null, "login.hbs");
 
 		}, engine);
 

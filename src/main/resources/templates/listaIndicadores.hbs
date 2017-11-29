@@ -41,41 +41,51 @@
 		
 		<div id="contenido" align="center"><br><br>
 		
-				<FORM name="formListaIndicadores" action="/indicadores" method="POST" onsubmit="javascript: return enviar();" id="forma3" align="center">
-					<p align="center" >Indicadores ya creados 
+				<FORM name="formListaIndicadores" action="/indicadores" method="POST" onsubmit="javascript: return enviar();" id="forma3" align="center" style="height: 350px;">
+					<div align="center" >Indicadores ya creados ->
 					{{#each indicadores}}
 					- {{nombre}} 
-					{{/each}}	
-					<p align="center" >Por favor escriba su indicador a probar</p>
-				
-					<INPUT type=text  id="mySelectIndicadores" onchange="myFunction()" name="mySelectIndicadores">
-					<br>
-					<p align="center">Seleccionar Empresa
-					<select id="mySelectEmpresas" onchange="myFunction()" name="mySelectEmpresas">
-						<option >Seleccionar</option>
-						{{#each empresas}}
+					{{/each}}
+					</div>	
+					<div align="center" style="font-size: 23px;">Por favor escriba su indicador a probar
+					Recuerde seguir el siguiente formato: 
+					</div>
+					<div style="font-size: 10px">Indicadores -> IND("NombreIndicador")</div>
+					<div style="font-size: 10px">Cuentas -> CUENTA("NombreCuenta")</div>
+					<div style="font-size: 10px">Los nombres de indicadores y cuentas no  deben tener espacios.
+					</div>
+					<div>
+						<INPUT type=text  id="mySelectIndicadores" onchange="myFunction()" name="mySelectIndicadores">
 						
-						<option value={{nombreEmpresa}}>{{nombreEmpresa}}</option>
-						{{/each}}									
-					</select>
-					<br>
-					<p align="center">Seleccionar Per&iacuteodo
-					<select id="mySelectPeriodos" onchange="myFunction()" name="mySelectPeriodos">
-						<option >Seleccionar</option>
-						<option >2017</option>
-						<option >2016</option>
-						<option >2015</option>
-						<option >2014</option>
-						<option >2013</option>
-						<option >2012</option>
-						<option >2011</option>
-						<option >2010</option>
-						<option >2009</option>
-						<option >2008</option>
-					</select>
-					<br><br>
-					<input type="submit" onsubmit="myFunction()" id="obtenerIndicador" value="Calcular" class=button />
-					<P align="center">Resultado: 
+						<br>
+						<p align="center" style="margin-top: 8px;">Seleccionar Empresa
+						<select id="mySelectEmpresas" onchange="myFunction()" name="mySelectEmpresas">
+							<option >Seleccionar</option>
+							{{#each empresas}}
+							
+							<option value={{nombreEmpresa}}>{{nombreEmpresa}}</option>
+							{{/each}}									
+						</select>
+						<br>
+						<p align="center">Seleccionar Per&iacuteodo
+						<select id="mySelectPeriodos" onchange="myFunction()" name="mySelectPeriodos">
+							<option >Seleccionar</option>
+							<option >2017</option>
+							<option >2016</option>
+							<option >2015</option>
+							<option >2014</option>
+							<option >2013</option>
+							<option >2012</option>
+							<option >2011</option>
+							<option >2010</option>
+							<option >2009</option>
+							<option >2008</option>
+						</select>
+						<br>
+						<br>
+						<input type="submit" onsubmit="myFunction()" id="obtenerIndicador" value="Calcular" class="button" />
+						<P align="center">Resultado: </p>
+					</div>
 			</form> 
 		</div>	
 	
