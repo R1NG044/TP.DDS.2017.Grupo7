@@ -76,15 +76,15 @@ public class Indicador implements IExpresion {
 
 	@Override
 	public double calcularResultado(String empresa, Integer periodo) throws Exception {
-//		if (this.tieneIndicadorEmpresa(empresa, periodo))
-//			return (this.darValorIndicadorEmpresa(empresa, periodo));
-//		else
+		if (this.tieneIndicadorEmpresa(empresa, periodo))
+			return (this.darValorIndicadorEmpresa(empresa, periodo));
+		else
 			return (this.expresion.calcularResultado(empresa, periodo));
 	}
 
 	private double darValorIndicadorEmpresa(String empresa, Integer periodo) throws Exception {
 		for (IndicadorEmpresa ie : indicadoresEmpresas) {
-			if (ie.getNombreEmpresa() == empresa && ie.getPeriodo() == periodo)
+			if (ie.getNombreEmpresa().equals(empresa) && (int) ie.getPeriodo() == (int) periodo)
 				return ie.getValorIndicador();
 		}
 		throw new Exception("No existe la Empresa, o cuenta para el Periodo seleccionados");
@@ -92,7 +92,7 @@ public class Indicador implements IExpresion {
 
 	private boolean tieneIndicadorEmpresa(String empresa, Integer periodo) {
 		for (IndicadorEmpresa ie : indicadoresEmpresas) {
-			if (ie.getNombreEmpresa() == empresa && ie.getPeriodo() == periodo)
+			if (ie.getNombreEmpresa().equals(empresa) && (int) ie.getPeriodo() == (int) periodo)
 				return true;
 		}
 		return false;

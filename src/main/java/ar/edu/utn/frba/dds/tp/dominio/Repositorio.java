@@ -352,7 +352,7 @@ public final class Repositorio implements WithGlobalEntityManager {
 
 	private void cargarIndicadoresEmpresaParaIndicador(Indicador nuevoIndicador) {
 		List<IndicadorEmpresa> listaIe = new ArrayList<IndicadorEmpresa>();
-		for (Integer periodo = 2008; periodo < 2018; periodo++) {
+		for (Integer periodo = 2010; periodo < 2018; periodo++) {
 			for (Empresa e : empresas) {
 				try {
 					double valor = nuevoIndicador.evaluarIndicador(e.getNombre(), periodo);
@@ -362,8 +362,8 @@ public final class Repositorio implements WithGlobalEntityManager {
 					System.out.println(error.getMessage());
 				}
 			}
-			nuevoIndicador.setIndicadoresEmpresas(listaIe);
 		}
+		nuevoIndicador.setIndicadoresEmpresas(listaIe);
 	}
 
 	public boolean existeIndicadorDeNombreEnBD(String nombre) {
@@ -377,7 +377,7 @@ public final class Repositorio implements WithGlobalEntityManager {
 	public void cargarEmpresasDeBD() {
 
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-		Query query = entityManager.createQuery("FROM Empresa");
+		Query query = entityManager.createQuery(" select e FROM Empresa e");
 		List<Empresa> empresas = query.getResultList();
 		this.setEmpresas(empresas);
 	}
@@ -410,7 +410,7 @@ public final class Repositorio implements WithGlobalEntityManager {
 	public int persistirUsuarios(List<Usuario> usuarios) {
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();
-
+		
 		for (Usuario u : usuarios) {
 			if ((Repositorio.getInstance().getUsuarioByUserAndPwd(u.getNombre(), u.getPassword()) == null)) {
 				entityManager.persist(u);

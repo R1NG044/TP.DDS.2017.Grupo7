@@ -40,7 +40,7 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		this.representacionJSON3 = "/empresasJson3.txt";
 		this.representacionJSON4 = "/empresasJson4.txt";
 
-		Aplicacion.cargaDesdeBDaRepoPorUser(idUsuarioPredefinidos);
+		
 
 		List<Usuario> usuarios = new ArrayList<>();
 		usuarios.add(new Usuario("general", "123"));
@@ -48,50 +48,10 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		usuarios.add(new Usuario("nadia@utn.edu.ar", "nadia"));
 		usuarios.add(new Usuario("ale@utn.edu.ar", "ale"));
 		Repositorio.getInstance().persistirUsuarios(usuarios);
+		
+		//Aplicacion.cargaDesdeBDaRepoPorUser(idUsuarioPredefinidos);
+		
 	}
-
-	@Test
-	public void persistirMetodologias() {
-		Aplicacion.cargaDesdeBDaRepoPorUser(idUsuarioPredefinidos);
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-
-		EntityTransaction tx = entityManager.getTransaction();
-		tx.begin();
-		Metodologia m = new Metodologia("Buffet", new Usuario(1, "Brenda"));
-
-		entityManager.persist(m);
-
-		tx.commit();
-
-	}
-
-	@Test()
-	public void testGuardarIndicadorINGRESONETO() throws IOException {
-		Aplicacion.persistirActualizarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
-
-		INPUT_PATH = "/IngresoNeto.txt";
-		InputStream file = this.getInputFilePath();
-		String formula = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
-		String mensaje = Aplicacion.guardarUnIndicador("INGRESONETO", formula, idUsuarioPredefinidos);
-		System.out.println(mensaje + " INGRESONETO");
-
-		assertTrue(Repositorio.getInstance().existeIndicadorDeNombreEnBD("INGRESONETO"));
-	}
-
-	@Test()
-	public void testGuardarIndicadorROE() throws IOException {
-		Aplicacion.persistirActualizarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
-
-		INPUT_PATH = "/ROE.txt";
-		InputStream file2 = this.getInputFilePath();
-		String formula2 = IOUtils.toString(file2, StandardCharsets.ISO_8859_1.name());
-		String mensaje2 = Aplicacion.guardarUnIndicador("ROE", formula2, idUsuarioPredefinidos);
-		System.out.println(mensaje2 + " ROE");
-		assertTrue(Repositorio.getInstance().existeIndicadorDeNombreEnBD("ROE"));
-	}
-
-	/**** Empresas y cuentas ****/
-
 	@Test
 	public void cargarActualizarJSONEmpresasYCuentasABaseDeDatos() throws FileNotFoundException {
 		/*
@@ -115,6 +75,61 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 
 	}
 
+
+	@Test
+	public void persistirMetodologias() {
+		Aplicacion.cargaDesdeBDaRepoPorUser(idUsuarioPredefinidos);
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+
+		EntityTransaction tx = entityManager.getTransaction();
+		tx.begin();
+		Metodologia m = new Metodologia("Buffet", new Usuario(1, "Brenda"));
+
+		entityManager.persist(m);
+
+		tx.commit();
+
+	}
+
+	@Test()
+	public void testGuardarIndicadorINGRESONETO() throws IOException {
+		Aplicacion.cargaDesdeBDaRepoPorUser(idUsuarioPredefinidos);
+
+		INPUT_PATH = "/IngresoNeto.txt";
+		InputStream file = this.getInputFilePath();
+		String formula = IOUtils.toString(file, StandardCharsets.ISO_8859_1.name());
+		String mensaje = Aplicacion.guardarUnIndicador("INGRESONETO", formula, idUsuarioPredefinidos);
+		System.out.println(mensaje + " INGRESONETO");
+
+		assertTrue(Repositorio.getInstance().existeIndicadorDeNombreEnBD("INGRESONETO"));
+	}
+
+	@Test()
+	public void testGuardarIndicadorROE() throws IOException {
+		
+		Aplicacion.persistirActualizarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
+		INPUT_PATH = "/ROE.txt";
+		InputStream file2 = this.getInputFilePath();
+		String formula2 = IOUtils.toString(file2, StandardCharsets.ISO_8859_1.name());
+		String mensaje2 = Aplicacion.guardarUnIndicador("ROE", formula2, idUsuarioPredefinidos);
+		System.out.println(mensaje2 + " ROE");
+		assertTrue(Repositorio.getInstance().existeIndicadorDeNombreEnBD("ROE"));
+	}
+	@Test()
+	public void testGuardarIndicadorROI() throws IOException {
+		
+		Aplicacion.persistirActualizarEmpresasDesdeJson(getInputFilePath(representacionJSON3));
+		//INPUT_PATH = "/ROE.txt";
+		//InputStream file2 = this.getInputFilePath();
+		String formula2 = "IND(ROE)+1";
+		String mensaje2 = Aplicacion.guardarUnIndicador("ROI", formula2, idUsuarioPredefinidos);
+		System.out.println(mensaje2 + " ROI");
+		assertTrue(Repositorio.getInstance().existeIndicadorDeNombreEnBD("ROI"));
+	}
+
+	/**** Empresas y cuentas ****/
+
+	
 	// @Test
 	// public void lala(){
 	// List<Empresa> empresas =

@@ -13,7 +13,7 @@ import ar.edu.utn.frba.dds.tp.dominio.Empresa;
 
 
 @Entity(name="IndicadorEmpresa")
-@Table(name = "IndicadorEmpresa")
+@Table(name = "indicadorEmpresa")
 public class IndicadorEmpresa implements IExpresion{
 	
 	@Id
@@ -26,6 +26,8 @@ public class IndicadorEmpresa implements IExpresion{
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Indicador indicador;
 	
+	public IndicadorEmpresa(){
+	}
 	
 	public IndicadorEmpresa(Indicador nuevoIndicador, String e, Integer periodo2, double valor) {
 		this.setIndicador(nuevoIndicador);

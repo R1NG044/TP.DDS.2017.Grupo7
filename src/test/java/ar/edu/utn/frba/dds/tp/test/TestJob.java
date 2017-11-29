@@ -21,7 +21,7 @@ public class TestJob {
 
 	
 	
-	@Test
+	/*@Test
 	public void testFechaUltModJson() throws IOException, FileNotFoundException  {
 		
 		Path path = Paths.get(getInputFilePath("/empresasJson1.txt"));//esta es la ruta de tu archivo en mi caso estoy utilizando GNU/Linux
@@ -46,7 +46,7 @@ public class TestJob {
 	            String segundo = Integer.toString(c.get(Calendar.SECOND));
 	       return annio +"-"+ mes +"-"+ dia +" "+ hora +":"+ minuto +":"+ segundo ;
 	   }
-
+*/
 	private InputStream getInputFilePath() {
 		return this.getClass().getResourceAsStream(INPUT_PATH);
 
