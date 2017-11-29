@@ -40,42 +40,29 @@
 		</div>
 		
 		<div id="contenido" align="center"> <br><br>
-			<form name="formListaIndicadores" action="/indicadores/evaluar" method="GET" onsubmit="javascript: return enviar();" id="forma3" align="center">
+			<form name="formListaIndicadores" action="/indicador/evaluar" method="GET" onsubmit="javascript: return enviar();" id="forma3" align="center">
 				<br><br>
 				<p align="center" ><b>Seleccionar Indicador
-				<select id="mySelectIndicadores" onchange="myFunction()" name="mySelectIndicadores">
-					<option >Seleccionar</option>
-					
-					{{#each indicadores}}
-					
-					<option value={{nombre}}>{{nombre}}</option>
-					{{/each}}	
+				<select id="mySelectIndicadores" onchange="myFunction()" name="mySelectIndicadores" disabled>
+					<option > {{this.[0]}}</option>
+ 				  							
 				</select>
-				<br>
-				<p align="center">Seleccionar Empresa
-				<select id="mySelectEmpresas" onchange="myFunction()" name="mySelectEmpresas">
-					<option >Seleccionar</option>
-					{{#each empresas}}
-					
-					<option value={{nombre}}>{{nombre}}</option>
-					{{/each}}									
+			
+				<br><br>
+				<p align="center" >Seleccionar Empresa
+				
+				<select id="mySelectEmpresas" onchange="myFunction()" name="mySelectEmpresas" disabled>
+					<option >{{this.[1]}}</option>
+												
 				</select>
-				<br>
+				<br><br>
 				<p align="center">Seleccionar Per&iacuteodo
-				<select id="mySelectPeriodos" onchange="myFunction()" name="mySelectPeriodos">
-					<option >Seleccionar</option>
-					<option >2017</option>
-					<option >2016</option>
-					<option >2015</option>
-					<option >2014</option>
-					<option >2013</option>
-					<option >2012</option>
-					<option >2011</option>
-					<option >2010</option>
-					<option >2009</option>
-					<option >2008</option>
+				
+				<select id="mySelectPeriodos" onchange="myFunction()" name="mySelectPeriodos" disabled>
+					<option >{{this.[2]}}</option>
+											
 				</select>
-				<br><br><br>
+				<br><br>
 				<p align="center" >
 					Resultado Indicador: {{this.[3]}}
 				</p>

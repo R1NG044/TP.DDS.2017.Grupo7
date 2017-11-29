@@ -39,8 +39,7 @@
 		
 		
 		<div id="contenido" align="center"> <br>
-			<p style="border: 2px solid #999999; padding: 15px; background-color: #999999; color: dark grey; font-family: arial,helvetica; font-size: 20px;">Complete los datos del Indicador a evaluar:</p>
-			<form name="formListaIndicadores" action="/indicadores" method="GET" onsubmit="javascript: return enviar();">
+			<form name="formListaIndicadores" action="/indicadores" method="GET" onsubmit="javascript: return enviar();" id="forma3">
 				<p align="center" ><b>RESULTADO Indicador
 				
 				<select id="mySelectIndicadores" onchange="myFunction()" name="mySelectIndicadores" disabled>
@@ -65,8 +64,9 @@
 				<div>
 		<p align="center" >
 			Resultado Indicador: {{this.[3]}}
-		</p>
+		<br><br>
 		<input type="submit" onsubmit="myFunction()" id="volverAIndicadores" value="Volver" class=button />
+		</p>
 		</div>
 			</form>
 							
