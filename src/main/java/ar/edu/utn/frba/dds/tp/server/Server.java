@@ -75,8 +75,8 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 			resultado.add(indicador);
 			resultado.add(empresa);
 			resultado.add(periodo);
-			Double indicadorAux = Aplicacion.probarUnIndicador(indicador, empresa, Integer.parseInt(periodo));
-			resultado.add(indicadorAux.toString());
+			String indicadorAux = Aplicacion.probarUnIndicador(indicador, empresa, Integer.parseInt(periodo));
+			resultado.add(indicadorAux);
 			return new ModelAndView(resultado, "resultadoIndicadores.hbs");
 		}, engine);
 
@@ -114,10 +114,8 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 			resultado.add("IND(" + indicador + ")");
 			resultado.add(empresa);
 			resultado.add(periodo);
-			Double indicadorAux = Aplicacion.probarUnIndicador(indicador, empresa, Integer.parseInt(periodo));
-			resultado.add(indicadorAux.toString());
-			
-			
+			String indicadorAux = Aplicacion.evaluarUnIndicador(indicador, empresa, Integer.parseInt(periodo));
+			resultado.add(indicadorAux);
 			return new ModelAndView(resultado, "resultadoEvaluarIndicador.hbs");
 		}, engine);
 		

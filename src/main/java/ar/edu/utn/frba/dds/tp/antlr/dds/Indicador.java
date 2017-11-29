@@ -62,8 +62,8 @@ public class Indicador implements IExpresion {
 	public double evaluarIndicador(String empresa, Integer periodo) throws Exception {
 		// Primero, validar que el indicador exista en memoria.
 		// Segundo, buscar el indicador en la BD.
-		System.out.printf("El valor del Indicador %s para la Empresa %s y Periodo %d es de: %.2f %n", this.nombre,
-				empresa, periodo, (expresion.calcularResultado(empresa, periodo)));
+		//System.out.printf("El valor del Indicador %s para la Empresa %s y Periodo %d es de: %.2f %n", this.nombre,
+		//		empresa, periodo, (expresion.calcularResultado(empresa, periodo)));
 		return expresion.calcularResultado(empresa, periodo);
 
 	}

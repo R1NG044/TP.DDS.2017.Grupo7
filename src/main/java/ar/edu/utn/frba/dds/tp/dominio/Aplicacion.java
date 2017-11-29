@@ -56,26 +56,37 @@ public final class  Aplicacion {
 	}
 	
 	
-	public static double probarUnIndicador2(String indicador, String empresa, Integer periodo) throws Exception{
-		
-		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromString(Repositorio.getInstance().buscarIndicadorPorNombre(indicador).getFormula()));
-		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		CalculadoraParser parser = new CalculadoraParser(tokens);
-		CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
-		ParserListener listener = new ParserListener();
-		
-		return listener.probarUnIndicador(expresionContext,Repositorio.getInstance().buscarIndicadorPorNombre(indicador), empresa, periodo);
-		
-	}
-public static double probarUnIndicador(String indicador, String empresa, Integer periodo) throws Exception{
+	
+	public static String probarUnIndicador(String indicador, String empresa, Integer periodo) throws Exception{
 		
 		CalculadoraLexer lexer = new CalculadoraLexer(CharStreams.fromString(indicador));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		CalculadoraParser parser = new CalculadoraParser(tokens);
 		CalculadoraParser.ExpresionContext expresionContext = parser.expresion();
 		ParserListener listener = new ParserListener();
+		try{
+			Double aux= listener.probarUnIndicadorNuevo( expresionContext, empresa, periodo);
+			return aux.toString();
+			
+		}catch(Exception e){
+			
+			return ("Error al intentar probar indicador. Por favor verifique que las cuentas o indicadores utilizados se encuentren cargados previamente en el Sistema.");
+		}
+	
 		
-		return listener.probarUnIndicadorNuevo( expresionContext, empresa, periodo);
+	}
+public static String evaluarUnIndicador(String indicador, String empresa, Integer periodo) throws Exception{
+		
+		try{
+			Double aux = Repositorio.getInstance().darIndicadorDeNombre(indicador).calcularResultado(empresa,periodo);
+			return aux.toString();
+			
+		}catch(Exception e){
+			
+			return ("Error al intentar evaluar indicador. Por favor verifique que las empresa y el periodo seleccionados se encuentren cargados previamente en el Sistema.");
+
+		}
+	
 		
 	}
 
@@ -96,7 +107,6 @@ public static String guardarUnIndicador(String nombreIndicador, String formulaIn
 	}catch(Exception e){
 		System.out.println("Error al intentar guardar indicador");
 		return e.getMessage();
-	}
-		
+	}	
 	}
 }

@@ -40,7 +40,7 @@
 		</div>
 		
 		<div id="contenido" align="center"> <br><br>
-			<FORM name="formListaIndicadores" action="/indicadores" method="POST" onsubmit="javascript: return enviar();" id="forma3" align="center">
+			<form name="formListaIndicadores" action="/indicadores/evaluar" method="GET" onsubmit="javascript: return enviar();" id="forma3" align="center">
 				<br><br>
 				<p align="center" ><b>Seleccionar Indicador
 				<select id="mySelectIndicadores" onchange="myFunction()" name="mySelectIndicadores">
@@ -79,7 +79,7 @@
 				<p align="center" >
 					Resultado Indicador: {{this.[3]}}
 				</p>
-				<input type="submit" onsubmit="myFunction()" id="obtenerIndicador" value="Calcular" class=button />
+				<p align="center" ><input type="submit" onsubmit="myFunction()" id="volverAIndicadores" value="Volver" class=button />
 			</form>
 						
 			 
@@ -87,11 +87,11 @@
 	
 	</div>
 	<!-- JQuery -->
-	<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<!-- Bootstrap tooltips -->
-	<script type="text/javascript" src="/js/popper.min.js"></script>
+	<script type="text/javascript" src="js/popper.min.js"></script>
 	<!-- Bootstrap core JavaScript -->
-	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<!-- MDB core JavaScript -->
-	<script type="text/javascript" src="/js/mdb.min.js"></script>
+	<script type="text/javascript" src="js/mdb.min.js"></script>
 </body>
