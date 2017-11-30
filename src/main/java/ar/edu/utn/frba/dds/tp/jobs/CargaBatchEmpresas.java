@@ -72,7 +72,7 @@ public class CargaBatchEmpresas implements org.quartz.Job{
 	}
 	
 	private String getInputFilePath(String input) {
-		return this.getClass().getResource(input).getPath().substring(1);
+		return this.getClass().getResource(input).getPath();
 	}
 
 }
