@@ -38,15 +38,108 @@
 		</div>
 
 		<div id="contenido" align="center"> <br><br>
-			<form name="myForm"  onsubmit="return validateForm()" method="post" id="forma3" align="center">
-					<br><br>
-					<P align="center"><b>Nombre Metodolog&iacutea:	<input type="text" name="Met_name">
+			<h2>Registro de metodologi&#769;as</h2>
+			<input type="text" id="nombreMetodologia" placeholder="Nombre de la Metodologi&#769;a"  style="width:600px"><br><br><br>
+				<form  id="forma1" ><br><br>
+					<input type="checkbox" id="priorizada" onChange="myFunction1()"><b>Metodolog&iacutea Priorizada
 					<br>
-					<P align="center">Nueva F&oacutermula: <input name="valor" type="text" id="formula" />
-					<br>
-					<br>
-					<input type="submit" value="Cargar" id="button">
-			</form>
+					<fieldset >
+						<P align="center"><b>Seleccionar Indicador:	
+						<select id="mySelectIndicadores" onchange="myFunction()" name="prio" disabled>
+							<option >Seleccionar</option>
+							{{#each indicadores}}
+							<option value={{nombre}}>{{nombre}}</option>
+							{{/each}}	
+						</select>
+						<br>
+						<P align="center"><b>Seleccionar Orden:	
+						<select id="orden" name="prio" disabled>
+							<option >Seleccionar</option>
+							<option >Ascendente</option>
+							<option >Descendente</option>
+						</select>
+						
+					</fieldset ><br>
+					<input type="checkbox" id="taxativa" onChange="myFunction2()"><b>Metodolog&iacutea Taxativa
+					<fieldset >
+						<P align="center"><b>Seleccionar Indicador:	
+						<select id="indicadorCondicion" onchange="myFunction()" name="tax" disabled>
+							<option >Seleccionar</option>
+							{{#each indicadores}}
+							<option value={{nombre}}>{{nombre}}</option>
+							{{/each}}	
+						</select>
+						<br>
+						<P align="center"><b>Seleccionar Condici&oacuten:	
+						<select id="criterioCondicion" name="tax" disabled>
+							<option >Seleccionar</option>
+							<option >Mayor A</option>
+							<option >Menor A</option>
+							<option >Igual A</option>
+						</select>
+						<br>
+						<P align="center"><b>Insertar Valor:<input type="text" name="tax" id="valor" disabled>
+						<br>
+						<p align="center">		
+							<button type="button" class="button" id="btn-agregar-condicion"  name="tax"  disabled >Agregar condicio&#769;n</button>
+						</p>
+						<p>Desea que se cumplan:
+						<input type="radio"><b>Todas las condiciones
+						<input type="radio"><b>Al menos una condicio&#769;n
+					</fieldset>
+					
+				</form><br><br><br><br><br><br>
+				<script languaje="javascript">
+					function myFunction1() {
+
+					  var elements = document.getElementsByName("prio");
+					  var el = document.getElementById("priorizada");
+
+					  for (var i = 0; i < elements.length; i++) {
+						if (el.checked) {
+						  elements[i].disabled = false;
+						} else {
+						  elements[i].disabled = true;
+						}
+					  }
+					}
+					
+					function myFunction2() {
+
+					  var elements = document.getElementsByName("tax");
+					  var el = document.getElementById("taxativa");
+
+					  for (var i = 0; i < elements.length; i++) {
+						if (el.checked) {
+						  elements[i].disabled = false;
+						} else {
+						  elements[i].disabled = true;
+						}
+					  }
+					}
+				</script>
+
+				
+					<table class="table table-bordered" id="tabla-resultados">
+						<thead>
+							<tr>
+								<th colspan="3" id="table-header-condiciones">Condiciones</th>
+								
+							</tr>
+							<tr>
+								
+								<th id="table-header-condiciones-indicador">Indicador</th>
+								<th id="table-header-condiciones-criterio">Criterio</th>
+								<th id="table-header-condiciones-valor">Valor</th>
+							</tr>
+							
+						</thead>
+						<tbody id="tabla-metodologias">
+						</tbody>
+					</table>
+				<div class="container-fluid no-padding right-aligned">
+				<button type="button" class="button" id="btn-registro-meto">Registrar</button>
+				</div>
 		</div>
 		
 	</div>
@@ -58,5 +151,11 @@
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<!-- MDB core JavaScript -->
 	<script type="text/javascript" src="js/mdb.min.js"></script>
+		<script src="js/script.js?t=1505655903377"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+			integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+			crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 </body>
 </html>
