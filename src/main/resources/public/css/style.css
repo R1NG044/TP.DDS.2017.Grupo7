@@ -68,6 +68,18 @@
 	text-align: justify;
 }
 
+#forma2{
+	width: 600px;
+	height: 450px;
+	padding: 5px;
+	border-radius: 50px;
+	-webkit-shape-inside: rectangle(0,0,100%,100%,50px,50px);
+	border: 2px solid #000000;
+    box-shadow: 8px 8px 8px black;
+	font-size: 0.8em;
+	text-align: justify;
+}
+
 .linksMenu {
 	background-color: #01A9DB;
     color: #585858;
