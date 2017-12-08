@@ -30,26 +30,31 @@ public class Taxativa {
 	//Devuelve las empresas que cumplen con las reglas segun el tipo de operacion AND/OR
 	public List<Empresa> aplicarMetodologia(List<Empresa> empresas, int periodo){
 		List<Empresa> empresasQueCumplenConReglas = new ArrayList<Empresa>();
+		boolean cumpleLasReglas;
 		
 		for(Empresa e: empresas){
 			if(operacion == "AND"){
-				boolean cumpleTodasLasReglas = true;
+				cumpleLasReglas = true;
 				for (Regla r: this.reglas){
 					if (!evaluarMetodologiaAEmpresa(e, periodo)){
-						cumpleTodasLasReglas = false;
+						cumpleLasReglas = false;
 						break;
 					}
 				}
 				
 			}
 			else{
-				boolean cumpleTodasLasReglas = false;
+				cumpleLasReglas = false;
 				for (Regla r: this.reglas){
 					if (evaluarMetodologiaAEmpresa(e, periodo)){
-						cumpleTodasLasReglas = true;
+						cumpleLasReglas = true;
 						break;
 					}
 				}
+			}
+			
+			if(cumpleLasReglas){
+				empresasQueCumplenConReglas.add(e);	
 			}
 			
 		}
