@@ -9,18 +9,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
-import ar.edu.utn.frba.dds.tp.dominio.Metodologia;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 import ar.edu.utn.frba.dds.tp.dominio.Usuario;
 
@@ -72,21 +67,6 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 		 * A su vez la Empresa Axion esta duplicada pero con cuentas distintas
 		 * vemos que en el repo solo se cargo una empresa con las 2 cuentas
 		 */
-
-	}
-
-
-	@Test
-	public void persistirMetodologias() {
-		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-
-		EntityTransaction tx = entityManager.getTransaction();
-		tx.begin();
-		Metodologia m = new Metodologia("Buffet", new Usuario(1, "Brenda"));
-
-		entityManager.persist(m);
-
-		tx.commit();
 
 	}
 
@@ -151,6 +131,22 @@ public class TestPersistencia extends AbstractPersistenceTest implements WithGlo
 	}
 
 	/** TEST VIEJOS **/
+//	@Test
+//	public void persistirMetodologias() {
+//		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+//
+//		EntityTransaction tx = entityManager.getTransaction();
+//		tx.begin();
+//		Metodologia m = new Metodologia("Buffet", new Usuario(1, "Brenda"));
+//
+//		entityManager.persist(m);
+//
+//		tx.commit();
+//
+//	}
+
+	
+	
 	// @Test
 	// public void cargarJSONEmpresasYCuentasABaseDeDatos() throws
 	// FileNotFoundException {

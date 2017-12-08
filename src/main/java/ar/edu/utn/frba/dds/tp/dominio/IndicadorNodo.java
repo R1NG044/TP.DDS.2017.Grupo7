@@ -1,8 +1,8 @@
 package ar.edu.utn.frba.dds.tp.dominio;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
 import ar.edu.utn.frba.dds.tp.antlr.dds.IndicadorEmpresa;
 
 public class IndicadorNodo{

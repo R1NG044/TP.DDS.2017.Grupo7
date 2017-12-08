@@ -5,11 +5,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-
-import ar.edu.utn.frba.dds.tp.antlr.dds.*;
-import ar.edu.utn.frba.dds.tp.dominio.Empresa;
 
 
 @Entity(name="IndicadorEmpresa")

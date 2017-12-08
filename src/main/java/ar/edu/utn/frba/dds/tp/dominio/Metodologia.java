@@ -1,18 +1,12 @@
 package ar.edu.utn.frba.dds.tp.dominio;
 
-import java.util.ArrayList;
-import javax.persistence.*;
-
-import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
-
-
 //@Entity(name="Metodologia")
 //@Table(name = "metodologia")
 //@NamedQuery(name="buscarMetodologiaPorUser",query="SELECT i FROM Metodologia i WHERE i.usuario.id = :pIdUsuario OR i.usuario.id = 0")
-public class Metodologia {
+public abstract class Metodologia {
 	
 	//@Id @GeneratedValue
-	private Integer id;
+	//private Integer id;
 	
 	//@ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;
@@ -26,7 +20,7 @@ public class Metodologia {
 		this.usuario = user;
 	}
 	
-	public ArrayList<Empresa> evaluarMetodologia(ArrayList<Empresa> empresas){
+	/*public ArrayList<Empresa> evaluarMetodologia(ArrayList<Empresa> empresas){
 		
 		//Mandar la lista de empresas al workbench para que filtre las que no
 		//conviene invertir HOY y devuelva ordenadas en orden de prioridad.
@@ -40,27 +34,16 @@ public class Metodologia {
 		
 		return null;
 		
-	}
-	
-	public ArrayList<Empresa> cargarIndicadores(ArrayList<Empresa> empresas, ArrayList<Indicador> indicadores){
-		
-		for(Empresa empr:empresas){
-			//La empresa ya posee sus cuentas con sus periodos:  
-			//Pregunta: Filtrar periodo en Kie server o en la aplicacion?
-			//Evaluo y agrego Indicadores a una lista, evaluados en el periodo
-		}
-		return empresas;
-		
-	}
+	}*/
 	
 	// ---getters y setters---
-	public long getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+//	public long getId() {
+//		return id;
+//	}
+//
+//	public void setId(Integer id) {
+//		this.id = id;
+//	}
 
 	public Usuario getUsuario() {
 		return usuario;

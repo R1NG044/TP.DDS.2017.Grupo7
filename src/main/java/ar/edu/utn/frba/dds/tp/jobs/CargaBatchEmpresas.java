@@ -1,32 +1,20 @@
 package ar.edu.utn.frba.dds.tp.jobs;
-import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
-import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
-
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.quartz.impl.StdSchedulerFactory;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
-
-import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
-
-import static org.quartz.JobBuilder.*;
-import static org.quartz.TriggerBuilder.*;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.FileTime;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
 
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import static org.quartz.SimpleScheduleBuilder.*;
+import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
+import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 
 public class CargaBatchEmpresas implements org.quartz.Job{
 
@@ -72,7 +60,7 @@ public class CargaBatchEmpresas implements org.quartz.Job{
 	}
 	
 	private String getInputFilePath(String input) {
-		return this.getClass().getResource(input).getPath();
+		return this.getClass().getResource(input).getPath().substring(1);
 	}
 
 }

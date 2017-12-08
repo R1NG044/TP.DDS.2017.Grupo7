@@ -1,8 +1,9 @@
 package ar.edu.utn.frba.dds.tp.jobs;
 
-import java.util.Date;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Entity(name="HistorialCargaBatch")

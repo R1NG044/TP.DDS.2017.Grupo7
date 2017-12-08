@@ -43,8 +43,8 @@ public class Usuario {
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Indicador> indicadores;
 
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Metodologia> metodologias;
+//	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+//	private List<Metodologia> metodologias;
 
 	
 
@@ -79,13 +79,13 @@ public class Usuario {
 	public void setIndicadores(List<Indicador> indicadores) {
 		this.indicadores = indicadores;
 	}
-
-	public List<Metodologia> getMetodologias() {
-		return metodologias;
-	}
-
-	public void setMetodologias(List<Metodologia> metodologias) {
-		this.metodologias = metodologias;
-	}
+//
+//	public List<Metodologia> getMetodologias() {
+//		return metodologias;
+//	}
+//
+//	public void setMetodologias(List<Metodologia> metodologias) {
+//		this.metodologias = metodologias;
+//	}
 
 }

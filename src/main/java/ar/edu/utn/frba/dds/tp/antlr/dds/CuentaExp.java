@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.tp.antlr.dds;
 
-import ar.edu.utn.frba.dds.tp.dominio.*;
+import ar.edu.utn.frba.dds.tp.dominio.Cuenta;
+import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 
 public class CuentaExp implements IExpresion {
 
