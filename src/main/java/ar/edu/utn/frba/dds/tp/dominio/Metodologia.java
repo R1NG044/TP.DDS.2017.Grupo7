@@ -6,15 +6,15 @@ import javax.persistence.*;
 import ar.edu.utn.frba.dds.tp.antlr.dds.Indicador;
 
 
-@Entity(name="Metodologia")
-@Table(name = "metodologia")
-@NamedQuery(name="buscarMetodologiaPorUser",query="SELECT i FROM Metodologia i WHERE i.usuario.id = :pIdUsuario OR i.usuario.id = 0")
+//@Entity(name="Metodologia")
+//@Table(name = "metodologia")
+//@NamedQuery(name="buscarMetodologiaPorUser",query="SELECT i FROM Metodologia i WHERE i.usuario.id = :pIdUsuario OR i.usuario.id = 0")
 public class Metodologia {
 	
-	@Id @GeneratedValue
+	//@Id @GeneratedValue
 	private Integer id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	//@ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;
 	private String nombre;
 		
@@ -76,6 +76,13 @@ public class Metodologia {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	// ---Metodos---
+	public double aplicarMetodologia(Integer periodo) throws Exception {
+		
+		
+		return periodo;
 	}
 
 }
