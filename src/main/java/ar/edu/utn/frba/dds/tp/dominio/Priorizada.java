@@ -11,16 +11,18 @@ public class Priorizada extends Metodologia {
 	String indicador;
 	String orden;
 
-	public Priorizada(String indicador, String orden) {
+	public Priorizada(String indicador, String orden, String nombre) {
 		super();
 		this.indicador = indicador;
 		this.orden = orden;
+		super.setNombre(nombre);
+		super.setTipo("priorizada");
 	}
 
 	// --Metodos
 
 	// Devuelve lista de empresas con su orden despues de calcular el indicador
-	public List<String> aplicarMetodologia(List<Empresa> empresas, Integer periodo) {
+	public ArrayList<Empresa> aplicarMetodologia(ArrayList<Empresa> empresas, int periodo) {
 		if (orden.equals("DESCENDENTE")) {
 			SortedMap<Double, Empresa> map = new TreeMap<Double, Empresa>(java.util.Collections.reverseOrder());
 			return cargarMap(map, empresas, periodo);
@@ -31,7 +33,7 @@ public class Priorizada extends Metodologia {
 		}
 	}
 
-	private List<String> cargarMap(SortedMap<Double, Empresa> map, List<Empresa> empresas, Integer periodo) {
+	private ArrayList<Empresa> cargarMap(SortedMap<Double, Empresa> map, List<Empresa> empresas, Integer periodo) {
 		for (Empresa e : empresas) {
 
 			try {
@@ -46,11 +48,11 @@ public class Priorizada extends Metodologia {
 		}
 
 		Iterator<Double> iterator = map.keySet().iterator();
-		List<String> empresasEvaluadasyOrdenadas = new ArrayList<String>();
+		ArrayList<Empresa> empresasEvaluadasyOrdenadas = new ArrayList<Empresa>();
 		while (iterator.hasNext()) {
 			Double key = iterator.next();
 			System.out.println("Clave : " + key + " Valor :" + map.get(key).getNombre());
-			empresasEvaluadasyOrdenadas.add(map.get(key).getNombre());
+			empresasEvaluadasyOrdenadas.add(map.get(key));
 		}
 		return empresasEvaluadasyOrdenadas;
 	}

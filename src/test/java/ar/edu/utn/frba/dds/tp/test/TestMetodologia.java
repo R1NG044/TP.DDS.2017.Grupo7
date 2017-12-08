@@ -1,9 +1,12 @@
 package ar.edu.utn.frba.dds.tp.test;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
+import ar.edu.utn.frba.dds.tp.dominio.Empresa;
 import ar.edu.utn.frba.dds.tp.dominio.Priorizada;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 
@@ -24,8 +27,8 @@ public class TestMetodologia {
 	
 	 @Test 
 	 public void testOrdenarMetodologia(){
-		 Priorizada priorizada = new Priorizada("INGRESONETO","ASCENDENTE");
-		 priorizada.aplicarMetodologia(Repositorio.getInstance().getEmpresas(), (Integer) 2017);
+		 Priorizada priorizada = new Priorizada("INGRESONETO","ASCENDENTE", "metodologia2");
+		 ArrayList<Empresa> empresas = priorizada.aplicarMetodologia((ArrayList<Empresa>)Repositorio.getInstance().getEmpresas(), 2017);
 
 	 }
 	

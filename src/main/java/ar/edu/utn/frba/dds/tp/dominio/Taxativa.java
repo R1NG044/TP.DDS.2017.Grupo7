@@ -5,10 +5,12 @@ import java.util.List;
 
 public class Taxativa extends Metodologia {
 
-	public Taxativa(List<Regla> reglas, String operacion) {
+	public Taxativa(List<Regla> reglas, String operacion, String nombre) {
 		super();
 		this.reglas = reglas;
 		this.operacion = operacion;
+		super.setNombre(nombre);
+		super.setTipo("taxativa");
 	}
 
 	List<Regla> reglas;
@@ -34,7 +36,7 @@ public class Taxativa extends Metodologia {
 	//--- Metodos ---
 	
 	//Devuelve las empresas que cumplen con las reglas segun el tipo de operacion AND/OR
-	public ArrayList<Empresa> aplicarMetodologia(List<Empresa> empresas, int periodo) throws Exception{
+	public ArrayList<Empresa> aplicarMetodologia(ArrayList<Empresa> empresas, int periodo) throws Exception{
 		ArrayList<Empresa> empresasQueCumplenConReglas = new ArrayList<Empresa>();
 		boolean cumpleLasReglas;
 		
@@ -72,7 +74,6 @@ public class Taxativa extends Metodologia {
 	public boolean evaluarMetodologiaAEmpresa(Empresa empresa, int periodo, Regla r) throws Exception{
 		
 		return r.aplicarRegla(empresa, periodo);
-	}
-	
+	}	
 	
 }

@@ -2,6 +2,9 @@ package ar.edu.utn.frba.dds.tp.test;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import static org.junit.Assert.*;
+
 import java.time.temporal.*;
 import java.util.List;
 
@@ -39,9 +42,9 @@ public class TestRules {
 		ArrayList<Regla> reglas = new ArrayList<Regla>();
 		//reglas.add(new Regla("ROE", "Mayor a", 18119));
 		reglas.add(new Regla("INGRESONETO", "Mayor a", 18119));
-		Taxativa metodologia = new Taxativa(reglas, "AND");
+		Taxativa metodologia = new Taxativa(reglas, "AND", "metodologia1");
 		
-		ArrayList<Empresa> empresasAfterTaxativa = metodologia.aplicarMetodologia(Repositorio.getInstance().getEmpresas(), 2017);
+		ArrayList<Empresa> empresasAfterTaxativa = metodologia.aplicarMetodologia((ArrayList<Empresa>)Repositorio.getInstance().getEmpresas(), 2017);
 		// evaluar metodologia contra todas las empresas
 		for(Empresa e: empresasAfterTaxativa){
 			System.out.println("Empresa que cumple con la metodologia I Neto: " + e.getNombreEmpresa());
@@ -54,17 +57,44 @@ public class TestRules {
 		
 		// crear metodologia
 		ArrayList<Regla> reglas = new ArrayList<Regla>();
-		//reglas.add(new Regla("ROE", "Mayor a", 18119));
+		
 		reglas.add(new Regla("INGRESONETO", "Mayor a", 18130));
 		reglas.add(new Regla("ROE", "Mayor a", 18119));
-		Taxativa metodologia = new Taxativa(reglas, "OR");
+		Taxativa metodologia = new Taxativa(reglas, "OR", "metodologia1");
 		
-		ArrayList<Empresa> empresasAfterTaxativa = metodologia.aplicarMetodologia(Repositorio.getInstance().getEmpresas(), 2017);
+		ArrayList<Empresa> empresasAfterTaxativa = metodologia.aplicarMetodologia((ArrayList<Empresa>)Repositorio.getInstance().getEmpresas(), 2017);
 		// evaluar metodologia contra todas las empresas
 		for(Empresa e: empresasAfterTaxativa){
 			System.out.println("Empresa que cumple con metodologia de I Neto + ROE: " + e.getNombreEmpresa());
 		}
-		//assertEquals(empresas)
+		
+		
+	}
+	
+	@Test
+	public void testTaxativaYPriorizada() throws Exception{
+		ArrayList<Regla> reglas = new ArrayList<Regla>();
+		
+		
+		reglas.add(new Regla("INGRESONETO", "Mayor a", 18119));
+		//reglas.add(new Regla("ROE", "Mayor a", 18119));
+		Taxativa metodologiaTax = new Taxativa(reglas, "OR", "metodologia1");
+		
+		Repositorio.getInstance().agregarMetodologia(metodologiaTax);
+		
+		
+		/*
+		Priorizada metodologiaPrio = new Priorizada("INGRESONETO", "ASCENDENTE", "metodologia1");
+		Repositorio.getInstance().agregarMetodologia(metodologiaPrio);
+		*/
+		ArrayList<Empresa> empresasAfterMetodologias = Aplicacion.evaluarMetodologia("metodologia1", 2017);
+		
+		for(Empresa e: empresasAfterMetodologias){
+			System.out.println("Empresa que cumple con metodologia que tiene tax y prio: " + e.getNombreEmpresa());
+		}
+		
+		assertTrue(empresasAfterMetodologias.get(0).getNombre().equals("AXION"));
+		
 	}
 
 

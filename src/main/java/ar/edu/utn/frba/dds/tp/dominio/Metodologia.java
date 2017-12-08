@@ -1,5 +1,7 @@
 package ar.edu.utn.frba.dds.tp.dominio;
 
+import java.util.ArrayList;
+
 //@Entity(name="Metodologia")
 //@Table(name = "metodologia")
 //@NamedQuery(name="buscarMetodologiaPorUser",query="SELECT i FROM Metodologia i WHERE i.usuario.id = :pIdUsuario OR i.usuario.id = 0")
@@ -11,9 +13,18 @@ public abstract class Metodologia {
 	//@ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;
 	private String nombre;
+	private String tipo;
 		
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
 	public Metodologia(){
-		}
+	}
 	
 	public Metodologia(String nombre, Usuario user){
 		this.nombre = nombre;
@@ -62,10 +73,6 @@ public abstract class Metodologia {
 	}
 	
 	// ---Metodos---
-	public double aplicarMetodologia(Integer periodo) throws Exception {
-		
-		
-		return periodo;
-	}
+	public abstract ArrayList<Empresa> aplicarMetodologia(ArrayList<Empresa> empresas, int periodo) throws Exception;
 
 }

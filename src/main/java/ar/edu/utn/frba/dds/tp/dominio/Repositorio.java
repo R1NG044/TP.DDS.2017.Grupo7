@@ -33,6 +33,8 @@ public final class Repositorio implements WithGlobalEntityManager {
 	private List<Empresa> empresas = new ArrayList<Empresa>();
 
 	private List<Indicador> indicadores = new ArrayList<Indicador>();
+	
+	private ArrayList<Metodologia> metodologias = new ArrayList<Metodologia>();
 
 	private static Repositorio REPO = null;
 
@@ -217,6 +219,21 @@ public final class Repositorio implements WithGlobalEntityManager {
 		return null;
 	}
 
+	public void agregarMetodologia(Metodologia m){
+		metodologias.add(m);
+	}
+	
+	public Metodologia buscarMetodologiaPorNombreYTipo(String nombreMetodologia, String tipoMetodologia) {
+		
+		for (Metodologia m: metodologias){
+			if (m.getNombre() == nombreMetodologia && m.getTipo() == tipoMetodologia){
+				return m;
+			}
+		}
+		
+		return null;
+	}
+	
 	public void cargarListaDeMetodologias(List<Metodologia> metodologias) {
 		// TODO Auto-generated method stub
 

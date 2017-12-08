@@ -140,6 +140,30 @@ public final class Aplicacion {
 
 	}
 	
+	public static ArrayList<Empresa> evaluarMetodologia(String nombreMetodologia, int periodo) throws Exception{
+		
+		ArrayList<Empresa> empresasResultado = null;
+		
+		//Evaluo la taxativa, si es que hay
+		Metodologia metodologiaTaxativa = Repositorio.getInstance().buscarMetodologiaPorNombreYTipo(nombreMetodologia, "taxativa");
+		if(metodologiaTaxativa != null){
+			empresasResultado = metodologiaTaxativa.aplicarMetodologia((ArrayList<Empresa>) Repositorio.getInstance().getEmpresas(), periodo);
+		}
+		
+		
+		//Evaluo la priorizada
+		Metodologia metodologiaPriorizada = Repositorio.getInstance().buscarMetodologiaPorNombreYTipo(nombreMetodologia, "priorizada");
+		
+		if(metodologiaPriorizada != null){
+			if(empresasResultado != null){		
+				empresasResultado = metodologiaPriorizada.aplicarMetodologia(empresasResultado, periodo);
+			}else{
+				empresasResultado = metodologiaPriorizada.aplicarMetodologia((ArrayList<Empresa>) Repositorio.getInstance().getEmpresas(), periodo);	
+			}
+		}
+		
+		return empresasResultado;
+	}
 	
 
 }
