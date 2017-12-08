@@ -6,6 +6,7 @@ import java.time.temporal.*;
 import java.util.List;
 
 import org.drools.compiler.kproject.ReleaseIdImpl;
+import org.junit.Before;
 import org.junit.Test;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
@@ -19,6 +20,54 @@ import ar.edu.utn.frba.dds.tp.dominio.*;
 
 
 public class TestRules {
+	
+	@Before
+ 	public void SetUp() {
+ 			 			
+		try {
+			Aplicacion.cargaDesdeBDaRepoPorUser(1);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+ 	}
+	
+	@Test
+	public void testTaxativaUnaRegla() throws Exception{
+		
+		// crear metodologia
+		ArrayList<Regla> reglas = new ArrayList<Regla>();
+		//reglas.add(new Regla("ROE", "Mayor a", 18119));
+		reglas.add(new Regla("INGRESONETO", "Mayor a", 18119));
+		Taxativa metodologia = new Taxativa(reglas, "AND");
+		
+		ArrayList<Empresa> empresasAfterTaxativa = metodologia.aplicarMetodologia(Repositorio.getInstance().getEmpresas(), 2017);
+		// evaluar metodologia contra todas las empresas
+		for(Empresa e: empresasAfterTaxativa){
+			System.out.println("Empresa que cumple con la metodologia I Neto: " + e.getNombreEmpresa());
+		}
+		//assertEquals(empresas)
+	}
+	
+	@Test
+	public void testTaxativaDosReglas() throws Exception{
+		
+		// crear metodologia
+		ArrayList<Regla> reglas = new ArrayList<Regla>();
+		//reglas.add(new Regla("ROE", "Mayor a", 18119));
+		reglas.add(new Regla("INGRESONETO", "Mayor a", 18130));
+		reglas.add(new Regla("ROE", "Mayor a", 18119));
+		Taxativa metodologia = new Taxativa(reglas, "OR");
+		
+		ArrayList<Empresa> empresasAfterTaxativa = metodologia.aplicarMetodologia(Repositorio.getInstance().getEmpresas(), 2017);
+		// evaluar metodologia contra todas las empresas
+		for(Empresa e: empresasAfterTaxativa){
+			System.out.println("Empresa que cumple con metodologia de I Neto + ROE: " + e.getNombreEmpresa());
+		}
+		//assertEquals(empresas)
+	}
+
+
 	
 //@Test
 public void evaluarMetodologiaBuffet(){
@@ -109,6 +158,7 @@ public void testEjemploDrools(){
     System.out.println(e.getNombre());
     
 }
+
 
 
 

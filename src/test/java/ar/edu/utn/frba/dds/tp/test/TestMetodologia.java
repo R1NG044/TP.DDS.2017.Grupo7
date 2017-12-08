@@ -22,7 +22,8 @@ public class TestMetodologia {
 	}
 
 	
-	 @Test public void testOrdenarMetodología(){
+	 @Test 
+	 public void testOrdenarMetodologia(){
 		 Priorizada priorizada = new Priorizada("INGRESONETO","ASCENDENTE");
 		 priorizada.aplicarMetodologia(Repositorio.getInstance().getEmpresas(), (Integer) 2017);
 

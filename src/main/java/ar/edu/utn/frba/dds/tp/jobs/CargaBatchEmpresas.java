@@ -50,7 +50,7 @@ public class CargaBatchEmpresas implements org.quartz.Job{
 				System.out.println("El archivo empresasJson.txt ha sido procesado - "+ dateFormat.format(date));
 				
 			}else{
-				System.out.println("El archivo empresasJson.txt no será procesado porque ya ha sido procesado anteriormente.");
+				System.out.println("El archivo empresasJson.txt no serï¿½ procesado porque ya ha sido procesado anteriormente.");
 			}
 				
 		}
@@ -60,7 +60,7 @@ public class CargaBatchEmpresas implements org.quartz.Job{
 	}
 	
 	private String getInputFilePath(String input) {
-		return this.getClass().getResource(input).getPath().substring(1);
+		return this.getClass().getResource(input).getPath();
 	}
 
 }
