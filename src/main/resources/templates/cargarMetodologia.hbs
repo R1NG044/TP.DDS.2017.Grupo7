@@ -39,13 +39,16 @@
 
 		<div id="contenido" align="center"> <br><br>
 			<h2>Registro de metodologi&#769;as</h2>
-			<input type="text" id="nombreMetodologia" placeholder="Nombre de la Metodologi&#769;a"  style="width:600px"><br><br><br>
-				<form  id="forma2" ><br><br>
-					<input type="checkbox" id="priorizada" onChange="myFunction1()"><b>Metodolog&iacutea Priorizada
+			
+				<!-- P R I O R I Z A D A -->
+				<form id="forma2" style="height: 495px;" method="POST" action="/resultadoCargarMetodologia" ><br><br>
+					
+					<input type="text" name="nombreMetodologia" placeholder="Nombre de la Metodologi&#769;a"  style="width:600px"><br><br><br>
+					<input type="checkbox" id="priorizada" name="chkPriorizada" onChange="myFunction1()"><b>Metodolog&iacutea Priorizada
 					<br>
 					<fieldset >
 						<P align="center"><b>Seleccionar Indicador:	
-						<select id="mySelectIndicadores" name="prio" disabled>
+						<select id="mySelectIndicadores" name="selectIndicadoresPrio" disabled>
 							<option >Seleccionar</option>
 							{{#each indicadores}}
 							<option value={{nombre}}>{{nombre}}</option>
@@ -53,17 +56,19 @@
 						</select>
 						<br>
 						<P align="center"><b>Seleccionar Orden:	
-						<select id="orden" name="prio" disabled>
+						<select id="orden" name="selectOrdenPrio" disabled>
 							<option >Seleccionar</option>
 							<option >Ascendente</option>
 							<option >Descendente</option>
 						</select>
-						
+						<p>*Segun el indicador seleccionado, las empresas que no puedan evaluar el indicador en el periodo elegido, no se mostraran en el resultado de la metodologia.</p>
 					</fieldset ><br>
-					<input type="checkbox" id="taxativa" onChange="myFunction2()"><b>Metodolog&iacutea Taxativa
+					
+					<!-- T A X A T I V A -->
+					<input type="checkbox" id="taxativa" name="chkTaxativa" onChange="myFunction2()"><b>Metodolog&iacutea Taxativa
 					<fieldset >
 						<P align="center"><b>Seleccionar Indicador:	
-						<select id="indicadorCondicion" name="tax" disabled>
+						<select id="indicadorCondicion" name="taxIndicadorCondicion" disabled>
 							<option >Seleccionar</option>
 							{{#each indicadores}}
 							<option value={{nombre}}>{{nombre}}</option>
@@ -71,51 +76,71 @@
 						</select>
 						<br>
 						<P align="center"><b>Seleccionar Condici&oacuten:	
-						<select id="criterioCondicion" name="tax" disabled>
+						<select id="criterioCondicion" name="taxCriterioCondicion" disabled>
 							<option >Seleccionar</option>
 							<option >Mayor A</option>
 							<option >Menor A</option>
 							<option >Igual A</option>
 						</select>
 						<br>
-						<P align="center"><b>Insertar Valor:<input type="text" name="tax" id="valor" disabled>
+						<P align="center"><b>Insertar Valor:<input type="text" name="txtTaxValor" id="valor" disabled>
 						<br>
 						<p align="center">		
-							<button type="button" class="button" id="btn-agregar-condicion"  name="tax"  disabled >Agregar condicio&#769;n</button>
+							<button type="button" class="button" id="btn-agregar-condicion"  name="taxButton"  disabled >Agregar condicio&#769;n</button>
 						</p>
 						<p>Desea que se cumplan:
 						<input type="radio" name="radioCondiciones"><b>Todas las condiciones
 						<input type="radio" name="radioCondiciones"><b>Al menos una condicio&#769;n
 					</fieldset>
 					
-				</form><br><br><br><br><br><br>
+				<br><br><br><br><br><br>
 				<script languaje="javascript">
 					function myFunction1() {
 
-					  var elements = document.getElementsByName("prio");
+					  //var elements = document.getElementsByName("prio");
+					  var elementsIndicadores = document.getElementsByName("selectIndicadoresPrio");
+					  var elementsOrdenPrio = document.getElementsByName("selectOrdenPrio");
+					  
+					  
+					  
 					  var el = document.getElementById("priorizada");
 
-					  for (var i = 0; i < elements.length; i++) {
+					  //for (var i = 0; i < elements.length; i++) {
 						if (el.checked) {
-						  elements[i].disabled = false;
+						  //elements[i].disabled = false;
+						  elementsIndicadores[0].disabled = false;
+						  elementsOrdenPrio[0].disabled = false;
 						} else {
-						  elements[i].disabled = true;
+						 // elements[i].disabled = true;
+							 elementsIndicadores[0].disabled = true;
+							  elementsOrdenPrio[0].disabled = true;
 						}
-					  }
+					  //}
 					}
 					
 					function myFunction2() {
 
-					  var elements = document.getElementsByName("tax");
+					  //var elements = document.getElementsByName("tax");
+					  var elementsTax1 = document.getElementsByName("taxIndicadorCondicion");
+					  var elementsTax2 = document.getElementsByName("taxCriterioCondicion");
+					  var elementsTax3 = document.getElementsByName("txtTaxValor");
+					  
+					  
 					  var el = document.getElementById("taxativa");
 
-					  for (var i = 0; i < elements.length; i++) {
+					  //for (var i = 0; i < elements.length; i++) {
 						if (el.checked) {
-						  elements[i].disabled = false;
+						  //elements[i].disabled = false;
+						  elementsTax1[0].disabled = false;
+						  elementsTax2[0].disabled = false;
+						  elementsTax3[0].disabled = false;
 						} else {
-						  elements[i].disabled = true;
+						  //elements[i].disabled = true;
+						  elementsTax1[0].disabled = true;
+						  elementsTax2[0].disabled = true;
+						  elementsTax3[0].disabled = true;
 						}
-					  }
+					  //}
 					}
 				</script>
 
@@ -138,8 +163,9 @@
 						</tbody>
 					</table>
 				<div class="container-fluid no-padding right-aligned">
-				<button type="button" class="button" id="btn-registro-meto">Registrar</button>
+				<button type="submit" class="button" id="btn-registro-meto">Registrar</button>
 				</div>
+				</form>
 		</div>
 		
 	</div>

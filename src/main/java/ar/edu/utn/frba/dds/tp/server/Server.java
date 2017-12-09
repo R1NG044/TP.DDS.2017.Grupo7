@@ -10,11 +10,8 @@ import java.util.List;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
-import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
-import ar.edu.utn.frba.dds.tp.dominio.Cuenta;
-import ar.edu.utn.frba.dds.tp.dominio.Metodologia;
-import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
-import ar.edu.utn.frba.dds.tp.dominio.Usuario;
+import ar.edu.utn.frba.dds.tp.dominio.*;
+
 import ar.edu.utn.frba.dds.tp.jobs.Job;
 import spark.ModelAndView;
 import spark.Spark;
@@ -222,6 +219,43 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 		Spark.get("/metodologias/cargar", (req, res) -> {
 
 			return new ModelAndView(Repositorio.getInstance(), "cargarMetodologia.hbs");
+		}, engine);
+		
+		Spark.post("/resultadoCargarMetodologia", (req, res) -> {
+			
+			Priorizada metodPriorizada = null;
+			Taxativa metodTaxativa = null;
+			
+			// Priorizada
+			if(req.queryParams("chkPriorizada")!= null){
+				if(req.queryParams("chkPriorizada").toString().equals("on")){
+					metodPriorizada = new Priorizada(req.queryParams("selectIndicadoresPrio"), req.queryParams("selectOrdenPrio"), req.queryParams("nombreMetodologia"));	
+			
+				}
+			}
+			
+			//Taxativa
+			if(req.queryParams("chkTaxativa") != null){
+				if(req.queryParams("chkTaxativa").toString().equals("on")){
+					
+				
+					ArrayList<Regla> reglas = new ArrayList<Regla>();
+					reglas.add(new Regla(req.queryParams("taxIndicadorCondicion"), req.queryParams("taxCriterioCondicion"), Double.parseDouble(req.queryParams("txtTaxValor"))));
+					
+					metodTaxativa = new Taxativa(reglas, req.queryParams("radioCondiciones"), req.queryParams("nombreMetodologia"));
+				}
+			}
+			
+			if(metodPriorizada != null){
+				Repositorio.getInstance().agregarMetodologia(metodPriorizada);
+			}
+			
+			if(metodTaxativa != null){
+				Repositorio.getInstance().agregarMetodologia(metodTaxativa);
+			}
+			
+	
+			return new ModelAndView("Se han agregado las metodologias satisfactoriamente.", "resultadoCargarMetodologias.hbs");
 		}, engine);
 
 		Spark.get("/logout", (req, res) -> {

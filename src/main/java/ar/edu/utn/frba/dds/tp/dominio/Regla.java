@@ -41,10 +41,11 @@ public class Regla {
 	public boolean aplicarRegla(Empresa empresa, int periodo) throws Exception{
 		boolean resultado;
 		
-		switch(operacion){
-			case "Mayor a":
+		Indicador indicador = Repositorio.getInstance().darIndicadorDeNombre(this.indicador);
+		switch(operacion.toLowerCase()){
+			case "mayor a":
 				//Get indicador from Repo.
-				Indicador indicador = Repositorio.getInstance().darIndicadorDeNombre(this.indicador);
+				
 				try{
 					resultado = indicador.calcularResultado(empresa.getNombre(), periodo) > valor;	
 					return resultado;
@@ -52,6 +53,22 @@ public class Regla {
 					
 					return false;
 				}
+		case "menor a":
+				try{
+					resultado = indicador.calcularResultado(empresa.getNombre(), periodo) < valor;	
+					return resultado;
+				}catch (Exception e){
+					
+					return false;
+				}
+		case "igual a":
+			try{
+				resultado = indicador.calcularResultado(empresa.getNombre(), periodo) == valor;	
+				return resultado;
+			}catch (Exception e){
+				
+				return false;
+			}
 		}
 		
 		return false;
