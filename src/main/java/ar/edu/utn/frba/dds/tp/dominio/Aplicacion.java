@@ -115,6 +115,7 @@ public final class Aplicacion {
 	public static void iniciarAppconCargaDeDatosPredefinidos() throws IOException {
 		cargarUsers();
 		cargarIndicadoresPredefinidos();
+		cargarMetodologias();
 
 	}
 
@@ -122,6 +123,21 @@ public final class Aplicacion {
 		if (!Repositorio.getInstance().existenIndicadoresEnBD())
 			Repositorio.getInstance().cargarIndicadoresPredefinidos();
 
+	}
+	
+	private static void cargarMetodologias() throws IOException{
+		
+		ArrayList<Regla> reglas = new ArrayList<Regla>();
+		
+		reglas.add(new Regla("INGRESONETO", "Mayor a", 18119));
+		//reglas.add(new Regla("ROE", "Mayor a", 18119));
+		Taxativa metodologiaTax = new Taxativa(reglas, "OR", "metodologia1");
+		
+		Repositorio.getInstance().agregarMetodologia(metodologiaTax);
+		
+		Priorizada metodologiaPrio = new Priorizada("INGRESONETO", "ASCENDENTE", "metodologia1");
+		Repositorio.getInstance().agregarMetodologia(metodologiaPrio);
+		
 	}
 
 	public static void ActualizarValoresPrecargados() {
@@ -140,7 +156,7 @@ public final class Aplicacion {
 
 	}
 	
-	public static ArrayList<Empresa> evaluarMetodologia(String nombreMetodologia, int periodo) throws Exception{
+	public static ArrayList<String> evaluarMetodologia(String nombreMetodologia, int periodo) throws Exception{
 		
 		ArrayList<Empresa> empresasResultado = null;
 		
@@ -155,14 +171,23 @@ public final class Aplicacion {
 		Metodologia metodologiaPriorizada = Repositorio.getInstance().buscarMetodologiaPorNombreYTipo(nombreMetodologia, "priorizada");
 		
 		if(metodologiaPriorizada != null){
-			if(empresasResultado != null){		
+			if(empresasResultado != null){
 				empresasResultado = metodologiaPriorizada.aplicarMetodologia(empresasResultado, periodo);
 			}else{
 				empresasResultado = metodologiaPriorizada.aplicarMetodologia((ArrayList<Empresa>) Repositorio.getInstance().getEmpresas(), periodo);	
 			}
 		}
 		
-		return empresasResultado;
+		//Convierto array list<Empresa> a ArrayList<String>
+		ArrayList<String> empresasResultadoString = new ArrayList<String>();
+		
+		if(empresasResultado != null && empresasResultado.size() > 0){
+			for(Empresa e: empresasResultado){
+				empresasResultadoString.add(e.getNombre());
+			}
+		}
+		
+		return empresasResultadoString;
 	}
 	
 

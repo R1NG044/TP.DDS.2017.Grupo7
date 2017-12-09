@@ -8,12 +8,13 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="css/mdb.min.css" rel="stylesheet">
+    <link href="/css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 </head>
+
 <body>
 	<div id="contenedor">
 		<div id="cabecera" align="center" ><h1 >SISTEMA DE APOYO A DECISIONES</h1></div>
@@ -29,45 +30,37 @@
 				</ul>
 			</nav>
 		</div>
+		
 		<div id="submenu">
 			<br>
-			<p class="linksActual">Aplicar Metodolog&iacutea</p>
+			<p class="linksActual">Aplicar Metodologia</p>
 			<p class="linksSubmenu"><a href="/metodologias/cargar" class="links">Cargar Metodolog&iacutea</a></p>
 		</div>
 		
-		<div id="contenido" align="center"> <br><br>
-			<form id="forma3" name="forma3" align="center" action="/resultadoMetodologias" method="POST" onsubmit="javascript: return enviar();"><br><br>
-				<p align="center" ><b>Seleccionar Metodolog&iacutea
-				<select id="mySelectMetodologias" onchange="myFunction()" name="mySelectMetodologias">
-					<option value="Seleccionar">Seleccionar</option>
-					{{#each this}}
-					<option value={{nombre}}>{{nombre}}</option>
-					{{/each}}
-				</select>
-				<br><br>
-				<p align="center">Seleccionar Per&iacuteodo
-				<select id="mySelectPeriodos" onchange="myFunction()" name="mySelectPeriodos">
-					<option >Seleccionar</option>
-					<option >2017</option>
-					<option >2016</option>
-					<option >2015</option>
-				</select>
-				<br>
-			<br><br>
-			<input type="submit" onclick="myFunction()" id="enviar" value="Calcular" class=button />
-			</form>		
+				   
+	<div id="contenido" align="center"> <br>
+			<div id="listaEmpresas">
+			Resultado de aplicar metodologia 
+			{{#each this}}
+				<p>
+				{{this}}
+				</p>
+			{{/each}}
+			</div>
 		
-		</div>
-		
-		
+		<fieldset>
+			<form name="formListaIndicadores" action="/metodologias" method="GET" onsubmit="javascript: return enviar();">
+				<input type="submit" value="Volver a filtros" id="button" class=button />
+			</form>
+		</fieldset>
+		  	 
 	</div>
 	<!-- JQuery -->
-	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
 	<!-- Bootstrap tooltips -->
-	<script type="text/javascript" src="js/popper.min.js"></script>
+	<script type="text/javascript" src="/js/popper.min.js"></script>
 	<!-- Bootstrap core JavaScript -->
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 	<!-- MDB core JavaScript -->
-	<script type="text/javascript" src="js/mdb.min.js"></script>
+	<script type="text/javascript" src="/js/mdb.min.js"></script>
 </body>
-</html>

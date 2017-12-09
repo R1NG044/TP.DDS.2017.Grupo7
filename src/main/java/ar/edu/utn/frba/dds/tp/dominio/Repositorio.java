@@ -226,12 +226,35 @@ public final class Repositorio implements WithGlobalEntityManager {
 	public Metodologia buscarMetodologiaPorNombreYTipo(String nombreMetodologia, String tipoMetodologia) {
 		
 		for (Metodologia m: metodologias){
-			if (m.getNombre() == nombreMetodologia && m.getTipo() == tipoMetodologia){
+			if (m.getNombre().equals(nombreMetodologia) && m.getTipo().equals(tipoMetodologia)){
 				return m;
 			}
 		}
 		
 		return null;
+	}
+	
+	public boolean buscarMetodologiaPorNombre(ArrayList<Metodologia> list, String nombre){
+		for(Metodologia m: list){
+			if(m.getNombre().equals(nombre)){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public ArrayList<Metodologia> getAllMetodologiasDistinct(){
+		ArrayList<Metodologia> listaMetodologiasDistinct = new ArrayList<Metodologia>();
+		
+		for (Metodologia m: metodologias){
+			if(!buscarMetodologiaPorNombre(listaMetodologiasDistinct, m.getNombre())){
+				listaMetodologiasDistinct.add(m);
+			}
+		}
+		
+		return listaMetodologiasDistinct;
+		
 	}
 	
 	public void cargarListaDeMetodologias(List<Metodologia> metodologias) {

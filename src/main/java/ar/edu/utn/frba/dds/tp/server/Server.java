@@ -12,6 +12,7 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 import ar.edu.utn.frba.dds.tp.dominio.Aplicacion;
 import ar.edu.utn.frba.dds.tp.dominio.Cuenta;
+import ar.edu.utn.frba.dds.tp.dominio.Metodologia;
 import ar.edu.utn.frba.dds.tp.dominio.Repositorio;
 import ar.edu.utn.frba.dds.tp.dominio.Usuario;
 import ar.edu.utn.frba.dds.tp.jobs.Job;
@@ -170,7 +171,7 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 			String periodo = req.queryParams("mySelectPeriodos");
 			if (listCuentas.isEmpty())
 				
-				return new ModelAndView("No existen Cuentas para la Empresa "+ empresa + " en el Período "+ periodo, "resultadoConsultaEmpresasError.hbs");
+				return new ModelAndView("No existen Cuentas para la Empresa "+ empresa + " en el Perï¿½odo "+ periodo, "resultadoConsultaEmpresasError.hbs");
 			else
 				return new ModelAndView(listCuentas, "resultadoConsultaEmpresas.hbs");
 
@@ -191,12 +192,29 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 
 		Spark.get("/metodologias", (req, res) -> {
 
-			// List<Metodologia> metodologias = Repositorio.getInstance()
-			// .buscarMetodologiaPorUser(Integer.parseInt(req.params("idUsuario")));
-			//
+			//List<Metodologia> metodologias = Repositorio.getInstance()
+				//	.buscarMetodologiaPorUser(Integer.parseInt(req.params("idUsuario")));
+			
 			// Repositorio.getInstance().cargarListaDeMetodologias(metodologias);
 
-			return new ModelAndView(Repositorio.getInstance(), "metodologias.hbs");
+			return new ModelAndView(Repositorio.getInstance().getAllMetodologiasDistinct(), "metodologias.hbs");
+		}, engine);
+		
+		Spark.post("/resultadoMetodologias", (req, res) -> {
+			
+			ArrayList<String> empresasQueConvieneInvertir = Aplicacion.evaluarMetodologia(req.queryParams("mySelectMetodologias").toString(), Integer.parseInt(req.queryParams("mySelectPeriodos").toString()));
+			ArrayList<String> stringsParaDevolverEnFront = new ArrayList<String>();
+			
+			stringsParaDevolverEnFront.add(req.queryParams("mySelectMetodologias").toString());
+			stringsParaDevolverEnFront.add(req.queryParams("mySelectPeriodos").toString());
+			if(empresasQueConvieneInvertir != null && empresasQueConvieneInvertir.size() > 0){
+				//for(String s: empresasQueConvieneInvertir){
+					stringsParaDevolverEnFront.addAll(empresasQueConvieneInvertir);
+				//}
+			}
+			
+			return new ModelAndView(stringsParaDevolverEnFront, "resultadoMetodologias.hbs");
+			
 		}, engine);
 
 		Spark.get("/metodologias/cargar", (req, res) -> {

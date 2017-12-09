@@ -87,13 +87,13 @@ public class TestRules {
 		Priorizada metodologiaPrio = new Priorizada("INGRESONETO", "ASCENDENTE", "metodologia1");
 		Repositorio.getInstance().agregarMetodologia(metodologiaPrio);
 		*/
-		ArrayList<Empresa> empresasAfterMetodologias = Aplicacion.evaluarMetodologia("metodologia1", 2017);
+		ArrayList<String> empresasAfterMetodologias = Aplicacion.evaluarMetodologia("metodologia1", 2017);
 		
-		for(Empresa e: empresasAfterMetodologias){
-			System.out.println("Empresa que cumple con metodologia que tiene tax y prio: " + e.getNombreEmpresa());
+		for(String e: empresasAfterMetodologias){
+			System.out.println("Empresa que cumple con metodologia que tiene tax y prio: " + e);
 		}
 		
-		assertTrue(empresasAfterMetodologias.get(0).getNombre().equals("AXION"));
+		assertTrue(empresasAfterMetodologias.get(0).equals("AXION"));
 		
 	}
 
