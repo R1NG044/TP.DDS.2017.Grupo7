@@ -208,10 +208,12 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 			stringsParaDevolverEnFront.add(req.queryParams("mySelectMetodologias").toString());
 			stringsParaDevolverEnFront.add(req.queryParams("mySelectPeriodos").toString());
 			if(empresasQueConvieneInvertir != null && empresasQueConvieneInvertir.size() > 0){
-				//for(String s: empresasQueConvieneInvertir){
-					stringsParaDevolverEnFront.addAll(empresasQueConvieneInvertir);
-				//}
+				stringsParaDevolverEnFront.addAll(empresasQueConvieneInvertir);
 			}
+			else{
+				stringsParaDevolverEnFront.add("No hay empresas elegibles para invertir");
+			}
+				
 			
 			return new ModelAndView(stringsParaDevolverEnFront, "resultadoMetodologias.hbs");
 			

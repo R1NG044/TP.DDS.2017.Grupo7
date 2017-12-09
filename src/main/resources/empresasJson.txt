@@ -2,13 +2,16 @@
 	{
 	"nombreEmpresa":"IBM",
 	"cuentas":[
-		{"nombreCuenta":"FDS","valor":3000025,"periodo":2016},
-		{"nombreCuenta":"DIVIDENDOS","valor":2500000,"periodo":2017},
-		{"nombreCuenta":"INGRESONETOOPCONTINUAS","valor":4000,"periodo":2017},
-		{"nombreCuenta":"DIVIDENDOS","valor":4321,"periodo":2017},
-		{"nombreCuenta":"CAPITALTOTAL","valor":1300,"periodo":2017},
-		{"nombreCuenta":"DIVIDENDOS","valor":709,"periodo":2016}
-		]},
+		{"nombreCuenta":"INGRESONETOOPDISCONTINUADAS","valor":12000,"periodo":2017}
+	]},
+	{"nombreEmpresa":"IBM",
+	"cuentas":[
+		{"nombreCuenta":"INGRESONETOOPCONTINUAS","valor":18000,"periodo":2017},
+		{"nombreCuenta":"DIVIDENDOS","valor":1500,"periodo":2017},
+		{"nombreCuenta":"CAPITALTOTAL","valor":100,"periodo":2017},
+		{"nombreCuenta":"INGRESONETOOPDISCONTINUADAS","valor":121,"periodo":2017},	
+		{"nombreCuenta":"DIVIDENDOS","valor":2500,"periodo":2016}
+	]},
 	{
 	"nombreEmpresa":"AXION",
 	"cuentas":[

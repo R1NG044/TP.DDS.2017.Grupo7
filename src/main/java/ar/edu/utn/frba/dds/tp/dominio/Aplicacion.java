@@ -130,8 +130,8 @@ public final class Aplicacion {
 		ArrayList<Regla> reglas = new ArrayList<Regla>();
 		
 		reglas.add(new Regla("INGRESONETO", "Mayor a", 18119));
-		//reglas.add(new Regla("ROE", "Mayor a", 18119));
-		Taxativa metodologiaTax = new Taxativa(reglas, "OR", "metodologia1");
+		reglas.add(new Regla("ROE", "Mayor a", 18110));
+		Taxativa metodologiaTax = new Taxativa(reglas, "AND", "metodologia1");
 		
 		Repositorio.getInstance().agregarMetodologia(metodologiaTax);
 		
