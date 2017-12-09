@@ -38,7 +38,7 @@
 		<div id="contenido" align="center"> <br><br>
 			<form id="forma3" name="forma3" align="center" action="/resultadoMetodologias" method="POST" onsubmit="javascript: return enviar();"><br><br>
 				<p align="center" ><b>Seleccionar Metodolog&iacutea
-				<select id="mySelectMetodologias" onchange="myFunction()" name="mySelectMetodologias">
+				<select id="mySelectMetodologias" name="mySelectMetodologias">
 					<option value="Seleccionar">Seleccionar</option>
 					{{#each this}}
 					<option value={{nombre}}>{{nombre}}</option>
@@ -46,7 +46,7 @@
 				</select>
 				<br><br>
 				<p align="center">Seleccionar Per&iacuteodo
-				<select id="mySelectPeriodos" onchange="myFunction()" name="mySelectPeriodos">
+				<select id="mySelectPeriodos" name="mySelectPeriodos">
 					<option >Seleccionar</option>
 					<option >2017</option>
 					<option >2016</option>

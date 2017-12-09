@@ -238,9 +238,23 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 			if(req.queryParams("chkTaxativa") != null){
 				if(req.queryParams("chkTaxativa").toString().equals("on")){
 					
-				
 					ArrayList<Regla> reglas = new ArrayList<Regla>();
-					reglas.add(new Regla(req.queryParams("taxIndicadorCondicion"), req.queryParams("taxCriterioCondicion"), Double.parseDouble(req.queryParams("txtTaxValor"))));
+					
+					//Proceso regla 1
+					if(req.queryParams("chkRegla1") != null){
+						if(req.queryParams("chkRegla1").toString().equals("on")){
+							reglas.add(new Regla(req.queryParams("taxIndicadorCondicion"), req.queryParams("taxCriterioCondicion"), Double.parseDouble(req.queryParams("txtTaxValor"))));
+							
+						}
+					}
+					
+					//Proceso regla 2
+					if(req.queryParams("chkRegla2") != null){
+						if(req.queryParams("chkRegla2").toString().equals("on")){
+							reglas.add(new Regla(req.queryParams("taxIndicadorCondicion2"), req.queryParams("taxCriterioCondicion2"), Double.parseDouble(req.queryParams("txtTaxValor2"))));	
+						}
+					}
+					
 					
 					metodTaxativa = new Taxativa(reglas, req.queryParams("radioCondiciones"), req.queryParams("nombreMetodologia"));
 				}
