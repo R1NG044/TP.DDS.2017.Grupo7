@@ -2,15 +2,14 @@
 	{
 	"nombreEmpresa":"IBM",
 	"cuentas":[
-		{"nombreCuenta":"INGRESONETOOPDISCONTINUADAS","valor":12000,"periodo":2017}
+		{"nombreCuenta":"INGRESONETOOPDISCONTINUADAS","valor":2000,"periodo":2017}
 	]},
 	{"nombreEmpresa":"IBM",
 	"cuentas":[
-		{"nombreCuenta":"INGRESONETOOPCONTINUAS","valor":18000,"periodo":2017},
-		{"nombreCuenta":"DIVIDENDOS","valor":1500,"periodo":2017},
-		{"nombreCuenta":"CAPITALTOTAL","valor":100,"periodo":2017},
-		{"nombreCuenta":"INGRESONETOOPDISCONTINUADAS","valor":121,"periodo":2017},	
-		{"nombreCuenta":"DIVIDENDOS","valor":2500,"periodo":2016}
+		{"nombreCuenta":"INGRESONETOOPCONTINUAS","valor":10000,"periodo":2017},
+		{"nombreCuenta":"DIVIDENDOS","valor":543,"periodo":2017},
+		{"nombreCuenta":"CAPITALTOTAL","valor":700,"periodo":2017},	
+		{"nombreCuenta":"DIVIDENDOS","valor":6000,"periodo":2016}
 	]},
 	{
 	"nombreEmpresa":"AXION",
@@ -21,8 +20,7 @@
 	"cuentas":[
 		{"nombreCuenta":"INGRESONETOOPCONTINUAS","valor":18000,"periodo":2017},
 		{"nombreCuenta":"DIVIDENDOS","valor":1500,"periodo":2017},
-		{"nombreCuenta":"CAPITALTOTAL","valor":100,"periodo":2017},
-		{"nombreCuenta":"INGRESONETOOPDISCONTINUADAS","valor":120,"periodo":2017},	
+		{"nombreCuenta":"CAPITALTOTAL","valor":100,"periodo":2017},	
 		{"nombreCuenta":"DIVIDENDOS","valor":2500,"periodo":2016}
 	]},
 	{"nombreEmpresa":"PETROBRAS",
@@ -30,8 +28,19 @@
 	{"nombreCuenta":"FDS","valor":123654987,"periodo":2016},
 	{"nombreCuenta":"DIVIDENDOS","valor":2500000,"periodo":2017},
 	{"nombreCuenta":"INGRESONETOOPCONTINUAS","valor":15000,"periodo":2017},
+	{"nombreCuenta":"INGRESONETOOPDISCONTINUADAS","valor":19000,"periodo":2017},
 		{"nombreCuenta":"DIVIDENDOS","valor":16500,"periodo":2017},
 		{"nombreCuenta":"CAPITALTOTAL","valor":1060,"periodo":2017},
 		{"nombreCuenta":"DIVIDENDOS","valor":25500,"periodo":2016}
+	]},
+	{"nombreEmpresa":"YPF",
+	"cuentas":[
+	{"nombreCuenta":"FDS","valor":7654,"periodo":2016},
+	{"nombreCuenta":"DIVIDENDOS","valor":389,"periodo":2017},
+	{"nombreCuenta":"INGRESONETOOPCONTINUAS","valor":8000,"periodo":2017},
+	{"nombreCuenta":"INGRESONETOOPDISCONTINUADAS","valor":1000,"periodo":2017},
+		{"nombreCuenta":"DIVIDENDOS","valor":7690,"periodo":2017},
+		{"nombreCuenta":"CAPITALTOTAL","valor":60,"periodo":2017},
+		{"nombreCuenta":"DIVIDENDOS","valor":2500,"periodo":2016}
 	]}
-]
+	]

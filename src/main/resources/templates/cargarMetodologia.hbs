@@ -41,7 +41,7 @@
 			<h2>Registro de metodologi&#769;as</h2>
 			
 				<!-- P R I O R I Z A D A -->
-				<form id="forma2" style="height: 800px;" method="POST" action="/resultadoCargarMetodologia" ><br><br>
+				<form id="forma2" style="height: 900px;" method="POST" action="/resultadoCargarMetodologia" ><br><br>
 					
 					<input type="text" name="nombreMetodologia" placeholder="Nombre de la Metodologi&#769;a"  style="width:600px"><br><br><br>
 					<input type="checkbox" id="priorizada" name="chkPriorizada" onChange="myFunction1()"><b>Metodolog&iacutea Priorizada
@@ -113,9 +113,30 @@
 						<P align="center"><b>Insertar Valor:<input type="text" name="txtTaxValor2" id="valor2" class="regla2" disabled>
 						<br>
 						
-						<p align="center">		
-							<button type="button" class="button" id="btn-agregar-condicion"  name="taxButton"  disabled >Agregar condicio&#769;n</button>
-						</p>
+						<!-- R E G L A  3 -->
+						
+						<P align="center">
+						<input type="checkbox" id="regla3" name="chkRegla3" onChange="myFunctionRegla('3')">
+						<b>Seleccionar Indicador:	
+						<select id="indicadorCondicion3" name="taxIndicadorCondicion3" class="regla3" disabled>
+							<option >Seleccionar</option>
+							{{#each indicadores}}
+							<option value={{nombre}}>{{nombre}}</option>
+							{{/each}}	
+						</select>
+						<br>
+						<P align="center"><b>Seleccionar Condici&oacuten:	
+						<select id="criterioCondicion3" name="taxCriterioCondicion3" class="regla3" disabled>
+							<option >Seleccionar</option>
+							<option >Mayor A</option>
+							<option >Menor A</option>
+							<option >Igual A</option>
+						</select>
+						<br>
+						<P align="center"><b>Insertar Valor:<input type="text" name="txtTaxValor3" id="valor3" class="regla3" disabled>
+						<br>
+						
+		
 						<p>Desea que se cumplan:
 						<input type="radio" name="radioCondiciones"><b>Todas las condiciones
 						<input type="radio" name="radioCondiciones"><b>Al menos una condicio&#769;n

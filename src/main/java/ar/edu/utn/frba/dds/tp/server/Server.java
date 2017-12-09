@@ -255,6 +255,13 @@ public class Server implements TransactionalOps, WithGlobalEntityManager {
 						}
 					}
 					
+					//Proceso regla 3
+					if(req.queryParams("chkRegla3") != null){
+						if(req.queryParams("chkRegla3").toString().equals("on")){
+							reglas.add(new Regla(req.queryParams("taxIndicadorCondicion3"), req.queryParams("taxCriterioCondicion3"), Double.parseDouble(req.queryParams("txtTaxValor3"))));	
+						}
+					}
+					
 					
 					metodTaxativa = new Taxativa(reglas, req.queryParams("radioCondiciones"), req.queryParams("nombreMetodologia"));
 				}

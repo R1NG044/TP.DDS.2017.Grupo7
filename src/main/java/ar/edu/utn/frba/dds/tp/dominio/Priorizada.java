@@ -23,7 +23,7 @@ public class Priorizada extends Metodologia {
 
 	// Devuelve lista de empresas con su orden despues de calcular el indicador
 	public ArrayList<Empresa> aplicarMetodologia(ArrayList<Empresa> empresas, int periodo) {
-		if (orden.equals("DESCENDENTE")) {
+		if (orden.equals("Descendente")) {
 			SortedMap<Double, Empresa> map = new TreeMap<Double, Empresa>(java.util.Collections.reverseOrder());
 			return cargarMap(map, empresas, periodo);
 
